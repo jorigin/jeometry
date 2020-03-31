@@ -1,0 +1,33 @@
+package org.jeometry.simple.math.decomposition;
+
+import org.jeometry.Geometry;
+import org.jeometry.factory.GeometryFactory;
+import org.jeometry.math.decomposition.EigenDecomposition;
+import org.jeometry.math.decomposition.EigenDecompositionTest;
+import org.jeometry.simple.factory.SimpleMathBuilder;
+import org.junit.BeforeClass;
+
+/**
+ * A test suite dedicated to the {@link EigenDecomposition}.
+ * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
+ * @version {@value Geometry#version}
+ * @since 1.0.0
+ */
+public class SimpleEigenDecompositionTest extends EigenDecompositionTest{
+
+	/**
+	 * Epsilon for numeric comparison.
+	 */
+	public static double EPSILON = 0.0000001d;
+	
+	/**
+	 * Initialize the test static context.
+	 */
+	@BeforeClass
+	public static void initClass() {
+		
+		decompositionClass = SimpleEigenDecomposition.class;
+		
+		GeometryFactory.setMathBuilder(new SimpleMathBuilder());
+	}
+}
