@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.jeometry.factory.GeometryFactory;
-import org.jeometry.geom3D.point.Point3D;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
