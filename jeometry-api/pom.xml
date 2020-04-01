@@ -79,7 +79,8 @@
         <activeByDefault>true</activeByDefault>
         <!--<property>
           <name>performRelease</name>
-          <value>true</value>-->
+          <value>true</value>
+        </property>-->
       </activation>
     
       <build>
