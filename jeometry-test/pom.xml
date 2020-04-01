@@ -11,7 +11,6 @@
 
   <!--  <groupId>org.jorigin</groupId> -->
   <artifactId>jeometry-test</artifactId>
-  <!--<version>${jeometry.version}</version>-->
   <packaging>jar</packaging>
 
   <name>Jeometry tests</name>
@@ -116,7 +115,7 @@
     <dependency>
       <groupId>org.jorigin</groupId>
       <artifactId>jeometry-api</artifactId>
-      <version>${jeometry.version}</version>
+      <version>1.0.0-SNAPSHOT</version>
     </dependency>
   
     <!--  Common package for basic operations -->
