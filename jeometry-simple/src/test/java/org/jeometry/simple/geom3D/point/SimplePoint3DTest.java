@@ -3,7 +3,6 @@ package org.jeometry.simple.geom3D.point;
 import org.jeometry.factory.GeometryFactory;
 import org.jeometry.geom3D.point.Point3DTest;
 import org.jeometry.simple.factory.SimpleMathBuilder;
-import org.jeometry.simple.geom3D.point.SimplePoint3D;
 import org.junit.BeforeClass;
 
 /**

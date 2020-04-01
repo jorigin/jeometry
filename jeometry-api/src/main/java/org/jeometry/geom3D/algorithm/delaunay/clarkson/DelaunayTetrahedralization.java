@@ -249,7 +249,7 @@ public class DelaunayTetrahedralization<T extends Point3D> {
    * Get the neighbors of the given tetrahedron.
    * @param tetrahedron the tetrahedron to check.
    * @return the neighbors of the given tetrahedron.
-   * @see #setNeighbors(DelaunayTetrahedron, DelaunayTetrahedron[])
+   * @see #setNeighbors(DelaunayTetrahedron, List)
    */
   public List<DelaunayTetrahedron<T>> getNeighbors(DelaunayTetrahedron<T> tetrahedron){
     return neighbors.get(tetrahedron);

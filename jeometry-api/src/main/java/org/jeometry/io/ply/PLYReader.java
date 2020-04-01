@@ -58,12 +58,12 @@ import org.jorigin.property.HandleUserProperties;
  * <li>{@link IndexedTriangleMesh an indexed triangle mesh} if the PLY file contains vertex and faces information and if all faces are triangular;
  * </ul>
  * The class used to wrap PLY vertex into point can be set by using {@link #setPoint3DClass(Class)} method.
- * 
+ * @param <T> the type of the underlying 3D points. It should be ensured that 3D point created from from {@link GeometryFactory geometry factory} delivers objects that are compatible with the type <code>T</code>
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
  * @version {@value Geometry#version}
  * @since 1.0.0
  */
-public class PLYReader {
+public class PLYReader<T extends Point3D> {
 
 	/**
 	 * The standard name of a vertex.
@@ -405,16 +405,17 @@ public class PLYReader {
    * @return the IPolyhedron described by the PLY stream provided by the reader.
    * @throws IOException if an error occurs.
    */
-  public Object read(Reader reader) throws IOException {
+  @SuppressWarnings("unchecked")
+public Object read(Reader reader) throws IOException {
 
 	Object ret = null;
 	  
-    Point3D point = null;
+    T point = null;
 
-    List<Face> faces = null;
-    Face face = null;
+    List<Face<T>> faces = null;
+    Face<T> face = null;
 
-    IndexedMesh mesh = null;
+    IndexedMesh<T> mesh = null;
 
     boolean headerFinished = false;
 
@@ -614,7 +615,7 @@ public class PLYReader {
             // Reading points
             if (VERTEX_NAME.equalsIgnoreCase(elementDescription.getName())) {
             	
-              Point3DContainer points = null;
+              Point3DContainer<T> points = null;
             	
               if (getPoint3DClass() != null) {
                 if (Point3D.class.isAssignableFrom(getPoint3DClass())) {
@@ -679,7 +680,7 @@ public class PLYReader {
                 splittedLine = line.split(fieldSeparator);
 
                 if (faces == null) {
-                  faces = new ArrayList<Face>();
+                  faces = new ArrayList<Face<T>>();
                 }
 
                 try {
@@ -760,9 +761,9 @@ public class PLYReader {
       return ret;
     } else if (geometryType == GEOM_POLYHEDRON) {
       if (isTriangleMesh) {
-        mesh = GeometryFactory.createIndexedTriangleMesh((Point3DContainer)ret);
+        mesh = GeometryFactory.createIndexedTriangleMesh((Point3DContainer<T>)ret);
         
-        ((IndexedTriangleMesh) mesh).setVerticesSource((Point3DContainer)ret);
+        ((IndexedTriangleMesh<T>) mesh).setVerticesSource((Point3DContainer<T>)ret);
         
         if (textures != null) {
         	if (mesh instanceof TextureManager) {
@@ -773,7 +774,7 @@ public class PLYReader {
         mesh = GeometryFactory.createIndexedMesh();
         
         if (mesh != null) {
-        	((IndexedMesh)mesh).setVerticesSource((Point3DContainer)ret);
+        	((IndexedMesh<T>)mesh).setVerticesSource((Point3DContainer<T>)ret);
         } else {
         	logger.log(Level.SEVERE, "Cannot create indexed mesh from geometry factory.");
         }
@@ -1243,15 +1244,15 @@ public class PLYReader {
    */
   private Object readBinaryData(InputStream is, PLYFileDescriptor fileDescriptor) throws IOException {
 
-    Point3DContainer points3D = null;
+    Point3DContainer<T> points3D = null;
 
     Point2DContainer points2D = null;
     
-    Face[] faces = null;
+    List<Face<T>> faces = null;
     int faceCurrentIndex = -1;
-    Face face = null;
+    Face<T> face = null;
 
-    IndexedMesh mesh = null;
+    IndexedMesh<T> mesh = null;
 
     long startTime = 0;
     long endTime = 0;
@@ -1347,7 +1348,7 @@ public class PLYReader {
 
               bytes = new byte[elementBinarySize];
 
-              Point3D point3d = null;
+              T point3d = null;
               Point2D point2d = null;
               
               eof = (lastReadBytes <= 0);
@@ -1414,7 +1415,7 @@ public class PLYReader {
 
                   readElementCount = 0;
 
-                  faces = new Face[elementDescription.getElementCount()];
+                  faces = new ArrayList<Face<T>>(elementDescription.getElementCount());
 
                   eof = (lastReadBytes < 0);
                   while ((!eof) && (!allElementsRead) && (readElementCount < elementDescription.getElementCount())) {
@@ -1423,7 +1424,7 @@ public class PLYReader {
 
                     if (face != null) {
                       faceCurrentIndex = faceCurrentIndex + 1;
-                      faces[faceCurrentIndex] = face;
+                      faces.set(faceCurrentIndex, face);
                     } else {
                       logger.log(Level.INFO, "Cannot read face.");
                     }
@@ -1496,8 +1497,8 @@ public class PLYReader {
         }
 
         if (faces != null) {
-          for (int i = 0; i < faces.length; i++) {
-            mesh.addFace(faces[i]);
+          for (int i = 0; i < faces.size(); i++) {
+            mesh.addFace(faces.get(i));
           }
 
           faces = null;
@@ -1708,7 +1709,7 @@ public class PLYReader {
     }
   }
 
-  protected void dispatchReadFace(Face face) {
+  protected void dispatchReadFace(Face<T> face) {
 
 	if (listeners != null){ Iterator<PLYReaderListener> iter = listeners.iterator(); 
 	  while(iter.hasNext()){ 
@@ -1763,12 +1764,13 @@ public class PLYReader {
     return propertiesIndex;
   }
 
-  private Point3D readPoint3D(String[] values, int[] propertyIndexes) throws IOException {
-    Point3D pt = null;
+  @SuppressWarnings("unchecked")
+private T readPoint3D(String[] values, int[] propertyIndexes) throws IOException {
+    T pt = null;
 
     if (getPoint3DClass() != null) {
       try {
-        pt = getPoint3DClass().getDeclaredConstructor().newInstance();
+        pt = (T)getPoint3DClass().getDeclaredConstructor().newInstance();
 
         if (pt instanceof Point3D) {
           ((Point3D) pt).setX(Double.parseDouble(values[propertyIndexes[X_INDEX]]));
@@ -1791,7 +1793,7 @@ public class PLYReader {
       }
     } else if ((propertyIndexes[X_INDEX] != -1) && (propertyIndexes[Y_INDEX] != -1) && (propertyIndexes[Z_INDEX] != -1)) {
       try {
-        pt = GeometryFactory.createPoint3D(Double.parseDouble(values[propertyIndexes[X_INDEX]]), 
+        pt = (T)GeometryFactory.createPoint3D(Double.parseDouble(values[propertyIndexes[X_INDEX]]), 
                                            Double.parseDouble(values[propertyIndexes[Y_INDEX]]),
                                            Double.parseDouble(values[propertyIndexes[Z_INDEX]]));
  
@@ -1800,7 +1802,7 @@ public class PLYReader {
       }
     } else {
       try {
-        pt = GeometryFactory.createPoint3D(Double.parseDouble(values[propertyIndexes[X_INDEX]]), 
+        pt = (T)GeometryFactory.createPoint3D(Double.parseDouble(values[propertyIndexes[X_INDEX]]), 
                                            Double.parseDouble(values[propertyIndexes[Y_INDEX]]),
                                            Double.parseDouble(values[propertyIndexes[Z_INDEX]]));
       } catch (Exception e) {
@@ -1842,9 +1844,10 @@ public class PLYReader {
 
   }
 
-  private Point3D readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDescriptor fileDescriptor) throws IOException {
+  @SuppressWarnings("unchecked")
+private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDescriptor fileDescriptor) throws IOException {
 
-    Point3D pt = null;
+    T pt = null;
 
     int offset = 0;
 
@@ -1857,7 +1860,7 @@ public class PLYReader {
 
     if (getPoint3DClass() != null) {
       try {
-        pt = getPoint3DClass().getDeclaredConstructor().newInstance();
+        pt = (T)getPoint3DClass().getDeclaredConstructor().newInstance();
       } catch (InstantiationException e) {
         throw new IOException("Declared point class " + getPoint3DClass().getSimpleName() + " cannot be instanciated", e);
       } catch (IllegalAccessException e) {
@@ -1867,7 +1870,7 @@ public class PLYReader {
       }
     } else {
       if (fileDescriptor.getVertexType() == PLY.VERTEX_TYPE_3D) {
-        pt = GeometryFactory.createPoint3D();
+        pt = (T)GeometryFactory.createPoint3D();
       } else if (fileDescriptor.getVertexType() == PLY.VERTEX_TYPE_2D) {
         Geometry.logger.log(Level.WARNING, "2D point support is not yet implemented.");
         return null;
@@ -2200,8 +2203,8 @@ public class PLYReader {
 	    return pt;
 	  }
   
-  private Face readFace(String[] values, PLYElementDescription description) throws IOException {
-    Face face = null;
+  private Face<T> readFace(String[] values, PLYElementDescription description) throws IOException {
+    Face<T> face = null;
 
     // a face is at least a triangle (3 vertexes) plus a vertex count field
     if (values != null) {
@@ -2293,9 +2296,9 @@ public class PLYReader {
     return face;
   }
 
-  private Face readFace(InputStream is, PLYElementDescription description, PLYFileDescriptor fileDescriptor) throws IOException {
+  private Face<T> readFace(InputStream is, PLYElementDescription description, PLYFileDescriptor fileDescriptor) throws IOException {
 
-    Face face = null;
+    Face<T> face = null;
 
     if (is != null) {
       if (description != null) {

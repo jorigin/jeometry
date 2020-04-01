@@ -59,40 +59,6 @@ public class GeometryFactoryPointTest {
 	}
 	
 	/**
-	 * Testing {@link GeometryFactory#createPoint3D(Class)}
-	 */
-	@Test
-	public void createPoint3DClassTest() {
-		
-		try {
-			Point3D point = GeometryFactory.createPoint3D();
-			assertNotNull("Cannot instantiate 3D point using GeometryFactory.createPoint3D(Class).", point);
-		} catch (Exception e) {
-			fail("Cannot instantiate 3D point using GeometryFactory.createPoint3D(Class).");
-		}
-	}
-	
-	/**
-	 * Testing {@link GeometryFactory#createPoint3D(Class, double, double, double)}
-	 */
-	@Test
-	public void createPoint3DClassCoordinatesTest() {
-		
-		try {
-
-			Point3D point = GeometryFactory.createPoint3D(1.0, 2.0, 3.0);
-			assertNotNull("Cannot instantiate 3D point using GeometryFactory.createPoint3D(Class, double, double, double).", point);
-
-			assertEquals("X coordinate is invalid", 1.0, point.getX(), 0.0);
-			assertEquals("Y coordinate is invalid", 2.0, point.getY(), 0.0);
-			assertEquals("Z coordinate is invalid", 3.0, point.getZ(), 0.0);
-			
-		} catch (Exception e) {
-			fail("Cannot instantiate 3D point using GeometryFactory.createPoint3D(Class, double, double, double).");
-		}
-	}
-	
-	/**
 	 * Testing {@link GeometryFactory#createPoint3D(double, double, double)}
 	 */
 	@Test

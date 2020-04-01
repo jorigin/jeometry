@@ -853,7 +853,7 @@ public interface Matrix {
      * <br>
      * <i>source</i>: <a href="http://mathworld.wolfram.com/SingularValueDecomposition.html">Wolfram math</a>
 	 * @return the {@link SVDDecomposition SVD decomposition} of the matrix
-	 * @throw UnsupportedOperationException if the matrix cannot be decomposed
+	 * @throws UnsupportedOperationException if the matrix cannot be decomposed
 	 */
 	public SVDDecomposition decomposeSVD();
 	
@@ -866,7 +866,7 @@ public interface Matrix {
      * <br>
      * where &times; is the standard matrix product.
 	 * @return the {@link LUDecomposition LU decomposition} of the matrix.
-	 * @throw UnsupportedOperationException if the matrix cannot be decomposed
+	 * @throws UnsupportedOperationException if the matrix cannot be decomposed
 	 */
 	public LUDecomposition decomposeLU();
 }

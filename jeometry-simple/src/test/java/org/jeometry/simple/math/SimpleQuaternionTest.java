@@ -3,7 +3,6 @@ package org.jeometry.simple.math;
 import org.jeometry.Geometry;
 import org.jeometry.factory.GeometryFactory;
 import org.jeometry.simple.factory.SimpleMathBuilder;
-import org.jeometry.simple.math.SimpleQuaternion;
 import org.junit.BeforeClass;
 
 /**

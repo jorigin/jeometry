@@ -9,7 +9,7 @@ import org.jeometry.geom3D.point.Point3DContainer;
 import org.jeometry.geom3D.primitive.indexed.IndexedTetrahedron;
 
 /**
- * A {@link SimpleIndexedTetrahedron tetrahedron} 
+ * A {@link IndexedTetrahedron tetrahedron} 
  * that comes from a Delaunay tetrahedralization. This tetrahedron can provide its neighbourhood and its incidencies. 
  * @param <T> The type of underlying 3D points 
  * @author Julien Seinturier
@@ -45,7 +45,7 @@ public class DelaunayTetrahedron<T extends Point3D> implements IndexedTetrahedro
    * @param base3 the third vertex index.
    * @param top the fourth vertex index.
    * @param source the vertex source.
-   * @param validate if the tetrahedron has to be validated (see {@link #validateIndexes() validateIndexes()} for details)
+   * @param validate if the tetrahedron has to be validated
    */
   public DelaunayTetrahedron(int base1, int base2, int base3, int top, boolean validate, Point3DContainer<T> source){
     tetrahedron = GeometryFactory.createIndexedTetrahedron(base1, base2, base3, top, source);

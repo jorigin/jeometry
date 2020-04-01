@@ -8,15 +8,12 @@ import static org.junit.Assert.fail;
 
 import org.jeometry.Geometry;
 import org.jeometry.factory.GeometryFactory;
-import org.jeometry.math.Matrix;
-import org.jeometry.math.MatrixTestData;
-import org.jeometry.math.Vector;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * A test suite dedicated to the {@link SimpleMatrix}.<br>
+ * A test suite dedicated to the {@link Matrix}.<br>
  * <br>
  * <b>Usage:</b>
  * <p>
@@ -65,7 +62,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Testing method {@link SimpleMatrix#getDataArray(int)} 
+	 * Testing method {@link Matrix#getDataArray(int)} 
 	 */
 	@Test
 	public void getDataArrayTest() {
@@ -115,7 +112,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Testing method {@link SimpleMatrix#getDataArray(int, double[])} 
+	 * Testing method {@link Matrix#getDataArray(int, double[])} 
 	 */
 	@Test
 	public void getDataArrayOutputTest() {
@@ -177,7 +174,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Testing method {@link SimpleMatrix#setDataArray(int, double[])} 
+	 * Testing method {@link Matrix#setDataArray(int, double[])} 
 	 */
 	@Test
 	public void setDataArrayTest() {
@@ -223,7 +220,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Test the method {@link SimpleMatrix#determinant()}
+	 * Test the method {@link Matrix#determinant()}
 	 */
 	@Test
 	public void determinantTest() {
@@ -261,7 +258,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Testing {@link SimpleMatrix#transpose()} method.
+	 * Testing {@link Matrix#transpose()} method.
 	 */
 	@Test
 	public void transposeTest() {
@@ -290,7 +287,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Testing {@link SimpleMatrix#transpose(Matrix)} method.
+	 * Testing {@link Matrix#transpose(Matrix)} method.
 	 */
 	@Test
 	public void transposeResultTest() {
@@ -326,7 +323,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Testing {@link SimpleMatrix#transposeAffect()} method.
+	 * Testing {@link Matrix#transposeAffect()} method.
 	 */
 	@Test
 	public void transposeAffectTest() {
@@ -354,7 +351,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Testing method {@link SimpleMatrix#multiply(Matrix)}
+	 * Testing method {@link Matrix#multiply(Matrix)}
 	 */
 	@Test
 	public void multiplyTest() {
@@ -388,7 +385,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Testing method {@link SimpleMatrix#multiply(Matrix, Matrix)}
+	 * Testing method {@link Matrix#multiply(Matrix, Matrix)}
 	 */
 	@Test
 	public void multiplyResultTest() {
@@ -419,7 +416,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Testing method {@link SimpleMatrix#multiplyAffect(Matrix)}
+	 * Testing method {@link Matrix#multiplyAffect(Matrix)}
 	 */
 	@Test
 	public void multiplyAffectTest() {
@@ -449,7 +446,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Testing the {@link SimpleMatrix#multiply(Vector)} method.
+	 * Testing the {@link Matrix#multiply(Vector)} method.
 	 */
 	@Test
 	public void multiplyVectorTest() {
@@ -480,7 +477,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Testing the {@link SimpleMatrix#multiply(Vector, Vector)} method.
+	 * Testing the {@link Matrix#multiply(Vector, Vector)} method.
 	 */
 	@Test
 	public void multiplyVectorResultTest() {
@@ -574,7 +571,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Testing method {@link SimpleMatrix#multiply(double)}
+	 * Testing method {@link Matrix#multiply(double)}
 	 */
 	@Test
 	public void multiplyScalarTest() {
@@ -603,7 +600,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Testing method {@link SimpleMatrix#multiply(double, Matrix)}
+	 * Testing method {@link Matrix#multiply(double, Matrix)}
 	 */
 	@Test
 	public void multiplyScalarResultTest() {
@@ -635,7 +632,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Testing method {@link SimpleMatrix#multiply(double)}
+	 * Testing method {@link Matrix#multiply(double)}
 	 */
 	@Test
 	public void multiplyScalarAffectTest() {
@@ -666,7 +663,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Testing method {@link SimpleMatrix#add(Matrix)}
+	 * Testing method {@link Matrix#add(Matrix)}
 	 */
 	@Test
 	public void addMatrixTest() {
@@ -700,7 +697,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Testing method {@link SimpleMatrix#add(Matrix, Matrix)}
+	 * Testing method {@link Matrix#add(Matrix, Matrix)}
 	 */
 	@Test
 	public void addMatrixResultTest() {
@@ -738,7 +735,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Testing method {@link SimpleMatrix#addAffect(Matrix)}
+	 * Testing method {@link Matrix#addAffect(Matrix)}
 	 */
 	@Test
 	public void addMatrixAffectTest() {
@@ -774,7 +771,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Testing method {@link SimpleMatrix#add(double)} 
+	 * Testing method {@link Matrix#add(double)} 
 	 */
 	@Test
 	public void addScalarTest() {
@@ -807,7 +804,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Testing method {@link SimpleMatrix#add(double, Matrix)}
+	 * Testing method {@link Matrix#add(double, Matrix)}
 	 */
 	@Test
 	public void addScalarResultTest() {
@@ -845,7 +842,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Testing method {@link SimpleMatrix#subtract(Matrix)}
+	 * Testing method {@link Matrix#subtract(Matrix)}
 	 */
 	@Test
 	public void subtractMatrixTest() {
@@ -879,7 +876,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Testing method {@link SimpleMatrix#subtract(Matrix, Matrix)}
+	 * Testing method {@link Matrix#subtract(Matrix, Matrix)}
 	 */
 	@Test
 	public void subtractMatrixResultTest() {
@@ -917,7 +914,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Testing method {@link SimpleMatrix#subtractAffect(Matrix)}
+	 * Testing method {@link Matrix#subtractAffect(Matrix)}
 	 */
 	@Test
 	public void subtractMatrixAffectTest() {
@@ -953,7 +950,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Testing {@link SimpleMatrix#invert()}
+	 * Testing {@link Matrix#invert()}
 	 */
 	@Test
 	public void invertMatrixTest() {
@@ -1014,7 +1011,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Testing {@link SimpleMatrix#invert(Matrix)}
+	 * Testing {@link Matrix#invert(Matrix)}
 	 */
 	@Test
 	public void invertMatrixResultTest() {
@@ -1079,7 +1076,7 @@ public class MatrixTest {
 	}
 
 	/**
-	 * Testing {@link SimpleMatrix#cofactor()}
+	 * Testing {@link Matrix#cofactor()}
 	 */
 	@Test
 	public void cofactorMatrixTest() {

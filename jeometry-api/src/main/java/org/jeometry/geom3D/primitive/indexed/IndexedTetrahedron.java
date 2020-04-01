@@ -92,14 +92,14 @@ public interface IndexedTetrahedron<T extends Point3D> {
 	public static final int VERTEX_TOP = 3;
 
 	/**
-	 * Get the vertices list from which the indexes are coming. This method has not to be confused with {@link #getVertices()}
+	 * Get the vertices list from which the indexes are coming.
 	 * method that return only the vertices attached to this mesh. 
 	 * @return the vertices list from which the indexes are coming.
 	 */
 	public Point3DContainer<T> getVerticesSource();
 
 	/**
-	 * Set the vertices list from which the indexes are coming. This method has not to be confused with {@link #getVertices()}
+	 * Set the vertices list from which the indexes are coming.
 	 * method that return only the vertices attached to this mesh.
 	 * @param verticesSource the vertices list from which the indexes are coming.
 	 */
@@ -122,7 +122,7 @@ public interface IndexedTetrahedron<T extends Point3D> {
 	public Point3D getVertex(int position);
 
 	/**
-	 * Get the index of this vertex within the tetrahedron. Returned value can be {@link #VERTEX_BASE_1}, {@link #VERTEX_BASE_2}, {@link #VERTEX_BASE_3}, {@link #VERTEX_TOP} or <code><-1/code>. 
+	 * Get the index of this vertex within the tetrahedron. Returned value can be {@link #VERTEX_BASE_1}, {@link #VERTEX_BASE_2}, {@link #VERTEX_BASE_3}, {@link #VERTEX_TOP} or <code>-1</code>. 
 	 * The reference equality is used instead equals method for comparison.
 	 * If the given point is not a vertex of the polyhedron, <code>-1</code> is returned.
 	 * @param vertex the vertex to check

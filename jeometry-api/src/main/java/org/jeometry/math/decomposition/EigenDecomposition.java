@@ -5,9 +5,8 @@ import org.jeometry.math.Matrix;
 
 /**
  *  This interface describes an Eigen decomposition.<br>
- *  <p>
  *  Let <i>A</i> be a square matrix. According to the <a href="https://mathworld.wolfram.com/EigenDecompositionTheorem.html">Eigen decomposition theorem</a>, we can write:<br>
- *  <center><i>A</i>&nbsp;=&nbsp;<i>V</i><i>D</i><i>V</i><sup>-1</sup></center><br>
+ *  <div style="text-align: center;"><i>A</i>&nbsp;=&nbsp;<i>V</i><i>D</i><i>V</i><sup>-1</sup><br></div>
  *  Where:
  *  <ul>
  *  <li><i>V</i> is a square matrix made of eigenvectors
@@ -15,12 +14,10 @@ import org.jeometry.math.Matrix;
  *  </ul>
  *  If <i>V</i> is not a square matrix, then it cannot have a matrix inverse and <i>A</i> does not have an eigen decomposition. 
  *  In this case, if <i>V</i> is <i>m</i>&times;<i>n</i> (with <i>m</i>&gt;<i>n</i>), then <i>A</i> can be written using a {@link SVDDecomposition Singular Values Decomposition}. 
- * </p>
  * <p>
  *  If <i>A</i> is symmetric, then: <br>
- *  <center><i>A</i>&nbsp;=&nbsp;<i>VDV<sup>T</sup></i></center><br>
+ *  <div style="text-align: center;"><i>A</i>&nbsp;=&nbsp;<i>VDV<sup>T</sup></i></div><br>
  *  where <i>D</i> is diagonal and <i>V</i> is orthogonal (<i>VV<sup>T</sup></i>&nbsp;=&nbsp;<i>I</i>).
- * </p>
  * <p>
  *  If <i>A</i> is not symmetric, then the eigenvalue matrix <i>D</i> is block diagonal
  *  with:
@@ -30,10 +27,9 @@ import org.jeometry.math.Matrix;
  *  </ul>
  *  
  *  The columns of <i>V</i> represent the eigenvectors in the sense that:<br>
- *  <center><i>AV</i>&nbsp;= <i>VD</i></center>
- *  </br>
+ *  <div style="text-align: center;"><i>AV</i>&nbsp;= <i>VD</i></div>
+ *  <br>
  *  The matrix <i>V</i> may be badly conditioned, or even singular, so the validity of the equation cannot be sure for all matrices.
- * </p>
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
  * @version {@value Geometry#version} b{@value Geometry#BUILD}
  * @since 1.0.0

@@ -28,20 +28,17 @@ public interface MeshBuilder {
 	/**
 	 * Create a new default empty mesh.
 	 * @param <T> The type of underlying 3D points
-	 * @return a new default empty mesh.
+	 * @return a new default empty mesh
 	 */
 	public <T extends Point3D> Mesh<T> createMesh();
 
 	/**
-	 * Create a new instance of {@link Edge} using the default implementation.<br>
-	 * The implementation has to provide a constructor that takes ({@link Mesh}, {@link Point3D}, {@link Point3D}) arguments. 
-	 * If the implementation does not provide a suitable constructor, 
-	 * an {@link java.lang.IllegalArgumentException IllegalArgumentException} is raised.
+	 * Create a new instance of {@link Edge}.
 	 * @param <T> The type of underlying 3D points
-	 * @param mesh the mesh that contains the edge.
-	 * @param vertex1 the first extremity of the edge.
-	 * @param vertex2 the second extremity of the edge.
-	 * @return a new instance of {@link Edge} using the given <code>implementation</code>.
+	 * @param mesh the mesh that contains the edge
+	 * @param vertex1 the first extremity of the edge
+	 * @param vertex2 the second extremity of the edge
+	 * @return a new instance of {@link Edge} using the given <code>implementation</code>
 	 */
 	public <T extends Point3D> Edge<T> createMeshEdge(Mesh<T> mesh, T vertex1, T vertex2);
 
@@ -50,7 +47,7 @@ public interface MeshBuilder {
 	 * The face contour is obtained by linking vertices from the first to the last.
 	 * @param <T> The type of underlying 3D points
 	 * @param mesh the mesh that holds the face
-	 * @param vertices the vertices of the face.
+	 * @param vertices the vertices of the face
 	 * @return a new mesh {@link Face} from the given vertices. 
 	 */
 	public <T extends Point3D> Face<T> createMeshFace(Mesh<T> mesh, Point3DContainer<T> vertices);
@@ -66,106 +63,106 @@ public interface MeshBuilder {
 	/**
 	 * Create a new triangle {@link Face} from the given vertices. 
 	 * @param <T> The type of underlying 3D points
-	 * @param vertex1 the first vertex.
-	 * @param vertex2 the second vertex.
-	 * @param vertex3 the third vertex.
+	 * @param vertex1 the first vertex
+	 * @param vertex2 the second vertex
+	 * @param vertex3 the third vertex
 	 * @return a new {@link Triangle triangle} from the given vertices. 
 	 */
 	public <T extends Point3D> Triangle<T> createMeshTriangle(T vertex1, T vertex2, T vertex3);
 
 	/**
-	 * Create a new {@link IndexedMesh indexed mesh} using the {@link #getIndexedMeshImplementation() default implementation}.
+	 * Create a new {@link IndexedMesh indexed mesh}.
 	 * @param <T> The type of underlying 3D points
-	 * @return the newly created indexed mesh.
+	 * @return the newly created indexed mesh
 	 */
 	public <T extends Point3D> IndexedMesh<T> createIndexedMesh();
 
 	/**
-	 * Create a new {@link IndexedMesh indexed mesh} using the {@link #getIndexedMeshImplementation() default implementation}.
+	 * Create a new {@link IndexedMesh indexed mesh}.
 	 * @param <T> The type of underlying 3D points
 	 * @param capacity the initial capacity of the mesh in term of faces storage.
-	 * @return the newly created indexed mesh.
+	 * @return the newly created indexed mesh
 	 */
 	public <T extends Point3D> IndexedMesh<T> createIndexedMesh(int capacity);
 
 	/**
 	 * Create an {@link IndexedEdge indexed edge} between the vertices designed by the given indices.
 	 * @param <T> The type of underlying 3D points
-	 * @param vertex1Index the index of the first extremity.
-	 * @param vertex2Index the index of the second extremity.
-	 * @return an indexed edge between the vertices designed by the given indices.
+	 * @param vertex1Index the index of the first extremity
+	 * @param vertex2Index the index of the second extremity
+	 * @return an indexed edge between the vertices designed by the given indices
 	 */
 	public <T extends Point3D> IndexedEdge<T> createIndexedMeshEdge(int vertex1Index, int vertex2Index);
 
 	/**
 	 * Create an {@link IndexedEdge indexed edge} between the vertices designed by the given indices.
 	 * @param <T> The type of underlying 3D points
-	 * @param vertex1Index the index of the first extremity.
-	 * @param vertex2Index the index of the second extremity.
-	 * @param mesh the mesh that hold the edge.
-	 * @return an indexed edge between the vertices designed by the given indices.
+	 * @param vertex1Index the index of the first extremity
+	 * @param vertex2Index the index of the second extremity
+	 * @param mesh the mesh that hold the edge
+	 * @return an indexed edge between the vertices designed by the given indices
 	 */
 	public <T extends Point3D> IndexedEdge<T> createIndexedMeshEdge(int vertex1Index, int vertex2Index, IndexedMesh<T> mesh);
 
 	/**
-	 * Create an {@link IndexedFace indexed face} made of the vertices designed by the given indices using the default implementation.
+	 * Create an {@link IndexedFace indexed face} made of the vertices designed by the given indices.
 	 * @param <T> The type of underlying 3D points
-	 * @param indices the indices that reference the vertices of the face.
-	 * @return an {@link IndexedFace indexed face} made of the vertices designed by the given indices using the given implementation.
+	 * @param indices the indices that reference the vertices of the face
+	 * @return an {@link IndexedFace indexed face} made of the vertices designed by the given indices
 	 */
 	public <T extends Point3D> IndexedFace<T> createIndexedMeshFace(int[] indices);
 
 	/**
-	 * Create an {@link IndexedFace indexed face} made of the vertices designed by the given indices using the default implementation.
+	 * Create an {@link IndexedFace indexed face} made of the vertices designed by the given indices.
 	 * @param <T> The type of underlying 3D points
-	 * @param indices the indices that reference the vertices of the face.
-	 * @param mesh the indexed mesh that hold the face.
-	 * @return an {@link IndexedFace indexed face} made of the vertices designed by the given indices using the given implementation.
+	 * @param indices the indices that reference the vertices of the face
+	 * @param mesh the indexed mesh that hold the face
+	 * @return an {@link IndexedFace indexed face} made of the vertices designed by the given indices
 	 */
 	public <T extends Point3D> IndexedFace<T> createIndexedMeshFace(int[] indices, IndexedMesh<T> mesh);
 
 	/**
-	 * Create an {@link IndexedFace indexed face} made of the vertices designed by the given indices using the default implementation.
+	 * Create an {@link IndexedFace indexed face} made of the vertices designed by the given indices.
 	 * @param <T> The type of underlying 3D points
-	 * @param indices the indices that reference the vertices of the face.
-	 * @return an {@link IndexedFace indexed face} made of the vertices designed by the given indices using the given implementation.
+	 * @param indices the indices that reference the vertices of the face
+	 * @return an {@link IndexedFace indexed face} made of the vertices designed by the given indices
 	 */
 	public <T extends Point3D> IndexedFace<T> createIndexedMeshFace(List<Integer> indices);
 
 	/**
-	 * Create an {@link IndexedFace indexed face} made of the vertices designed by the given indices using the default implementation.
+	 * Create an {@link IndexedFace indexed face} made of the vertices designed by the given indices.
 	 * @param <T> The type of underlying 3D points
-	 * @param indices the indices that reference the vertices of the face.
-	 * @param mesh the indexed mesh that hold the face.
-	 * @return an {@link IndexedFace indexed face} made of the vertices designed by the given indices using the given implementation.
+	 * @param indices the indices that reference the vertices of the face
+	 * @param mesh the indexed mesh that hold the face
+	 * @return an {@link IndexedFace indexed face} made of the vertices designed by the given indices using the given implementation
 	 */
 	public <T extends Point3D> IndexedFace<T> createIndexedMeshFace(List<Integer> indices, IndexedMesh<T> mesh);
 
 	/**
-	 * Create an {@link IndexedTriangle indexed triangular mesh face} made of the vertices designed by the given indices using the default implementation.
+	 * Create an {@link IndexedTriangle indexed triangular mesh face} made of the vertices designed by the given indices.
 	 * @param <T> The type of underlying 3D points
-	 * @param vertex1 the first vertex index of the face.
-	 * @param vertex2 the second vertex index of the face.
-	 * @param vertex3 the third vertex index of the face.
-	 * @param mesh the mesh that holds the triangle.
-	 * @return an {@link IndexedTriangle indexed triangular mesh face} made of the vertices designed by the given indices using the default implementation.
+	 * @param vertex1 the first vertex index of the face
+	 * @param vertex2 the second vertex index of the face
+	 * @param vertex3 the third vertex index of the face
+	 * @param mesh the mesh that holds the triangle
+	 * @return an {@link IndexedTriangle indexed triangular mesh face} made of the vertices designed by the given indices
 	 */
 	public <T extends Point3D> IndexedTriangle<T> createIndexedTriangle(int vertex1, int vertex2, int vertex3, IndexedMesh<T> mesh);
 
 	/**
-	 * Create an {@link IndexedTriangle indexed triangular mesh face} made of the vertices designed by the given indices using the default implementation.
+	 * Create an {@link IndexedTriangle indexed triangular mesh face} made of the vertices designed by the given indices.
 	 * @param <T> The type of underlying 3D points
-	 * @param vertices  the vertices of the face (a 3 element array).
-	 * @param mesh the mesh that holds the triangle.
-	 * @return an {@link IndexedTriangle indexed triangular mesh face} made of the vertices designed by the given indices using the default implementation.
+	 * @param vertices  the vertices of the face (a 3 element array)
+	 * @param mesh the mesh that holds the triangle
+	 * @return an {@link IndexedTriangle indexed triangular mesh face} made of the vertices designed by the given indices
 	 */
 	public <T extends Point3D> IndexedTriangle<T> createIndexedTriangle(int[] vertices, IndexedMesh<T> mesh);
 
 	/**
 	 * Create a new {@link IndexedTriangleMesh indexed triangle mesh} that relies on the given vertices source.
 	 * @param <T> The type of underlying 3D points
-	 * @param source the indexed mesh vertices source.
-	 * @return a new {@link IndexedTriangleMesh indexed triangle mesh}.
+	 * @param source the indexed mesh vertices source
+	 * @return a new {@link IndexedTriangleMesh indexed triangle mesh}
 	 */
 	public <T extends Point3D> IndexedTriangleMesh<T> createIndexedTriangleMesh(Point3DContainer<T> source);
 
@@ -173,93 +170,93 @@ public interface MeshBuilder {
 	 * Create a new {@link IndexedTriangleMesh indexed triangle mesh} that relies on the given vertices source 
 	 * with the given initial faces capacity.
 	 * @param <T> The type of underlying 3D points
-	 * @param size the initial faces capacity.
-	 * @param source  the indexed mesh vertices source.
-	 * @return a new {@link IndexedTriangleMesh indexed triangle mesh}.
+	 * @param size the initial faces capacity
+	 * @param source  the indexed mesh vertices source
+	 * @return a new {@link IndexedTriangleMesh indexed triangle mesh}
 	 */
 	public <T extends Point3D> IndexedTriangleMesh<T> createIndexedTriangleMesh(int size, Point3DContainer<T> source);
 
 	/**
-	 * Create an {@link IndexedFace indexed face} made of the vertices designed by the given indices using the default implementation.
+	 * Create an {@link IndexedFace indexed face} made of the vertices designed by the given indices.
 	 * The returned object is also an instance of {@link Texturable} interface.
 	 * @param <T> The type of underlying 3D points
-	 * @param indices the indices that reference the vertices of the face.
-	 * @return an {@link IndexedFace indexed face} made of the vertices designed by the given indices using the given implementation.
+	 * @param indices the indices that reference the vertices of the face
+	 * @return an {@link IndexedFace indexed face} made of the vertices designed by the given indices
 	 */
 	public <T extends Point3D> IndexedFace<T> createTexturedIndexedMeshFace(int[] indices);
 	
 	/**
-	 * Create an {@link IndexedFace indexed face} made of the vertices designed by the given indices using the default implementation.
+	 * Create an {@link IndexedFace indexed face} made of the vertices designed by the given indices.
 	 * The returned object is also an instance of {@link Texturable} interface.
 	 * @param <T> The type of underlying 3D points
-	 * @param indices the indices that reference the vertices of the face.
-	 * @param mesh the indexed mesh that hold the face.
-	 * @return an {@link IndexedFace indexed face} made of the vertices designed by the given indices using the given implementation.
+	 * @param indices the indices that reference the vertices of the face
+	 * @param mesh the indexed mesh that hold the face
+	 * @return an {@link IndexedFace indexed face} made of the vertices designed by the given indices
 	 */
 	public <T extends Point3D> IndexedFace<T> createTexturedIndexedMeshFace(int[] indices, IndexedMesh<T> mesh);
 
 	/**
-	 * Create an {@link IndexedFace indexed face} made of the vertices designed by the given indices using the default implementation.
+	 * Create an {@link IndexedFace indexed face} made of the vertices designed by the given indices.
 	 * The returned object is also an instance of {@link Texturable} interface.
 	 * @param <T> The type of underlying 3D points
-	 * @param indices the indices that reference the vertices of the face.
-	 * @return an {@link IndexedFace indexed face} made of the vertices designed by the given indices using the given implementation.
+	 * @param indices the indices that reference the vertices of the face
+	 * @return an {@link IndexedFace indexed face} made of the vertices designed by the given indices
 	 */
 	public <T extends Point3D> IndexedFace<T> createTexturedIndexedMeshFace(List<Integer> indices);
 
 	/**
-	 * Create an {@link IndexedFace indexed face} made of the vertices designed by the given indices using the default implementation.
+	 * Create an {@link IndexedFace indexed face} made of the vertices designed by the given indices.
 	 * The returned object is also an instance of {@link Texturable} interface.
 	 * @param <T> The type of underlying 3D points
-	 * @param indices the indices that reference the vertices of the face.
-	 * @param mesh the indexed mesh that hold the face.
-	 * @return an {@link IndexedFace indexed face} made of the vertices designed by the given indices using the given implementation.
+	 * @param indices the indices that reference the vertices of the face
+	 * @param mesh the indexed mesh that hold the face
+	 * @return an {@link IndexedFace indexed face} made of the vertices designed by the given indices
 	 */
 	public <T extends Point3D> IndexedFace<T> createTexturedIndexedMeshFace(List<Integer> indices, IndexedMesh<T> mesh);
 
 	/**
-	 * Create an {@link IndexedTriangle indexed triangular mesh face} made of the vertices designed by the given indices using the default implementation.
+	 * Create an {@link IndexedTriangle indexed triangular mesh face} made of the vertices designed by the given indices.
 	 * The returned object is also an instance of {@link Texturable} interface.
 	 * @param <T> The type of underlying 3D points
-	 * @param vertex1 the first vertex index of the face.
-	 * @param vertex2 the second vertex index of the face.
-	 * @param vertex3 the third vertex index of the face.
-	 * @param mesh the mesh that holds the triangle.
-	 * @return an {@link IndexedTriangle indexed triangular mesh face} made of the vertices designed by the given indices using the default implementation.
+	 * @param vertex1 the first vertex index of the face
+	 * @param vertex2 the second vertex index of the face
+	 * @param vertex3 the third vertex index of the face
+	 * @param mesh the mesh that holds the triangle
+	 * @return an {@link IndexedTriangle indexed triangular mesh face} made of the vertices designed by the given indices
 	 */
 	public <T extends Point3D> IndexedTriangle<T> createTexturedIndexedTriangle(int vertex1, int vertex2, int vertex3, IndexedMesh<T> mesh);
 	/**
-	 * Create an {@link IndexedTriangle indexed triangular mesh face} made of the vertices designed by the given indices using the given implementation.
+	 * Create an {@link IndexedTriangle indexed triangular mesh face} made of the vertices designed by the given indices.
 	 * The returned object is also an instance of {@link Texturable} interface.
 	 * @param <T> The type of underlying 3D points
-	 * @param vertex1 the first vertex index of the face.
-	 * @param vertex2 the second vertex index of the face.
-	 * @param vertex3 the third vertex index of the face.
-	 * @return an {@link IndexedTriangle indexed triangular mesh face} made of the vertices designed by the given indices using the given implementation.
+	 * @param vertex1 the first vertex index of the face
+	 * @param vertex2 the second vertex index of the face
+	 * @param vertex3 the third vertex index of the face
+	 * @return an {@link IndexedTriangle indexed triangular mesh face} made of the vertices designed by the given indices
 	 */
 	public <T extends Point3D> IndexedTriangle<T> createTexturedIndexedTriangle(int vertex1, int vertex2, int vertex3);
 
 	/**
-	 * Create an {@link IndexedTriangle indexed triangular mesh face} made of the vertices designed by the given indices using the given implementation.
+	 * Create an {@link IndexedTriangle indexed triangular mesh face} made of the vertices designed by the given indices.
 	 * The returned object is also an instance of {@link Texturable} interface.
 	 * @param <T> The type of underlying 3D points
-	 * @param vertices the vertices of the face (a 3 element array).
-	 * @return an {@link IndexedTriangle indexed triangular mesh face} made of the vertices designed by the given indices using the given implementation.
+	 * @param vertices the vertices of the face (a 3 element array)
+	 * @return an {@link IndexedTriangle indexed triangular mesh face} made of the vertices designed by the given indices
 	 */
 	public <T extends Point3D> IndexedTriangle<T> createTexturedIndexedTriangle(int[] vertices);
 
 	/**
-	 * Create an {@link IndexedTriangle indexed triangular mesh face} made of the vertices designed by the given indices using the default implementation.
+	 * Create an {@link IndexedTriangle indexed triangular mesh face} made of the vertices designed by the given indices.
 	 * The returned object is also an instance of {@link Texturable} interface.
 	 * @param <T> The type of underlying 3D points
-	 * @param vertices  the vertices of the face (a 3 element array).
-	 * @param mesh the mesh that holds the triangle.
-	 * @return an {@link IndexedTriangle indexed triangular mesh face} made of the vertices designed by the given indices using the default implementation.
+	 * @param vertices  the vertices of the face (a 3 element array)
+	 * @param mesh the mesh that holds the triangle
+	 * @return an {@link IndexedTriangle indexed triangular mesh face} made of the vertices designed by the given indices
 	 */
 	public <T extends Point3D> IndexedTriangle<T> createTexturedIndexedTriangle(int[] vertices, IndexedMesh<T> mesh);
 	
 	/**
-	 * Create a new Create a new {@link MeshNeighborhood mesh neighborhood}..
+	 * Create a new Create a new {@link MeshNeighborhood mesh neighborhood}.
 	 * @param <T> The type of underlying 3D points
 	 * @return a new mesh neighborhood
 	 */

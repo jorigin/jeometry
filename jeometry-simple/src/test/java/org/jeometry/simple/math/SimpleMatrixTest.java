@@ -5,7 +5,6 @@ import org.jeometry.Geometry;
 import org.jeometry.factory.GeometryFactory;
 import org.jeometry.math.MatrixTest;
 import org.jeometry.simple.factory.SimpleMathBuilder;
-import org.jeometry.simple.math.SimpleMatrix;
 import org.junit.BeforeClass;
 
 /**

@@ -23,6 +23,7 @@ public class MeshNeighborhoodComputation {
   /**
    * Compute the neighborhood for the given {@link IndexedMesh indexed mesh}.
    * The neighborhood of a mesh is the set of all adjacency and all incidences available for a mesh.
+   * @param <T> the type of underlying points
    * @param mesh the {@link IndexedMesh mesh} to process.
    * @return the mesh neighborhood.
    */

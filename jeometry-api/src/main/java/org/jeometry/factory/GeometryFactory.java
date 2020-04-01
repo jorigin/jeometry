@@ -46,7 +46,7 @@ public class GeometryFactory {
 	 * A system property that enables to set the global implementation to use.
 	 * The value of this property is used to locate the initialization class for the given implementation.<br><br>
      * 
-	 * For example, if the Java application is launched with <code>-D{@value JEOMETRY_IMPLEMENTATION_PROPERTY}=val</code>, Jeometry will:
+	 * For example, if the Java application is launched with <code>-D{@value #JEOMETRY_IMPLEMENTATION_PROPERTY}=val</code>, Jeometry will:
 	 * <ul>
 	 * <li>Load the class <code>org.jeometry.<b>val</b>.ImplemenationInit</code> (where <code>val</code> value is lower cased)
 	 * <li>Call the static method <code>void initJeometryImplementation()</code> that have to provide the registering of the builders

@@ -7,13 +7,12 @@ import static org.junit.Assert.fail;
 
 import org.jeometry.Geometry;
 import org.jeometry.factory.GeometryFactory;
-import org.jeometry.math.Quaternion;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * A test suite for the {@link SimpleQuaternion} implementation.<br>
+ * A test suite for the {@link Quaternion} implementation.<br>
  * <br>
  * <b>Usage:</b>
  * <p>
@@ -184,7 +183,7 @@ public class QuaternionTest {
 	
 	
 	/**
-	 * Test the {@link SimpleQuaternion#setComponents(double, double, double, double)} method.
+	 * Test the {@link Quaternion#setComponents(double, double, double, double)} method.
 	 */
 	@Test
 	public void setComponentsTest() {
@@ -205,7 +204,7 @@ public class QuaternionTest {
 	}
 	
 	/**
-	 * Test the {@link SimpleQuaternion#getComponents()} method.
+	 * Test the {@link Quaternion#getComponents()} method.
 	 */
 	@Test
 	public void getVectorComponentsTest() {
@@ -231,7 +230,7 @@ public class QuaternionTest {
 	}
 	
 	/**
-	 * Test the {@link SimpleQuaternion#getComponents(double[])} method.
+	 * Test the {@link Quaternion#getComponents(double[])} method.
 	 */
 	@Test
 	public void getVectorComponentsResultTest() {
@@ -261,7 +260,7 @@ public class QuaternionTest {
 	}
 	
 	/**
-	 * Testing {@link SimpleQuaternion#getScalar()} and {@link SimpleQuaternion#setScalar(double)} methods.
+	 * Testing {@link Quaternion#getScalar()} and {@link Quaternion#setScalar(double)} methods.
 	 */
 	@Test
 	public void accessorScalarTest() {
@@ -281,7 +280,7 @@ public class QuaternionTest {
 	}
 	
 	/**
-	 * Testing {@link SimpleQuaternion#getI()} and {@link SimpleQuaternion#setI(double)} methods.
+	 * Testing {@link Quaternion#getI()} and {@link Quaternion#setI(double)} methods.
 	 */
 	@Test
 	public void accessorITest() {
@@ -301,7 +300,7 @@ public class QuaternionTest {
 	}
 	
 	/**
-	 * Testing {@link SimpleQuaternion#getJ()} and {@link SimpleQuaternion#setJ(double)} methods.
+	 * Testing {@link Quaternion#getJ()} and {@link Quaternion#setJ(double)} methods.
 	 */
 	@Test
 	public void accessorJTest() {
@@ -321,7 +320,7 @@ public class QuaternionTest {
 	}
 	
 	/**
-	 * Testing {@link SimpleQuaternion#getK()} and {@link SimpleQuaternion#setK(double)} methods.
+	 * Testing {@link Quaternion#getK()} and {@link Quaternion#setK(double)} methods.
 	 */
 	@Test
 	public void accessorKTest() {
@@ -342,7 +341,7 @@ public class QuaternionTest {
 	
 	
 	/**
-	 * Test {@link SimpleQuaternion#normSquare()} method.
+	 * Test {@link Quaternion#normSquare()} method.
 	 */
 	@Test
 	public void normSquareTest() {
@@ -362,7 +361,7 @@ public class QuaternionTest {
 	}
 	
 	/**
-	 * Test {@link SimpleQuaternion#norm()} method.
+	 * Test {@link Quaternion#norm()} method.
 	 */
 	@Test
 	public void normTest() {
@@ -382,7 +381,7 @@ public class QuaternionTest {
 	}
 	
 	/**
-	 * Test {@link SimpleQuaternion#mult(org.jeometry.math.Quaternion)} method.
+	 * Test {@link Quaternion#mult(org.jeometry.math.Quaternion)} method.
 	 */
 	@Test
 	public void multTest() {
@@ -420,7 +419,7 @@ public class QuaternionTest {
 	}
 	
 	/**
-	 * Test {@link SimpleQuaternion#mult(org.jeometry.math.Quaternion, org.jeometry.math.Quaternion)} method.
+	 * Test {@link Quaternion#mult(org.jeometry.math.Quaternion, org.jeometry.math.Quaternion)} method.
 	 */
 	@Test
 	public void multResultTest() {
@@ -470,7 +469,7 @@ public class QuaternionTest {
 	
 	
 	/**
-	 * Test {@link SimpleQuaternion#multAffect(org.jeometry.math.Quaternion)} method.
+	 * Test {@link Quaternion#multAffect(org.jeometry.math.Quaternion)} method.
 	 */
 	@Test
 	public void multAffectTest() {
@@ -507,7 +506,7 @@ public class QuaternionTest {
 	}
 	
 	/**
-	 * Test {@link SimpleQuaternion#invertQuaternion()} method.
+	 * Test {@link Quaternion#invertQuaternion()} method.
 	 */
 	@Test
 	public void invertQuaternionTest() {
@@ -544,7 +543,7 @@ public class QuaternionTest {
 	}
 	
 	/**
-	 * Test {@link SimpleQuaternion#invertQuaternion(org.jeometry.math.Quaternion)} method.
+	 * Test {@link Quaternion#invertQuaternion(org.jeometry.math.Quaternion)} method.
 	 */
 	@Test
 	public void invertResultTest() {
@@ -592,7 +591,7 @@ public class QuaternionTest {
 	}
 	
 	/**
-	 * Test {@link SimpleQuaternion#invertQuaternionAffect()} method.
+	 * Test {@link Quaternion#invertQuaternionAffect()} method.
 	 */
 	@Test
 	public void invertAffectTest() {
@@ -630,7 +629,7 @@ public class QuaternionTest {
 	}
 	
 	/**
-	 * Test {@link SimpleQuaternion#conjugateQuaternion()} method.
+	 * Test {@link Quaternion#conjugateQuaternion()} method.
 	 */
 	@Test
 	public void conjugateQuaternionTest() {
@@ -667,7 +666,7 @@ public class QuaternionTest {
 	}
 	
 	/**
-	 * Test {@link SimpleQuaternion#conjugateQuaternion(org.jeometry.math.Quaternion)} method.
+	 * Test {@link Quaternion#conjugateQuaternion(org.jeometry.math.Quaternion)} method.
 	 */
 	@Test
 	public void conjugateResultTest() {
@@ -715,7 +714,7 @@ public class QuaternionTest {
 	}
 	
 	/**
-	 * Test {@link SimpleQuaternion#conjugateQuaternionAffect()} method.
+	 * Test {@link Quaternion#conjugateQuaternionAffect()} method.
 	 */
 	@Test
 	public void conjugateAffectTest() {

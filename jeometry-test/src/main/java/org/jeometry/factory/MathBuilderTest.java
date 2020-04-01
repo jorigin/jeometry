@@ -13,7 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * A test suite for {@link SimpleMathBuilder} class.<br>
+ * A test suite for {@link MathBuilder} implementations.<br>
  * <br>
  * <b>Usage:</b>
  * <p>

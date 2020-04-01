@@ -9,7 +9,6 @@ import org.jeometry.factory.GeometryFactory;
 import org.jeometry.math.Matrix;
 import org.jeometry.math.MatrixTestData;
 import org.jeometry.math.Vector;
-import org.jeometry.math.solver.Solver;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

@@ -10,7 +10,7 @@ import org.jeometry.math.decomposition.EigenDecomposition;
 
 /**
  * A simple implementation of {@link EigenDecomposition Eigen decomposition}.<br><br>
- * This implantation is inspired by <a href="https://math.nist.gov/javanumerics/jama/"a>Jama</a> <a href="https://math.nist.gov/javanumerics/jama/doc/">Eigen Decomposition</a>.
+ * This implantation is inspired by <a href="https://math.nist.gov/javanumerics/jama/">Jama</a> <a href="https://math.nist.gov/javanumerics/jama/doc/">Eigen Decomposition</a>.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
  * @version {@value Geometry#version} b{@value Geometry#BUILD}
  * @since 1.0.0

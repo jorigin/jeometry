@@ -18,7 +18,7 @@ JEometry is available at Maven Central. To import the library just add the follo
   <version>1.0.0</version>
 </dependency>
 ```
-For more information, tutorials and advances uses, please check the [Wiki](https://github.com/jorigin/jeometry/wiki).
+For more information, tutorials and advanced uses, please check the [Wiki](https://github.com/jorigin/jeometry/wiki).
 
 ## Changes:
 

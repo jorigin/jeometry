@@ -4,7 +4,6 @@ package org.jeometry.simple.factory;
 import org.jeometry.Geometry;
 import org.jeometry.factory.GeometryFactory;
 import org.jeometry.factory.GeometryFactoryMeshTest;
-import org.jeometry.simple.factory.SimpleMeshBuilder;
 import org.jeometry.simple.geom3D.mesh.SimpleEdge;
 import org.jeometry.simple.geom3D.mesh.SimpleFace;
 import org.jeometry.simple.geom3D.mesh.SimpleMesh;

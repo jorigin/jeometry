@@ -8,7 +8,6 @@ import org.jeometry.Geometry;
 import org.jeometry.factory.GeometryFactory;
 import org.jeometry.math.Matrix;
 import org.jeometry.math.MatrixTestData;
-import org.jeometry.math.decomposition.LUDecomposition;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

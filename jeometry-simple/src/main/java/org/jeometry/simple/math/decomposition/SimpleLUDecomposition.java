@@ -10,7 +10,7 @@ import org.jeometry.math.decomposition.LUDecomposition;
 
 /**
  * A simple implementation of {@link LUDecomposition LUDecomposition}.<br><br>
- * This implantation is inspired by <a href="https://math.nist.gov/javanumerics/jama/"a>Jama</a> <a href="https://math.nist.gov/javanumerics/jama/doc/">LU Decomposition</a>.
+ * This implantation is inspired by <a href="https://math.nist.gov/javanumerics/jama/">Jama</a> <a href="https://math.nist.gov/javanumerics/jama/doc/">LU Decomposition</a>.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
  * @version {@value Geometry#version} b{@value Geometry#BUILD}
  * @since 1.0.0
@@ -161,12 +161,12 @@ public class SimpleLUDecomposition implements LUDecomposition {
 
 	/**
 	 * Compute the matrix <i>X</i> that solve the linear system:<br>
-	 * <center><i>AX</i>&nbsp;=&nbsp;<i>B</i></center>
+	 * <div style="text-align: center"><i>AX</i>&nbsp;=&nbsp;<i>B</i></div>
 	 * <br>
 	 * where <i>A</i> is the matrix from which this decomposition is computed.<br><br>
 	 * 
 	 * This linear solving is equivalent to find the <i>X</i> that solve the linear system:<br><br>
-	 * <center><i>LUX</i>&nbsp;=&nbsp;<i>PB</i></center>
+	 * <div style="text-align: center"><i>LUX</i>&nbsp;=&nbsp;<i>PB</i></div>
 	 * <br>
 	 * @param B the constants parameters
 	 * @return the matrix <i>X</i> that solve the linear system <i>AX</i>&nbsp;=&nbsp;<i>B</i>
