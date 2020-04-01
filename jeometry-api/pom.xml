@@ -76,10 +76,10 @@
     <profile>
       <id>release-sign-artifacts</id>
       <activation>
-        <property>
+        <activeByDefault>true</activeByDefault>
+        <!--<property>
           <name>performRelease</name>
-          <value>true</value>
-        </property>
+          <value>true</value>-->
       </activation>
     
       <build>
