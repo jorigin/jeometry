@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.Geom3D;
 import org.jeometry.geom3D.SpatialLocalization3D;
 import org.jeometry.geom3D.mesh.Edge;
@@ -22,13 +22,13 @@ import org.jeometry.simple.geom3D.primitive.indexed.SimpleIndexedTriangle;
  * A simple implementation of an {@link IndexedTriangleMesh indexed triangle mesh}.
  * @param <T> The type of underlying 3D points
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  *
  */
 public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTriangleMesh<T> {
 
-	private static final long serialVersionUID = Geometry.BUILD;
+	private static final long serialVersionUID = Jeometry.BUILD;
 
 	private Point3DContainer<T> verticesSource = null;
 	
@@ -201,7 +201,7 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 	@Override
 	public Point3DContainer<T> getVertices() {
 		if ((faces != null) && (faces.size() > 0)){
-			Point3DContainer<T> vertices = GeometryFactory.createPoint3DContainer(faces.size()*6);
+			Point3DContainer<T> vertices = JeometryFactory.createPoint3DContainer(faces.size()*6);
 
 			for(IndexedFace<T> face : faces) {
 				if (face.isValidatedIndexes()) {

@@ -1,6 +1,6 @@
 package org.jeometry.geom3D.primitive;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.geom3D.mesh.Face;
 import org.jeometry.geom3D.mesh.Mesh;
 import org.jeometry.geom3D.point.Point3D;
@@ -9,7 +9,7 @@ import org.jeometry.geom3D.point.Point3D;
  * A triangle is a 3D polygon hat relies on 3 non aligned vertices.
  * @param <T> the type of underlying 3D points
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} build {@value Geometry#BUILD}
+ * @version {@value Jeometry#version} build {@value Jeometry#BUILD}
  * @since 1.0.0
  * @see Mesh
  * @see Face

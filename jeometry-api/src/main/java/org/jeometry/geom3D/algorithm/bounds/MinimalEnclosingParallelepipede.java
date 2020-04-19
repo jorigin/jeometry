@@ -4,8 +4,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.logging.Level;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.Geom3D;
 import org.jeometry.geom3D.algorithm.convexhull.quickhull.QuickHull;
 import org.jeometry.geom3D.mesh.Face;
@@ -52,7 +52,7 @@ import org.jeometry.math.solver.Solver;
  * </code>
  * </p>
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  *
  */
@@ -500,7 +500,7 @@ public class MinimalEnclosingParallelepipede {
 		Vector constants;
 		Vector solution;
 
-		Solver solver = GeometryFactory.createSolver();
+		Solver solver = JeometryFactory.createSolver();
 
 		if (solver != null) {
 
@@ -512,9 +512,9 @@ public class MinimalEnclosingParallelepipede {
 				coefficientsData[2][i]=P3[i];
 			}
 
-			coefficients = GeometryFactory.createMatrix(coefficientsData);
-			constants    = GeometryFactory.createVector(new double[] {  P1[3], P2[3], P3[3] });
-			solution     = GeometryFactory.createVector(constants);
+			coefficients = JeometryFactory.createMatrix(coefficientsData);
+			constants    = JeometryFactory.createVector(new double[] {  P1[3], P2[3], P3[3] });
+			solution     = JeometryFactory.createVector(constants);
 
 			try {
 				if (solver.solve(coefficients, constants, solution) != null) {
@@ -522,13 +522,13 @@ public class MinimalEnclosingParallelepipede {
 					parallelepipedVertices[0][1]  = solution.getVectorComponent(1);
 					parallelepipedVertices[0][3]  = solution.getVectorComponent(2);
 				} else {
-					Geometry.logger.log(Level.SEVERE, "Cannot solve linear system");
+					Jeometry.logger.log(Level.SEVERE, "Cannot solve linear system");
 					parallelepipedVertices[0] = null;
 					computationOK = false;
 				}
 
 			} catch (Exception e) {
-				Geometry.logger.log(Level.SEVERE, "Cannot solve linear system: "+e.getMessage(), e);
+				Jeometry.logger.log(Level.SEVERE, "Cannot solve linear system: "+e.getMessage(), e);
 				parallelepipedVertices[0] = null;
 				computationOK = false;
 			}
@@ -540,9 +540,9 @@ public class MinimalEnclosingParallelepipede {
 				coefficientsData[2][i]=P3prime[i];
 			}
 
-			coefficients = GeometryFactory.createMatrix(coefficientsData);
-			constants    = GeometryFactory.createVector(new double[] {  P1[3], P2[3], P3prime[3]});
-			solution     = GeometryFactory.createVector(constants);
+			coefficients = JeometryFactory.createMatrix(coefficientsData);
+			constants    = JeometryFactory.createVector(new double[] {  P1[3], P2[3], P3prime[3]});
+			solution     = JeometryFactory.createVector(constants);
 
 			try {
 				if (solver.solve(coefficients, constants, solution) != null) {
@@ -550,13 +550,13 @@ public class MinimalEnclosingParallelepipede {
 					parallelepipedVertices[1][1]  = solution.getVectorComponent(1);
 					parallelepipedVertices[1][3]  = solution.getVectorComponent(2);
 				} else {
-					Geometry.logger.log(Level.SEVERE, "Cannot solve linear system");
+					Jeometry.logger.log(Level.SEVERE, "Cannot solve linear system");
 					parallelepipedVertices[1] = null;
 					computationOK = false;
 				}
 
 			} catch (Exception e) {
-				Geometry.logger.log(Level.SEVERE, "Cannot solve linear system: "+e.getMessage(), e);
+				Jeometry.logger.log(Level.SEVERE, "Cannot solve linear system: "+e.getMessage(), e);
 				parallelepipedVertices[1] = null;
 				computationOK = false;
 			}
@@ -568,9 +568,9 @@ public class MinimalEnclosingParallelepipede {
 				coefficientsData[2][i] = P3prime[i];
 			}
 
-			coefficients = GeometryFactory.createMatrix(coefficientsData);
-			constants    = GeometryFactory.createVector(new double[] {  P1[3], P2prime[3], P3prime[3]});
-			solution     = GeometryFactory.createVector(constants);
+			coefficients = JeometryFactory.createMatrix(coefficientsData);
+			constants    = JeometryFactory.createVector(new double[] {  P1[3], P2prime[3], P3prime[3]});
+			solution     = JeometryFactory.createVector(constants);
 
 			try {
 				if (solver.solve(coefficients, constants, solution) != null) {
@@ -578,13 +578,13 @@ public class MinimalEnclosingParallelepipede {
 					parallelepipedVertices[2][1]  = solution.getVectorComponent(1);
 					parallelepipedVertices[2][3]  = solution.getVectorComponent(2);
 				} else {
-					Geometry.logger.log(Level.SEVERE, "Cannot solve linear system");
+					Jeometry.logger.log(Level.SEVERE, "Cannot solve linear system");
 					parallelepipedVertices[2] = null;
 					computationOK = false;
 				}
 
 			} catch (Exception e) {
-				Geometry.logger.log(Level.SEVERE, "Cannot solve linear system: "+e.getMessage(), e);
+				Jeometry.logger.log(Level.SEVERE, "Cannot solve linear system: "+e.getMessage(), e);
 				parallelepipedVertices[2] = null;
 				computationOK = false;
 			}
@@ -596,9 +596,9 @@ public class MinimalEnclosingParallelepipede {
 				coefficientsData[2][i] = P3[i];
 			}
 
-			coefficients = GeometryFactory.createMatrix(coefficientsData);
-			constants    = GeometryFactory.createVector(new double[] {  P1[3], P2prime[3], P3[3]});
-			solution     = GeometryFactory.createVector(constants);
+			coefficients = JeometryFactory.createMatrix(coefficientsData);
+			constants    = JeometryFactory.createVector(new double[] {  P1[3], P2prime[3], P3[3]});
+			solution     = JeometryFactory.createVector(constants);
 
 			try {
 				if (solver.solve(coefficients, constants, solution) != null) {
@@ -606,13 +606,13 @@ public class MinimalEnclosingParallelepipede {
 					parallelepipedVertices[3][1]  = solution.getVectorComponent(1);
 					parallelepipedVertices[3][3]  = solution.getVectorComponent(2);
 				} else {
-					Geometry.logger.log(Level.SEVERE, "Cannot solve linear system");
+					Jeometry.logger.log(Level.SEVERE, "Cannot solve linear system");
 					parallelepipedVertices[3] = null;
 					computationOK = false;
 				}
 
 			} catch (Exception e) {
-				Geometry.logger.log(Level.SEVERE, "Cannot solve linear system: "+e.getMessage(), e);
+				Jeometry.logger.log(Level.SEVERE, "Cannot solve linear system: "+e.getMessage(), e);
 				parallelepipedVertices[3] = null;
 				computationOK = false;
 			}
@@ -624,9 +624,9 @@ public class MinimalEnclosingParallelepipede {
 				coefficientsData[2][i] = P3[i];
 			}
 
-			coefficients = GeometryFactory.createMatrix(coefficientsData);
-			constants    = GeometryFactory.createVector(new double[] {  P1prime[3], P2[3], P3[3]});
-			solution     = GeometryFactory.createVector(constants);
+			coefficients = JeometryFactory.createMatrix(coefficientsData);
+			constants    = JeometryFactory.createVector(new double[] {  P1prime[3], P2[3], P3[3]});
+			solution     = JeometryFactory.createVector(constants);
 
 			try {
 				if (solver.solve(coefficients, constants, solution) != null) {
@@ -634,13 +634,13 @@ public class MinimalEnclosingParallelepipede {
 					parallelepipedVertices[4][1]  = solution.getVectorComponent(1);
 					parallelepipedVertices[4][3]  = solution.getVectorComponent(2);
 				} else {
-					Geometry.logger.log(Level.SEVERE, "Cannot solve linear system");
+					Jeometry.logger.log(Level.SEVERE, "Cannot solve linear system");
 					parallelepipedVertices[4] = null;
 					computationOK = false;
 				}
 
 			} catch (Exception e) {
-				Geometry.logger.log(Level.SEVERE, "Cannot solve linear system: "+e.getMessage(), e);
+				Jeometry.logger.log(Level.SEVERE, "Cannot solve linear system: "+e.getMessage(), e);
 				parallelepipedVertices[4] = null;
 				computationOK = false;
 			}
@@ -652,9 +652,9 @@ public class MinimalEnclosingParallelepipede {
 				coefficientsData[2][i] = P3prime[i];
 			}
 
-			coefficients = GeometryFactory.createMatrix(coefficientsData);
-			constants    = GeometryFactory.createVector(new double[] {  P1prime[3], P2[3], P3prime[3]});
-			solution     = GeometryFactory.createVector(constants);
+			coefficients = JeometryFactory.createMatrix(coefficientsData);
+			constants    = JeometryFactory.createVector(new double[] {  P1prime[3], P2[3], P3prime[3]});
+			solution     = JeometryFactory.createVector(constants);
 
 			try {
 				if (solver.solve(coefficients, constants, solution) != null) {
@@ -662,13 +662,13 @@ public class MinimalEnclosingParallelepipede {
 					parallelepipedVertices[5][1]  = solution.getVectorComponent(1);
 					parallelepipedVertices[5][3]  = solution.getVectorComponent(2);
 				} else {
-					Geometry.logger.log(Level.SEVERE, "Cannot solve linear system");
+					Jeometry.logger.log(Level.SEVERE, "Cannot solve linear system");
 					parallelepipedVertices[5] = null;
 					computationOK = false;
 				}
 
 			} catch (Exception e) {
-				Geometry.logger.log(Level.SEVERE, "Cannot solve linear system: "+e.getMessage(), e);
+				Jeometry.logger.log(Level.SEVERE, "Cannot solve linear system: "+e.getMessage(), e);
 				parallelepipedVertices[5] = null;
 				computationOK = false;
 			}
@@ -680,9 +680,9 @@ public class MinimalEnclosingParallelepipede {
 				coefficientsData[2][i] = P3prime[i];
 			}
 
-			coefficients = GeometryFactory.createMatrix(coefficientsData);
-			constants    = GeometryFactory.createVector(new double[] {  P1prime[3], P2prime[3], P3prime[3]});
-			solution     = GeometryFactory.createVector(constants);
+			coefficients = JeometryFactory.createMatrix(coefficientsData);
+			constants    = JeometryFactory.createVector(new double[] {  P1prime[3], P2prime[3], P3prime[3]});
+			solution     = JeometryFactory.createVector(constants);
 
 			try {
 				if (solver.solve(coefficients, constants, solution) != null) {
@@ -690,13 +690,13 @@ public class MinimalEnclosingParallelepipede {
 					parallelepipedVertices[6][1]  = solution.getVectorComponent(1);
 					parallelepipedVertices[6][3]  = solution.getVectorComponent(2);
 				} else {
-					Geometry.logger.log(Level.SEVERE, "Cannot solve linear system");
+					Jeometry.logger.log(Level.SEVERE, "Cannot solve linear system");
 					parallelepipedVertices[6] = null;
 					computationOK = false;
 				}
 
 			} catch (Exception e) {
-				Geometry.logger.log(Level.SEVERE, "Cannot solve linear system: "+e.getMessage(), e);
+				Jeometry.logger.log(Level.SEVERE, "Cannot solve linear system: "+e.getMessage(), e);
 				parallelepipedVertices[6] = null;
 				computationOK = false;
 			}
@@ -708,9 +708,9 @@ public class MinimalEnclosingParallelepipede {
 				coefficientsData[2][i] = P3[i];
 			}
 
-			coefficients = GeometryFactory.createMatrix(coefficientsData);
-			constants    = GeometryFactory.createVector(new double[] {  P1prime[3], P2prime[3], P3[3]});
-			solution     = GeometryFactory.createVector(constants);
+			coefficients = JeometryFactory.createMatrix(coefficientsData);
+			constants    = JeometryFactory.createVector(new double[] {  P1prime[3], P2prime[3], P3[3]});
+			solution     = JeometryFactory.createVector(constants);
 
 			try {
 				if (solver.solve(coefficients, constants, solution) != null) {
@@ -718,13 +718,13 @@ public class MinimalEnclosingParallelepipede {
 					parallelepipedVertices[7][1]  = solution.getVectorComponent(1);
 					parallelepipedVertices[7][3]  = solution.getVectorComponent(2);
 				} else {
-					Geometry.logger.log(Level.SEVERE, "Cannot solve linear system");
+					Jeometry.logger.log(Level.SEVERE, "Cannot solve linear system");
 					parallelepipedVertices[7] = null;
 					computationOK = false;
 				}
 
 			} catch (Exception e) {
-				Geometry.logger.log(Level.SEVERE, "Cannot solve linear system: "+e.getMessage(), e);
+				Jeometry.logger.log(Level.SEVERE, "Cannot solve linear system: "+e.getMessage(), e);
 				parallelepipedVertices[7] = null;
 				computationOK = false;
 			}
@@ -735,67 +735,67 @@ public class MinimalEnclosingParallelepipede {
 
 		if (computationOK) {
 			// Affectation des faces du polyhedre   
-			Point3D pt1 = GeometryFactory.createPoint3D(parallelepipedVertices[5][0], parallelepipedVertices[5][1], parallelepipedVertices[5][2]);
-			Point3D pt2 = GeometryFactory.createPoint3D(parallelepipedVertices[4][0], parallelepipedVertices[4][1], parallelepipedVertices[4][2]);
-			Point3D pt3 = GeometryFactory.createPoint3D(parallelepipedVertices[0][0], parallelepipedVertices[0][1], parallelepipedVertices[0][2]);
-			Point3D pt4 = GeometryFactory.createPoint3D(parallelepipedVertices[1][0], parallelepipedVertices[1][1], parallelepipedVertices[1][2]);
-			Point3D pt5 = GeometryFactory.createPoint3D(parallelepipedVertices[6][0], parallelepipedVertices[6][1], parallelepipedVertices[6][2]);
-			Point3D pt6 = GeometryFactory.createPoint3D(parallelepipedVertices[7][0], parallelepipedVertices[7][1], parallelepipedVertices[7][2]);
-			Point3D pt7 = GeometryFactory.createPoint3D(parallelepipedVertices[3][0], parallelepipedVertices[3][1], parallelepipedVertices[3][2]);
-			Point3D pt8 = GeometryFactory.createPoint3D(parallelepipedVertices[2][0], parallelepipedVertices[2][1], parallelepipedVertices[2][2]);
+			Point3D pt1 = JeometryFactory.createPoint3D(parallelepipedVertices[5][0], parallelepipedVertices[5][1], parallelepipedVertices[5][2]);
+			Point3D pt2 = JeometryFactory.createPoint3D(parallelepipedVertices[4][0], parallelepipedVertices[4][1], parallelepipedVertices[4][2]);
+			Point3D pt3 = JeometryFactory.createPoint3D(parallelepipedVertices[0][0], parallelepipedVertices[0][1], parallelepipedVertices[0][2]);
+			Point3D pt4 = JeometryFactory.createPoint3D(parallelepipedVertices[1][0], parallelepipedVertices[1][1], parallelepipedVertices[1][2]);
+			Point3D pt5 = JeometryFactory.createPoint3D(parallelepipedVertices[6][0], parallelepipedVertices[6][1], parallelepipedVertices[6][2]);
+			Point3D pt6 = JeometryFactory.createPoint3D(parallelepipedVertices[7][0], parallelepipedVertices[7][1], parallelepipedVertices[7][2]);
+			Point3D pt7 = JeometryFactory.createPoint3D(parallelepipedVertices[3][0], parallelepipedVertices[3][1], parallelepipedVertices[3][2]);
+			Point3D pt8 = JeometryFactory.createPoint3D(parallelepipedVertices[2][0], parallelepipedVertices[2][1], parallelepipedVertices[2][2]);
 
 			// Creation du polyhedre représentant le parallelepipede
 			Point3DContainer<Point3D> points;
 
-			parallelepiped = GeometryFactory.createMesh();
+			parallelepiped = JeometryFactory.createMesh();
 
 			//  Face de dessous
-			points = GeometryFactory.createPoint3DContainer(4);
+			points = JeometryFactory.createPoint3DContainer(4);
 			points.add(pt4);
 			points.add(pt3);
 			points.add(pt2);
 			points.add(pt1);			
-			parallelepiped.addFace(GeometryFactory.createMeshFace(parallelepiped, points));
+			parallelepiped.addFace(JeometryFactory.createMeshFace(parallelepiped, points));
 
 			// Face du haut
-			points = GeometryFactory.createPoint3DContainer(4);
+			points = JeometryFactory.createPoint3DContainer(4);
 			points.add(pt5);
 			points.add(pt6);
 			points.add(pt7);
 			points.add(pt8);
-			parallelepiped.addFace(GeometryFactory.createMeshFace(parallelepiped, points));
+			parallelepiped.addFace(JeometryFactory.createMeshFace(parallelepiped, points));
 
 			// Face de gauche
-			points = GeometryFactory.createPoint3DContainer(4);
+			points = JeometryFactory.createPoint3DContainer(4);
 			points.add(pt1);
 			points.add(pt2);
 			points.add(pt6);
 			points.add(pt5);
-			parallelepiped.addFace(GeometryFactory.createMeshFace(parallelepiped, points));
+			parallelepiped.addFace(JeometryFactory.createMeshFace(parallelepiped, points));
 
 			// Face de droite
-			points = GeometryFactory.createPoint3DContainer(4);
+			points = JeometryFactory.createPoint3DContainer(4);
 			points.add(pt4);
 			points.add(pt8);
 			points.add(pt7);
 			points.add(pt3);
-			parallelepiped.addFace(GeometryFactory.createMeshFace(parallelepiped, points));
+			parallelepiped.addFace(JeometryFactory.createMeshFace(parallelepiped, points));
 
 			// Face de devant
-			points = GeometryFactory.createPoint3DContainer(4);
+			points = JeometryFactory.createPoint3DContainer(4);
 			points.add(pt1);
 			points.add(pt5);
 			points.add(pt8);
 			points.add(pt4);
-			parallelepiped.addFace(GeometryFactory.createMeshFace(parallelepiped, points));
+			parallelepiped.addFace(JeometryFactory.createMeshFace(parallelepiped, points));
 
 			// Face de derrière
-			points = GeometryFactory.createPoint3DContainer(4);
+			points = JeometryFactory.createPoint3DContainer(4);
 			points.add(pt3);
 			points.add(pt7);
 			points.add(pt6);
 			points.add(pt2);
-			parallelepiped.addFace(GeometryFactory.createMeshFace(parallelepiped, points));
+			parallelepiped.addFace(JeometryFactory.createMeshFace(parallelepiped, points));
 
 			return parallelepiped;
 		}

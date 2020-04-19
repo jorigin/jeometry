@@ -1,11 +1,11 @@
 package org.jeometry.math;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 
 /**
  * An interface that represents a vector as a set of <code>double</code> coordinates. Each coordinate is expressed belong a dimension.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public interface Vector {

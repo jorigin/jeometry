@@ -8,7 +8,7 @@ import static org.junit.Assert.fail;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.geom3D.mesh.indexed.IndexedEdge;
 import org.jeometry.geom3D.mesh.indexed.IndexedFace;
 import org.jeometry.geom3D.mesh.indexed.IndexedMesh;
@@ -17,7 +17,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * A test class for {@link GeometryFactory} methods that delegate to a {@link MeshBuilder mesh builder}.<br>
+ * A test class for {@link JeometryFactory} methods that delegate to a {@link MeshBuilder mesh builder}.<br>
  * <br>
  * <b>Usage:</b>
  * <p>
@@ -41,7 +41,7 @@ import org.junit.Test;
  * If the object provided by the geometry factory are not from the same classes as the declared ones, tests will fail.
  * </p>
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  *
  */
@@ -64,13 +64,13 @@ public class GeometryFactoryMeshTest {
 	}	
 	
 	/**
-	 * Testing {@link GeometryFactory#createIndexedMesh()}
+	 * Testing {@link JeometryFactory#createIndexedMesh()}
 	 */
 	@Test
 	public void createIndexedMeshTest() {
 		
 		try {
-			IndexedMesh<Point3D> mesh = GeometryFactory.createIndexedMesh();
+			IndexedMesh<Point3D> mesh = JeometryFactory.createIndexedMesh();
 			assertNotNull("Cannot instantiate indexed mesh using GeometryFactory.createIndexedMesh().", mesh);	
 			
 			if (indexedMeshClass != null) {
@@ -84,13 +84,13 @@ public class GeometryFactoryMeshTest {
 	}
 	
 	/**
-	 * Testing {@link GeometryFactory#createIndexedMesh(int)}
+	 * Testing {@link JeometryFactory#createIndexedMesh(int)}
 	 */
 	@Test
 	public void createIndexedMeshCapacityTest() {
 		
 		try {
-			IndexedMesh<Point3D> mesh = GeometryFactory.createIndexedMesh(10);
+			IndexedMesh<Point3D> mesh = JeometryFactory.createIndexedMesh(10);
 			assertNotNull("Cannot instantiate indexed mesh using GeometryFactory.createIndexedMesh(int).", mesh);	
 			
 			if (indexedMeshClass != null) {
@@ -104,13 +104,13 @@ public class GeometryFactoryMeshTest {
 	}
 	
 	/**
-	 * Testing {@link GeometryFactory#createIndexedMeshEdge(int, int)}
+	 * Testing {@link JeometryFactory#createIndexedMeshEdge(int, int)}
 	 */
 	@Test
 	public void createIndexedMeshEdgeIntIntTest() {
 		
 		try {
-			IndexedEdge<Point3D> edge = GeometryFactory.createIndexedMeshEdge(1, 2);
+			IndexedEdge<Point3D> edge = JeometryFactory.createIndexedMeshEdge(1, 2);
 			
 			assertNotNull("Cannot instantiate indexed edge using GeometryFactory.createIndexedMeshEdge(int, int).", edge);
 			
@@ -129,15 +129,15 @@ public class GeometryFactoryMeshTest {
 	}
 	
 	/**
-	 * Testing {@link GeometryFactory#createIndexedMeshEdge(int, int, IndexedMesh)}
+	 * Testing {@link JeometryFactory#createIndexedMeshEdge(int, int, IndexedMesh)}
 	 */
 	@Test
 	public void createIndexedMeshEdgeIntIntMeshTest() {
 		
 		try {
-			IndexedMesh<Point3D> mesh = GeometryFactory.createIndexedMesh();
+			IndexedMesh<Point3D> mesh = JeometryFactory.createIndexedMesh();
 
-			IndexedEdge<Point3D> edge = GeometryFactory.createIndexedMeshEdge(1, 2, mesh);
+			IndexedEdge<Point3D> edge = JeometryFactory.createIndexedMeshEdge(1, 2, mesh);
 			
 			assertNotNull("Cannot instantiate indexed edge using GeometryFactory.createIndexedMeshEdge(int, int, IndexedMesh).", edge);
 			
@@ -159,14 +159,14 @@ public class GeometryFactoryMeshTest {
 	
 	
 	/**
-	 * Testing {@link GeometryFactory#createIndexedMeshFace(int[])}
+	 * Testing {@link JeometryFactory#createIndexedMeshFace(int[])}
 	 */
 	@Test
 	public void createIndexedMeshFaceIntArrayTest() {
 		
 		try {
 			int[] indices = new int[] {1, 2, 3, 4, 5, 6};
-			IndexedFace<Point3D> face = GeometryFactory.createIndexedMeshFace(indices);
+			IndexedFace<Point3D> face = JeometryFactory.createIndexedMeshFace(indices);
 			
 			assertNotNull("Cannot instantiate indexed face using GeometryFactory.createIndexedMeshFace(int[]).", face);
 			
@@ -183,15 +183,15 @@ public class GeometryFactoryMeshTest {
 	}
 	
 	/**
-	 * Testing {@link GeometryFactory#createIndexedMeshFace(int[], IndexedMesh)}
+	 * Testing {@link JeometryFactory#createIndexedMeshFace(int[], IndexedMesh)}
 	 */
 	@Test
 	public void createIndexedMeshFaceIntArrayMeshTest() {
 		
 		try {
 			int[] indices = new int[] {1, 2, 3, 4, 5, 6};
-			IndexedMesh<Point3D> mesh = GeometryFactory.createIndexedMesh();
-			IndexedFace<Point3D> face = GeometryFactory.createIndexedMeshFace(indices, mesh);
+			IndexedMesh<Point3D> mesh = JeometryFactory.createIndexedMesh();
+			IndexedFace<Point3D> face = JeometryFactory.createIndexedMeshFace(indices, mesh);
 			
 			assertNotNull("Cannot instantiate indexed face using GeometryFactory.createIndexedMeshFace(int[], IndexedMesh).", face);
 			
@@ -210,7 +210,7 @@ public class GeometryFactoryMeshTest {
 	}
 	
 	/**
-	 * Testing {@link GeometryFactory#createIndexedMeshFace(List)}
+	 * Testing {@link JeometryFactory#createIndexedMeshFace(List)}
 	 */
 	@Test
 	public void createIndexedMeshFaceIntListTest() {
@@ -224,7 +224,7 @@ public class GeometryFactoryMeshTest {
 			indices.add(5);
 			indices.add(6);
 
-			IndexedFace<Point3D> face = GeometryFactory.createIndexedMeshFace(indices);
+			IndexedFace<Point3D> face = JeometryFactory.createIndexedMeshFace(indices);
 			
 			assertNotNull("Cannot instantiate indexed face using GeometryFactory.createIndexedMeshFace(List).", face);
 			
@@ -241,7 +241,7 @@ public class GeometryFactoryMeshTest {
 	}
 	
 	/**
-	 * Testing {@link GeometryFactory#createIndexedMeshFace(List, IndexedMesh)}
+	 * Testing {@link JeometryFactory#createIndexedMeshFace(List, IndexedMesh)}
 	 */
 	@Test
 	public void createIndexedMeshFaceIntListMeshTest() {
@@ -255,8 +255,8 @@ public class GeometryFactoryMeshTest {
 			indices.add(5);
 			indices.add(6);
 			
-			IndexedMesh<Point3D> mesh = GeometryFactory.createIndexedMesh();
-			IndexedFace<Point3D> face = GeometryFactory.createIndexedMeshFace(indices, mesh);
+			IndexedMesh<Point3D> mesh = JeometryFactory.createIndexedMesh();
+			IndexedFace<Point3D> face = JeometryFactory.createIndexedMeshFace(indices, mesh);
 			
 			assertNotNull("Cannot instantiate indexed face using GeometryFactory.createIndexedMeshFace(List, IndexedMesh).", face);
 			

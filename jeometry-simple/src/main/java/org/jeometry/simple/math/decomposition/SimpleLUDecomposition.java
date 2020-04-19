@@ -3,8 +3,8 @@ package org.jeometry.simple.math.decomposition;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.math.Matrix;
 import org.jeometry.math.decomposition.LUDecomposition;
 
@@ -12,7 +12,7 @@ import org.jeometry.math.decomposition.LUDecomposition;
  * A simple implementation of {@link LUDecomposition LUDecomposition}.<br><br>
  * This implantation is inspired by <a href="https://math.nist.gov/javanumerics/jama/">Jama</a> <a href="https://math.nist.gov/javanumerics/jama/doc/">LU Decomposition</a>.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} b{@value Geometry#BUILD}
+ * @version {@value Jeometry#version} b{@value Jeometry#BUILD}
  * @since 1.0.0
  */
 public class SimpleLUDecomposition implements LUDecomposition {
@@ -39,7 +39,7 @@ public class SimpleLUDecomposition implements LUDecomposition {
 	 */
 	public SimpleLUDecomposition(Matrix matrix) {
 
-		LU = GeometryFactory.createMatrix(matrix);
+		LU = JeometryFactory.createMatrix(matrix);
 
 		m = matrix.getRowsCount();
 		n = matrix.getColumnsCount();
@@ -48,7 +48,7 @@ public class SimpleLUDecomposition implements LUDecomposition {
 
 		double[] LUcolj = new double[m];
 
-		P = GeometryFactory.createMatrixEye(m);
+		P = JeometryFactory.createMatrixEye(m);
 		
 		for (int j = 0; j < n; j++) {
 
@@ -104,7 +104,7 @@ public class SimpleLUDecomposition implements LUDecomposition {
 		}
 		
 		// Compute L matrix
-		L = GeometryFactory.createMatrix(m,n);
+		L = JeometryFactory.createMatrix(m,n);
 		for (int i = 0; i < m; i++) {
 			for (int j = 0; j < n; j++) {
 				if (i > j) {
@@ -118,7 +118,7 @@ public class SimpleLUDecomposition implements LUDecomposition {
 		}
 
 		// Compute U matrix
-		U = GeometryFactory.createMatrix(n,n);
+		U = JeometryFactory.createMatrix(n,n);
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				if (i <= j) {

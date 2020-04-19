@@ -2,7 +2,7 @@ package org.jeometry.geom2D.point;
 
 import java.util.ArrayList;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.geom2D.SpatialLocalization2D;
 
 /**
@@ -10,7 +10,7 @@ import org.jeometry.geom2D.SpatialLocalization2D;
  * Within this implementation, the ({@link #getX() x}, {@link #getY() y}) coordinates are the one from the barycentre of the container. 
  * The distance from this container to another spatial localization is computed relatively to the barycentre of this container.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public class ArrayListPoint2DContainer extends ArrayList<Point2D> implements Cloneable, Point2DContainer{
@@ -18,7 +18,7 @@ public class ArrayListPoint2DContainer extends ArrayList<Point2D> implements Clo
   /**
    * 
    */
-  private static final long serialVersionUID = Geometry.BUILD;
+  private static final long serialVersionUID = Jeometry.BUILD;
 
   private double x    = Double.NaN;
   private double xMin = Double.NaN;

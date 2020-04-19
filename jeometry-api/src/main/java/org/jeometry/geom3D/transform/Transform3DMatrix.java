@@ -1,6 +1,6 @@
 package org.jeometry.geom3D.transform;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.math.Matrix;
 
 /**
@@ -20,7 +20,7 @@ import org.jeometry.math.Matrix;
  * <li><i>s</i> is the transformation scale.
  * </ul>
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} b{@value Geometry#BUILD}
+ * @version {@value Jeometry#version} b{@value Jeometry#BUILD}
  * @since 1.0.0
  */
 public interface Transform3DMatrix extends Transform3D, Matrix{

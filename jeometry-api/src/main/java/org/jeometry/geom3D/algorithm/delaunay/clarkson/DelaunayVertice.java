@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.SpatialLocalization3D;
 import org.jeometry.geom3D.mesh.indexed.IndexedFace;
 import org.jeometry.geom3D.point.Point3D;
@@ -32,7 +32,7 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 	 * Create a new vertex.
 	 */
 	public DelaunayVertice(){
-		point = GeometryFactory.createPoint3D();
+		point = JeometryFactory.createPoint3D();
 	}
 	
 	/**
@@ -42,7 +42,7 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 	 * @param z the z coordinate
 	 */
 	public DelaunayVertice(double x, double y, double z) {
-		point = GeometryFactory.createPoint3D(x, y, z);
+		point = JeometryFactory.createPoint3D(x, y, z);
 	}
 	
 	@Override

@@ -2,12 +2,12 @@ package org.jeometry.geom3D.properties;
 
 import java.awt.Color;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 
 /**
  * Specify that an object holds color information expressed as a {@link Color 3D color}
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} build {@value Geometry#BUILD}
+ * @version {@value Jeometry#version} build {@value Jeometry#BUILD}
  * @since 1.0.0
  */
 public interface Colored {

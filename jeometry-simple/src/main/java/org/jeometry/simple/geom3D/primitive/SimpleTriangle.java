@@ -2,8 +2,8 @@ package org.jeometry.simple.geom3D.primitive;
 
 import java.util.List;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.mesh.Edge;
 import org.jeometry.geom3D.mesh.Face;
 import org.jeometry.geom3D.mesh.Mesh;
@@ -16,7 +16,7 @@ import org.jeometry.geom3D.primitive.Triangle;
  * A triangle is a 3D polygon hat relies on 3 non aligned vertices.
  * @param <T> the type of underlying 3D points
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} build {@value Geometry#BUILD}
+ * @version {@value Jeometry#version} build {@value Jeometry#BUILD}
  * @since 1.0.0
  * @see Mesh
  * @see Face
@@ -28,7 +28,7 @@ public class SimpleTriangle<T extends Point3D> extends SimplePolygon3D<T> implem
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = Geometry.BUILD;
+	private static final long serialVersionUID = Jeometry.BUILD;
 
 	private Mesh<T> mesh = null;
 	
@@ -41,7 +41,7 @@ public class SimpleTriangle<T extends Point3D> extends SimplePolygon3D<T> implem
 	 * @param vertex3 the third vertex
 	 */
 	public SimpleTriangle(T vertex1, T vertex2, T vertex3) {
-		vertices = GeometryFactory.createPoint3DContainer(3);
+		vertices = JeometryFactory.createPoint3DContainer(3);
 		vertices.add(vertex1);
 		vertices.add(vertex2);
 		vertices.add(vertex3);

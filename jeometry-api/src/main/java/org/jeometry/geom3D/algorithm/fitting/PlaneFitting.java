@@ -1,7 +1,7 @@
 package org.jeometry.geom3D.algorithm.fitting;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.point.Coord3D;
 import org.jeometry.geom3D.point.Point3D;
 import org.jeometry.geom3D.point.Point3DContainer;
@@ -32,7 +32,7 @@ import org.jeometry.math.Vector;
  * 
  * Source: <a href="http://missingbytes.blogspot.com/2012/06/fitting-plane-to-point-cloud.html">http://missingbytes.blogspot.com/2012/06/fitting-plane-to-point-cloud.html</a>
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  *
  */
@@ -64,7 +64,7 @@ public class PlaneFitting {
 	    mc=mc.multiply(mc);
 	    mc=mc.multiply(mc);
 	    mc=mc.multiply(mc);
-	    Vector v = GeometryFactory.createPoint3D(1.0, 1.0, 1.0);
+	    Vector v = JeometryFactory.createPoint3D(1.0, 1.0, 1.0);
 	    Vector lastV = v;
 	    for(int i=0; i < iterationMax; i++){
 	    	v = mc.multiply(v);
@@ -76,7 +76,7 @@ public class PlaneFitting {
 	        lastV=v;
 	    }
 	    
-	    return GeometryFactory.createPoint3D(v.getVectorComponent(Coord3D.DIMENSION_X), 
+	    return JeometryFactory.createPoint3D(v.getVectorComponent(Coord3D.DIMENSION_X), 
 	    		                             v.getVectorComponent(Coord3D.DIMENSION_Y), 
 	    		                             v.getVectorComponent(Coord3D.DIMENSION_Z));
 	} 
@@ -94,10 +94,10 @@ public class PlaneFitting {
 		
 		if ((points != null) && (points.size() >= 3)){
 			
-			Point3D origin = GeometryFactory.createPoint3D(0.0d, 0.0d, 0.0d);
+			Point3D origin = JeometryFactory.createPoint3D(0.0d, 0.0d, 0.0d);
 			Point3D normal = null;
 			
-		    Point3D sum = GeometryFactory.createPoint3D(0.0d, 0.0d, 0.0d);
+		    Point3D sum = JeometryFactory.createPoint3D(0.0d, 0.0d, 0.0d);
 		    for(int i=0;i<points.size();i++){
 		    	sum.plusAffect(points.get(i));
 		    }
@@ -128,7 +128,7 @@ public class PlaneFitting {
 		        
 		    }
 		    
-		    Matrix m = GeometryFactory.createMatrix(new double[][] {{sumXX,sumXY,sumXZ},
+		    Matrix m = JeometryFactory.createMatrix(new double[][] {{sumXX,sumXY,sumXZ},
 		    	                                                    {sumXY,sumYY,sumYZ}, 
 		    	                                                    {sumXZ,sumYZ,sumZZ}});
 
@@ -143,7 +143,7 @@ public class PlaneFitting {
 		    Matrix mInverse = m.invert();
 		    normal = FindEigenVectorAssociatedWithLargestEigenValue(mInverse, iterationMax, limit);
 
-		    plane = GeometryFactory.createPlane(origin, normal);
+		    plane = JeometryFactory.createPlane(origin, normal);
 		    
 		}
 		

@@ -1,7 +1,7 @@
 package org.jeometry.simple.factory;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.factory.MathBuilderTest;
 import org.jeometry.simple.math.SimpleMatrix;
 import org.jeometry.simple.math.SimpleQuaternion;
@@ -11,7 +11,7 @@ import org.junit.BeforeClass;
 /**
  * A test suite for {@link SimpleMathBuilder} class.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public class SimpleMathBuilderTest extends MathBuilderTest {
@@ -27,6 +27,6 @@ public class SimpleMathBuilderTest extends MathBuilderTest {
 		vectorClass = SimpleVector.class;
 		quaternionClass = SimpleQuaternion.class;
 		
-		GeometryFactory.setMathBuilder(mathBuilder);
+		JeometryFactory.setMathBuilder(mathBuilder);
 	}
 }

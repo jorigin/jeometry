@@ -2,8 +2,8 @@ package org.jeometry.simple.geom3D.mesh.indexed;
 
 import java.util.List;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.mesh.Face;
 import org.jeometry.geom3D.mesh.Mesh;
 import org.jeometry.geom3D.mesh.indexed.IndexedEdge;
@@ -18,12 +18,12 @@ import org.jeometry.geom3D.primitive.Polygon3D;
  * to the underlying points that compose its vertices.
  * @param <T> The type of the underlying 3D points
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public class SimpleIndexedEdge<T extends Point3D> implements IndexedEdge<T>{
 
-	private static final long serialVersionUID = Geometry.BUILD;
+	private static final long serialVersionUID = Jeometry.BUILD;
 
 	private int[] verticesIndexes = null;
 
@@ -103,7 +103,7 @@ public class SimpleIndexedEdge<T extends Point3D> implements IndexedEdge<T>{
 
 	@Override
 	public Point3DContainer<T> getVertices() {
-		Point3DContainer<T> points = GeometryFactory.createPoint3DContainer();
+		Point3DContainer<T> points = JeometryFactory.createPoint3DContainer();
 		points.add(getVerticesSource().get(verticesIndexes[0]));
 		points.add(getVerticesSource().get(verticesIndexes[1]));
 

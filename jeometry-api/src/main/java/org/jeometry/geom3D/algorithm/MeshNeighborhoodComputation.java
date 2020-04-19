@@ -3,8 +3,8 @@ package org.jeometry.geom3D.algorithm;
 import java.util.Iterator;
 import java.util.List;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.mesh.indexed.IndexedEdge;
 import org.jeometry.geom3D.mesh.indexed.IndexedFace;
 import org.jeometry.geom3D.mesh.indexed.IndexedMesh;
@@ -15,7 +15,7 @@ import org.jeometry.geom3D.point.Point3DContainer;
 /**
  * Computation of the neighborhood of a mesh. The neighborhood is made of an adjacency map and an incidence map. 
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public class MeshNeighborhoodComputation {
@@ -40,7 +40,7 @@ public class MeshNeighborhoodComputation {
       if (pm != null){
         
         // 1. Create a mesh neighbothood
-        neighborhood = GeometryFactory.createMeshNeighborhood();
+        neighborhood = JeometryFactory.createMeshNeighborhood();
         
 
         // 2. Populate incidences

@@ -1,8 +1,8 @@
 package org.jeometry.simple.math;
 
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.math.MatrixTest;
 import org.jeometry.simple.factory.SimpleMathBuilder;
 import org.junit.BeforeClass;
@@ -10,7 +10,7 @@ import org.junit.BeforeClass;
 /**
  * A test suite dedicated to the {@link SimpleMatrix}.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public class SimpleMatrixTest extends MatrixTest {
@@ -25,6 +25,6 @@ public class SimpleMatrixTest extends MatrixTest {
 		
 		vectorClass = SimpleVector.class;
 		
-		GeometryFactory.setMathBuilder(new SimpleMathBuilder());
+		JeometryFactory.setMathBuilder(new SimpleMathBuilder());
 	}
 }

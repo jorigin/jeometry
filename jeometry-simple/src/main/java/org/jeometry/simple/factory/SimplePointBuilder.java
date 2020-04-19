@@ -1,6 +1,6 @@
 package org.jeometry.simple.factory;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.factory.PointBuilder;
 import org.jeometry.geom2D.point.Point2D;
 import org.jeometry.geom2D.point.Point2DContainer;
@@ -14,7 +14,7 @@ import org.jeometry.simple.math.SimpleVector;
 /**
  * A {@link PointBuilder point builder} implementation that provide simples pure java implementations.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public class SimplePointBuilder implements PointBuilder {
@@ -42,7 +42,7 @@ public class SimplePointBuilder implements PointBuilder {
 
 	@Override
 	public Point2DContainer createPoint2DContainer() {
-        // TODO
+        // TODO Implements SimplePointBuilder# createPoint2DContainer()
 		return null;
 	}
 

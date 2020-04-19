@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.geom3D.mesh.indexed.IndexedFace;
 import org.jeometry.geom3D.neighbor.AdjacencyMap;
 import org.jeometry.geom3D.point.Point3D;
@@ -14,7 +14,7 @@ import org.jeometry.geom3D.point.Point3D;
  * A simple implementation of an {@link AdjacencyMap adjacency map}.
  * @param <T> The type of underlying 3D points
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} build {@value Geometry#BUILD}
+ * @version {@value Jeometry#version} build {@value Jeometry#BUILD}
  * @since 1.0.0
  */
 public class SimpleIndexedAdjencyMap<T extends Point3D> implements AdjacencyMap<T> {

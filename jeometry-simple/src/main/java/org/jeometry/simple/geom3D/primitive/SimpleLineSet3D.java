@@ -3,7 +3,7 @@ package org.jeometry.simple.geom3D.primitive;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.geom3D.point.Point3D;
 import org.jeometry.geom3D.point.Point3DContainer;
 import org.jeometry.geom3D.primitive.Line3D;
@@ -13,13 +13,13 @@ import org.jeometry.geom3D.primitive.LineSet3D;
  * A simple implementation of the {@link LineSet3D} interface.
  * @param <T> The type of the underlying 3D points
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} build {@value Geometry#BUILD}
+ * @version {@value Jeometry#version} build {@value Jeometry#BUILD}
  * @since 1.0.0
  *
  */
 public class SimpleLineSet3D<T extends Point3D> implements LineSet3D<T>{
   
-  private static final long serialVersionUID = Geometry.BUILD;
+  private static final long serialVersionUID = Jeometry.BUILD;
 
   /** The points of lines composing the line set. The order of the points is very important as it's
    * specify how the lines are created

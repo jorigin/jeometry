@@ -1,7 +1,7 @@
 package org.jeometry.simple.geom3D.transform;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.point.Point3D;
 import org.jeometry.geom3D.transform.Transform3D;
 import org.jeometry.geom3D.transform.Transform3DQuaternion;
@@ -11,7 +11,7 @@ import org.jeometry.simple.math.SimpleQuaternion;
 /**
  * A transformation within a 3D space that relies on a {@link SimpleQuaternion simple quaternion}.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  *
  */
@@ -20,7 +20,7 @@ public class SimpleTransform3DQuaternion extends SimpleQuaternion implements Tra
 	@Override
 	public Point3D transform(Point3D point) {
 	  if (point != null) {
-		  return transform(GeometryFactory.createPoint3D());
+		  return transform(JeometryFactory.createPoint3D());
 	  }
 	  
 	  return null;

@@ -1,6 +1,6 @@
 package org.jeometry.math.solver;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.math.Matrix;
 import org.jeometry.math.Vector;
 
@@ -12,7 +12,7 @@ import org.jeometry.math.Vector;
  * <i>A</i>&times;<i>X</i>&nbsp;=&nbsp;<i>B</i>
  * <br>
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} b{@value Geometry#BUILD}
+ * @version {@value Jeometry#version} b{@value Jeometry#BUILD}
  * @since 1.0.0
  */
 public interface Solver {

@@ -1,7 +1,7 @@
 package org.jeometry.simple.geom3D.point;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.SpatialLocalization3D;
 import org.jeometry.geom3D.point.Coord3D;
 import org.jeometry.geom3D.point.Point3D;
@@ -10,7 +10,7 @@ import org.jeometry.math.Vector;
 /**
  * A simple implementation of the {@link Point3D} interface. The coordinates of the point are stored as 3 variables with <code>double</code> type.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} build {@value Geometry#BUILD}
+ * @version {@value Jeometry#version} build {@value Jeometry#BUILD}
  * @since 1.0.0
  */
 public class SimplePoint3D implements Point3D{
@@ -138,13 +138,13 @@ public class SimplePoint3D implements Point3D{
 	 * <i>b</i>&nbsp;=&nbsp;(<i>x<sub>b</sub></i>, <i>y<sub>b</sub></i>, <i>z<sub>b</sub></i>) 
 	 * we have:<br>
 	 * $$a\ \times\ b\ =\ ( y_a\ \times\ z_b\ -\ z_a\ \times\ y_b,\ -x_a\ \times\ z_b\ +\ z_a\ \times\ x_b,\ -x_a\ \times\ y_b\ -\ y_a\ \times\ x_b)$$
-	 * The cross product result is a new {@link Point3D Point3D} that is instantiated by the {@link GeometryFactory geometry factory} using the {@link GeometryFactory#createPoint3D(double, double, double) createPoint3D() method}.
+	 * The cross product result is a new {@link Point3D Point3D} that is instantiated by the {@link JeometryFactory geometry factory} using the {@link JeometryFactory#createPoint3D(double, double, double) createPoint3D() method}.
 	 * @param point the second operand of the cross product.
 	 * @return the cross product between this point and the given one.
 	 */
 	@Override
 	public Point3D cross(Point3D point){
-		return GeometryFactory.createPoint3D( getY() * point.getZ() - getZ() * point.getY(), 
+		return JeometryFactory.createPoint3D( getY() * point.getZ() - getZ() * point.getY(), 
 				-getX() * point.getZ() + getZ() * point.getX(), 
 				getX() * point.getY() - getY() * point.getX());
 	}
@@ -158,7 +158,7 @@ public class SimplePoint3D implements Point3D{
 	 * we have:<br>
 	 * $$a\ \times\ b\ =\ ( y_a\ \times\ z_b\ -\ z_a\ \times\ y_b,\ -x_a\ \times\ z_b\ +\ z_a\ \times\ x_b,\ -x_a\ \times\ y_b\ -\ y_a\ \times\ x_b)$$
 	 * The result the cross product is stored within the given <code>result</code> {@link Point3D}. The return value of this method is a reference on the <code>result</code> parameter. 
-	 * If the parameter is <code>null</code>, a new point is created and returned as the cross product result. The instantiation of the result is done by the {@link GeometryFactory geometry factory} using the {@link GeometryFactory#createPoint3D(double, double, double) createPoint3D() method}.
+	 * If the parameter is <code>null</code>, a new point is created and returned as the cross product result. The instantiation of the result is done by the {@link JeometryFactory geometry factory} using the {@link JeometryFactory#createPoint3D(double, double, double) createPoint3D() method}.
 	 * @param point the second operand of the cross product.
 	 * @param result the result of the cross product.
 	 * @return the cross product between this point and the given one.
@@ -203,7 +203,7 @@ public class SimplePoint3D implements Point3D{
 
 	@Override
 	public Point3D orthogonal() {
-		return orthogonal(GeometryFactory.createPoint3D());
+		return orthogonal(JeometryFactory.createPoint3D());
 	}
 
 	@Override
@@ -267,7 +267,7 @@ public class SimplePoint3D implements Point3D{
 	 * Let <i>a</i> and <i>b</i> be two vector, their sum, denoted <i>a</i>&nbsp;+&nbsp;<i>b</i>, is a vector such that:<br>
 	 * $$ a + b\ =\ (x_a + x_b,\ y_a + y_b,\ z_a + z_b)$$ 
 	 * If this point has to be modified, the {@link #plusAffect(Point3D)} method can be used.<br><br>
-	 * The returned object is a new {@link Point3D IPoint3D} that is instantiated by the {@link GeometryFactory geometry factory} using the {@link GeometryFactory#createPoint3D(double, double, double) createPoint3D(double, double, double)} method.
+	 * The returned object is a new {@link Point3D IPoint3D} that is instantiated by the {@link JeometryFactory geometry factory} using the {@link JeometryFactory#createPoint3D(double, double, double) createPoint3D(double, double, double)} method.
 	 * @param point the point to sum with the current point.
 	 * @return the sum of the vector represented by this point and the vector represented by the given one.
 	 * @see #plus(Point3D, Point3D)
@@ -276,7 +276,7 @@ public class SimplePoint3D implements Point3D{
 	 */
 	@Override
 	public Point3D plus(Point3D point) {
-		return GeometryFactory.createPoint3D(getX()+point.getX(), getY()+point.getY(), getZ()+point.getZ());
+		return JeometryFactory.createPoint3D(getX()+point.getX(), getY()+point.getY(), getZ()+point.getZ());
 	}
 
 	@Override
@@ -292,7 +292,7 @@ public class SimplePoint3D implements Point3D{
 	 * Let <i>a</i> be a vector and let <i>&lambda;</i> be a scalar, the sum, denoted <i>a</i>&nbsp;+&nbsp;<i>&lambda;</i>, is a vector such that:<br>
 	 * $$ a + b\ =\ (x_a + x_b,\ y_a + y_b,\ z_a + z_b)$$ 
 	 * If this point has to be modified, the {@link #plusAffect(double)} method can be used.<br><br>
-	 * The returned object is a new {@link Point3D IPoint3D} that is instantiated by the {@link GeometryFactory geometry factory} using the {@link GeometryFactory#createPoint3D(double, double, double) createPoint3D(double, double, double)} method.
+	 * The returned object is a new {@link Point3D IPoint3D} that is instantiated by the {@link JeometryFactory geometry factory} using the {@link JeometryFactory#createPoint3D(double, double, double) createPoint3D(double, double, double)} method.
 	 * @param scalar the scalar to sum.
 	 * @return  the sum of the vector represented by this point and the given <code>scalar</code>.
 	 * @see #plus(Point3D)
@@ -301,7 +301,7 @@ public class SimplePoint3D implements Point3D{
 	 */
 	@Override
 	public Point3D plus(double scalar) {
-		return GeometryFactory.createPoint3D(getX()+scalar, getY()+scalar, getZ()+scalar);
+		return JeometryFactory.createPoint3D(getX()+scalar, getY()+scalar, getZ()+scalar);
 	}
 
 	@Override
@@ -317,7 +317,7 @@ public class SimplePoint3D implements Point3D{
 	 * Let <i>a</i> and <i>b</i> be two vector, their difference, denoted <i>a</i>&nbsp;-&nbsp;<i>b</i>, is a vector such that:<br>
 	 * $$ a - b\ =\ (x_a - x_b,\ y_a - y_b,\ z_a - z_b)$$ 
 	 * If this point has to be modified, the {@link #minusAffect(Point3D)} method can be used.<br><br>
-	 * The returned object is a new {@link Point3D IPoint3D} that is instantiated by the {@link GeometryFactory geometry factory} using the {@link GeometryFactory#createPoint3D(double, double, double) createPoint3D(double, double, double)} method.
+	 * The returned object is a new {@link Point3D IPoint3D} that is instantiated by the {@link JeometryFactory geometry factory} using the {@link JeometryFactory#createPoint3D(double, double, double) createPoint3D(double, double, double)} method.
 	 * @param point the point to differentiate with the current point.
 	 * @return the difference between the vector represented by this point and the vector represented by the given one.
 	 * @see #minus(Point3D, Point3D)
@@ -326,7 +326,7 @@ public class SimplePoint3D implements Point3D{
 	 */
 	@Override
 	public Point3D minus(Point3D point) {
-		return GeometryFactory.createPoint3D(getX()-point.getX(), getY()-point.getY(), getZ()-point.getZ());
+		return JeometryFactory.createPoint3D(getX()-point.getX(), getY()-point.getY(), getZ()-point.getZ());
 	}
 
 	@Override
@@ -342,7 +342,7 @@ public class SimplePoint3D implements Point3D{
 	 * Let <i>a</i> be a vector and let <i>&lambda;</i> be a scalar, the difference, denoted <i>a</i>&nbsp;-&nbsp;<i>&lambda;</i>, is a vector such that:<br>
 	 * $$ a - b\ =\ (x_a - x_b,\ y_a - y_b,\ z_a - z_b)$$ 
 	 * If this point has to be modified, the {@link #minusAffect(double)} method can be used.<br><br>
-	 * The returned object is a new {@link Point3D IPoint3D} that is instantiated by the {@link GeometryFactory geometry factory} using the {@link GeometryFactory#createPoint3D(double, double, double) createPoint3D(double, double, double)} method.
+	 * The returned object is a new {@link Point3D IPoint3D} that is instantiated by the {@link JeometryFactory geometry factory} using the {@link JeometryFactory#createPoint3D(double, double, double) createPoint3D(double, double, double)} method.
 	 * @param scalar the scalar to differentiate.
 	 * @return the difference between the vector represented by this point and the given <code>scalar</code>.
 	 * @see #minus(Point3D)
@@ -351,7 +351,7 @@ public class SimplePoint3D implements Point3D{
 	 */
 	@Override
 	public Point3D minus(double scalar) {
-		return GeometryFactory.createPoint3D(getX()-scalar, getY()-scalar, getZ()-scalar);
+		return JeometryFactory.createPoint3D(getX()-scalar, getY()-scalar, getZ()-scalar);
 	}
 
 	@Override
@@ -399,14 +399,14 @@ public class SimplePoint3D implements Point3D{
 	 * Let <i>a</i> be a vector and let <i>&lambda;</i> be a scalar, the product, denoted <i>a</i>&nbsp;&times;&nbsp;<i>&lambda;</i>, is a vector such that:<br>
 	 * $$ a \times \lambda\ =\ (x \times \lambda,\ y \times \lambda,\ z \times \lambda)$$
 	 * If this point has to be modified, the {@link #multAffect(double)} method can be used.<br><br>
-	 * The returned object is a new {@link Point3D IPoint3D} that is instantiated by the {@link GeometryFactory geometry factory} using the {@link GeometryFactory#createPoint3D(double, double, double) createPoint3D(double, double, double)} method.
+	 * The returned object is a new {@link Point3D IPoint3D} that is instantiated by the {@link JeometryFactory geometry factory} using the {@link JeometryFactory#createPoint3D(double, double, double) createPoint3D(double, double, double)} method.
 	 * @param scalar the scalar to multiply.
 	 * @return the product of the vector represented by this point and the scalar given in parameter.
 	 * @see #mult(double, Point3D)
 	 */
 	@Override
 	public Point3D mult(double scalar) {
-		return GeometryFactory.createPoint3D(getX()*scalar, getY()*scalar, getZ()*scalar);
+		return JeometryFactory.createPoint3D(getX()*scalar, getY()*scalar, getZ()*scalar);
 	}
 
 	@Override
@@ -430,14 +430,14 @@ public class SimplePoint3D implements Point3D{
 	 * Let <i>a</i> be a vector and let <i>&lambda;</i> be a scalar, the division, denoted <i>a</i>&nbsp;/&nbsp;<i>&lambda;</i>, is a vector such that:<br>
 	 * $$ \frac{a}{\lambda}\ =\ (\frac{x}{\lambda},\ \frac{y}{\lambda},\ \frac{z}{\lambda})$$
 	 * If this point has to be modified, the {@link #divideAffect(double)} method can be used.<br><br>
-	 * The returned object is a new {@link Point3D IPoint3D} that is instantiated by the {@link GeometryFactory geometry factory} using the {@link GeometryFactory#createPoint3D(double, double, double) createPoint3D(double, double, double)} method.
+	 * The returned object is a new {@link Point3D IPoint3D} that is instantiated by the {@link JeometryFactory geometry factory} using the {@link JeometryFactory#createPoint3D(double, double, double) createPoint3D(double, double, double)} method.
 	 * @param scalar the scalar to divide.
 	 * @return the division of the vector represented by this point and the scalar given in parameter.
 	 * @see #divide(double, Point3D)
 	 */
 	@Override
 	public Point3D divide(double scalar) {
-		return GeometryFactory.createPoint3D(getX()/scalar, getY()/scalar, getZ()/scalar);
+		return JeometryFactory.createPoint3D(getX()/scalar, getY()/scalar, getZ()/scalar);
 	}
 
 	@Override
@@ -460,7 +460,7 @@ public class SimplePoint3D implements Point3D{
 	/**
 	 * Create a new 3D point with all of its coordinates set to <code>Double.Nan</code>.<br>
 	 * The direct instantiation of an {@link Point3D} implementation using its own constructors is not recommended. 
-	 * Prefer using the {@link GeometryFactory geometry factory} to create instances.
+	 * Prefer using the {@link JeometryFactory geometry factory} to create instances.
 	 * @see #SimplePoint3D(double, double, double)
 	 */
 	public SimplePoint3D(){
@@ -472,7 +472,7 @@ public class SimplePoint3D implements Point3D{
 
 	/**
 	 * Create a new 3D point with given coordinates.<br>
-	 * The direct instantiation of an {@link Point3D} implementation using its own constructors is not recommended. Prefer using the {@link GeometryFactory geometry factory} to create instances.
+	 * The direct instantiation of an {@link Point3D} implementation using its own constructors is not recommended. Prefer using the {@link JeometryFactory geometry factory} to create instances.
 	 * @param x the point coordinate along the <i>X</i> axis.
 	 * @param y the point coordinate along the <i>Y</i> axis.
 	 * @param z the point coordinate along the <i>Z</i> axis.

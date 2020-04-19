@@ -3,7 +3,7 @@ package org.jeometry.simple.geom3D.primitive.indexed;
 import java.util.Iterator;
 import java.util.List;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.geom3D.mesh.Face;
 import org.jeometry.geom3D.mesh.indexed.IndexedFace;
 import org.jeometry.geom3D.point.Point3D;
@@ -18,12 +18,12 @@ import org.jeometry.simple.geom3D.mesh.indexed.SimpleIndexedMesh;
  * Face naming convention are such that face <code>n</code> is facing (and is not containing) vertex <code>n</code>. 
  * @param <T> The type of underlying 3D points 
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public class SimpleIndexedTetrahedron<T extends Point3D> extends SimpleIndexedMesh<T> implements IndexedTetrahedron<T> {
   
-  private static final long serialVersionUID = Geometry.BUILD;
+  private static final long serialVersionUID = Jeometry.BUILD;
 
   private int[] verticesIndex = null;
   

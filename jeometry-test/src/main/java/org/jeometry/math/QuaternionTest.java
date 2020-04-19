@@ -5,8 +5,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -29,7 +29,7 @@ import org.junit.Test;
  * If the object provided by the geometry factory are not from the same classes as the declared ones, tests will fail.
  * </p>
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} b{@value Geometry#BUILD}
+ * @version {@value Jeometry#version} b{@value Jeometry#BUILD}
  * @since 1.0.0
  */
 public class QuaternionTest {
@@ -104,7 +104,7 @@ public class QuaternionTest {
 		
 		quaternionRefComponents = new double[] {quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD};
 		
-		quaternionRef = GeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+		quaternionRef = JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
 		
 		quaternionRefNormSquare = quaternionRefA*quaternionRefA + quaternionRefB*quaternionRefB + quaternionRefC*quaternionRefC + quaternionRefD*quaternionRefD;
 		quaternionRefNorm       = Math.sqrt(quaternionRefNormSquare);
@@ -116,14 +116,14 @@ public class QuaternionTest {
 		
 		quaternionTargetComponents = new double[] {quaternionTargetA, quaternionTargetB, quaternionTargetC, quaternionTargetD};
 		
-		quaternionTarget =  GeometryFactory.createQuaternion(quaternionTargetA, quaternionTargetB, quaternionTargetC, quaternionTargetD);
+		quaternionTarget =  JeometryFactory.createQuaternion(quaternionTargetA, quaternionTargetB, quaternionTargetC, quaternionTargetD);
 		
 		quaternionMultA = quaternionRefA * quaternionTargetA - quaternionRefB * quaternionTargetB - quaternionRefC * quaternionTargetC - quaternionRefD * quaternionTargetD;
 		quaternionMultB = quaternionRefA * quaternionTargetB + quaternionRefB * quaternionTargetA + quaternionRefC * quaternionTargetD - quaternionRefD * quaternionTargetC;
 		quaternionMultC = quaternionRefA * quaternionTargetC - quaternionRefB * quaternionTargetD + quaternionRefC * quaternionTargetA + quaternionRefD * quaternionTargetB;
 		quaternionMultD = quaternionRefA * quaternionTargetD + quaternionRefB * quaternionTargetC - quaternionRefC * quaternionTargetB + quaternionRefD * quaternionTargetA;
 
-		quaternionMultResult =  GeometryFactory.createQuaternion(quaternionMultA, quaternionMultB, quaternionMultC, quaternionMultD);	
+		quaternionMultResult =  JeometryFactory.createQuaternion(quaternionMultA, quaternionMultB, quaternionMultC, quaternionMultD);	
 		
 		
 		quaternionRefInvertedA = quaternionRefA / quaternionRefNormSquare;
@@ -131,14 +131,14 @@ public class QuaternionTest {
 		quaternionRefInvertedC = -1.0d * quaternionRefC / quaternionRefNormSquare;
 		quaternionRefInvertedD = -1.0d * quaternionRefD / quaternionRefNormSquare;
 		
-		quaternionRefInvertedResult =  GeometryFactory.createQuaternion(quaternionRefInvertedA, quaternionRefInvertedB, quaternionRefInvertedC, quaternionRefInvertedD);	
+		quaternionRefInvertedResult =  JeometryFactory.createQuaternion(quaternionRefInvertedA, quaternionRefInvertedB, quaternionRefInvertedC, quaternionRefInvertedD);	
 		
 		quaternionRefConjugateA = quaternionRefA;
 		quaternionRefConjugateB = -1.0d*quaternionRefB;
 		quaternionRefConjugateC = -1.0d*quaternionRefC;
 		quaternionRefConjugateD = -1.0d*quaternionRefD;
 		
-		quaternionRefConjugateResult =  GeometryFactory.createQuaternion(quaternionRefConjugateA, quaternionRefConjugateB, quaternionRefConjugateC, quaternionRefConjugateD);	
+		quaternionRefConjugateResult =  JeometryFactory.createQuaternion(quaternionRefConjugateA, quaternionRefConjugateB, quaternionRefConjugateC, quaternionRefConjugateD);	
 	}
 	
 	/**
@@ -148,7 +148,7 @@ public class QuaternionTest {
 	public void constructorDefaultTest() {
 		Quaternion q = null;
 		try {
-			q =  GeometryFactory.createQuaternion();
+			q =  JeometryFactory.createQuaternion();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -168,7 +168,7 @@ public class QuaternionTest {
 	public void constructorParametersTest() {
 		Quaternion q = null;
 		try {
-			q =  GeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -189,7 +189,7 @@ public class QuaternionTest {
 	public void setComponentsTest() {
 		Quaternion q = null;
 		try {
-			q =  GeometryFactory.createQuaternion();
+			q =  JeometryFactory.createQuaternion();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -210,7 +210,7 @@ public class QuaternionTest {
 	public void getVectorComponentsTest() {
 		Quaternion q = null;
 		try {
-			q =  GeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -236,7 +236,7 @@ public class QuaternionTest {
 	public void getVectorComponentsResultTest() {
 		Quaternion q = null;
 		try {
-			q =  GeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -266,7 +266,7 @@ public class QuaternionTest {
 	public void accessorScalarTest() {
 		Quaternion q = null;
 		try {
-			q =  GeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -286,7 +286,7 @@ public class QuaternionTest {
 	public void accessorITest() {
 		Quaternion q = null;
 		try {
-			q =  GeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -306,7 +306,7 @@ public class QuaternionTest {
 	public void accessorJTest() {
 		Quaternion q = null;
 		try {
-			q =  GeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -326,7 +326,7 @@ public class QuaternionTest {
 	public void accessorKTest() {
 		Quaternion q = null;
 		try {
-			q =  GeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -347,7 +347,7 @@ public class QuaternionTest {
 	public void normSquareTest() {
 		Quaternion q = null;
 		try {
-			q =  GeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -367,7 +367,7 @@ public class QuaternionTest {
 	public void normTest() {
 		Quaternion q = null;
 		try {
-			q =  GeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -387,7 +387,7 @@ public class QuaternionTest {
 	public void multTest() {
 		Quaternion q = null;
 		try {
-			q =  GeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -425,7 +425,7 @@ public class QuaternionTest {
 	public void multResultTest() {
 		Quaternion q = null;
 		try {
-			q =  GeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -433,7 +433,7 @@ public class QuaternionTest {
 
 		Quaternion result = null;
 		try {
-			result =  GeometryFactory.createQuaternion();
+			result =  JeometryFactory.createQuaternion();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -475,7 +475,7 @@ public class QuaternionTest {
 	public void multAffectTest() {
 		Quaternion q = null;
 		try {
-			q =  GeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -512,7 +512,7 @@ public class QuaternionTest {
 	public void invertQuaternionTest() {
 		Quaternion q = null;
 		try {
-			q =  GeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -549,7 +549,7 @@ public class QuaternionTest {
 	public void invertResultTest() {
 		Quaternion q = null;
 		try {
-			q =  GeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -557,7 +557,7 @@ public class QuaternionTest {
 
 		Quaternion result = null;
 		try {
-			result =  GeometryFactory.createQuaternion();
+			result =  JeometryFactory.createQuaternion();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -597,7 +597,7 @@ public class QuaternionTest {
 	public void invertAffectTest() {
 		Quaternion q = null;
 		try {
-			q =  GeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -635,7 +635,7 @@ public class QuaternionTest {
 	public void conjugateQuaternionTest() {
 		Quaternion q = null;
 		try {
-			q =  GeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -672,7 +672,7 @@ public class QuaternionTest {
 	public void conjugateResultTest() {
 		Quaternion q = null;
 		try {
-			q =  GeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -680,7 +680,7 @@ public class QuaternionTest {
 
 		Quaternion result = null;
 		try {
-			result =  GeometryFactory.createQuaternion();
+			result =  JeometryFactory.createQuaternion();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -720,7 +720,7 @@ public class QuaternionTest {
 	public void conjugateAffectTest() {
 		Quaternion q = null;
 		try {
-			q =  GeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);

@@ -2,14 +2,14 @@ package org.jeometry.geom3D.point;
 
 import java.util.Iterator;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.geom3D.SpatialLocalization3D;
 
 /**
  * A container dedicated to the management of {@link Point3D 3D points}. Basically, this interface describes a list of 3D points.
  * @param <T> the specific type of the {@link Point3D 3D points}
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} build {@value Geometry#BUILD}
+ * @version {@value Jeometry#version} build {@value Jeometry#BUILD}
  * @since 1.0.0
  */
 public interface Point3DContainer<T extends Point3D> extends Iterable<T>, SpatialLocalization3D{

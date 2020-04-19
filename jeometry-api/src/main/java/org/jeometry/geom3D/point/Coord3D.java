@@ -1,12 +1,12 @@
 package org.jeometry.geom3D.point;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.math.Vector;
 
 /**
  * A coordinates within a 3D space. For computational purposes, this representation is homogeneous and store an homogeneous factor.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} build {@value Geometry#BUILD}
+ * @version {@value Jeometry#version} build {@value Jeometry#BUILD}
  * @since 1.0.0
  */
 public interface Coord3D extends Vector {

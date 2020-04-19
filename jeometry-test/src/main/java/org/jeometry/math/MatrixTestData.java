@@ -1,11 +1,11 @@
 package org.jeometry.math;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 
 /**
  * A set of matrix data.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  *
  */
@@ -340,5 +340,64 @@ public class MatrixTestData {
             {0                , 0.407832884117875, 0                , 0},
             {0                , 0                , 0.848229155477913, 0},
             {0                , 0                , 0                , 2.536162474486201}
+      };
+      
+      /**
+       * This matrix is dedicated to the testing of the Singular Values (SVD) decomposition.
+       * @see #DECOMPOSITION_SVD_U
+       * @see #DECOMPOSITION_SVD_S
+       * @see #DECOMPOSITION_SVD_V
+       */
+      public static final double[][] DECOMPOSITION_SVD_INPUT = new double[][] {
+    	  { 17, 24,  1,  8, 15},
+    	  { 23,  5,  7, 14, 16},
+    	  {  4,  6, 13, 20, 22},
+    	  { 10, 12, 19, 21,  3},
+    	  { 11, 18, 25,  2,  9}
+      };
+      
+      /**
+       * This matrix is the <i>U</i> matrix obtained after the Singular Values (SVD) decomposition of the {@link #DECOMPOSITION_SVD_INPUT input matrix}.
+       * @see #DECOMPOSITION_SVD_INPUT
+       * @see #DECOMPOSITION_SVD_S
+       * @see #DECOMPOSITION_SVD_V
+       */
+      public static final double[][] DECOMPOSITION_SVD_U = new double[][] {
+    	  { 0.44721359549995793928183473374626,     0.54563487312996778094350033489632,  0.51166727360169272880036685827406, -0.19543950758485479560047750383079,   -0.44975836315119696024624071783596},
+    	  { 0.44721359549995793928183473374626,     0.44975836315119696024624071783596, -0.19543950758485479560047750383079,  0.51166727360169272880036685827406,    0.54563487312996778094350033489632},
+    	  { 0.44721359549995793928183473374626, -3.6102493598044168843311881307351e-44, -0.63245553203367586639977870888654, -0.63245553203367586639977870888654, 1.7037410954189828268483469351314e-49},
+    	  { 0.44721359549995793928183473374626,    -0.44975836315119696024624071783596, -0.19543950758485479560047750383079,  0.51166727360169272880036685827406,   -0.54563487312996778094350033489632},
+    	  { 0.44721359549995793928183473374626,    -0.54563487312996778094350033489632,  0.51166727360169272880036685827406, -0.19543950758485479560047750383079,    0.44975836315119696024624071783596}
+
+      };
+      
+      /**
+       * This matrix is the <i>S</i> matrix obtained after the Singular Values (SVD) decomposition of the {@link #DECOMPOSITION_SVD_INPUT input matrix}.
+       * @see #DECOMPOSITION_SVD_INPUT
+       * @see #DECOMPOSITION_SVD_U
+       * @see #DECOMPOSITION_SVD_V
+       */
+      public static final double[][] DECOMPOSITION_SVD_S = new double[][] {
+    	  { 65.0,                                 0,                                 0,                                 0,                                 0},
+    	  {    0, 22.547088685879657984674226396467,                                 0,                                 0,                                 0},
+    	  {    0,                                 0, 21.687425355202639411956035427154,                                 0,                                 0},
+    	  {    0,                                 0,                                 0, 13.403565997991492328585154445703,                                 0},
+    	  {    0,                                 0,                                 0,                                 0, 11.900789544861194527298509087321}
+
+      };
+      
+      /**
+       * This matrix is the <i>V</i> matrix obtained after the Singular Values (SVD) decomposition of the {@link #DECOMPOSITION_SVD_INPUT input matrix}.
+       * @see #DECOMPOSITION_SVD_INPUT
+       * @see #DECOMPOSITION_SVD_U
+       * @see #DECOMPOSITION_SVD_S
+       */
+      public static final double[][] DECOMPOSITION_SVD_V = new double[][] {
+    	  { 0.44721359549995793928183473374626,   0.40451643610455471341979148603303,    0.24656489623973259874361786663113,     0.6627260006535807384660483816136,  0.36927828655536965366206505316499},
+    	  { 0.44721359549995793928183473374626, 0.0055661597144479252799165035570114,     0.6627260006535807384660483816136,   -0.24656489623973259874361786663113, -0.54769427408549129087991810164138},
+    	  { 0.44721359549995793928183473374626,  -0.82016519163800527739941597918008, 1.0263687996129757425478176433711e-49, 2.7831673927115195568141887434356e-44,  0.35683197506024327443570609695277},
+    	  { 0.44721359549995793928183473374626, 0.0055661597144479252799165035570114,    -0.6627260006535807384660483816136,    0.24656489623973259874361786663113, -0.54769427408549129087991810164138},
+    	  { 0.44721359549995793928183473374626,   0.40451643610455471341979148603303,   -0.24656489623973259874361786663113,    -0.6627260006535807384660483816136,  0.36927828655536965366206505316499}
+    			   
       };
 }

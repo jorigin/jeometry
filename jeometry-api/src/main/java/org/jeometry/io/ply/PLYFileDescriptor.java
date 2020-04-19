@@ -2,12 +2,12 @@ package org.jeometry.io.ply;
 
 import java.util.Collection;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 
 /**
  * a PLY file descriptor. This class contains metadata that describes a PLY input.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public class PLYFileDescriptor {

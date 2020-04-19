@@ -4,8 +4,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.Geom3D;
 import org.jeometry.geom3D.mesh.Edge;
 import org.jeometry.geom3D.mesh.Face;
@@ -42,7 +42,7 @@ import org.jeometry.geom3D.primitive.Polygon3D;
  * </li>
  * </ul>
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  *
  */
@@ -149,7 +149,7 @@ public class QuickHull {
     }
     
     // Deuxieme parcours des points pour determiner les maximaux / minimaux
-    aklToussaintPoints = GeometryFactory.createPoint3DContainer();
+    aklToussaintPoints = JeometryFactory.createPoint3DContainer();
     for(int i = 1; i < points.size(); i++ ){
       pt = points.get(i);
       
@@ -198,7 +198,7 @@ public class QuickHull {
       convexHull = computeConvexHull(aklToussaintPoints, false);
       
       if (convexHull != null){
-        filteredVertices = GeometryFactory.createPoint3DContainer();
+        filteredVertices = JeometryFactory.createPoint3DContainer();
         for(int i = 0; i < points.size(); i++){
           pt = points.get(i);
           if (!Geom3D.contains(convexHull, pt)){
@@ -238,7 +238,7 @@ public class QuickHull {
     List<Face<T>> visFaces = new LinkedList<Face<T>>();
 
     // Points formant une face triangulaire
-    Point3DContainer<T> points = GeometryFactory.createPoint3DContainer(3);
+    Point3DContainer<T> points = JeometryFactory.createPoint3DContainer(3);
 
     // Variables de parcours de l'ensemble des faces
     Iterator<? extends Face<T>> iter = convexHull.getFaces().iterator();
@@ -272,7 +272,7 @@ public class QuickHull {
       points.add(edge.getVertices().get(1));
       points.add(vertex);
       
-      convexHull.addFace(GeometryFactory.createMeshFace(points));
+      convexHull.addFace(JeometryFactory.createMeshFace(points));
     }
     
     visEdges = null;
@@ -295,9 +295,9 @@ public class QuickHull {
     T v1 = p3dm.get(0);
     T v2 = p3dm.get(1);
     T v3 = p3dm.get(2);
-    Edge<T> e1 = GeometryFactory.createMeshEdge(convexHull, v1, v2);
-    Edge<T> e2 = GeometryFactory.createMeshEdge(convexHull, v2, v3);
-    Edge<T> e3 = GeometryFactory.createMeshEdge(convexHull, v3, v1);
+    Edge<T> e1 = JeometryFactory.createMeshEdge(convexHull, v1, v2);
+    Edge<T> e2 = JeometryFactory.createMeshEdge(convexHull, v2, v3);
+    Edge<T> e3 = JeometryFactory.createMeshEdge(convexHull, v3, v1);
     updateVisibleEdges(e1, visibleEdges);
     updateVisibleEdges(e2, visibleEdges);
     updateVisibleEdges(e3, visibleEdges);
@@ -364,7 +364,7 @@ public class QuickHull {
   public static <T extends Point3D> Mesh<T> computeConvexHull(Point3DContainer<T> points, boolean useAklToussaint){
 
     // Le polyedre convexe
-    Mesh<T> convexHull = GeometryFactory.createMesh();
+    Mesh<T> convexHull = JeometryFactory.createMesh();
     
     if (points.size() < 4){
       return null;
@@ -413,7 +413,7 @@ public class QuickHull {
           pt0 = v1;
           pt1 = v2;
           pt2 = v3;
-          t = GeometryFactory.createMeshTriangle(v1, v2, v3);
+          t = JeometryFactory.createMeshTriangle(v1, v2, v3);
           break;
         }
       }
@@ -446,23 +446,23 @@ public class QuickHull {
             tv3 = tv;
           }
 
-          pointsFace = GeometryFactory.createPoint3DContainer(3);
+          pointsFace = JeometryFactory.createPoint3DContainer(3);
           pointsFace.add(tv3);
           pointsFace.add(tv2);
           pointsFace.add(v4);
-          convexHull.addFace(GeometryFactory.createMeshFace(pointsFace));
+          convexHull.addFace(JeometryFactory.createMeshFace(pointsFace));
 
-          pointsFace = GeometryFactory.createPoint3DContainer(3);
+          pointsFace = JeometryFactory.createPoint3DContainer(3);
           pointsFace.add(tv2);
           pointsFace.add(tv1);
           pointsFace.add(v4);
-          convexHull.addFace(GeometryFactory.createMeshFace(pointsFace));
+          convexHull.addFace(JeometryFactory.createMeshFace(pointsFace));
 
-          pointsFace = GeometryFactory.createPoint3DContainer(3);
+          pointsFace = JeometryFactory.createPoint3DContainer(3);
           pointsFace.add(tv1);
           pointsFace.add(tv3);
           pointsFace.add(v4); 
-          convexHull.addFace(GeometryFactory.createMeshFace(pointsFace));
+          convexHull.addFace(JeometryFactory.createMeshFace(pointsFace));
           break;
         }
       }

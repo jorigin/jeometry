@@ -1,6 +1,6 @@
 package org.jeometry.io.ply;
 
-import static org.jeometry.Geometry.logger; 
+import static org.jeometry.Jeometry.logger; 
 
 import java.awt.Color;
 import java.io.BufferedInputStream;
@@ -24,8 +24,8 @@ import java.util.logging.Level;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom2D.point.Point2D;
 import org.jeometry.geom2D.point.Point2DContainer;
 import org.jeometry.geom3D.mesh.Face;
@@ -58,9 +58,9 @@ import org.jorigin.property.HandleUserProperties;
  * <li>{@link IndexedTriangleMesh an indexed triangle mesh} if the PLY file contains vertex and faces information and if all faces are triangular;
  * </ul>
  * The class used to wrap PLY vertex into point can be set by using {@link #setPoint3DClass(Class)} method.
- * @param <T> the type of the underlying 3D points. It should be ensured that 3D point created from from {@link GeometryFactory geometry factory} delivers objects that are compatible with the type <code>T</code>
+ * @param <T> the type of the underlying 3D points. It should be ensured that 3D point created from from {@link JeometryFactory geometry factory} delivers objects that are compatible with the type <code>T</code>
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public class PLYReader<T extends Point3D> {
@@ -268,7 +268,7 @@ public class PLYReader<T extends Point3D> {
   /**
    * Get the class that has to be instantiated to represent 3D points. 
    * The given <code>pointClass</code> is an implementation of {@link Point3D} interface. 
-   * If this method return <code>null</code>, points are instantiated through {@link GeometryFactory#createPoint3D() GeometryFactory.createPoint3D()} method.
+   * If this method return <code>null</code>, points are instantiated through {@link JeometryFactory#createPoint3D() GeometryFactory.createPoint3D()} method.
    * 
    * @return the class that has to be instantiated to represent the vertices. 
    * @see #setPoint3DClass(Class)
@@ -280,7 +280,7 @@ public class PLYReader<T extends Point3D> {
   /**
    * Set the class that has to be instantiated to represent the vertices. 
    * The given <code>pointClass</code> has to be an implementation of {@link Point3D} interface. 
-   * If this method return <code>null</code>, points are instantiated through {@link GeometryFactory#createPoint3D() GeometryFactory.createPoint3D()} method.
+   * If this method return <code>null</code>, points are instantiated through {@link JeometryFactory#createPoint3D() GeometryFactory.createPoint3D()} method.
    * 
    * @param pointClass the class that has to be instantiated to represent the vertices. 
    * @see #getPoint3DClass()
@@ -619,14 +619,14 @@ public Object read(Reader reader) throws IOException {
             	
               if (getPoint3DClass() != null) {
                 if (Point3D.class.isAssignableFrom(getPoint3DClass())) {
-                  points = GeometryFactory.createPoint3DContainer(vertexCount);
+                  points = JeometryFactory.createPoint3DContainer(vertexCount);
                 } else if (Point2D.class.isAssignableFrom(getPoint3DClass())) {
-                  Geometry.logger.log(Level.WARNING, "2D point container read from PLY is not yet implemented.");
+                  Jeometry.logger.log(Level.WARNING, "2D point container read from PLY is not yet implemented.");
                   System.err.println("2D point container read from PLY is not yet implemented.");
                   return null;
                 }
               } else {
-                points = GeometryFactory.createPoint3DContainer(vertexCount);
+                points = JeometryFactory.createPoint3DContainer(vertexCount);
               }
               
               ret = points;
@@ -761,7 +761,7 @@ public Object read(Reader reader) throws IOException {
       return ret;
     } else if (geometryType == GEOM_POLYHEDRON) {
       if (isTriangleMesh) {
-        mesh = GeometryFactory.createIndexedTriangleMesh((Point3DContainer<T>)ret);
+        mesh = JeometryFactory.createIndexedTriangleMesh((Point3DContainer<T>)ret);
         
         ((IndexedTriangleMesh<T>) mesh).setVerticesSource((Point3DContainer<T>)ret);
         
@@ -771,7 +771,7 @@ public Object read(Reader reader) throws IOException {
         	}
         }
       } else {
-        mesh = GeometryFactory.createIndexedMesh();
+        mesh = JeometryFactory.createIndexedMesh();
         
         if (mesh != null) {
         	((IndexedMesh<T>)mesh).setVerticesSource((Point3DContainer<T>)ret);
@@ -1275,30 +1275,30 @@ public Object read(Reader reader) throws IOException {
         if (getPoint3DClass() != null) {
           if (Point3D.class.isAssignableFrom(getPoint3DClass())) {
             if (fileDescriptor.getVertexCount() > 0) {
-              points3D = GeometryFactory.createPoint3DContainer(fileDescriptor.getVertexCount());
+              points3D = JeometryFactory.createPoint3DContainer(fileDescriptor.getVertexCount());
             } else {
-              points3D = GeometryFactory.createPoint3DContainer();
+              points3D = JeometryFactory.createPoint3DContainer();
             }
           } else if (Point2D.class.isAssignableFrom(getPoint3DClass())) {
             if (fileDescriptor.getVertexCount() > 0) {
-            	points2D = GeometryFactory.createPoint2DContainer(fileDescriptor.getVertexCount());
+            	points2D = JeometryFactory.createPoint2DContainer(fileDescriptor.getVertexCount());
             } else {
-            	points2D = GeometryFactory.createPoint2DContainer();
+            	points2D = JeometryFactory.createPoint2DContainer();
             }
           }
         } else {
 
           if (fileDescriptor.getVertexType() == PLY.VERTEX_TYPE_3D) {
             if (fileDescriptor.getVertexCount() > 0) {
-              points3D = GeometryFactory.createPoint3DContainer(fileDescriptor.getVertexCount());
+              points3D = JeometryFactory.createPoint3DContainer(fileDescriptor.getVertexCount());
             } else {
-              points3D = GeometryFactory.createPoint3DContainer();
+              points3D = JeometryFactory.createPoint3DContainer();
             }
           } else if (fileDescriptor.getVertexType() == PLY.VERTEX_TYPE_2D) {
             if (fileDescriptor.getVertexCount() > 0) {
-            	points2D = GeometryFactory.createPoint2DContainer(fileDescriptor.getVertexCount());
+            	points2D = JeometryFactory.createPoint2DContainer(fileDescriptor.getVertexCount());
             } else {
-            	points2D = GeometryFactory.createPoint2DContainer();
+            	points2D = JeometryFactory.createPoint2DContainer();
             }
           }
         }
@@ -1479,7 +1479,7 @@ public Object read(Reader reader) throws IOException {
       if (fileDescriptor.getVertexType() == PLY.VERTEX_TYPE_3D) {
        
         if (isTriangleMesh) {
-          mesh = GeometryFactory.createIndexedTriangleMesh(points3D);
+          mesh = JeometryFactory.createIndexedTriangleMesh(points3D);
           
           if (textures != null) {
         	  if (mesh instanceof TextureManager) {
@@ -1490,7 +1490,7 @@ public Object read(Reader reader) throws IOException {
           }
           
         } else {
-          mesh = GeometryFactory.createIndexedMesh();
+          mesh = JeometryFactory.createIndexedMesh();
           if (mesh != null) {
         	  mesh.setVerticesSource(points3D);
           }
@@ -1780,7 +1780,7 @@ private T readPoint3D(String[] values, int[] propertyIndexes) throws IOException
           ((Point2D) pt).setX(Double.parseDouble(values[propertyIndexes[X_INDEX]]));
           ((Point2D) pt).setY(Double.parseDouble(values[propertyIndexes[Y_INDEX]]));
         } else {
-          Geometry.logger.log(Level.WARNING, "Instanciated point class is not a 3D/2D point.");
+          Jeometry.logger.log(Level.WARNING, "Instanciated point class is not a 3D/2D point.");
           return null;
         }
 
@@ -1793,7 +1793,7 @@ private T readPoint3D(String[] values, int[] propertyIndexes) throws IOException
       }
     } else if ((propertyIndexes[X_INDEX] != -1) && (propertyIndexes[Y_INDEX] != -1) && (propertyIndexes[Z_INDEX] != -1)) {
       try {
-        pt = (T)GeometryFactory.createPoint3D(Double.parseDouble(values[propertyIndexes[X_INDEX]]), 
+        pt = (T)JeometryFactory.createPoint3D(Double.parseDouble(values[propertyIndexes[X_INDEX]]), 
                                            Double.parseDouble(values[propertyIndexes[Y_INDEX]]),
                                            Double.parseDouble(values[propertyIndexes[Z_INDEX]]));
  
@@ -1802,7 +1802,7 @@ private T readPoint3D(String[] values, int[] propertyIndexes) throws IOException
       }
     } else {
       try {
-        pt = (T)GeometryFactory.createPoint3D(Double.parseDouble(values[propertyIndexes[X_INDEX]]), 
+        pt = (T)JeometryFactory.createPoint3D(Double.parseDouble(values[propertyIndexes[X_INDEX]]), 
                                            Double.parseDouble(values[propertyIndexes[Y_INDEX]]),
                                            Double.parseDouble(values[propertyIndexes[Z_INDEX]]));
       } catch (Exception e) {
@@ -1815,11 +1815,11 @@ private T readPoint3D(String[] values, int[] propertyIndexes) throws IOException
       // Set point normal
       if (isReadPointNormal() && (propertyIndexes[NX_INDEX] != -1) &&  (propertyIndexes[NY_INDEX] != -1) &  (propertyIndexes[NZ_INDEX] != -1)) {
         if (pt instanceof HasNormal) {
-          ((HasNormal)pt).setNormal(GeometryFactory.createPoint3D(Double.parseDouble(values[propertyIndexes[NX_INDEX]]), 
+          ((HasNormal)pt).setNormal(JeometryFactory.createPoint3D(Double.parseDouble(values[propertyIndexes[NX_INDEX]]), 
                                                                   Double.parseDouble(values[propertyIndexes[NY_INDEX]]),
                                                                   Double.parseDouble(values[propertyIndexes[NZ_INDEX]])));
         } else {
-          Geometry.logger.log(Level.WARNING, "Ignoring point normal as class "+pt.getClass().getSimpleName()+" does not implements HasNormal"); 
+          Jeometry.logger.log(Level.WARNING, "Ignoring point normal as class "+pt.getClass().getSimpleName()+" does not implements HasNormal"); 
         }
       }
       
@@ -1870,9 +1870,9 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
       }
     } else {
       if (fileDescriptor.getVertexType() == PLY.VERTEX_TYPE_3D) {
-        pt = (T)GeometryFactory.createPoint3D();
+        pt = (T)JeometryFactory.createPoint3D();
       } else if (fileDescriptor.getVertexType() == PLY.VERTEX_TYPE_2D) {
-        Geometry.logger.log(Level.WARNING, "2D point support is not yet implemented.");
+        Jeometry.logger.log(Level.WARNING, "2D point support is not yet implemented.");
         return null;
       } else {
         throw new IOException("Cannot determine vertex type. Vertex type can be either 2D or 3D");
@@ -1933,19 +1933,19 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
         if (value instanceof Number) {
           pt.setX(((Number) value).doubleValue());
         } else {
-          Geometry.logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + plyXPropName + " component");
+          Jeometry.logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + plyXPropName + " component");
         }
       } else if (plyYPropName.equalsIgnoreCase(property.getName())) {
         if (value instanceof Number) {
           pt.setY(((Number) value).doubleValue());
         } else {
-          Geometry.logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + plyYPropName + " component");
+          Jeometry.logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + plyYPropName + " component");
         }
       } else if (plyZPropName.equalsIgnoreCase(property.getName()) && (pt instanceof Point3D)) {
         if (value instanceof Number) {
           pt.setZ(((Number) value).doubleValue());
         } else {
-          Geometry.logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + plyZPropName + " component");
+          Jeometry.logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + plyZPropName + " component");
         }
       } else if (plyRPropName.equalsIgnoreCase(property.getName())) {
         rgbR = (int) value;
@@ -1957,7 +1957,7 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
         rgbA = (int) value;
       } else if (plyNxPropName.equalsIgnoreCase(property.getName())) {
         if (normal == null) {
-          normal = GeometryFactory.createPoint3D();
+          normal = JeometryFactory.createPoint3D();
         }
 
         if (value instanceof Number) {
@@ -1967,7 +1967,7 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
         }
       } else if (plyNyPropName.equalsIgnoreCase(property.getName())) {
         if (normal == null) {
-          normal = GeometryFactory.createPoint3D();
+          normal = JeometryFactory.createPoint3D();
         }
 
         if (value instanceof Number) {
@@ -1977,7 +1977,7 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
         }
       } else if (plyNzPropName.equalsIgnoreCase(property.getName())) {
         if (normal == null) {
-          normal = GeometryFactory.createPoint3D();
+          normal = JeometryFactory.createPoint3D();
         }
 
         if (value instanceof Number) {
@@ -2056,7 +2056,7 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
 	        throw new IOException("Declared point class " + getPoint2DClass().getSimpleName() + " cannot be instanciated", e);
 	      }
 	    } else {
-	      Geometry.logger.log(Level.WARNING, "2D point support is not yet implemented.");
+	      Jeometry.logger.log(Level.WARNING, "2D point support is not yet implemented.");
 	      return null;
 	    }
 
@@ -2112,13 +2112,13 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
 	        if (value instanceof Number) {
 	          pt.setX(((Number) value).doubleValue());
 	        } else {
-	          Geometry.logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + plyXPropName + " component");
+	          Jeometry.logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + plyXPropName + " component");
 	        }
 	      } else if (plyYPropName.equalsIgnoreCase(property.getName())) {
 	        if (value instanceof Number) {
 	          pt.setY(((Number) value).doubleValue());
 	        } else {
-	          Geometry.logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + plyYPropName + " component");
+	          Jeometry.logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + plyYPropName + " component");
 	        }
 	      } else if (plyRPropName.equalsIgnoreCase(property.getName())) {
 	        rgbR = (int) value;
@@ -2130,7 +2130,7 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
 	        rgbA = (int) value;
 	      } else if (plyNxPropName.equalsIgnoreCase(property.getName())) {
 	        if (normal == null) {
-	          normal = GeometryFactory.createPoint3D();
+	          normal = JeometryFactory.createPoint3D();
 	        }
 
 	        if (value instanceof Number) {
@@ -2140,7 +2140,7 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
 	        }
 	      } else if (plyNyPropName.equalsIgnoreCase(property.getName())) {
 	        if (normal == null) {
-	          normal = GeometryFactory.createPoint3D();
+	          normal = JeometryFactory.createPoint3D();
 	        }
 
 	        if (value instanceof Number) {
@@ -2150,7 +2150,7 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
 	        }
 	      } else if (plyNzPropName.equalsIgnoreCase(property.getName())) {
 	        if (normal == null) {
-	          normal = GeometryFactory.createPoint3D();
+	          normal = JeometryFactory.createPoint3D();
 	        }
 
 	        if (value instanceof Number) {
@@ -2239,13 +2239,13 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
           // Reading a texture coordinates
         } else if (plyTexCoordPropName.equalsIgnoreCase(property.getName())) {
           int textCoordCount = Integer.parseInt(values[currentValueIndex]);
-          textCoords = GeometryFactory.createPoint2DContainer(textCoordCount);
+          textCoords = JeometryFactory.createPoint2DContainer(textCoordCount);
           currentValueIndex++;
 
           try {
 
             for (int i = 0; i < textCoordCount; i += 2) {
-              textCoords.add(GeometryFactory.createPoint2D(Double.parseDouble(values[currentValueIndex]), Double.parseDouble(values[currentValueIndex + 1])));
+              textCoords.add(JeometryFactory.createPoint2D(Double.parseDouble(values[currentValueIndex]), Double.parseDouble(values[currentValueIndex + 1])));
               currentValueIndex += 2;
             }
 
@@ -2267,13 +2267,13 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
       if (indexes != null) {
 
         if (indexes.length == 3) {
-          face = GeometryFactory.createIndexedTriangle(indexes, null);
+          face = JeometryFactory.createIndexedTriangle(indexes, null);
         } else {
 
           if ((textureIndex > -1) || (textCoords != null)) {
-            face = GeometryFactory.createTexturedIndexedMeshFace(indexes);
+            face = JeometryFactory.createTexturedIndexedMeshFace(indexes);
           } else {
-            face = GeometryFactory.createIndexedMeshFace(indexes);
+            face = JeometryFactory.createIndexedMeshFace(indexes);
           }
         }
       }
@@ -2526,7 +2526,7 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
               // Reading coordinates
               if (textureCoordinatesCount == 2 * faceVerticesCount) {
 
-                textureCoordinates = GeometryFactory.createPoint2DContainer(textureCoordinatesCount);
+                textureCoordinates = JeometryFactory.createPoint2DContainer(textureCoordinatesCount);
                 
                 double[] values = new double[textureCoordinatesCount];
 
@@ -2584,7 +2584,7 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
                         }
                       }
                     } else {
-                      textureCoordinates.add(GeometryFactory.createPoint2D(values[i], 1.0f - values[i + 1]));
+                      textureCoordinates.add(JeometryFactory.createPoint2D(values[i], 1.0f - values[i + 1]));
                     }
                   } else {
 
@@ -2605,7 +2605,7 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
                         }
                       }
                     } else {
-                      textureCoordinates.add(GeometryFactory.createPoint2D(values[i], values[i + 1]));
+                      textureCoordinates.add(JeometryFactory.createPoint2D(values[i], values[i + 1]));
                     }
                   }
 
@@ -2646,7 +2646,7 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
 
             // Read a triangle
             if (facesIndices.length == 3) {
-              face = GeometryFactory.createTexturedIndexedTriangle(facesIndices[0], facesIndices[1], facesIndices[2]);
+              face = JeometryFactory.createTexturedIndexedTriangle(facesIndices[0], facesIndices[1], facesIndices[2]);
               
               if (face != null) {
             	  
@@ -2662,7 +2662,7 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
               faceCurrentIndex++;
             } else {
               if (textureCoordinates != null) {
-                face = GeometryFactory.createTexturedIndexedMeshFace(facesIndices);
+                face = JeometryFactory.createTexturedIndexedMeshFace(facesIndices);
                 
                 if (face != null) {
               	  
@@ -2678,7 +2678,7 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
                 faceCurrentIndex++;
 
               } else {
-                face = GeometryFactory.createIndexedMeshFace(facesIndices);
+                face = JeometryFactory.createIndexedMeshFace(facesIndices);
                 
                 if (face != null) {
               	  

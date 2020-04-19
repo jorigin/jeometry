@@ -1,6 +1,6 @@
 package org.jeometry.math;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 
 /**
  * This interface represents a <a href="https://en.wikipedia.org/wiki/Quaternion">quaternion</a>.<br><br>
@@ -28,7 +28,7 @@ import org.jeometry.Geometry;
  * Where parameters (<i>w</i>, <i>x</i>, <i>y</i>, <i>z</i>) correspond to (<i>a</i>, <i>b</i>, <i>c</i>, <i>d</i>) from the mathematical form.
  * 
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} b{@value Geometry#BUILD}
+ * @version {@value Jeometry#version} b{@value Jeometry#BUILD}
  * @since 1.0.0
  */
 public interface Quaternion extends Vector{

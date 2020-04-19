@@ -1,6 +1,6 @@
 package org.jeometry.factory;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.geom2D.point.Point2D;
 import org.jeometry.geom2D.point.Point2DContainer;
 import org.jeometry.geom3D.point.Point3D;
@@ -10,7 +10,7 @@ import org.jeometry.math.Vector;
 /**
  * An interface that describes a point builder. A point builder enables to create implementations of interfaces described within the <code>point</code> packages ({@link Point3D}, {@link Point2D}, {@link Point3DContainer}, ...).
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public interface PointBuilder {

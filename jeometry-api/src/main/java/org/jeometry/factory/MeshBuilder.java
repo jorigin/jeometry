@@ -2,7 +2,7 @@ package org.jeometry.factory;
 
 import java.util.List;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.geom3D.mesh.Edge;
 import org.jeometry.geom3D.mesh.Face;
 import org.jeometry.geom3D.mesh.Mesh;
@@ -20,7 +20,7 @@ import org.jeometry.geom3D.textured.Texturable;
 /**
  * An interface that describes a mesh builder. A mesh builder enables to create implementations of interfaces described within the <code>mesh</code> package ({@link Mesh}, {@link Face}, {@link Edge}, ...).
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public interface MeshBuilder {

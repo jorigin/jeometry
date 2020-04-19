@@ -1,8 +1,8 @@
 package org.jeometry.simple.factory;
 
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.factory.GeometryFactoryMeshTest;
 import org.jeometry.simple.geom3D.mesh.SimpleEdge;
 import org.jeometry.simple.geom3D.mesh.SimpleFace;
@@ -13,9 +13,9 @@ import org.jeometry.simple.geom3D.mesh.indexed.SimpleIndexedMesh;
 import org.junit.BeforeClass;
 
 /**
- * A test class for {@link GeometryFactory} methods.
+ * A test class for {@link JeometryFactory} methods.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  *
  */
@@ -36,6 +36,6 @@ public class SimpleGeometryFactoryMeshTest extends GeometryFactoryMeshTest {
 	    indexedFaceClass         = SimpleIndexedFace.class;
 	    indexedEdgeClass         = SimpleIndexedEdge.class;
 	    
-		GeometryFactory.setMeshBuilder(new SimpleMeshBuilder());
+		JeometryFactory.setMeshBuilder(new SimpleMeshBuilder());
 	}
 }

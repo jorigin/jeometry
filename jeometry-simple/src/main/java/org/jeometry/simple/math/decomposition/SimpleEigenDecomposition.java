@@ -3,8 +3,8 @@ package org.jeometry.simple.math.decomposition;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.math.Matrix;
 import org.jeometry.math.decomposition.EigenDecomposition;
 
@@ -12,7 +12,7 @@ import org.jeometry.math.decomposition.EigenDecomposition;
  * A simple implementation of {@link EigenDecomposition Eigen decomposition}.<br><br>
  * This implantation is inspired by <a href="https://math.nist.gov/javanumerics/jama/">Jama</a> <a href="https://math.nist.gov/javanumerics/jama/doc/">Eigen Decomposition</a>.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} b{@value Geometry#BUILD}
+ * @version {@value Jeometry#version} b{@value Jeometry#BUILD}
  * @since 1.0.0
  */
 public class SimpleEigenDecomposition implements EigenDecomposition {
@@ -60,7 +60,7 @@ public class SimpleEigenDecomposition implements EigenDecomposition {
 		
 	      n = matrix.getColumnsCount();
 	      
-	      V = GeometryFactory.createMatrix(n, n);
+	      V = JeometryFactory.createMatrix(n, n);
 	      
 	      d = new double[n];
 	      e = new double[n];
@@ -86,7 +86,7 @@ public class SimpleEigenDecomposition implements EigenDecomposition {
 	         tql2();
 
 	      } else {
-	         H = GeometryFactory.createMatrix(n, n);
+	         H = JeometryFactory.createMatrix(n, n);
 	         ort = new double[n];
 	         
 	         for (int j = 0; j < n; j++) {
@@ -103,7 +103,7 @@ public class SimpleEigenDecomposition implements EigenDecomposition {
 	      }
 	      
 	      // Compute D matrix
-	      D = GeometryFactory.createMatrix(n, n);
+	      D = JeometryFactory.createMatrix(n, n);
 	      for (int i = 0; i < n; i++) {
 	         for (int j = 0; j < n; j++) {
 	            D.setValue(i, j, 0.0);

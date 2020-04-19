@@ -1,13 +1,13 @@
 package org.jeometry.io.matlab;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.math.Matrix;
 import org.jeometry.math.Vector;
 
 /**
  * A class that contains <a href="https://fr.mathworks.com/products/matlab.html">MathWorks MatLab(c)</a> related utilities.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  *
  */

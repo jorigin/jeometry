@@ -1,6 +1,6 @@
 package org.jeometry.geom3D.algorithm.delaunay.clarkson;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 
 /**
  * This class is an implementation of the Ken Clarkson <a href="http://www.netlib.org/voronoi/hull.html">hull algorithm</a> that enable to compute convex hull in n-dimension.<br><br>
@@ -10,7 +10,7 @@ import org.jeometry.Geometry;
  * it is required to apply a scale on them. This scale can be given in parameter to computation method
  * ({@link #compute(double[][], float) compute(double[][], float)}.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public class DelaunayClarkson {

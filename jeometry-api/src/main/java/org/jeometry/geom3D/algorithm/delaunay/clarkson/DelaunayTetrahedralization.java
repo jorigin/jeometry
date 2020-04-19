@@ -9,8 +9,8 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.mesh.indexed.IndexedFace;
 import org.jeometry.geom3D.point.Point3D;
 import org.jeometry.geom3D.point.Point3DContainer;
@@ -20,7 +20,7 @@ import org.jeometry.geom3D.primitive.indexed.IndexedTetrahedron;
  * A Delaunay tetrahedralization regarding Ken Clarkson <a href="http://www.netlib.org/voronoi/hull.html">hull algorithm</a>.
  * @param <T> The type of underlying 3D points 
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  *
  */
@@ -278,10 +278,10 @@ public class DelaunayTetrahedralization<T extends Point3D> {
         this.neighbors.put(tetrahedron, neighbors);
         
       } else {
-        Geometry.logger.warning("Tetrahedron  has no neighbor.");
+        Jeometry.logger.warning("Tetrahedron  has no neighbor.");
       }
     } else {
-      Geometry.logger.warning("Cannot add neightbors to null tetrahedron.");
+      Jeometry.logger.warning("Cannot add neightbors to null tetrahedron.");
     }
     
 
@@ -417,7 +417,7 @@ public class DelaunayTetrahedralization<T extends Point3D> {
     double y = p.getY() - num_y*inv;
     double z = p.getZ() + num_z*inv;
 
-    return GeometryFactory.createPoint3D(x, y, z);
+    return JeometryFactory.createPoint3D(x, y, z);
 
 }
   

@@ -1,13 +1,13 @@
 package org.jeometry.io.ply;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 
 /**
  * Some specification values coming from the
  * <a href="http://paulbourke.net/dataformats/ply/">Stanford Ploygon Format</a>.
  * 
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  *
  */

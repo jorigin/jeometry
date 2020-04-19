@@ -5,8 +5,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.mesh.Edge;
 import org.jeometry.geom3D.mesh.Face;
 import org.jeometry.geom3D.mesh.Mesh;
@@ -22,7 +22,7 @@ import org.jeometry.geom3D.primitive.Triangle;
  * This classes provides various 3D geometry algorithm and functions.<br>
  * <br>
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public class Geom3D {
@@ -142,7 +142,7 @@ public class Geom3D {
   public static Point3D computeBarycenter(Point3DContainer<?> points){
     Point3D barycenter = null;
     if ((points != null)&&(points.size() >= 1)){
-      barycenter = GeometryFactory.createPoint3D();
+      barycenter = JeometryFactory.createPoint3D();
       barycenter.setX(0.0d);
       barycenter.setY(0.0d);
       barycenter.setZ(0.0d);
@@ -549,7 +549,7 @@ public class Geom3D {
       }
  
       Collection<Point3D> boxpoints = new ArrayList<Point3D>(8);
-      Point3D boxCenter = GeometryFactory.createPoint3D((box.getMin().getX()+box.getMax().getX())/2.0d, 
+      Point3D boxCenter = JeometryFactory.createPoint3D((box.getMin().getX()+box.getMax().getX())/2.0d, 
                                                (box.getMin().getY()+box.getMax().getY())/2.0d, 
                                                (box.getMin().getZ()+box.getMax().getZ())/2.0d);
       //IPoint3D boxCenter = Geometry.newPoint3D(0.0, 0.0, 0.0);
@@ -557,14 +557,14 @@ public class Geom3D {
       Point3D translatedBoxMin = box.getMin().minus(boxCenter);
       Point3D translatedBoxMax = box.getMax().minus(boxCenter);
       
-      boxpoints.add(GeometryFactory.createPoint3D(box.getMax().minus(boxCenter).getX(), box.getMax().minus(boxCenter).getY(), box.getMax().minus(boxCenter).getZ()));
-      boxpoints.add(GeometryFactory.createPoint3D(box.getMax().minus(boxCenter).getX(), box.getMax().minus(boxCenter).getY(), box.getMin().minus(boxCenter).getZ()));
-      boxpoints.add(GeometryFactory.createPoint3D(box.getMax().minus(boxCenter).getX(), box.getMin().minus(boxCenter).getY(), box.getMax().minus(boxCenter).getZ()));
-      boxpoints.add(GeometryFactory.createPoint3D(box.getMax().minus(boxCenter).getX(), box.getMin().minus(boxCenter).getY(), box.getMin().minus(boxCenter).getZ()));
-      boxpoints.add(GeometryFactory.createPoint3D(box.getMin().minus(boxCenter).getX(), box.getMax().minus(boxCenter).getY(), box.getMax().minus(boxCenter).getZ()));
-      boxpoints.add(GeometryFactory.createPoint3D(box.getMin().minus(boxCenter).getX(), box.getMax().minus(boxCenter).getY(), box.getMin().minus(boxCenter).getZ()));
-      boxpoints.add(GeometryFactory.createPoint3D(box.getMin().minus(boxCenter).getX(), box.getMin().minus(boxCenter).getY(), box.getMax().minus(boxCenter).getZ()));
-      boxpoints.add(GeometryFactory.createPoint3D(box.getMin().minus(boxCenter).getX(), box.getMin().minus(boxCenter).getY(), box.getMin().minus(boxCenter).getZ()));
+      boxpoints.add(JeometryFactory.createPoint3D(box.getMax().minus(boxCenter).getX(), box.getMax().minus(boxCenter).getY(), box.getMax().minus(boxCenter).getZ()));
+      boxpoints.add(JeometryFactory.createPoint3D(box.getMax().minus(boxCenter).getX(), box.getMax().minus(boxCenter).getY(), box.getMin().minus(boxCenter).getZ()));
+      boxpoints.add(JeometryFactory.createPoint3D(box.getMax().minus(boxCenter).getX(), box.getMin().minus(boxCenter).getY(), box.getMax().minus(boxCenter).getZ()));
+      boxpoints.add(JeometryFactory.createPoint3D(box.getMax().minus(boxCenter).getX(), box.getMin().minus(boxCenter).getY(), box.getMin().minus(boxCenter).getZ()));
+      boxpoints.add(JeometryFactory.createPoint3D(box.getMin().minus(boxCenter).getX(), box.getMax().minus(boxCenter).getY(), box.getMax().minus(boxCenter).getZ()));
+      boxpoints.add(JeometryFactory.createPoint3D(box.getMin().minus(boxCenter).getX(), box.getMax().minus(boxCenter).getY(), box.getMin().minus(boxCenter).getZ()));
+      boxpoints.add(JeometryFactory.createPoint3D(box.getMin().minus(boxCenter).getX(), box.getMin().minus(boxCenter).getY(), box.getMax().minus(boxCenter).getZ()));
+      boxpoints.add(JeometryFactory.createPoint3D(box.getMin().minus(boxCenter).getX(), box.getMin().minus(boxCenter).getY(), box.getMin().minus(boxCenter).getZ()));
   
       
       List<Point3D> tripoints = new ArrayList<Point3D>(3);
@@ -574,15 +574,15 @@ public class Geom3D {
      
       
       // test the x, y, and z axes
-      if (!isIntersect(boxpoints, tripoints, GeometryFactory.createPoint3D(translatedBoxMax.getX() - translatedBoxMin.getX(), 0, 0))){
+      if (!isIntersect(boxpoints, tripoints, JeometryFactory.createPoint3D(translatedBoxMax.getX() - translatedBoxMin.getX(), 0, 0))){
         return false;
       }
       
-      if (!isIntersect(boxpoints, tripoints, GeometryFactory.createPoint3D(0, translatedBoxMax.getY() - translatedBoxMin.getY(), 0))){
+      if (!isIntersect(boxpoints, tripoints, JeometryFactory.createPoint3D(0, translatedBoxMax.getY() - translatedBoxMin.getY(), 0))){
         return false;
       }
       
-      if (!isIntersect(boxpoints, tripoints, GeometryFactory.createPoint3D(0, 0, translatedBoxMax.getZ() - translatedBoxMin.getZ()))){
+      if (!isIntersect(boxpoints, tripoints, JeometryFactory.createPoint3D(0, 0, translatedBoxMax.getZ() - translatedBoxMin.getZ()))){
         return false;
       }
 
@@ -597,9 +597,9 @@ public class Geom3D {
       // test the 9 edge cross products
       Point3D triedge3 = tripoints.get(0).minus(tripoints.get(2));
 
-      Point3D boxedge1 = GeometryFactory.createPoint3D(translatedBoxMax.getX() - translatedBoxMin.getX(), 0, 0);
-      Point3D boxedge2 = GeometryFactory.createPoint3D(0, translatedBoxMax.getY() - translatedBoxMin.getY(), 0);
-      Point3D boxedge3 = GeometryFactory.createPoint3D(0, 0, translatedBoxMax.getZ() - translatedBoxMin.getZ());
+      Point3D boxedge1 = JeometryFactory.createPoint3D(translatedBoxMax.getX() - translatedBoxMin.getX(), 0, 0);
+      Point3D boxedge2 = JeometryFactory.createPoint3D(0, translatedBoxMax.getY() - translatedBoxMin.getY(), 0);
+      Point3D boxedge3 = JeometryFactory.createPoint3D(0, 0, translatedBoxMax.getZ() - translatedBoxMin.getZ());
 
       if (!isIntersect(boxpoints, tripoints, cross(boxedge1, triedge1))) return false;
       if (!isIntersect(boxpoints, tripoints, cross(boxedge1, triedge2))) return false;
@@ -835,7 +835,7 @@ public class Geom3D {
    */
   public static Point3D cross(Point3D v1, Point3D v2){
     
-    return GeometryFactory.createPoint3D(v1.getY()*v2.getZ() - v2.getY()*v1.getZ(), 
+    return JeometryFactory.createPoint3D(v1.getY()*v2.getZ() - v2.getY()*v1.getZ(), 
                                v1.getZ()*v2.getX() - v1.getX()*v2.getZ(), 
                                v1.getX()*v2.getY() - v1.getY()*v2.getX());
   }
@@ -1025,8 +1025,8 @@ public class Geom3D {
     } else {
       
       // On calcule les sommets de la boite englobante
-      pMax = GeometryFactory.createPoint3D(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
-      pMin = GeometryFactory.createPoint3D(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+      pMax = JeometryFactory.createPoint3D(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
+      pMin = JeometryFactory.createPoint3D(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
    
       for(int i = 0; i < points.size(); i++){
         
@@ -1060,7 +1060,7 @@ public class Geom3D {
       }
 
       // Creation d'un boite parallele aux axes.
-      polyhedron = GeometryFactory.createBox(pMin, pMax);
+      polyhedron = JeometryFactory.createBox(pMin, pMax);
     }
     
     return polyhedron;
@@ -1087,8 +1087,8 @@ public class Geom3D {
     } else {
       
       // On calcule les sommets de la boite englobante
-      pMax = GeometryFactory.createPoint3D(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
-      pMin = GeometryFactory.createPoint3D(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+      pMax = JeometryFactory.createPoint3D(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
+      pMin = JeometryFactory.createPoint3D(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
    
       Iterator<? extends Point3D> iter = points.iterator();
       while(iter.hasNext()){
@@ -1123,7 +1123,7 @@ public class Geom3D {
       }
 
       // Creation d'un boite parallele aux axes.
-      polyhedron = GeometryFactory.createBox(pMin, pMax);
+      polyhedron = JeometryFactory.createBox(pMin, pMax);
     }
     
     return polyhedron;

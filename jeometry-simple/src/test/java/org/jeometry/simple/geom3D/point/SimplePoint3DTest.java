@@ -1,6 +1,6 @@
 package org.jeometry.simple.geom3D.point;
 
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.point.Point3DTest;
 import org.jeometry.simple.factory.SimpleMathBuilder;
 import org.junit.BeforeClass;
@@ -18,7 +18,7 @@ public class SimplePoint3DTest extends Point3DTest{
    */
   @BeforeClass
   public static void initTest(){
-    GeometryFactory.setMathBuilder(new SimpleMathBuilder());
+    JeometryFactory.setMathBuilder(new SimpleMathBuilder());
   }
   
 }

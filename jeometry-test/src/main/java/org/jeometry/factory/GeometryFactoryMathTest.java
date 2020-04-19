@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.math.Matrix;
 import org.jeometry.math.MatrixTestData;
 import org.jeometry.math.Quaternion;
@@ -13,7 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * A test class for {@link GeometryFactory} methods that delegate to a {@link MathBuilder math builder}.<br>
+ * A test class for {@link JeometryFactory} methods that delegate to a {@link MathBuilder math builder}.<br>
  * <br>
  * <b>Usage:</b>
  * <p>
@@ -32,7 +32,7 @@ import org.junit.Test;
  * If the object provided by the geometry factory are not from the same classes as the declared ones, tests will fail.
  * </p>
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  *
  */
@@ -52,12 +52,12 @@ public class GeometryFactoryMathTest {
 	
 	
 	/**
-	 * Testing {@link GeometryFactory#createVector(int)}
+	 * Testing {@link JeometryFactory#createVector(int)}
 	 */
 	@Test
 	public void createVectorSizeTest() {
 		try {
-			Vector vector = GeometryFactory.createVector(10);
+			Vector vector = JeometryFactory.createVector(10);
 			assertNotNull("Cannot instantiate vector using GeometryFactory.createVector(int).", vector);
 			
 			assertEquals("Invalid class, got "+vector.getClass().getSimpleName()+" but exptected "+vectorClass.getSimpleName(), vectorClass, vector.getClass());
@@ -73,12 +73,12 @@ public class GeometryFactoryMathTest {
 	
 	
 	/**
-	 * Testing {@link GeometryFactory#createVector(double[])}
+	 * Testing {@link JeometryFactory#createVector(double[])}
 	 */
 	@Test
 	public void createVectorComponentsTest() {
 		try {
-			Vector vector = GeometryFactory.createVector(MatrixTestData.V_4_A);
+			Vector vector = JeometryFactory.createVector(MatrixTestData.V_4_A);
 			assertNotNull("Cannot instantiate vector using GeometryFactory.createVector(double[]).", vector);
 			assertEquals("Invalid class, got "+vector.getClass().getSimpleName()+" but exptected "+vectorClass.getSimpleName(), vectorClass, vector.getClass());
 			
@@ -96,12 +96,12 @@ public class GeometryFactoryMathTest {
 	}
 	
 	/**
-	 * Testing {@link GeometryFactory#createMatrix(int, int)}
+	 * Testing {@link JeometryFactory#createMatrix(int, int)}
 	 */
 	@Test
 	public void createMatrixSizeTest() {
 		try {
-			Matrix matrix = GeometryFactory.createMatrix(10, 10);
+			Matrix matrix = JeometryFactory.createMatrix(10, 10);
 			assertNotNull("Cannot instantiate matrix using GeometryFactory.createMatrix().", matrix);
 			
 			assertEquals("Invalid class, got "+matrix.getClass().getSimpleName()+" but exptected "+matrixClass.getSimpleName(), matrixClass, matrix.getClass());
@@ -115,7 +115,7 @@ public class GeometryFactoryMathTest {
 	}
 	
 	/**
-	 * Testing {@link GeometryFactory#createMatrix(double[][])}
+	 * Testing {@link JeometryFactory#createMatrix(double[][])}
 	 */
 	@Test
 	public void createMatrixDataTest() {
@@ -127,7 +127,7 @@ public class GeometryFactoryMathTest {
 				{7.0d, 8.0d, 9.0d}
 			};
 			
-			Matrix matrix = GeometryFactory.createMatrix(data);
+			Matrix matrix = JeometryFactory.createMatrix(data);
 			assertNotNull("Cannot instantiate matrix using GeometryFactory.createMatrix(double[][]).", matrix);
 			
 			assertEquals("Invalid class, got "+matrix.getClass().getSimpleName()+" but exptected "+matrixClass.getSimpleName(), matrixClass, matrix.getClass());
@@ -147,7 +147,7 @@ public class GeometryFactoryMathTest {
 	}
 	
 	/**
-	 * Testing {@link GeometryFactory#createMatrix(int, int, double[], int)}
+	 * Testing {@link JeometryFactory#createMatrix(int, int, double[], int)}
 	 */
 	@Test
 	public void createMatrixSizeDataOrderingTest() {
@@ -162,7 +162,7 @@ public class GeometryFactoryMathTest {
 				7.0d, 8.0d, 9.0d
 			};
 			
-			Matrix matrix = GeometryFactory.createMatrix(rows, cols, data, Matrix.ROW_MAJOR);
+			Matrix matrix = JeometryFactory.createMatrix(rows, cols, data, Matrix.ROW_MAJOR);
 			assertNotNull("Cannot instantiate matrix using GeometryFactory.createMatrix(int, int, double[], int).", matrix);
 			
 			assertEquals("Invalid class, got "+matrix.getClass().getSimpleName()+" but exptected "+matrixClass.getSimpleName(), matrixClass, matrix.getClass());
@@ -177,7 +177,7 @@ public class GeometryFactoryMathTest {
 			}
 			
 			
-			matrix = GeometryFactory.createMatrix(rows, cols, data, Matrix.COLUMN_MAJOR);
+			matrix = JeometryFactory.createMatrix(rows, cols, data, Matrix.COLUMN_MAJOR);
 			assertNotNull("Cannot instantiate matrix using GeometryFactory.createMatrix(int, int, double[], int).", matrix);
 			
 			assertEquals("Invalid matrix rows number", rows, matrix.getRowsCount());
@@ -195,13 +195,13 @@ public class GeometryFactoryMathTest {
 	}
 	
 	/**
-	 * Testing {@link GeometryFactory#createQuaternion()}
+	 * Testing {@link JeometryFactory#createQuaternion()}
 	 */
 	@Test
 	public void createQuaternionTest() {
 		
 		try {
-			Quaternion quaternion = GeometryFactory.createQuaternion();
+			Quaternion quaternion = JeometryFactory.createQuaternion();
 			assertNotNull("Cannot instantiate quaternion using GeometryFactory.createQuaternion().", quaternion);
 			
 			assertEquals("Invalid class, got "+quaternion.getClass().getSimpleName()+" but exptected "+quaternionClass.getSimpleName(), quaternionClass, quaternion.getClass());
@@ -212,13 +212,13 @@ public class GeometryFactoryMathTest {
 	}
 	
 	/**
-	 * Testing {@link GeometryFactory#createQuaternion(double, double, double, double)}
+	 * Testing {@link JeometryFactory#createQuaternion(double, double, double, double)}
 	 */
 	@Test
 	public void createQuaternionParamsTest() {
 		
 		try {
-			Quaternion quaternion = GeometryFactory.createQuaternion(1.0, 2.0, 3.0, 4.0);
+			Quaternion quaternion = JeometryFactory.createQuaternion(1.0, 2.0, 3.0, 4.0);
 			assertNotNull("Cannot instantiate quaternion using GeometryFactory.createQuaternion().", quaternion);
 			
 			assertEquals("Invalid class, got "+quaternion.getClass().getSimpleName()+" but exptected "+quaternionClass.getSimpleName(), quaternionClass, quaternion.getClass());

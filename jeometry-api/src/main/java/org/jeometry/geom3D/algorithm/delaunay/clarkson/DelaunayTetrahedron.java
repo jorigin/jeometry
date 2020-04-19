@@ -3,7 +3,7 @@ package org.jeometry.geom3D.algorithm.delaunay.clarkson;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.point.Point3D;
 import org.jeometry.geom3D.point.Point3DContainer;
 import org.jeometry.geom3D.primitive.indexed.IndexedTetrahedron;
@@ -48,7 +48,7 @@ public class DelaunayTetrahedron<T extends Point3D> implements IndexedTetrahedro
    * @param validate if the tetrahedron has to be validated
    */
   public DelaunayTetrahedron(int base1, int base2, int base3, int top, boolean validate, Point3DContainer<T> source){
-    tetrahedron = GeometryFactory.createIndexedTetrahedron(base1, base2, base3, top, source);
+    tetrahedron = JeometryFactory.createIndexedTetrahedron(base1, base2, base3, top, source);
     neighbors   = new ArrayList<DelaunayTetrahedron<T>>(4);
     convexFaces = new boolean[4];
   }

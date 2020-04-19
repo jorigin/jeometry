@@ -52,6 +52,7 @@
     <module>jeometry-api</module>
     <module>jeometry-simple</module>
     <module>jeometry-test</module>
+    <module>jeometry-sample</module>
   </modules>
   
   <distributionManagement>

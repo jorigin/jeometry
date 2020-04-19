@@ -2,7 +2,7 @@ package org.jeometry.simple.geom3D.mesh.indexed.textured;
 
 import java.util.List;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.geom2D.point.Point2DContainer;
 import org.jeometry.geom3D.mesh.indexed.IndexedMesh;
 import org.jeometry.geom3D.point.Point3D;
@@ -17,13 +17,13 @@ import org.jeometry.simple.geom3D.primitive.indexed.SimpleIndexedTriangle;
  * Instances of this class can compose a {@link SimpleIndexedTexturedMesh textured indexed mesh}. 
  * @param <T> The type of the underlying 3D points
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  *
  */
 public class SimpleIndexedTexturedTriangle<T extends Point3D> extends SimpleIndexedTriangle<T> implements Texturable{
 
-	private static final long serialVersionUID = Geometry.BUILD;
+	private static final long serialVersionUID = Jeometry.BUILD;
 
 	private Texture texture = null;
 

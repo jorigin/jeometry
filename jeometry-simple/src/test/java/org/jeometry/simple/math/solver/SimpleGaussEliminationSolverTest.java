@@ -1,6 +1,6 @@
 package org.jeometry.simple.math.solver;
 
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.math.solver.GaussEliminationSolverTest;
 import org.jeometry.simple.factory.SimpleMathBuilder;
 import org.junit.BeforeClass;
@@ -19,6 +19,6 @@ public class SimpleGaussEliminationSolverTest extends GaussEliminationSolverTest
 		
 		solver = new SimpleGaussEliminationSolver();
 		
-		GeometryFactory.setMathBuilder(new SimpleMathBuilder());
+		JeometryFactory.setMathBuilder(new SimpleMathBuilder());
 	}
 }

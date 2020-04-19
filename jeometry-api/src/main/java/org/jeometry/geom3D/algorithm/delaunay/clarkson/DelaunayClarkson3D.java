@@ -6,7 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.Geom3D;
 import org.jeometry.geom3D.point.Point3D;
 import org.jeometry.geom3D.point.Point3DContainer;
@@ -131,14 +131,14 @@ public class DelaunayClarkson3D<T extends Point3D> extends DelaunayClarkson{
         
         ifinitePoints = new Point3D[8];
         
-        ifinitePoints[0] = GeometryFactory.createPoint3D(boxXMin, boxYMin, boxZMin);
-        ifinitePoints[1] = GeometryFactory.createPoint3D(boxXMin, boxYMin, boxZMax);
-        ifinitePoints[2] = GeometryFactory.createPoint3D(boxXMin, boxYMax, boxZMin);
-        ifinitePoints[3] = GeometryFactory.createPoint3D(boxXMin, boxYMax, boxZMax);
-        ifinitePoints[4] = GeometryFactory.createPoint3D(boxXMax, boxYMin, boxZMin);
-        ifinitePoints[5] = GeometryFactory.createPoint3D(boxXMax, boxYMin, boxZMax);
-        ifinitePoints[6] = GeometryFactory.createPoint3D(boxXMax, boxYMax, boxZMin);
-        ifinitePoints[7] = GeometryFactory.createPoint3D(boxXMax, boxYMax, boxZMax);
+        ifinitePoints[0] = JeometryFactory.createPoint3D(boxXMin, boxYMin, boxZMin);
+        ifinitePoints[1] = JeometryFactory.createPoint3D(boxXMin, boxYMin, boxZMax);
+        ifinitePoints[2] = JeometryFactory.createPoint3D(boxXMin, boxYMax, boxZMin);
+        ifinitePoints[3] = JeometryFactory.createPoint3D(boxXMin, boxYMax, boxZMax);
+        ifinitePoints[4] = JeometryFactory.createPoint3D(boxXMax, boxYMin, boxZMin);
+        ifinitePoints[5] = JeometryFactory.createPoint3D(boxXMax, boxYMin, boxZMax);
+        ifinitePoints[6] = JeometryFactory.createPoint3D(boxXMax, boxYMax, boxZMin);
+        ifinitePoints[7] = JeometryFactory.createPoint3D(boxXMax, boxYMax, boxZMax);
         
         samples[0][points.size()]   = boxXMin;
         samples[1][points.size()]   = boxYMin;

@@ -1,7 +1,7 @@
 package org.jeometry.simple.geom3D.transform;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.point.Point3D;
 import org.jeometry.geom3D.transform.Transform3D;
 import org.jeometry.geom3D.transform.Transform3DMatrix;
@@ -12,7 +12,7 @@ import org.jeometry.simple.math.SimpleMatrix;
  * A simple implementation of a {@link org.jeometry.geom3D.transform.Transform3D 3D transformation} that relies on a 
  * {@link org.jeometry.geom3D.transform.Transform3D 3D transformation simple matrix}.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} build {@value Geometry#BUILD}
+ * @version {@value Jeometry#version} build {@value Jeometry#BUILD}
  * @since 1.0.0
  *
  */
@@ -33,7 +33,7 @@ public class SimpleTransform3DMatrix extends SimpleMatrix implements Transform3D
 	public Point3D transform(Point3D point3d) {
 		
 		if ((point3d != null)){
-			Point3D result = GeometryFactory.createPoint3D();
+			Point3D result = JeometryFactory.createPoint3D();
 			return (Point3D) multiply(point3d, result);
 		}
 

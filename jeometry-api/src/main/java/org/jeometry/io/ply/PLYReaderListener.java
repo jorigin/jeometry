@@ -1,13 +1,13 @@
 package org.jeometry.io.ply;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.geom3D.mesh.Face;
 import org.jeometry.geom3D.point.Point3D;
 
 /**
  * A listener dedicated to the monitoring of a {@link PLYReader PLY reader}
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  *
  */

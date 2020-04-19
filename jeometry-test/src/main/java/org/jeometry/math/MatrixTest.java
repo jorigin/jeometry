@@ -6,8 +6,8 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -31,7 +31,7 @@ import org.junit.Test;
  * If the object provided by the geometry factory are not from the same classes as the declared ones, tests will fail.
  * </p>
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public class MatrixTest {
@@ -40,12 +40,12 @@ public class MatrixTest {
 	 * The class that the matrix objects have to respect.
 	 */
 	protected static Class<? extends Matrix> matrixClass         = null;
-	
+
 	/**
 	 * The class that the vector objects have to respect.
 	 */
 	protected static Class<? extends Vector> vectorClass         = null;
-	
+
 	/**
 	 * Initialize the test static context.
 	 */
@@ -53,7 +53,7 @@ public class MatrixTest {
 	public static void initClass() {
 		fail("Test class is not initialized. method init() has to be implemented");
 	}
-	
+
 	/**
 	 * Initializing tests.
 	 */
@@ -69,12 +69,12 @@ public class MatrixTest {
 		Matrix matrix = null;
 		double[] dataArray = null;
 
-		matrix = GeometryFactory.createMatrix(MatrixTestData.M_5x5_A);
-		
+		matrix = JeometryFactory.createMatrix(MatrixTestData.M_5x5_A);
+
 		if (matrixClass != null) {
 			assertTrue("Unexpected matrix implementation "+matrix.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(matrix.getClass()));
 		}
-		
+
 		dataArray = matrix.getDataArray(Matrix.ROW_MAJOR);
 
 		assertNotNull("Invalid row major data array", dataArray);
@@ -89,12 +89,12 @@ public class MatrixTest {
 			}
 		}
 
-		matrix = GeometryFactory.createMatrix(MatrixTestData.M_5x5_A);
-		
+		matrix = JeometryFactory.createMatrix(MatrixTestData.M_5x5_A);
+
 		if (matrixClass != null) {
 			assertTrue("Unexpected matrix implementation "+matrix.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(matrix.getClass()));
 		}
-		
+
 		dataArray = matrix.getDataArray(Matrix.COLUMN_MAJOR);
 
 		assertNotNull("Invalid column major data array", dataArray);
@@ -120,12 +120,12 @@ public class MatrixTest {
 		double[] output     = null;
 		double[] dataArray  = null;
 
-		matrix = GeometryFactory.createMatrix(MatrixTestData.M_5x5_A);
-		
+		matrix = JeometryFactory.createMatrix(MatrixTestData.M_5x5_A);
+
 		if (matrixClass != null) {
 			assertTrue("Unexpected matrix implementation "+matrix.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(matrix.getClass()));
 		}
-		
+
 		output = new double[MatrixTestData.M_5x5_A_ROWMAJOR.length];
 		try {
 			dataArray = matrix.getDataArray(Matrix.ROW_MAJOR, output);
@@ -146,12 +146,12 @@ public class MatrixTest {
 			fail("Exception raised: "+e.getMessage());
 		}
 
-		matrix = GeometryFactory.createMatrix(MatrixTestData.M_5x5_A);
-		
+		matrix = JeometryFactory.createMatrix(MatrixTestData.M_5x5_A);
+
 		if (matrixClass != null) {
 			assertTrue("Unexpected matrix implementation "+matrix.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(matrix.getClass()));
 		}
-		
+
 		output = new double[MatrixTestData.M_5x5_A_COLUMNMAJOR.length];
 		try {
 			dataArray = matrix.getDataArray(Matrix.COLUMN_MAJOR, output);
@@ -180,12 +180,12 @@ public class MatrixTest {
 	public void setDataArrayTest() {
 		Matrix matrix = null;
 
-		matrix = GeometryFactory.createMatrix(5, 5);
-		
+		matrix = JeometryFactory.createMatrix(5, 5);
+
 		if (matrixClass != null) {
 			assertTrue("Unexpected matrix implementation "+matrix.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(matrix.getClass()));
 		}
-		
+
 		try {
 			matrix.setDataArray(Matrix.ROW_MAJOR, MatrixTestData.M_5x5_A_ROWMAJOR);
 
@@ -199,12 +199,12 @@ public class MatrixTest {
 			fail("Exception raised: "+e.getMessage());
 		}
 
-		matrix = GeometryFactory.createMatrix(5, 5);
-		
+		matrix = JeometryFactory.createMatrix(5, 5);
+
 		if (matrixClass != null) {
 			assertTrue("Unexpected matrix implementation "+matrix.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(matrix.getClass()));
 		}
-		
+
 		try {
 			matrix.setDataArray(Matrix.COLUMN_MAJOR, MatrixTestData.M_5x5_A_COLUMNMAJOR);
 
@@ -228,30 +228,30 @@ public class MatrixTest {
 		Matrix matrix = null;
 		double determinant  = Double.NaN;
 
-		matrix = GeometryFactory.createMatrix(MatrixTestData.M_3x3_A);
-		
+		matrix = JeometryFactory.createMatrix(MatrixTestData.M_3x3_A);
+
 		if (matrixClass != null) {
 			assertTrue("Unexpected matrix implementation "+matrix.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(matrix.getClass()));
 		}
-		
+
 		determinant = matrix.determinant();
 		assertEquals("Invalid determinant: ", MatrixTestData.M_3x3_A_DETERMINANT, determinant, Double.MIN_VALUE);
 
-		matrix = GeometryFactory.createMatrix(MatrixTestData.M_4x4_A);
-		
+		matrix = JeometryFactory.createMatrix(MatrixTestData.M_4x4_A);
+
 		if (matrixClass != null) {
 			assertTrue("Unexpected matrix implementation "+matrix.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(matrix.getClass()));
 		}
-		
+
 		determinant = matrix.determinant();
 		assertEquals("Invalid determinant: ", MatrixTestData.M_4x4_A_DETERMINANT, determinant, Double.MIN_VALUE);
 
-		matrix = GeometryFactory.createMatrix(MatrixTestData.M_5x5_A);
-		
+		matrix = JeometryFactory.createMatrix(MatrixTestData.M_5x5_A);
+
 		if (matrixClass != null) {
 			assertTrue("Unexpected matrix implementation "+matrix.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(matrix.getClass()));
 		}
-		
+
 		determinant = matrix.determinant();
 		assertEquals("Invalid determinant: ", MatrixTestData.M_5x5_A_DETERMINANT, determinant, Double.MIN_VALUE);
 
@@ -262,12 +262,12 @@ public class MatrixTest {
 	 */
 	@Test
 	public void transposeTest() {
-		Matrix matrix = GeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix matrix = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
 
 		if (matrixClass != null) {
 			assertTrue("Unexpected matrix implementation "+matrix.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(matrix.getClass()));
 		}
-		
+
 		Matrix transpose = matrix.transpose();
 
 		assertNotNull("Invalid transpose result.", transpose);
@@ -291,18 +291,18 @@ public class MatrixTest {
 	 */
 	@Test
 	public void transposeResultTest() {
-		Matrix matrix    = GeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix matrix    = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
 
 		if (matrixClass != null) {
 			assertTrue("Unexpected matrix implementation "+matrix.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(matrix.getClass()));
 		}
-		
-		Matrix transpose = GeometryFactory.createMatrix(matrix.getColumnsCount(), matrix.getRowsCount());
+
+		Matrix transpose = JeometryFactory.createMatrix(matrix.getColumnsCount(), matrix.getRowsCount());
 
 		if (matrixClass != null) {
 			assertTrue("Unexpected matrix implementation "+matrix.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(matrix.getClass()));
 		}
-		
+
 		Matrix ref             = matrix.transpose(transpose);
 
 		assertNotNull("Invalid transpose result.", transpose);
@@ -327,12 +327,12 @@ public class MatrixTest {
 	 */
 	@Test
 	public void transposeAffectTest() {
-		Matrix matrix    = GeometryFactory.createMatrix(MatrixTestData.M_4x3_A);	
-		
+		Matrix matrix    = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);	
+
 		if (matrixClass != null) {
 			assertTrue("Unexpected matrix implementation "+matrix.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(matrix.getClass()));
 		}
-		
+
 		Matrix ref             = matrix.transposeAffect();
 
 		assertNotNull("Invalid transpose result.", ref);
@@ -355,13 +355,13 @@ public class MatrixTest {
 	 */
 	@Test
 	public void multiplyTest() {
-		Matrix a = GeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
-		
+		Matrix a = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+
 		if (matrixClass != null) {
 			assertTrue("Unexpected matrix implementation "+a.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(a.getClass()));
 		}
-		
-		Matrix b = GeometryFactory.createMatrix(MatrixTestData.M_3x4_A);
+
+		Matrix b = JeometryFactory.createMatrix(MatrixTestData.M_3x4_A);
 
 		try {
 			Matrix result = a.multiply(b);
@@ -389,9 +389,9 @@ public class MatrixTest {
 	 */
 	@Test
 	public void multiplyResultTest() {
-		Matrix a      = GeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
-		Matrix b      = GeometryFactory.createMatrix(MatrixTestData.M_3x4_A);
-		Matrix result = GeometryFactory.createMatrix(MatrixTestData.M_4x3_A.length, MatrixTestData.M_3x4_A[0].length);
+		Matrix a      = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix b      = JeometryFactory.createMatrix(MatrixTestData.M_3x4_A);
+		Matrix result = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A.length, MatrixTestData.M_3x4_A[0].length);
 
 		try {
 			Matrix reference = a.multiply(b, result);
@@ -420,8 +420,8 @@ public class MatrixTest {
 	 */
 	@Test
 	public void multiplyAffectTest() {
-		Matrix matrix = GeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
-		Matrix b      = GeometryFactory.createMatrix(MatrixTestData.M_4x4_A);
+		Matrix matrix = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix b      = JeometryFactory.createMatrix(MatrixTestData.M_4x4_A);
 
 		try {
 			Matrix reference = matrix.multiplyAffect(b);
@@ -450,8 +450,8 @@ public class MatrixTest {
 	 */
 	@Test
 	public void multiplyVectorTest() {
-		Vector v = GeometryFactory.createVector(MatrixTestData.V_4_A);
-		Matrix m = GeometryFactory.createMatrix(MatrixTestData.M_4x4_A);
+		Vector v = JeometryFactory.createVector(MatrixTestData.V_4_A);
+		Matrix m = JeometryFactory.createMatrix(MatrixTestData.M_4x4_A);
 
 		Vector u = null;
 
@@ -481,10 +481,10 @@ public class MatrixTest {
 	 */
 	@Test
 	public void multiplyVectorResultTest() {
-		Vector v = GeometryFactory.createVector(MatrixTestData.V_4_A);
-		Matrix m = GeometryFactory.createMatrix(MatrixTestData.M_4x4_A);
+		Vector v = JeometryFactory.createVector(MatrixTestData.V_4_A);
+		Matrix m = JeometryFactory.createMatrix(MatrixTestData.M_4x4_A);
 
-		Vector result = GeometryFactory.createVector(v.getDimension());
+		Vector result = JeometryFactory.createVector(v.getDimension());
 
 		Vector u = null;
 
@@ -511,10 +511,10 @@ public class MatrixTest {
 		}
 
 		// Testing line matrix 
-		v = GeometryFactory.createVector(MatrixTestData.V_4_A);
-		m = GeometryFactory.createMatrix(MatrixTestData.M_4L_A);
+		v = JeometryFactory.createVector(MatrixTestData.V_4_A);
+		m = JeometryFactory.createMatrix(MatrixTestData.M_4L_A);
 
-		result = GeometryFactory.createVector(v.getDimension());
+		result = JeometryFactory.createVector(v.getDimension());
 
 		try {
 
@@ -540,10 +540,10 @@ public class MatrixTest {
 		}
 
 		// Testing column matrix 
-		v = GeometryFactory.createVector(MatrixTestData.V_4_A);
-		m = GeometryFactory.createMatrix(MatrixTestData.M_4C_A);
+		v = JeometryFactory.createVector(MatrixTestData.V_4_A);
+		m = JeometryFactory.createMatrix(MatrixTestData.M_4C_A);
 
-		result = GeometryFactory.createVector(v.getDimension());
+		result = JeometryFactory.createVector(v.getDimension());
 
 		try {
 
@@ -575,7 +575,7 @@ public class MatrixTest {
 	 */
 	@Test
 	public void multiplyScalarTest() {
-		Matrix a      = GeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix a      = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
 		double scalar       = 2.3698d;
 
 		try {
@@ -604,8 +604,8 @@ public class MatrixTest {
 	 */
 	@Test
 	public void multiplyScalarResultTest() {
-		Matrix a      = GeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
-		Matrix result = GeometryFactory.createMatrix(a.getRowsCount(), a.getColumnsCount());
+		Matrix a      = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix result = JeometryFactory.createMatrix(a.getRowsCount(), a.getColumnsCount());
 		double scalar       = 2.3698d;
 
 		try {
@@ -636,8 +636,8 @@ public class MatrixTest {
 	 */
 	@Test
 	public void multiplyScalarAffectTest() {
-		Matrix a      = GeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
-		Matrix ref    = GeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix a      = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix ref    = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
 		double scalar       = 2.3698d;
 
 		try {
@@ -667,8 +667,8 @@ public class MatrixTest {
 	 */
 	@Test
 	public void addMatrixTest() {
-		Matrix a      = GeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
-		Matrix b      = GeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix a      = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix b      = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
 
 		Matrix result = null;
 
@@ -701,10 +701,10 @@ public class MatrixTest {
 	 */
 	@Test
 	public void addMatrixResultTest() {
-		Matrix a         = GeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
-		Matrix b         = GeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix a         = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix b         = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
 
-		Matrix result    = GeometryFactory.createMatrix(a.getRowsCount(), a.getColumnsCount());
+		Matrix result    = JeometryFactory.createMatrix(a.getRowsCount(), a.getColumnsCount());
 
 		Matrix reference = null;
 
@@ -739,8 +739,8 @@ public class MatrixTest {
 	 */
 	@Test
 	public void addMatrixAffectTest() {
-		Matrix a         = GeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
-		Matrix b         = GeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix a         = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix b         = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
 
 		Matrix reference = null;
 
@@ -775,7 +775,7 @@ public class MatrixTest {
 	 */
 	@Test
 	public void addScalarTest() {
-		Matrix a = GeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix a = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
 		double s = 3.567802356d;
 
 		Matrix result = null;
@@ -808,10 +808,10 @@ public class MatrixTest {
 	 */
 	@Test
 	public void addScalarResultTest() {
-		Matrix a         = GeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix a         = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
 		double s = 3.567802356d;
 
-		Matrix result    = GeometryFactory.createMatrix(a.getRowsCount(), a.getColumnsCount());
+		Matrix result    = JeometryFactory.createMatrix(a.getRowsCount(), a.getColumnsCount());
 
 		Matrix reference = null;
 
@@ -846,8 +846,8 @@ public class MatrixTest {
 	 */
 	@Test
 	public void subtractMatrixTest() {
-		Matrix a      = GeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
-		Matrix b      = GeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix a      = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix b      = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
 
 		Matrix result = null;
 
@@ -880,10 +880,10 @@ public class MatrixTest {
 	 */
 	@Test
 	public void subtractMatrixResultTest() {
-		Matrix a         = GeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
-		Matrix b         = GeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix a         = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix b         = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
 
-		Matrix result    = GeometryFactory.createMatrix(a.getRowsCount(), a.getColumnsCount());
+		Matrix result    = JeometryFactory.createMatrix(a.getRowsCount(), a.getColumnsCount());
 
 		Matrix reference = null;
 
@@ -918,8 +918,8 @@ public class MatrixTest {
 	 */
 	@Test
 	public void subtractMatrixAffectTest() {
-		Matrix a         = GeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
-		Matrix b         = GeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix a         = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix b         = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
 
 		Matrix reference = null;
 
@@ -956,7 +956,7 @@ public class MatrixTest {
 	public void invertMatrixTest() {
 
 		// Test 3x3 matrix
-		Matrix a = GeometryFactory.createMatrix(MatrixTestData.M_3x3_A);
+		Matrix a = JeometryFactory.createMatrix(MatrixTestData.M_3x3_A);
 
 		Matrix result = null;
 
@@ -983,7 +983,7 @@ public class MatrixTest {
 		}	
 
 		// Test 4x4 matrix
-		a = GeometryFactory.createMatrix(MatrixTestData.M_4x4_A);
+		a = JeometryFactory.createMatrix(MatrixTestData.M_4x4_A);
 
 		result = null;
 
@@ -1017,9 +1017,9 @@ public class MatrixTest {
 	public void invertMatrixResultTest() {
 
 		// Testing 3x3 matrix
-		Matrix a = GeometryFactory.createMatrix(MatrixTestData.M_3x3_A);
+		Matrix a = JeometryFactory.createMatrix(MatrixTestData.M_3x3_A);
 
-		Matrix result = GeometryFactory.createMatrix(a.getRowsCount(), a.getColumnsCount());
+		Matrix result = JeometryFactory.createMatrix(a.getRowsCount(), a.getColumnsCount());
 
 		Matrix reference = null;
 
@@ -1046,9 +1046,9 @@ public class MatrixTest {
 		}
 
 		// Testing 4x4 matrix
-		a = GeometryFactory.createMatrix(MatrixTestData.M_4x4_A);
+		a = JeometryFactory.createMatrix(MatrixTestData.M_4x4_A);
 
-		result = GeometryFactory.createMatrix(a.getRowsCount(), a.getColumnsCount());
+		result = JeometryFactory.createMatrix(a.getRowsCount(), a.getColumnsCount());
 
 		reference = null;
 
@@ -1080,7 +1080,7 @@ public class MatrixTest {
 	 */
 	@Test
 	public void cofactorMatrixTest() {
-		Matrix a = GeometryFactory.createMatrix(MatrixTestData.M_3x3_A);
+		Matrix a = JeometryFactory.createMatrix(MatrixTestData.M_3x3_A);
 
 		Matrix result = null;
 
@@ -1108,7 +1108,7 @@ public class MatrixTest {
 
 
 		// 4x4 matrix cofactor
-		a = GeometryFactory.createMatrix(MatrixTestData.M_4x4_A);
+		a = JeometryFactory.createMatrix(MatrixTestData.M_4x4_A);
 
 		result = null;
 
@@ -1133,5 +1133,160 @@ public class MatrixTest {
 		} catch (Exception e) {
 			fail("Exception raised: "+e.getMessage());
 		}	
+	}
+
+	/**
+	 * Testing {@link Matrix#setTo(double)}
+	 */
+	@Test
+	public void setToTest() {
+
+		Matrix a = JeometryFactory.createMatrix(MatrixTestData.M_3x3_A);
+
+		a.setTo(5.0d);
+
+		for(int row = 0; row < a.getRowsCount(); row++) {
+			for(int col = 0; col < a.getColumnsCount(); col++) {
+				assertEquals("Invalid value ["+row+"x"+col+"]", 5.0d, a.getValue(row, col), Double.MIN_VALUE);
+			}
+		}
+	}
+
+	/**
+	 * Testing {@link Matrix#concatHorizontal(Matrix)}
+	 */
+	@Test
+	public void concatHorizontalTest() {
+
+		Matrix matrix = JeometryFactory.createMatrix(new double[][] {{ 1.0d,  2.0d,  3.0d},
+			{ 6.0d,  7.0d,  8.0d},
+			{11.0d, 12.0d, 13.0d}});
+
+		Matrix right = JeometryFactory.createMatrix(new double[][] {{ 4.0d,  5.0d},
+			{ 9.0d, 10.0d},
+			{14.0d, 15.0d}});
+
+		Matrix concat = matrix.concatHorizontal(right);
+
+		assertEquals("Invalid result row count ", matrix.getRowsCount(), concat.getRowsCount());
+		assertEquals("Invalid result column count ", matrix.getColumnsCount()+right.getColumnsCount(), concat.getColumnsCount());
+
+		for(int row = 0; row < matrix.getRowsCount(); row++) {
+			for(int col = 0; col < matrix.getColumnsCount(); col++) {
+				assertEquals("Invalid result cell ["+row+"x"+col+"]", matrix.getValue(row, col), concat.getValue(row, col), Double.MIN_VALUE);
+			}
+		}
+
+		for(int row = 0; row < right.getRowsCount(); row++) {
+			for(int col = 0; col < right.getColumnsCount(); col++) {
+				assertEquals("Invalid result cell ["+row+"x"+col+matrix.getColumnsCount()+"]", right.getValue(row, col), concat.getValue(row, col+matrix.getColumnsCount()), Double.MIN_VALUE);
+			}
+		}
+	}
+
+	/**
+	 * Testing {@link Matrix#concatHorizontal(Matrix, Matrix)}
+	 */
+	@Test
+	public void concatHorizontalResultTest() {
+
+		Matrix matrix = JeometryFactory.createMatrix(new double[][] {{ 1.0d,  2.0d,  3.0d},
+			{ 6.0d,  7.0d,  8.0d},
+			{11.0d, 12.0d, 13.0d}});
+
+		Matrix right = JeometryFactory.createMatrix(new double[][] {{ 4.0d,  5.0d},
+			{ 9.0d, 10.0d},
+			{14.0d, 15.0d}});
+
+		Matrix concat = JeometryFactory.createMatrix(matrix.getRowsCount(), matrix.getColumnsCount()+right.getColumnsCount());
+
+		Matrix result = matrix.concatHorizontal(right, concat);
+
+		assertNotNull("Concatenation result is null", result);
+
+		assertSame("Concatenation result and reference differs", concat, result);
+
+		assertEquals("Invalid result row count ", matrix.getRowsCount(), concat.getRowsCount());
+		assertEquals("Invalid result column count ", matrix.getColumnsCount()+right.getColumnsCount(), concat.getColumnsCount());
+
+		for(int row = 0; row < matrix.getRowsCount(); row++) {
+			for(int col = 0; col < matrix.getColumnsCount(); col++) {
+				assertEquals("Invalid result cell ["+row+"x"+col+"]", matrix.getValue(row, col), concat.getValue(row, col), Double.MIN_VALUE);
+			}
+		}
+
+		for(int row = 0; row < right.getRowsCount(); row++) {
+			for(int col = 0; col < right.getColumnsCount(); col++) {
+				assertEquals("Invalid result cell ["+row+"x"+col+matrix.getColumnsCount()+"]", right.getValue(row, col), concat.getValue(row, col+matrix.getColumnsCount()), Double.MIN_VALUE);
+			}
+		}
+	}
+
+	/**
+	 * Testing {@link Matrix#concatVertical(Matrix)}
+	 */
+	@Test
+	public void concatVerticalTest() {
+
+		Matrix matrix = JeometryFactory.createMatrix(new double[][] {{ 1.0d,  2.0d,  3.0d},
+			{ 4.0d,  5.0d,  6.0d},
+			{ 7.0d,  8.0d,  9.0d}});
+
+		Matrix bottom = JeometryFactory.createMatrix(new double[][] {{ 10.0d, 11.0d, 12.0d},
+			{ 13.0d, 14.0d, 15.0d}});
+
+		Matrix concat = matrix.concatVertical(bottom);
+
+		assertEquals("Invalid result row count ", matrix.getRowsCount()+bottom.getRowsCount(), concat.getRowsCount());
+		assertEquals("Invalid result column count ", matrix.getColumnsCount(), concat.getColumnsCount());
+
+		for(int row = 0; row < matrix.getRowsCount(); row++) {
+			for(int col = 0; col < matrix.getColumnsCount(); col++) {
+				assertEquals("Invalid result cell ["+row+"x"+col+"]", matrix.getValue(row, col), concat.getValue(row, col), Double.MIN_VALUE);
+			}
+		}
+
+		for(int row = 0; row < bottom.getRowsCount(); row++) {
+			for(int col = 0; col < bottom.getColumnsCount(); col++) {
+				assertEquals("Invalid result cell ["+row+matrix.getRowsCount()+"x"+col+"]", bottom.getValue(row, col), concat.getValue(row+matrix.getRowsCount(), col), Double.MIN_VALUE);
+			}
+		}
+	}
+
+	/**
+	 * Testing {@link Matrix#concatHorizontal(Matrix, Matrix)}
+	 */
+	@Test
+	public void concatVerticalResultTest() {
+
+		Matrix matrix = JeometryFactory.createMatrix(new double[][] {{ 1.0d,  2.0d,  3.0d},
+			                                                         { 4.0d,  5.0d,  6.0d},
+			                                                         { 7.0d,  8.0d,  9.0d}});
+
+		Matrix bottom = JeometryFactory.createMatrix(new double[][] {{ 10.0d, 11.0d, 12.0d},
+			                                                         { 13.0d, 14.0d, 15.0d}});
+
+		Matrix concat = JeometryFactory.createMatrix(matrix.getRowsCount()+bottom.getRowsCount(), matrix.getColumnsCount());
+
+		Matrix result = matrix.concatVertical(bottom, concat);
+
+		assertNotNull("Concatenation result is null", result);
+
+		assertSame("Concatenation result and reference differs", concat, result);
+		
+		assertEquals("Invalid result row count ", matrix.getRowsCount()+bottom.getRowsCount(), result.getRowsCount());
+		assertEquals("Invalid result column count ", matrix.getColumnsCount(), result.getColumnsCount());
+
+		for(int row = 0; row < matrix.getRowsCount(); row++) {
+			for(int col = 0; col < matrix.getColumnsCount(); col++) {
+				assertEquals("Invalid result cell ["+row+"x"+col+"]", matrix.getValue(row, col), result.getValue(row, col), Double.MIN_VALUE);
+			}
+		}
+
+		for(int row = 0; row < bottom.getRowsCount(); row++) {
+			for(int col = 0; col < bottom.getColumnsCount(); col++) {
+				assertEquals("Invalid result cell ["+row+matrix.getRowsCount()+"x"+col+"]", bottom.getValue(row, col), result.getValue(row+matrix.getRowsCount(), col), Double.MIN_VALUE);
+			}
+		}
 	}
 }

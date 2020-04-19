@@ -1,7 +1,7 @@
 package org.jeometry.simple.math.solver;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.math.Matrix;
 import org.jeometry.math.Vector;
 import org.jeometry.math.solver.Solver;
@@ -9,7 +9,7 @@ import org.jeometry.math.solver.Solver;
 /**
  * A linear system solver that relies on <a href="https://mathworld.wolfram.com/GaussianElimination.html">Gauss elimination method</a>.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} b{@value Geometry#BUILD}
+ * @version {@value Jeometry#version} b{@value Jeometry#BUILD}
  * @since 1.0.0
  */
 // TODO enhance comments to describe the method
@@ -159,7 +159,7 @@ public class SimpleGaussEliminationSolver implements Solver {
 
 	@Override
 	public Matrix solve(Matrix a, Matrix b) {
-		return solve(a, b, GeometryFactory.createMatrix(b.getRowsCount(), 1));
+		return solve(a, b, JeometryFactory.createMatrix(b.getRowsCount(), 1));
 	}
 
 	@Override
@@ -172,7 +172,7 @@ public class SimpleGaussEliminationSolver implements Solver {
 		        int columns = a.getColumnsCount();
 
 		        // build augmented matrix
-		        Matrix augmented = GeometryFactory.createMatrix(rows, columns+1);
+		        Matrix augmented = JeometryFactory.createMatrix(rows, columns+1);
 
 		        for (int i = 0; i < rows; i++) {
 		        	for (int j = 0; j < columns; j++) {
@@ -203,7 +203,7 @@ public class SimpleGaussEliminationSolver implements Solver {
 
 	@Override
 	public Vector solve(Matrix a, Vector b) {
-		return solve(a, b, GeometryFactory.createVector(b.getDimension()));
+		return solve(a, b, JeometryFactory.createVector(b.getDimension()));
 	}
 
 	@Override
@@ -215,7 +215,7 @@ public class SimpleGaussEliminationSolver implements Solver {
 		        int columns = a.getColumnsCount();
 
 		        // build augmented matrix
-		        Matrix augmented = GeometryFactory.createMatrix(rows, columns+1);
+		        Matrix augmented = JeometryFactory.createMatrix(rows, columns+1);
 
 		        for (int i = 0; i < rows; i++) {
 		        	for (int j = 0; j < columns; j++) {

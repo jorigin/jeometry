@@ -1,6 +1,6 @@
 package org.jeometry.geom3D.point;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.geom3D.SpatialLocalization3D;
 import org.jeometry.math.Vector;
 
@@ -8,7 +8,7 @@ import org.jeometry.math.Vector;
  * This interface describes a point expressed within a three-dimensional <a href="https://en.wikipedia.org/wiki/Three-dimensional_space">Euclidean space</a>.
  * The coordinates of the point (x, y and z) are expressed within a <a href="https://en.wikipedia.org/wiki/Cartesian_coordinate_system">Cartesian coordinate system</a> and are stored as double values.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} build {@value Geometry#BUILD}
+ * @version {@value Jeometry#version} build {@value Jeometry#BUILD}
  * @since 1.0.0
  */
 public interface Point3D extends Coord3D, SpatialLocalization3D {

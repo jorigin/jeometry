@@ -3,7 +3,7 @@ package org.jeometry.geom3D.point;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.factory.JeometryFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -42,10 +42,10 @@ public class Point3DTest {
     double yBRef =  192.16810102d;
     double zBRef =    0.00056989d;   
     
-    Point3D pointA = GeometryFactory.createPoint3D(xARef, yARef, zARef);
-    Point3D pointB = GeometryFactory.createPoint3D(xBRef, yBRef, zBRef);
+    Point3D pointA = JeometryFactory.createPoint3D(xARef, yARef, zARef);
+    Point3D pointB = JeometryFactory.createPoint3D(xBRef, yBRef, zBRef);
     
-    Point3D crossResult = GeometryFactory.createPoint3D( pointA.getY() * pointB.getZ() - pointA.getZ() * pointB.getY(),
+    Point3D crossResult = JeometryFactory.createPoint3D( pointA.getY() * pointB.getZ() - pointA.getZ() * pointB.getY(),
                                                   -pointA.getX() * pointB.getZ() + pointA.getZ() * pointB.getX(),
                                                    pointA.getX() * pointB.getY() - pointA.getY() * pointB.getX());
     
@@ -55,34 +55,34 @@ public class Point3DTest {
     
     double normResult        = Math.sqrt(normSquareResult);
     
-    Point3D normalizedResult =  GeometryFactory.createPoint3D();
+    Point3D normalizedResult =  JeometryFactory.createPoint3D();
     normalizedResult.setX(pointA.getX() / normResult);
     normalizedResult.setY(pointA.getY() / normResult);
     normalizedResult.setZ(pointA.getZ() / normResult);
     
-    Point3D plusResult = GeometryFactory.createPoint3D( pointA.getX() + pointB.getX(),
+    Point3D plusResult = JeometryFactory.createPoint3D( pointA.getX() + pointB.getX(),
     		                                pointA.getY() + pointB.getY(),
                                             pointA.getZ() + pointB.getZ());
     
-    Point3D minusResult = GeometryFactory.createPoint3D( pointA.getX() - pointB.getX(),
+    Point3D minusResult = JeometryFactory.createPoint3D( pointA.getX() - pointB.getX(),
                                              pointA.getY() - pointB.getY(),
                                              pointA.getZ() - pointB.getZ());
     
     double scalar = 2.368d;
     
-    Point3D plusScalarResult = GeometryFactory.createPoint3D( pointA.getX() + scalar,
+    Point3D plusScalarResult = JeometryFactory.createPoint3D( pointA.getX() + scalar,
                                                   pointA.getY() + scalar,
                                                   pointA.getZ() + scalar);
     
-    Point3D minusScalarResult = GeometryFactory.createPoint3D( pointA.getX() - scalar,
+    Point3D minusScalarResult = JeometryFactory.createPoint3D( pointA.getX() - scalar,
                                                    pointA.getY() - scalar,
                                                    pointA.getZ() - scalar);
     
-    Point3D multScalarResult = GeometryFactory.createPoint3D( pointA.getX() * scalar,
+    Point3D multScalarResult = JeometryFactory.createPoint3D( pointA.getX() * scalar,
                                                   pointA.getY() * scalar,
                                                   pointA.getZ() * scalar);
     
-    Point3D divScalarResult = GeometryFactory.createPoint3D( pointA.getX() / scalar,
+    Point3D divScalarResult = JeometryFactory.createPoint3D( pointA.getX() / scalar,
                                                  pointA.getY() / scalar,
                                                  pointA.getZ() / scalar);
     
@@ -113,7 +113,7 @@ public class Point3DTest {
     resultDouble = pointA.norm();
     assertEquals("norm operator: Unexpected value", Math.sqrt(normSquareResult), resultDouble, 0.0d);
     
-    resultPoint3D = GeometryFactory.createPoint3D(pointA.getX(), pointA.getY(), pointA.getZ());
+    resultPoint3D = JeometryFactory.createPoint3D(pointA.getX(), pointA.getY(), pointA.getZ());
     resultPoint3D.normalize();
     assertEquals("normalize operator: Unexpected X value", normalizedResult.getX(), resultPoint3D.getX(), 0.0d);
     assertEquals("normalize operator: Unexpected Y value", normalizedResult.getY(), resultPoint3D.getY(), 0.0d);
@@ -124,7 +124,7 @@ public class Point3DTest {
     assertEquals("plus point operator: Unexpected Y value", plusResult.getY(), resultPoint3D.getY(), 0.0d);
     assertEquals("plus point operator: Unexpected Z value", plusResult.getZ(), resultPoint3D.getZ(), 0.0d);
     
-    resultPoint3DB = GeometryFactory.createPoint3D();
+    resultPoint3DB = JeometryFactory.createPoint3D();
     resultPoint3D = pointA.plus(pointB, resultPoint3DB);
     assertEquals("plus point result operator: Unexpected X value", plusResult.getX(), resultPoint3D.getX(), 0.0d);
     assertEquals("plus point result operator: Unexpected Y value", plusResult.getY(), resultPoint3D.getY(), 0.0d);
@@ -138,7 +138,7 @@ public class Point3DTest {
     assertEquals("plus point result operator: Unexpected Y value", plusScalarResult.getY(), resultPoint3D.getY(), 0.0d);
     assertEquals("plus point result operator: Unexpected Z value", plusScalarResult.getZ(), resultPoint3D.getZ(), 0.0d);
     
-    resultPoint3DB = GeometryFactory.createPoint3D();
+    resultPoint3DB = JeometryFactory.createPoint3D();
     resultPoint3D = pointA.plus(scalar, resultPoint3DB);
     assertEquals("plus point result operator: Unexpected X value", plusScalarResult.getX(), resultPoint3D.getX(), 0.0d);
     assertEquals("plus point result operator: Unexpected Y value", plusScalarResult.getY(), resultPoint3D.getY(), 0.0d);
@@ -152,7 +152,7 @@ public class Point3DTest {
     assertEquals("minus point operator: Unexpected Y value", minusResult.getY(), resultPoint3D.getY(), 0.0d);
     assertEquals("minus point operator: Unexpected Z value", minusResult.getZ(), resultPoint3D.getZ(), 0.0d);
     
-    resultPoint3DB = GeometryFactory.createPoint3D();
+    resultPoint3DB = JeometryFactory.createPoint3D();
     resultPoint3D = pointA.minus(pointB, resultPoint3DB);
     assertEquals("minus point result operator: Unexpected X value", minusResult.getX(), resultPoint3D.getX(), 0.0d);
     assertEquals("minus point result operator: Unexpected Y value", minusResult.getY(), resultPoint3D.getY(), 0.0d);
@@ -166,7 +166,7 @@ public class Point3DTest {
     assertEquals("minus point result operator: Unexpected Y value", minusScalarResult.getY(), resultPoint3D.getY(), 0.0d);
     assertEquals("minus point result operator: Unexpected Z value", minusScalarResult.getZ(), resultPoint3D.getZ(), 0.0d);
     
-    resultPoint3DB = GeometryFactory.createPoint3D();
+    resultPoint3DB = JeometryFactory.createPoint3D();
     resultPoint3D = pointA.minus(scalar, resultPoint3DB);
     assertEquals("minus point result operator: Unexpected X value", minusScalarResult.getX(), resultPoint3D.getX(), 0.0d);
     assertEquals("minus point result operator: Unexpected Y value", minusScalarResult.getY(), resultPoint3D.getY(), 0.0d);
@@ -175,7 +175,7 @@ public class Point3DTest {
     assertEquals("minus point result operator: Unexpected Y value", minusScalarResult.getY(), resultPoint3DB.getY(), 0.0d);
     assertEquals("minus point result operator: Unexpected Z value", minusScalarResult.getZ(), resultPoint3DB.getZ(), 0.0d);
     
-    resultPoint3DB = GeometryFactory.createPoint3D(pointA.getX(), pointA.getY(), pointA.getZ());
+    resultPoint3DB = JeometryFactory.createPoint3D(pointA.getX(), pointA.getY(), pointA.getZ());
     resultPoint3D = resultPoint3DB.plusAffect(pointB);
     assertEquals("plus affect point operator: Unexpected X value", plusResult.getX(), resultPoint3D.getX(), 0.0d);
     assertEquals("plus affect point operator: Unexpected Y value", plusResult.getY(), resultPoint3D.getY(), 0.0d);
@@ -184,13 +184,13 @@ public class Point3DTest {
     assertEquals("plus affect point operator: Unexpected Y value", plusResult.getY(), resultPoint3DB.getY(), 0.0d);
     assertEquals("plus affect point operator: Unexpected Z value", plusResult.getZ(), resultPoint3DB.getZ(), 0.0d);
     
-    resultPoint3DB = GeometryFactory.createPoint3D(pointA.getX(), pointA.getY(), pointA.getZ());
+    resultPoint3DB = JeometryFactory.createPoint3D(pointA.getX(), pointA.getY(), pointA.getZ());
     resultPoint3D = resultPoint3DB.plusAffect(scalar);
     assertEquals("plus affect point operator: Unexpected X value", plusScalarResult.getX(), resultPoint3D.getX(), 0.0d);
     assertEquals("plus affect point operator: Unexpected Y value", plusScalarResult.getY(), resultPoint3D.getY(), 0.0d);
     assertEquals("plus affect point operator: Unexpected Z value", plusScalarResult.getZ(), resultPoint3D.getZ(), 0.0d);
     
-    resultPoint3DB = GeometryFactory.createPoint3D(pointA.getX(), pointA.getY(), pointA.getZ());
+    resultPoint3DB = JeometryFactory.createPoint3D(pointA.getX(), pointA.getY(), pointA.getZ());
     resultPoint3D = resultPoint3DB.minusAffect(pointB);
     assertEquals("minus affect point result operator: Unexpected X value", minusResult.getX(), resultPoint3D.getX(), 0.0d);
     assertEquals("minus affect point result operator: Unexpected Y value", minusResult.getY(), resultPoint3D.getY(), 0.0d);
@@ -199,7 +199,7 @@ public class Point3DTest {
     assertEquals("minus affect point result operator: Unexpected Y value", minusResult.getY(), resultPoint3DB.getY(), 0.0d);
     assertEquals("minus affect point result operator: Unexpected Z value", minusResult.getZ(), resultPoint3DB.getZ(), 0.0d);
     
-    resultPoint3DB = GeometryFactory.createPoint3D(pointA.getX(), pointA.getY(), pointA.getZ());
+    resultPoint3DB = JeometryFactory.createPoint3D(pointA.getX(), pointA.getY(), pointA.getZ());
     resultPoint3D = resultPoint3DB.minusAffect(scalar);
     assertEquals("minus affect point result operator: Unexpected X value", minusScalarResult.getX(), resultPoint3D.getX(), 0.0d);
     assertEquals("minus affect point result operator: Unexpected Y value", minusScalarResult.getY(), resultPoint3D.getY(), 0.0d);
@@ -210,7 +210,7 @@ public class Point3DTest {
     assertEquals("mult scalar operator: Unexpected Y value", multScalarResult.getY(), resultPoint3D.getY(), 0.0d);
     assertEquals("mult scalar operator: Unexpected Z value", multScalarResult.getZ(), resultPoint3D.getZ(), 0.0d);
     
-    resultPoint3DB = GeometryFactory.createPoint3D();
+    resultPoint3DB = JeometryFactory.createPoint3D();
     resultPoint3D = pointA.mult(scalar, resultPoint3DB);
     assertEquals("mult scalar operator: Unexpected X value", multScalarResult.getX(), resultPoint3D.getX(), 0.0d);
     assertEquals("mult scalar operator: Unexpected Y value", multScalarResult.getY(), resultPoint3D.getY(), 0.0d);
@@ -219,7 +219,7 @@ public class Point3DTest {
     assertEquals("mult scalar operator: Unexpected Y value", multScalarResult.getY(), resultPoint3DB.getY(), 0.0d);
     assertEquals("mult scalar operator: Unexpected Z value", multScalarResult.getZ(), resultPoint3DB.getZ(), 0.0d);
     
-    resultPoint3DB = GeometryFactory.createPoint3D(pointA.getX(), pointA.getY(), pointA.getZ());
+    resultPoint3DB = JeometryFactory.createPoint3D(pointA.getX(), pointA.getY(), pointA.getZ());
     resultPoint3D = resultPoint3DB.multAffect(scalar);
     assertEquals("mult scalar operator: Unexpected X value", multScalarResult.getX(), resultPoint3D.getX(), 0.0d);
     assertEquals("mult scalar operator: Unexpected Y value", multScalarResult.getY(), resultPoint3D.getY(), 0.0d);
@@ -233,7 +233,7 @@ public class Point3DTest {
     assertEquals("div scalar operator: Unexpected Y value", divScalarResult.getY(), resultPoint3D.getY(), 0.0d);
     assertEquals("div scalar operator: Unexpected Z value", divScalarResult.getZ(), resultPoint3D.getZ(), 0.0d);
     
-    resultPoint3DB = GeometryFactory.createPoint3D();
+    resultPoint3DB = JeometryFactory.createPoint3D();
     resultPoint3D = pointA.divide(scalar, resultPoint3DB);
     assertEquals("div scalar result operator: Unexpected X value", divScalarResult.getX(), resultPoint3D.getX(), 0.0d);
     assertEquals("div scalar result operator: Unexpected Y value", divScalarResult.getY(), resultPoint3D.getY(), 0.0d);
@@ -242,7 +242,7 @@ public class Point3DTest {
     assertEquals("div scalar result operator: Unexpected Y value", divScalarResult.getY(), resultPoint3DB.getY(), 0.0d);
     assertEquals("div scalar result operator: Unexpected Z value", divScalarResult.getZ(), resultPoint3DB.getZ(), 0.0d);
     
-    resultPoint3DB = GeometryFactory.createPoint3D(pointA.getX(), pointA.getY(), pointA.getZ());
+    resultPoint3DB = JeometryFactory.createPoint3D(pointA.getX(), pointA.getY(), pointA.getZ());
     resultPoint3D = resultPoint3DB.divideAffect(scalar);
     assertEquals("div scalar affect operator: Unexpected X value", divScalarResult.getX(), resultPoint3D.getX(), 0.0d);
     assertEquals("div scalar affect operator: Unexpected Y value", divScalarResult.getY(), resultPoint3D.getY(), 0.0d);

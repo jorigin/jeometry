@@ -1,6 +1,6 @@
 package org.jeometry.geom3D.textured;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.geom2D.point.Point2DContainer;
 
 /**
@@ -8,7 +8,7 @@ import org.jeometry.geom2D.point.Point2DContainer;
  * Texture coordinates are expressed as a ratio of the resource bounds. For example, if the texture resource is an image, 
  * texture coordinates (x / image width, y / image height) correspond to the pixel (x, y) on the image.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} build {@value Geometry#BUILD}
+ * @version {@value Jeometry#version} build {@value Jeometry#BUILD}
  * @since 1.0.0
  */
 public interface Texturable {

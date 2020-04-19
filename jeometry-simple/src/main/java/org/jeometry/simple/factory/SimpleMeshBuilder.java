@@ -2,7 +2,7 @@ package org.jeometry.simple.factory;
 
 import java.util.List;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.factory.MeshBuilder;
 import org.jeometry.geom3D.mesh.Edge;
 import org.jeometry.geom3D.mesh.Face;
@@ -32,7 +32,7 @@ import org.jeometry.simple.geom3D.primitive.indexed.SimpleIndexedTriangle;
 /**
  * A {@link MeshBuilder mesh builder} implementation that provide simples pure java implementations.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public class SimpleMeshBuilder implements MeshBuilder {

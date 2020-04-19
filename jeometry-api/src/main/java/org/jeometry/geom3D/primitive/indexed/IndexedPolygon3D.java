@@ -2,7 +2,7 @@ package org.jeometry.geom3D.primitive.indexed;
 
 import java.util.List;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.geom3D.mesh.indexed.IndexedEdge;
 import org.jeometry.geom3D.point.Point3D;
 import org.jeometry.geom3D.point.Point3DContainer;
@@ -12,7 +12,7 @@ import org.jeometry.geom3D.primitive.Polygon3D;
  * An indexed polygon. 
  * @param <T> The type of the underlying 3D points.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public interface IndexedPolygon3D<T extends Point3D> extends Polygon3D<T> {

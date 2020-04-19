@@ -2,15 +2,15 @@ package org.jeometry.geom3D.point;
 
 import java.util.Iterator;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.SpatialLocalization3D;
 
 /**
  * A Point3D container that is based on an array of coordinates.
  * @param <T> the specific type of the {@link Point3D 3D points}
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} build {@value Geometry#BUILD}
+ * @version {@value Jeometry#version} build {@value Jeometry#BUILD}
  * @since 1.0.0
  */
 public class ArrayCoordinatesPoint3DContainer<T extends Point3D> implements Cloneable, Point3DContainer<T> {
@@ -36,6 +36,24 @@ public class ArrayCoordinatesPoint3DContainer<T extends Point3D> implements Clon
   private double z    = Double.NaN;
   private double zMin = Double.NaN;
   private double zMax = Double.NaN;
+  
+  /**
+   * Create a new {@link Point3DContainer Point 3D container implementation} that relies on an array of coordinates. 
+   * The initial capacity of the point container is given by the parameter <code>size</code>.
+   * It is recommended to use a {@link JeometryFactory geometry factory} in order to create instances instead of invoking this constructor.
+   * @param size the initial capacity of the point container.
+   */
+  public ArrayCoordinatesPoint3DContainer(int size){
+	  
+	  this.size = size;
+	  
+	  coordinates = new double[3*size];
+    
+	  states = new int[size];
+    
+	  identifiers = new int[size];
+    
+  }
   
   @Override
   public int getDataType() {
@@ -215,16 +233,6 @@ public class ArrayCoordinatesPoint3DContainer<T extends Point3D> implements Clon
 	    x = x / size();
 	    y = y / size();
 	    z = z / size();
-  }
-
-  /**
-   * Create a new {@link Point3DContainer Point 3D container implementation} that relies on an array of coordinates. 
-   * The initial capacity of the point container is given by the parameter <code>size</code>.
-   * It is recommended to use a {@link GeometryFactory geometry factory} in order to create instances instead of invoking this constructor.
-   * @param size the initial capacity of the point container.
-   */
-  public ArrayCoordinatesPoint3DContainer(int size){
-    coordinates = new double[3*size];
   }
 
 }

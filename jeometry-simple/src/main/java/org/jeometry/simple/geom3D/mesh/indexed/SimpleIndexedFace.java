@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.geom3D.mesh.Edge;
 import org.jeometry.geom3D.mesh.Mesh;
 import org.jeometry.geom3D.mesh.indexed.IndexedEdge;
@@ -21,13 +21,13 @@ import org.jeometry.simple.geom3D.primitive.indexed.SimpleIndexedPolygon3D;
  * A mesh face within indexed geometry context.
  * @param <T> The type of underlying 3D points
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public class SimpleIndexedFace<T extends Point3D> extends SimpleIndexedPolygon3D<T> implements IndexedFace<T>{
 
 
-	private static final long serialVersionUID = Geometry.BUILD;
+	private static final long serialVersionUID = Jeometry.BUILD;
 
 	private List<IndexedEdge<T>> edgesIndexed = null;
 
@@ -62,7 +62,7 @@ public class SimpleIndexedFace<T extends Point3D> extends SimpleIndexedPolygon3D
 	@Override
 	public boolean equals(IndexedPolygon3D<?> polygon) {
 		System.out.println(getClass().getSimpleName()+".equals() only take in account references equality.");
-		Geometry.logger.log(Level.WARNING, " only take in account references equality.");
+		Jeometry.logger.log(Level.WARNING, " only take in account references equality.");
 
 		if (this == polygon) {
 			return true;

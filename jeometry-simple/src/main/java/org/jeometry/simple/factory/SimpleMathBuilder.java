@@ -1,24 +1,26 @@
 package org.jeometry.simple.factory;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.factory.MathBuilder;
 import org.jeometry.math.Matrix;
 import org.jeometry.math.Quaternion;
 import org.jeometry.math.Vector;
 import org.jeometry.math.decomposition.EigenDecomposition;
 import org.jeometry.math.decomposition.LUDecomposition;
+import org.jeometry.math.decomposition.SVDDecomposition;
 import org.jeometry.math.solver.Solver;
 import org.jeometry.simple.math.SimpleMatrix;
 import org.jeometry.simple.math.SimpleQuaternion;
 import org.jeometry.simple.math.SimpleVector;
 import org.jeometry.simple.math.decomposition.SimpleEigenDecomposition;
 import org.jeometry.simple.math.decomposition.SimpleLUDecomposition;
+import org.jeometry.simple.math.decomposition.SimpleSVDDecomposition;
 import org.jeometry.simple.math.solver.SimpleGaussEliminationSolver;
 
 /**
  * A {@link MathBuilder math builder} implementation that provide simples pure java implementations.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  *
  */
@@ -107,5 +109,10 @@ public class SimpleMathBuilder implements MathBuilder{
 	@Override
 	public EigenDecomposition createEigenDecomposition(Matrix matrix) {
 		return new SimpleEigenDecomposition(matrix);
+	}
+
+	@Override
+	public SVDDecomposition createSVDDecomposition(Matrix matrix) {
+		return new SimpleSVDDecomposition(matrix);
 	}
 }

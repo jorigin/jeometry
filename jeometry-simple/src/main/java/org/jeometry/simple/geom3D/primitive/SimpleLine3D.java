@@ -1,7 +1,7 @@
 package org.jeometry.simple.geom3D.primitive;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.Geom3D;
 import org.jeometry.geom3D.point.Point3D;
 import org.jeometry.geom3D.point.Point3DContainer;
@@ -12,13 +12,13 @@ import org.jeometry.simple.geom3D.mesh.SimpleEdge;
  * A simple implementation of {@link Line3D}.
  * @param <T> the type of the underlying 3D points
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} build {@value Geometry#BUILD}
+ * @version {@value Jeometry#version} build {@value Jeometry#BUILD}
  * @since 1.0.0
  *
  */
 public class SimpleLine3D<T extends Point3D> implements Line3D<T>{
   
-  private static final long serialVersionUID = Geometry.BUILD;
+  private static final long serialVersionUID = Jeometry.BUILD;
 
   /** The origin of the edge */
   private T end1    = null;
@@ -38,7 +38,7 @@ public class SimpleLine3D<T extends Point3D> implements Line3D<T>{
 
   @Override
   public Point3DContainer<T> getVertices(){
-    Point3DContainer<T> p3dm = GeometryFactory.createPoint3DContainer(2);
+    Point3DContainer<T> p3dm = JeometryFactory.createPoint3DContainer(2);
     p3dm.add(end1);
     p3dm.add(end2);
     return p3dm;

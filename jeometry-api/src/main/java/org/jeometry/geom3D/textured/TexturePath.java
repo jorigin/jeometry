@@ -1,12 +1,12 @@
 package org.jeometry.geom3D.textured;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 
 /**
  * A {@link Texture texture} is an identified resource that can provide display information attached to a coordinate. 
  * This texture is linked with a resource described by its path (file, URL, ...) 
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} build {@value Geometry#BUILD}
+ * @version {@value Jeometry#version} build {@value Jeometry#BUILD}
  * @since 1.0.0
  */
 public class TexturePath implements Texture {

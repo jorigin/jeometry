@@ -19,7 +19,7 @@ import org.jeometry.math.Vector;
  * @since 1.0.0
  *
  */
-public class Geometry {
+public class Jeometry {
 
   /**
    * The build version.
@@ -80,7 +80,7 @@ public class Geometry {
    * @param logger the {@link java.util.logging.Logger logger} to use for reporting.
    */
   public static void setLogger(Logger logger){
-    Geometry.logger = logger;
+    Jeometry.logger = logger;
   }
   
   /**

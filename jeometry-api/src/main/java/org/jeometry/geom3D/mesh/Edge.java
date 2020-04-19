@@ -2,7 +2,7 @@ package org.jeometry.geom3D.mesh;
 
 import java.util.List;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.geom3D.point.Point3D;
 import org.jeometry.geom3D.primitive.Line3D;
 import org.jeometry.geom3D.primitive.Polygon3D;
@@ -12,7 +12,7 @@ import org.jeometry.geom3D.primitive.Polygon3D;
  * An {@link Edge edge} is a {@link Line3D 3D line} that link two vertices and that delimits a polygon or that delimits faces of a polyhedron.
  * @param <T> The type of the underlying 3D points
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} build {@value Geometry#BUILD}
+ * @version {@value Jeometry#version} build {@value Jeometry#BUILD}
  * @since 1.0.0
  * @see Polygon3D
  * @see Face

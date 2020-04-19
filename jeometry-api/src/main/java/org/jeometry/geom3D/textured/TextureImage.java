@@ -2,7 +2,7 @@ package org.jeometry.geom3D.textured;
 
 import java.awt.Image;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 
 
 /**
@@ -11,7 +11,7 @@ import org.jeometry.Geometry;
  * If the explicit use of {@link java.awt.image.BufferedImage buffered image} is required as texture resource, a 
  * {@link TextureBufferedImage TextureBufferedImage} can be used.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} build {@value Geometry#BUILD}
+ * @version {@value Jeometry#version} build {@value Jeometry#BUILD}
  * @since 1.0.0
  */
 public class TextureImage implements Texture{

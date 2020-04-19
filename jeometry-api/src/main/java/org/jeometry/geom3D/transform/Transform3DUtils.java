@@ -1,11 +1,11 @@
 package org.jeometry.geom3D.transform;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 
 /**
  * A class that provides utility methods for 3D transformation handling.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} b{@value Geometry#BUILD}
+ * @version {@value Jeometry#version} b{@value Jeometry#BUILD}
  * @since 1.0.0
  */
 public class Transform3DUtils {

@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.math.Matrix;
 import org.jeometry.math.MatrixTestData;
 import org.junit.BeforeClass;
@@ -16,7 +16,7 @@ import org.junit.Test;
  * <br>
  * <b>Usage:</b>
  * <p>
- * This test class will test the Eigen decomposition that is given by {@link GeometryFactory#createEigenDecomposition(Matrix)}. 
+ * This test class will test the Eigen decomposition that is given by {@link JeometryFactory#createEigenDecomposition(Matrix)}. 
  * To test a specific implementation you can create a class that extends this one and add the method:<br><br>
  * <code>
  * {@literal @}BeforeClass<br>
@@ -26,9 +26,9 @@ import org.junit.Test;
  * &nbsp;&nbsp;decompositionClass = [the decomposition to test];<br>
  * }<br><br>
  * </code>
- * If the decomposition that is provided by {@link GeometryFactory#createEigenDecomposition(Matrix)} is not from the same class as <code>decompositionClass</code>, tests will fail. 
+ * If the decomposition that is provided by {@link JeometryFactory#createEigenDecomposition(Matrix)} is not from the same class as <code>decompositionClass</code>, tests will fail. 
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public class EigenDecompositionTest {
@@ -56,9 +56,9 @@ public class EigenDecompositionTest {
 	 */
 	@Test
 	public void eigenDecompositionTest() {
-		Matrix k = GeometryFactory.createMatrix(MatrixTestData.DECOMPOSITION_EIGEN_INPUT);
+		Matrix k = JeometryFactory.createMatrix(MatrixTestData.DECOMPOSITION_EIGEN_INPUT);
 
-		EigenDecomposition decomposition = GeometryFactory.createEigenDecomposition(k);
+		EigenDecomposition decomposition = JeometryFactory.createEigenDecomposition(k);
 		
 		assertNotNull("Decomposition is null", decomposition);
 		

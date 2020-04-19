@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.math.Matrix;
 import org.jeometry.math.MatrixTestData;
 import org.junit.BeforeClass;
@@ -17,7 +17,7 @@ import org.junit.Test;
  * <br>
  * <b>Usage:</b>
  * <p>
- * This test class will test the LU decomposition that is given by {@link GeometryFactory#createLUDecomposition(Matrix)}. 
+ * This test class will test the LU decomposition that is given by {@link JeometryFactory#createLUDecomposition(Matrix)}. 
  * To test a specific implementation you can create a class that extends this one and add the method:<br><br>
  * <code>
  * {@literal @}BeforeClass<br>
@@ -27,9 +27,9 @@ import org.junit.Test;
  * &nbsp;&nbsp;decompositionClass = [the decomposition to test];<br>
  * }<br><br>
  * </code>
- * If the decomposition that is provided by {@link GeometryFactory#createLUDecomposition(Matrix)} is not from the same class as <code>decompositionClass</code>, tests will fail. 
+ * If the decomposition that is provided by {@link JeometryFactory#createLUDecomposition(Matrix)} is not from the same class as <code>decompositionClass</code>, tests will fail. 
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public class LUDecompositionTest {
@@ -57,9 +57,9 @@ public class LUDecompositionTest {
 	 */
 	@Test
 	public void luDecompositionTest() {
-		Matrix k = GeometryFactory.createMatrix(MatrixTestData.DECOMPOSITION_LU_INPUT);
+		Matrix k = JeometryFactory.createMatrix(MatrixTestData.DECOMPOSITION_LU_INPUT);
 
-		LUDecomposition decomposition = GeometryFactory.createLUDecomposition(k);
+		LUDecomposition decomposition = JeometryFactory.createLUDecomposition(k);
 		
         assertNotNull("Decomposition is null", decomposition);
 		

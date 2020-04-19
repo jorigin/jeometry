@@ -1,7 +1,7 @@
 package org.jeometry.geom2D.point;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom2D.SpatialLocalization2D;
 import org.jeometry.geom3D.point.Coord3D;
 import org.jeometry.math.Vector;
@@ -9,7 +9,7 @@ import org.jeometry.math.Vector;
 /**
  * A simple implementation of the {@link Point2D} interface.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public class SimplePoint2D implements Point2D{
@@ -70,7 +70,7 @@ public class SimplePoint2D implements Point2D{
 
 	@Override
 	public Coord2D orthogonal() {
-		return orthogonal(GeometryFactory.createPoint2D());
+		return orthogonal(JeometryFactory.createPoint2D());
 	}
 
 	@Override
@@ -90,7 +90,7 @@ public class SimplePoint2D implements Point2D{
 
 	@Override
 	public Vector multiply(double scalar) {
-		return GeometryFactory.createPoint2D(getX()*scalar, getY()*scalar);
+		return JeometryFactory.createPoint2D(getX()*scalar, getY()*scalar);
 	}
 
 	@Override

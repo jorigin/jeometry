@@ -1,6 +1,6 @@
 package org.jeometry.geom3D.primitive.indexed;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.geom3D.mesh.indexed.IndexedFace;
 import org.jeometry.geom3D.mesh.indexed.IndexedMesh;
 import org.jeometry.geom3D.point.Point3D;
@@ -12,7 +12,7 @@ import org.jeometry.geom3D.primitive.Triangle;
  * Such a representation relies on a vertices source that contains the 3D points from which the geometry is constructed.
  * @param <T> The type of the underlying 3D points
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  * @see IndexedMesh
  * @see IndexedFace

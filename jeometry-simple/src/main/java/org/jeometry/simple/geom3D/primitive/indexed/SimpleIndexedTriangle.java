@@ -3,8 +3,8 @@ package org.jeometry.simple.geom3D.primitive.indexed;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.mesh.Edge;
 import org.jeometry.geom3D.mesh.Mesh;
 import org.jeometry.geom3D.mesh.indexed.IndexedEdge;
@@ -21,13 +21,13 @@ import org.jeometry.simple.geom3D.primitive.SimpleLineSet3D;
  * A simple implementation of the {@link IndexedTriangle }
  * @param <T> The type of underlying 3D points
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  *
  */
 public class SimpleIndexedTriangle<T extends Point3D> implements IndexedTriangle<T> {
 
-	private static final long serialVersionUID = Geometry.BUILD;
+	private static final long serialVersionUID = Jeometry.BUILD;
 
 	private int[] indices = null;
 	
@@ -77,7 +77,7 @@ public class SimpleIndexedTriangle<T extends Point3D> implements IndexedTriangle
 		
 		if (isValidatedIndexes()) {
 			if (getVerticesSource() != null) {
-				Point3DContainer<T> vertices = GeometryFactory.createPoint3DContainer(3);
+				Point3DContainer<T> vertices = JeometryFactory.createPoint3DContainer(3);
 				vertices.add(getVertex1());
 				vertices.add(getVertex2());
 				vertices.add(getVertex3());

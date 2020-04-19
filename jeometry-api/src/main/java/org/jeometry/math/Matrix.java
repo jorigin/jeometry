@@ -2,7 +2,7 @@ package org.jeometry.math;
 
 import java.awt.Dimension;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.math.decomposition.EigenDecomposition;
 import org.jeometry.math.decomposition.LUDecomposition;
 import org.jeometry.math.decomposition.SVDDecomposition;
@@ -25,7 +25,7 @@ import org.jeometry.math.decomposition.SVDDecomposition;
  * <li><i>a<sub>ij</sub></i> is the value located at row <i>i</i> and column <i>j</i>
  * </ul>
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} b{@value Geometry#BUILD}
+ * @version {@value Jeometry#version} b{@value Jeometry#BUILD}
  * @since 1.0.0
  */
 public interface Matrix {
@@ -118,6 +118,20 @@ public interface Matrix {
 	 * @see #getValue(int, int)
 	 */
 	public void setValue(int row, int col, double value) throws IllegalArgumentException;
+	
+	/**
+	 * Copy the given matrix values within this one. After a call to this method, all cells [<i>row</i>, <i>column</i>] of this matrix
+	 * have the same values as the cells [<i>row</i>, <i>column</i>] from the given matrix.
+	 * @param matrix the matrix from which the values are copied
+	 * @throws IllegalArgumentException if the given matrix size is not compatible with this one
+	 */
+	public void setValues(Matrix matrix);
+	
+	/**
+	 * Set all the matrix cells with the given value.
+	 * @param value the value to set to all the matrix cells
+	 */
+	public void setTo(double value);
 	
 	/**
 	 * Get the number of rows that this matrix contains.
@@ -833,6 +847,170 @@ public interface Matrix {
 	 * @throws IllegalArgumentException if the result has not the same size as this matrix.
 	 */
 	public Matrix cofactor(Matrix result) throws IllegalStateException, IllegalArgumentException;
+	
+	/**
+	 * Construct a new matrix that is made of the horizontal concatenation of the given matrix to this one.
+	 * Formally, let <i>A</i> a <i>n</i>&times;<i>j</i> matrix defined such that:
+	 * $$
+     * A\ =\ \begin{bmatrix} 
+     *        a_{00} &amp; \dots  &amp; a_{0l} &amp; \dots  &amp; a_{0j} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\
+     *        a_{i0} &amp; \dots  &amp; a_{il} &amp; \dots  &amp; a_{ij} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\     
+     *        a_{n0} &amp; \dots  &amp; a_{nl} &amp; \dots  &amp; a_{nj}
+     *     \end{bmatrix}
+     * $$
+     * and let <i>B</i> a <i>n</i>&times;<i>k</i> matrix defined such that:
+	 * $$
+     * B\ =\ \begin{bmatrix} 
+     *        b_{00} &amp; \dots  &amp; b_{0s} &amp; \dots  &amp; b_{0k} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\
+     *        b_{i0} &amp; \dots  &amp; b_{is} &amp; \dots  &amp; b_{ik} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\     
+     *        b_{n0} &amp; \dots  &amp; b_{ns} &amp; \dots  &amp; b_{nk}
+     *     \end{bmatrix}
+     * $$
+     * The horizontal concatenation <i>C</i><sub>h</sub> of <i>A</i> and <i>B</i> is a <i>n</i>&times;<i>j</i>+<i>k</i> matrix defined such that:
+     * $$
+     * C_{h}\ =\ \begin{bmatrix} 
+     *        a_{00} &amp; \dots  &amp; a_{0l} &amp; \dots  &amp; a_{0j} &amp; b_{00} &amp; \dots  &amp; b_{0s} &amp; \dots  &amp; b_{0k} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\
+     *        a_{i0} &amp; \dots  &amp; a_{il} &amp; \dots  &amp; a_{ij} &amp; b_{i0} &amp; \dots  &amp; b_{is} &amp; \dots  &amp; b_{ik} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\       
+     *        a_{n0} &amp; \dots  &amp; a_{nl} &amp; \dots  &amp; a_{nj} &amp; b_{n0} &amp; \dots  &amp; b_{ns} &amp; \dots  &amp; b_{nk}
+     *     \end{bmatrix}
+     * $$
+	 * @param right the matrix to concatenate on the right
+	 * @return the concatenated matrix
+	 * @throws IllegalArgumentException if the number of lines from the input matrix is not compatible with the number of lines of this matrix
+	 */
+	public Matrix concatHorizontal(Matrix right);
+	
+	/**
+	 * Construct a new matrix that is made of the horizontal concatenation of the given matrix to this one.
+	 * Formally, let <i>A</i> a <i>n</i>&times;<i>j</i> matrix defined such that:
+	 * $$
+     * A\ =\ \begin{bmatrix} 
+     *        a_{00} &amp; \dots  &amp; a_{0l} &amp; \dots  &amp; a_{0j} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\
+     *        a_{i0} &amp; \dots  &amp; a_{il} &amp; \dots  &amp; a_{ij} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\     
+     *        a_{n0} &amp; \dots  &amp; a_{nl} &amp; \dots  &amp; a_{nj}
+     *     \end{bmatrix}
+     * $$
+     * and let <i>B</i> a <i>n</i>&times;<i>k</i> matrix defined such that:
+	 * $$
+     * B\ =\ \begin{bmatrix} 
+     *        b_{00} &amp; \dots  &amp; b_{0s} &amp; \dots  &amp; b_{0k} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\
+     *        b_{i0} &amp; \dots  &amp; b_{is} &amp; \dots  &amp; b_{ik} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\     
+     *        b_{n0} &amp; \dots  &amp; b_{ns} &amp; \dots  &amp; b_{nk}
+     *     \end{bmatrix}
+     * $$
+     * The horizontal concatenation <i>C</i><sub>h</sub> of <i>A</i> and <i>B</i> is a <i>n</i>&times;<i>j</i>+<i>k</i> matrix defined such that:
+     * $$
+     * C_{h}\ =\ \begin{bmatrix} 
+     *        a_{00} &amp; \dots  &amp; a_{0l} &amp; \dots  &amp; a_{0j} &amp; b_{00} &amp; \dots  &amp; b_{0s} &amp; \dots  &amp; b_{0k} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\
+     *        a_{i0} &amp; \dots  &amp; a_{il} &amp; \dots  &amp; a_{ij} &amp; b_{i0} &amp; \dots  &amp; b_{is} &amp; \dots  &amp; b_{ik} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\       
+     *        a_{n0} &amp; \dots  &amp; a_{nl} &amp; \dots  &amp; a_{nj} &amp; b_{n0} &amp; \dots  &amp; b_{ns} &amp; \dots  &amp; b_{nk}
+     *     \end{bmatrix}
+     * $$
+	 * @param right the matrix to concatenate on the right
+	 * @param result the matrix that has to store the result (has to be well fitted)
+	 * @return the concatenated matrix (a reference on <code>result</code>)
+	 * @throws IllegalArgumentException if the number of lines from the input matrix is not compatible with the number of lines of this matrix or if the result matrix size is not compatible
+	 */
+	public Matrix concatHorizontal(Matrix right, Matrix result);
+	
+	/**
+	 * Construct a new matrix that is made of the vertical concatenation of the given matrix to this one.
+	 * Formally, let <i>A</i> a <i>j</i>&times;<i>m</i> matrix defined such that:
+	 * $$
+     * A\ =\ \begin{bmatrix} 
+     *        a_{00} &amp; \dots  &amp; a_{0l} &amp; \dots  &amp; a_{0m} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\
+     *        a_{t0} &amp; \dots  &amp; a_{tl} &amp; \dots  &amp; a_{tm} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\     
+     *        a_{j0} &amp; \dots  &amp; a_{jl} &amp; \dots  &amp; a_{jm}
+     *     \end{bmatrix}
+     * $$
+     * and let <i>B</i> a <i>k</i>&times;<i>m</i> matrix defined such that:
+	 * $$
+     * B\ =\ \begin{bmatrix} 
+     *        b_{00} &amp; \dots  &amp; b_{0v} &amp; \dots  &amp; b_{0m} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\
+     *        b_{u0} &amp; \dots  &amp; b_{uv} &amp; \dots  &amp; b_{um} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\     
+     *        b_{k0} &amp; \dots  &amp; b_{kv} &amp; \dots  &amp; b_{km}
+     *     \end{bmatrix}
+     * $$
+     * The vertical concatenation <i>C</i><sub>v</sub> of <i>A</i> and <i>B</i> is a <i>j</i>+<i>k</i>&nbsp;&times;&nbsp;<i>m</i> matrix defined such that:
+	 * $$
+     * A\ =\ \begin{bmatrix} 
+     *        a_{00} &amp; \dots  &amp; a_{0l} &amp; \dots  &amp; a_{0m} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\
+     *        a_{t0} &amp; \dots  &amp; a_{tl} &amp; \dots  &amp; a_{tm} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\     
+     *        a_{j0} &amp; \dots  &amp; a_{jl} &amp; \dots  &amp; a_{jm} \\
+     *        b_{00} &amp; \dots  &amp; b_{0v} &amp; \dots  &amp; b_{0m} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\
+     *        b_{u0} &amp; \dots  &amp; b_{uv} &amp; \dots  &amp; b_{um} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\     
+     *        b_{k0} &amp; \dots  &amp; b_{kv} &amp; \dots  &amp; b_{km}
+     *     \end{bmatrix}
+     * $$
+	 * @param bottom the matrix to concatenate on the bottom of this one
+	 * @return the concatenated matrix (a reference on <code>result</code>)
+	 * @throws IllegalArgumentException if the number of columns from the input matrix is not compatible with the number of columns of this matrix or if the result matrix size is not compatible
+	 */
+	public Matrix concatVertical(Matrix bottom);
+
+	/**
+	 * Construct a new matrix that is made of the vertical concatenation of the given matrix to this one.
+	 * Formally, let <i>A</i> a <i>j</i>&times;<i>m</i> matrix defined such that:
+	 * $$
+     * A\ =\ \begin{bmatrix} 
+     *        a_{00} &amp; \dots  &amp; a_{0l} &amp; \dots  &amp; a_{0m} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\
+     *        a_{t0} &amp; \dots  &amp; a_{tl} &amp; \dots  &amp; a_{tm} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\     
+     *        a_{j0} &amp; \dots  &amp; a_{jl} &amp; \dots  &amp; a_{jm}
+     *     \end{bmatrix}
+     * $$
+     * and let <i>B</i> a <i>k</i>&times;<i>m</i> matrix defined such that:
+	 * $$
+     * B\ =\ \begin{bmatrix} 
+     *        b_{00} &amp; \dots  &amp; b_{0v} &amp; \dots  &amp; b_{0m} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\
+     *        b_{u0} &amp; \dots  &amp; b_{uv} &amp; \dots  &amp; b_{um} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\     
+     *        b_{k0} &amp; \dots  &amp; b_{kv} &amp; \dots  &amp; b_{km}
+     *     \end{bmatrix}
+     * $$
+     * The vertical concatenation <i>C</i><sub>v</sub> of <i>A</i> and <i>B</i> is a <i>j</i>+<i>k</i>&nbsp;&times;&nbsp;<i>m</i> matrix defined such that:
+	 * $$
+     * A\ =\ \begin{bmatrix} 
+     *        a_{00} &amp; \dots  &amp; a_{0l} &amp; \dots  &amp; a_{0m} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\
+     *        a_{t0} &amp; \dots  &amp; a_{tl} &amp; \dots  &amp; a_{tm} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\     
+     *        a_{j0} &amp; \dots  &amp; a_{jl} &amp; \dots  &amp; a_{jm} \\
+     *        b_{00} &amp; \dots  &amp; b_{0v} &amp; \dots  &amp; b_{0m} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\
+     *        b_{u0} &amp; \dots  &amp; b_{uv} &amp; \dots  &amp; b_{um} \\
+     *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\     
+     *        b_{k0} &amp; \dots  &amp; b_{kv} &amp; \dots  &amp; b_{km}
+     *     \end{bmatrix}
+     * $$
+	 * @param bottom the matrix to concatenate on the bottom of this one
+	 * @param result the matrix that has to store the result (has to be well fitted)
+	 * @return the concatenated matrix (a reference on <code>result</code>)
+	 * @throws IllegalArgumentException if the number of columns from the input matrix is not compatible with the number of columns of this matrix or if the result matrix size is not compatible
+	 */
+	public Matrix concatVertical(Matrix bottom, Matrix result);
 	
 	/**
 	 * Compute the SVD decomposition of the matrix.

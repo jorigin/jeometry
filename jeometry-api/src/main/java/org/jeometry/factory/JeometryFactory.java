@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.logging.Level;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.geom2D.point.Point2D;
 import org.jeometry.geom2D.point.Point2DContainer;
 import org.jeometry.geom3D.mesh.Edge;
@@ -32,15 +32,16 @@ import org.jeometry.math.Quaternion;
 import org.jeometry.math.Vector;
 import org.jeometry.math.decomposition.EigenDecomposition;
 import org.jeometry.math.decomposition.LUDecomposition;
+import org.jeometry.math.decomposition.SVDDecomposition;
 import org.jeometry.math.solver.Solver;
 
 /**
  * A factory dedicated to the creation of geometric instances.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
-public class GeometryFactory {
+public class JeometryFactory {
 
 	/**
 	 * A system property that enables to set the global implementation to use.
@@ -99,24 +100,24 @@ public class GeometryFactory {
 			
 			initialized = true;
 			
-			Geometry.logger.log(Level.CONFIG, "Using "+implementation+" implementation.");			
+			Jeometry.logger.log(Level.CONFIG, "Using "+implementation+" implementation.");			
 		} catch (ClassNotFoundException e) {
-			Geometry.logger.log(Level.SEVERE, "Cannot find \""+implementation+"\" implementation initialization class "+initClassName+": "+e.getMessage(), e);
+			Jeometry.logger.log(Level.SEVERE, "Cannot find \""+implementation+"\" implementation initialization class "+initClassName+": "+e.getMessage(), e);
 			initMethod = null;
 		} catch (NoSuchMethodException e) {
-			Geometry.logger.log(Level.SEVERE, "Cannot find \""+implementation+"\" implementation initialization method public static "+JEOMETRY_IMPLEMENTATION_INIT_METHOD+"(): "+e.getMessage(), e);
+			Jeometry.logger.log(Level.SEVERE, "Cannot find \""+implementation+"\" implementation initialization method public static "+JEOMETRY_IMPLEMENTATION_INIT_METHOD+"(): "+e.getMessage(), e);
 		} catch (SecurityException e) {
-			Geometry.logger.log(Level.SEVERE, "Cannot access \""+implementation+"\" implementation initialization class "+initClassName+": "+e.getMessage(), e);
+			Jeometry.logger.log(Level.SEVERE, "Cannot access \""+implementation+"\" implementation initialization class "+initClassName+": "+e.getMessage(), e);
 		} catch (IllegalAccessException e) {
-			Geometry.logger.log(Level.SEVERE, "Cannot access \""+implementation+"\" implementation initialization class "+initClassName+": "+e.getMessage(), e);
+			Jeometry.logger.log(Level.SEVERE, "Cannot access \""+implementation+"\" implementation initialization class "+initClassName+": "+e.getMessage(), e);
 		} catch (IllegalArgumentException e) {
-			Geometry.logger.log(Level.SEVERE, "Cannot execute \""+implementation+"\" implementation initialization method public static "+JEOMETRY_IMPLEMENTATION_INIT_METHOD+"(): "+e.getMessage(), e);
+			Jeometry.logger.log(Level.SEVERE, "Cannot execute \""+implementation+"\" implementation initialization method public static "+JEOMETRY_IMPLEMENTATION_INIT_METHOD+"(): "+e.getMessage(), e);
 		} catch (InvocationTargetException e) {
-			Geometry.logger.log(Level.SEVERE, "Cannot invoke \""+implementation+"\" implementation initialization method public static "+JEOMETRY_IMPLEMENTATION_INIT_METHOD+"(): "+e.getMessage(), e);
+			Jeometry.logger.log(Level.SEVERE, "Cannot invoke \""+implementation+"\" implementation initialization method public static "+JEOMETRY_IMPLEMENTATION_INIT_METHOD+"(): "+e.getMessage(), e);
 		}
 		
 		if ((!initialized) && (!"SIMPLE".equalsIgnoreCase(implementation))) {
-			Geometry.logger.log(Level.SEVERE, "Implementation \""+implementation+"\" is not available. Using simple implementation.");
+			Jeometry.logger.log(Level.SEVERE, "Implementation \""+implementation+"\" is not available. Using simple implementation.");
 		
 			initClassName = "org.geometry."+implementation.toLowerCase()+".ImplementationInit";
 			initClass = null;
@@ -131,24 +132,24 @@ public class GeometryFactory {
 				
 				initialized = true;
 				
-				Geometry.logger.log(Level.CONFIG, "Using "+implementation+" implementation.");			
+				Jeometry.logger.log(Level.CONFIG, "Using "+implementation+" implementation.");			
 			} catch (ClassNotFoundException e) {
-				Geometry.logger.log(Level.SEVERE, "Cannot find \""+implementation+"\" implementation initialization class "+initClassName+": "+e.getMessage(), e);
+				Jeometry.logger.log(Level.SEVERE, "Cannot find \""+implementation+"\" implementation initialization class "+initClassName+": "+e.getMessage(), e);
 				initMethod = null;
 			} catch (NoSuchMethodException e) {
-				Geometry.logger.log(Level.SEVERE, "Cannot find \""+implementation+"\" implementation initialization method public static "+JEOMETRY_IMPLEMENTATION_INIT_METHOD+"(): "+e.getMessage(), e);
+				Jeometry.logger.log(Level.SEVERE, "Cannot find \""+implementation+"\" implementation initialization method public static "+JEOMETRY_IMPLEMENTATION_INIT_METHOD+"(): "+e.getMessage(), e);
 			} catch (SecurityException e) {
-				Geometry.logger.log(Level.SEVERE, "Cannot access \""+implementation+"\" implementation initialization class "+initClassName+": "+e.getMessage(), e);
+				Jeometry.logger.log(Level.SEVERE, "Cannot access \""+implementation+"\" implementation initialization class "+initClassName+": "+e.getMessage(), e);
 			} catch (IllegalAccessException e) {
-				Geometry.logger.log(Level.SEVERE, "Cannot access \""+implementation+"\" implementation initialization class "+initClassName+": "+e.getMessage(), e);
+				Jeometry.logger.log(Level.SEVERE, "Cannot access \""+implementation+"\" implementation initialization class "+initClassName+": "+e.getMessage(), e);
 			} catch (IllegalArgumentException e) {
-				Geometry.logger.log(Level.SEVERE, "Cannot execute \""+implementation+"\" implementation initialization method public static "+JEOMETRY_IMPLEMENTATION_INIT_METHOD+"(): "+e.getMessage(), e);
+				Jeometry.logger.log(Level.SEVERE, "Cannot execute \""+implementation+"\" implementation initialization method public static "+JEOMETRY_IMPLEMENTATION_INIT_METHOD+"(): "+e.getMessage(), e);
 			} catch (InvocationTargetException e) {
-				Geometry.logger.log(Level.SEVERE, "Cannot invoke \""+implementation+"\" implementation initialization method public static "+JEOMETRY_IMPLEMENTATION_INIT_METHOD+"(): "+e.getMessage(), e);
+				Jeometry.logger.log(Level.SEVERE, "Cannot invoke \""+implementation+"\" implementation initialization method public static "+JEOMETRY_IMPLEMENTATION_INIT_METHOD+"(): "+e.getMessage(), e);
 			}
 		    
 			if (!initialized) {
-				Geometry.logger.log(Level.SEVERE, "Cannot find \""+implementation+"\" implementation, jeometry-simple.jar may not be accessible.");
+				Jeometry.logger.log(Level.SEVERE, "Cannot find \""+implementation+"\" implementation, jeometry-simple.jar may not be accessible.");
 			}
 		}
 	}
@@ -403,8 +404,11 @@ public class GeometryFactory {
 	 * @throws IllegalArgumentException if an instantiation error occurs
 	 */
 	public static Point2DContainer createPoint2DContainer(){
-		// TODO
-		return null;
+		if (pointBuilder != null) {
+			return pointBuilder.createPoint2DContainer();
+		} else {
+			throw new IllegalStateException("No point builder available.");
+		}
 	}
 
 	/**
@@ -414,8 +418,11 @@ public class GeometryFactory {
 	 * @throws IllegalArgumentException if an instantiation error occurs
 	 */
 	public static Point2DContainer createPoint2DContainer(int capacity){
-		// TODO
-		return null;
+		if (pointBuilder != null) {
+			return pointBuilder.createPoint2DContainer(capacity);
+		} else {
+			throw new IllegalStateException("No point builder available.");
+		}
 	}
 
 	/**
@@ -455,8 +462,11 @@ public class GeometryFactory {
 	 * @throws IllegalArgumentException if an instantiation error occurs
 	 */
 	public static <T extends Point3D> Point3DContainer<T> createPoint3DContainer(){
-		// TODO
-		return null;
+		if (pointBuilder != null) {
+			return pointBuilder.createPoint3DContainer();
+		} else {
+			throw new IllegalStateException("No point builder available.");
+		}
 	}
 
 	/**
@@ -467,8 +477,11 @@ public class GeometryFactory {
 	 * @throws IllegalArgumentException if an instantiation error occurs
 	 */
 	public static <T extends Point3D> Point3DContainer<T> createPoint3DContainer(int capacity){
-        // TODO
-		return null;
+		if (pointBuilder != null) {
+			return pointBuilder.createPoint3DContainer(capacity);
+		} else {
+			throw new IllegalStateException("No point builder available.");
+		}
 	}
 
 	
@@ -979,6 +992,19 @@ public class GeometryFactory {
 	public static EigenDecomposition createEigenDecomposition(Matrix matrix) {
 		if (mathBuilder != null) {
 			return mathBuilder.createEigenDecomposition(matrix);
+		} else {
+			throw new IllegalStateException("No math builder available.");
+		}
+	}
+	
+	/**
+	 * Create a new {@link SVDDecomposition Singular Values (SVD) decomposition} from the given matrix.
+	 * @param matrix the matrix to decompose
+	 * @return the {@link SVDDecomposition Singular Values (SVD) decomposition}  from the given matrix
+	 */
+	public static SVDDecomposition createSVDDecomposition(Matrix matrix) {
+		if (mathBuilder != null) {
+			return mathBuilder.createSVDDecomposition(matrix);
 		} else {
 			throw new IllegalStateException("No math builder available.");
 		}

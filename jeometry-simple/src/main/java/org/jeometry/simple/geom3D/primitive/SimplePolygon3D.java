@@ -1,7 +1,7 @@
 package org.jeometry.simple.geom3D.primitive;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.point.Point3D;
 import org.jeometry.geom3D.point.Point3DContainer;
 import org.jeometry.geom3D.primitive.LineSet3D;
@@ -12,14 +12,14 @@ import org.jeometry.geom3D.primitive.Polygon3D;
  * A simple implementation of the {@link Polygon3D Polygon3D interface}.
  * @param <T> The type of the underlying 3D points
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} build {@value Geometry#BUILD}
+ * @version {@value Jeometry#version} build {@value Jeometry#BUILD}
  * @since 1.0.0
  *
  */
 public class SimplePolygon3D<T extends Point3D> implements Polygon3D<T> {
 
 
-  private static final long serialVersionUID = Geometry.BUILD;
+  private static final long serialVersionUID = Jeometry.BUILD;
   
   /**
    * The points of the polygon perimeter. The order of the points is very
@@ -39,7 +39,7 @@ public class SimplePolygon3D<T extends Point3D> implements Polygon3D<T> {
    * Construct an empty polygon.
    */
   public SimplePolygon3D() {
-    this.points = GeometryFactory.<T>createPoint3DContainer();
+    this.points = JeometryFactory.<T>createPoint3DContainer();
   }
 
   @Override

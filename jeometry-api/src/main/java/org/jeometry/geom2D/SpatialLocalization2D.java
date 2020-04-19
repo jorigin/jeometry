@@ -1,11 +1,11 @@
 package org.jeometry.geom2D;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 
 /**
  * A spatial localization within a 2D space. Such an item is represented by a set of coordinates and a set of bounds.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public interface SpatialLocalization2D {

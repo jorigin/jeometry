@@ -1,12 +1,12 @@
 package org.jeometry.geom3D.textured;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 
 /**
  * A texture is an identified resource that can provide display information attached to a coordinate.
  * (the resource can be a path to an image, a dynamic raster, ...)
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} build {@value Geometry#BUILD}
+ * @version {@value Jeometry#version} build {@value Jeometry#BUILD}
  * @since 1.0.0
  */
 public interface Texture{

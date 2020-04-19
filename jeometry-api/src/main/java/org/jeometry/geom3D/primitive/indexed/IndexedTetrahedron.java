@@ -1,6 +1,6 @@
 package org.jeometry.geom3D.primitive.indexed;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.geom3D.point.Point3D;
 import org.jeometry.geom3D.point.Point3DContainer;
 
@@ -9,7 +9,7 @@ import org.jeometry.geom3D.point.Point3DContainer;
  * Face naming convention are such that face <i>n</i> is facing (and is not containing) vertex <i>n</i>. 
  * @param <T> The type of underlying 3D points 
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public interface IndexedTetrahedron<T extends Point3D> {

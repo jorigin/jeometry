@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.math.Matrix;
 import org.jeometry.math.MatrixTestData;
 import org.jeometry.math.Vector;
@@ -47,8 +47,8 @@ public class GaussEliminationSolverTest {
 		
 		assertNotNull("Solver is not initialized", solver);
 		
-		Matrix a = GeometryFactory.createMatrix(MatrixTestData.SOLVER_GAUSS_ELIMINATION_A);
-		Vector b = GeometryFactory.createVector(MatrixTestData.SOLVER_GAUSS_ELIMINATION_B);
+		Matrix a = JeometryFactory.createMatrix(MatrixTestData.SOLVER_GAUSS_ELIMINATION_A);
+		Vector b = JeometryFactory.createVector(MatrixTestData.SOLVER_GAUSS_ELIMINATION_B);
 		
 		Vector x;
 		try {

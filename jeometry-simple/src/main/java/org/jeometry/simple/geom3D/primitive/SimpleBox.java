@@ -1,8 +1,8 @@
 package org.jeometry.simple.geom3D.primitive;
 
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.mesh.Face;
 import org.jeometry.geom3D.point.Point3D;
 import org.jeometry.geom3D.point.Point3DContainer;
@@ -17,7 +17,7 @@ import org.jeometry.simple.geom3D.mesh.SimpleMesh;
  */
 public class SimpleBox extends SimpleMesh<Point3D> implements Box {
 
-  private static final long serialVersionUID = Geometry.BUILD;
+  private static final long serialVersionUID = Jeometry.BUILD;
   
   
   
@@ -103,8 +103,8 @@ public class SimpleBox extends SimpleMesh<Point3D> implements Box {
    * @param height the size of the box along Z axis.
    */
   public SimpleBox(Point3D center, double width, double length, double height){
-    this(GeometryFactory.createPoint3D(center.getX() - width/2.0, center.getY() - length/2.0, center.getZ() - height/2.0), 
-        GeometryFactory.createPoint3D(center.getX() + width/2.0, center.getY() + length/2.0, center.getZ() + height/2.0));
+    this(JeometryFactory.createPoint3D(center.getX() - width/2.0, center.getY() - length/2.0, center.getZ() - height/2.0), 
+        JeometryFactory.createPoint3D(center.getX() + width/2.0, center.getY() + length/2.0, center.getZ() + height/2.0));
   }
   
   /**
@@ -116,15 +116,15 @@ public class SimpleBox extends SimpleMesh<Point3D> implements Box {
     
     super();
     
-    brl = GeometryFactory.createPoint3D();
-    bfr = GeometryFactory.createPoint3D();
-    brr = GeometryFactory.createPoint3D();
-    bfl = GeometryFactory.createPoint3D();
+    brl = JeometryFactory.createPoint3D();
+    bfr = JeometryFactory.createPoint3D();
+    brr = JeometryFactory.createPoint3D();
+    bfl = JeometryFactory.createPoint3D();
     
-    tfl = GeometryFactory.createPoint3D();
-    tfr = GeometryFactory.createPoint3D();
-    trr = GeometryFactory.createPoint3D();
-    trl = GeometryFactory.createPoint3D();
+    tfl = JeometryFactory.createPoint3D();
+    tfr = JeometryFactory.createPoint3D();
+    trr = JeometryFactory.createPoint3D();
+    trl = JeometryFactory.createPoint3D();
 
     getVertices().add(bfl); // 0
     getVertices().add(bfr); // 1
@@ -136,52 +136,52 @@ public class SimpleBox extends SimpleMesh<Point3D> implements Box {
     getVertices().add(trl); // 7
     
     // Bottom face
-    Point3DContainer<Point3D> pts = GeometryFactory.createPoint3DContainer(4);
+    Point3DContainer<Point3D> pts = JeometryFactory.createPoint3DContainer(4);
     pts.add(brl);
     pts.add(brr);
     pts.add(bfr);
     pts.add(bfl);
-    addFace(GeometryFactory.createMeshFace(pts));
+    addFace(JeometryFactory.createMeshFace(pts));
 
     // Top face
-    pts = GeometryFactory.createPoint3DContainer(4);
+    pts = JeometryFactory.createPoint3DContainer(4);
     pts.add(tfl);
     pts.add(tfr);
     pts.add(trr);
     pts.add(trl);
-    addFace(GeometryFactory.createMeshFace(pts));
+    addFace(JeometryFactory.createMeshFace(pts));
     
     // Front face
-    pts = GeometryFactory.createPoint3DContainer(4);
+    pts = JeometryFactory.createPoint3DContainer(4);
     pts.add(bfl);
     pts.add(bfr);
     pts.add(tfr);
     pts.add(tfl);
-    addFace(GeometryFactory.createMeshFace(pts));
+    addFace(JeometryFactory.createMeshFace(pts));
     
     // Rear face
-    pts = GeometryFactory.createPoint3DContainer(4);
+    pts = JeometryFactory.createPoint3DContainer(4);
     pts.add(brr);
     pts.add(brl);
     pts.add(trl);
     pts.add(trr);
-    addFace(GeometryFactory.createMeshFace(pts));
+    addFace(JeometryFactory.createMeshFace(pts));
     
     // Left face
-    pts = GeometryFactory.createPoint3DContainer(4);
+    pts = JeometryFactory.createPoint3DContainer(4);
     pts.add(brl);
     pts.add(bfl);
     pts.add(tfl);
     pts.add(trl);
-    addFace(GeometryFactory.createMeshFace(pts));
+    addFace(JeometryFactory.createMeshFace(pts));
     
     // Right face
-    pts = GeometryFactory.createPoint3DContainer(4);
+    pts = JeometryFactory.createPoint3DContainer(4);
     pts.add(bfr);
     pts.add(brr);
     pts.add(trr);
     pts.add(tfr);
-    addFace(GeometryFactory.createMeshFace(pts));
+    addFace(JeometryFactory.createMeshFace(pts));
     
     if ((min != null)&&(max != null)){
       brl = min;

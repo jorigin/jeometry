@@ -1,6 +1,6 @@
 package org.jeometry.geom3D.algorithm.delaunay.clarkson;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 
 /**
  * A exception that can be raised during Delaunay triangulation computation.
@@ -10,7 +10,7 @@ import org.jeometry.Geometry;
 public class DelaunayException extends Exception {
 
 
-  private static final long serialVersionUID = Geometry.BUILD;
+  private static final long serialVersionUID = Jeometry.BUILD;
 
   /**
    * Create a default Delaunay triangulation computation exception.

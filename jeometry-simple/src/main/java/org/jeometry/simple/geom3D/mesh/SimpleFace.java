@@ -2,7 +2,7 @@ package org.jeometry.simple.geom3D.mesh;
 
 import java.util.List;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.geom3D.mesh.Edge;
 import org.jeometry.geom3D.mesh.Face;
 import org.jeometry.geom3D.mesh.Mesh;
@@ -15,12 +15,12 @@ import org.jeometry.simple.geom3D.primitive.SimplePolygon3D;
  * A face is a {@link Polygon3D 3D polygon} that compose a {@link Mesh mesh}.
  * @param <T> the type of underlying 3D points
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} build {@value Geometry#BUILD}
+ * @version {@value Jeometry#version} build {@value Jeometry#BUILD}
  * @since 1.0.0
  */
 public class SimpleFace<T extends Point3D> extends SimplePolygon3D<T> implements Face<T>{
 
-  private static final long serialVersionUID = Geometry.BUILD;
+  private static final long serialVersionUID = Jeometry.BUILD;
   
   /**
    * The mesh to which the face is attached to.

@@ -1,6 +1,6 @@
 package org.jeometry.simple.geom3D.primitive;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.geom3D.SpatialLocalization3D;
 import org.jeometry.geom3D.point.Point3D;
 import org.jeometry.geom3D.primitive.Plane;
@@ -9,7 +9,7 @@ import org.jeometry.geom3D.primitive.Plane;
  * A simple implementation of a {@link Plane plane}.
  * @param <T> The type of underlying 3D points
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public class SimplePlane<T extends Point3D> implements Plane<T>{

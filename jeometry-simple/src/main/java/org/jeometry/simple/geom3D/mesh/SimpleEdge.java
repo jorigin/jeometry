@@ -3,8 +3,8 @@ package org.jeometry.simple.geom3D.mesh;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jeometry.Geometry;
-import org.jeometry.factory.GeometryFactory;
+import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.Geom3D;
 import org.jeometry.geom3D.mesh.Edge;
 import org.jeometry.geom3D.mesh.Face;
@@ -18,12 +18,12 @@ import org.jeometry.geom3D.primitive.Line3D;
  * An {@link Edge edge} is a {@link Line3D 3D line} that link two vertices and that delimits a polygon or that delimits faces of a polyhedron.
  * @param <T> the type of the underlying 3D point
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version} build {@value Geometry#BUILD}
+ * @version {@value Jeometry#version} build {@value Jeometry#BUILD}
  * @since 1.0.0
  */
 public class SimpleEdge<T extends Point3D> implements Edge<T>{
 
-	private static final long serialVersionUID = Geometry.BUILD;
+	private static final long serialVersionUID = Jeometry.BUILD;
 
 	private Mesh<T> mesh = null;
 
@@ -81,7 +81,7 @@ public class SimpleEdge<T extends Point3D> implements Edge<T>{
 		if ((face1 == null)||(face2 == null)){
 			return;
 		} else{
-			p3dm = GeometryFactory.createPoint3DContainer();
+			p3dm = JeometryFactory.createPoint3DContainer();
 			for(int i = 0; i < face1.getVertices().size(); i++){
 				for(int j = 0; i < face2.getVertices().size(); j++){
 					if (Geom3D.equals(face1.getVertices().get(i), face2.getVertices().get(j))){
@@ -102,7 +102,7 @@ public class SimpleEdge<T extends Point3D> implements Edge<T>{
 	 * @return the vertices of the edge.
 	 */
 	public Point3DContainer<T> getVertices(){
-		Point3DContainer<T> p3dm = GeometryFactory.<T>createPoint3DContainer(2);
+		Point3DContainer<T> p3dm = JeometryFactory.<T>createPoint3DContainer(2);
 		p3dm.add(end1);
 		p3dm.add(end2);
 		return p3dm;

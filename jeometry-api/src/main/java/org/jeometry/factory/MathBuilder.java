@@ -1,17 +1,18 @@
 package org.jeometry.factory;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.math.Matrix;
 import org.jeometry.math.Quaternion;
 import org.jeometry.math.Vector;
 import org.jeometry.math.decomposition.EigenDecomposition;
 import org.jeometry.math.decomposition.LUDecomposition;
+import org.jeometry.math.decomposition.SVDDecomposition;
 import org.jeometry.math.solver.Solver;
 
 /**
  * An interface that describes a matrix builder. A math builder enables to create implementations of interfaces described within the <code>math</code> package ({@link Matrix}, {@link Vector}, {@link Solver}, ...).
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public interface MathBuilder {
@@ -122,4 +123,11 @@ public interface MathBuilder {
 	 * @return the {@link EigenDecomposition Eigen decomposition} from the given matrix
 	 */
 	public EigenDecomposition createEigenDecomposition(Matrix matrix);
+	
+	/**
+	 * Create a new {@link SVDDecomposition Singular Values (SVD) decomposition} from the given matrix.
+	 * @param matrix the matrix to decompose
+	 * @return the {@link SVDDecomposition Singular Values (SVD) decomposition}  from the given matrix
+	 */
+	public SVDDecomposition createSVDDecomposition(Matrix matrix);
 }

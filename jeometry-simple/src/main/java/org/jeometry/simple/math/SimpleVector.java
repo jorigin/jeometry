@@ -1,12 +1,12 @@
 package org.jeometry.simple.math;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.math.Vector;
 
 /**
  * A simple implementation of the {@link Vector} interface. Underlying data are stored within an array of <code>double</code>.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public class SimpleVector implements Vector {

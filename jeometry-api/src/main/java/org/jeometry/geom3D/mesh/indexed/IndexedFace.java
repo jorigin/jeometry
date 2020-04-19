@@ -1,6 +1,6 @@
 package org.jeometry.geom3D.mesh.indexed;
 
-import org.jeometry.Geometry;
+import org.jeometry.Jeometry;
 import org.jeometry.geom3D.mesh.Face;
 import org.jeometry.geom3D.point.Point3D;
 import org.jeometry.geom3D.primitive.indexed.IndexedPolygon3D;
@@ -10,7 +10,7 @@ import org.jeometry.geom3D.primitive.indexed.IndexedPolygon3D;
  * The indexes vertex describes the bounds of the face. 
  * @param <T> the type of the underlying 3D points.
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
- * @version {@value Geometry#version}
+ * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public interface IndexedFace<T extends Point3D> extends Face<T>, IndexedPolygon3D<T>{
