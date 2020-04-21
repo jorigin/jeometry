@@ -2,7 +2,9 @@
 A Java based Geometry toolkit. This library enable to deal with 2D/3D points, meshes and various algorithm.
 
 ## Usage
-JEometry is available at Maven Central. To import the library just add the following dependency to your maven project:
+JEometry is available at [Maven Central](https://search.maven.org/search?q=org.jorigin.jeometry). 
+
+To import the library just add the following dependency to your maven project:
 ```xml
 <!-- The Jeometry API that contains all interfaces -->
 <dependency>
