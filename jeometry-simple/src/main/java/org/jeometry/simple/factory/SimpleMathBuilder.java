@@ -5,15 +5,19 @@ import org.jeometry.factory.MathBuilder;
 import org.jeometry.math.Matrix;
 import org.jeometry.math.Quaternion;
 import org.jeometry.math.Vector;
+import org.jeometry.math.decomposition.CholeskyDecomposition;
 import org.jeometry.math.decomposition.EigenDecomposition;
 import org.jeometry.math.decomposition.LUDecomposition;
+import org.jeometry.math.decomposition.QRDecomposition;
 import org.jeometry.math.decomposition.SVDDecomposition;
 import org.jeometry.math.solver.Solver;
 import org.jeometry.simple.math.SimpleMatrix;
 import org.jeometry.simple.math.SimpleQuaternion;
 import org.jeometry.simple.math.SimpleVector;
+import org.jeometry.simple.math.decomposition.SimpleCholeskyDecomposition;
 import org.jeometry.simple.math.decomposition.SimpleEigenDecomposition;
 import org.jeometry.simple.math.decomposition.SimpleLUDecomposition;
+import org.jeometry.simple.math.decomposition.SimpleQRDecomposition;
 import org.jeometry.simple.math.decomposition.SimpleSVDDecomposition;
 import org.jeometry.simple.math.solver.SimpleGaussEliminationSolver;
 
@@ -114,5 +118,15 @@ public class SimpleMathBuilder implements MathBuilder{
 	@Override
 	public SVDDecomposition createSVDDecomposition(Matrix matrix) {
 		return new SimpleSVDDecomposition(matrix);
+	}
+
+	@Override
+	public QRDecomposition createQRDecomposition(Matrix matrix) {
+		return new SimpleQRDecomposition(matrix);
+	}
+	
+	@Override
+	public CholeskyDecomposition createCholeskyDecomposition(Matrix matrix) {
+		return new SimpleCholeskyDecomposition(matrix);
 	}
 }

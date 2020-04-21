@@ -4,8 +4,10 @@ import org.jeometry.Jeometry;
 import org.jeometry.math.Matrix;
 import org.jeometry.math.Quaternion;
 import org.jeometry.math.Vector;
+import org.jeometry.math.decomposition.CholeskyDecomposition;
 import org.jeometry.math.decomposition.EigenDecomposition;
 import org.jeometry.math.decomposition.LUDecomposition;
+import org.jeometry.math.decomposition.QRDecomposition;
 import org.jeometry.math.decomposition.SVDDecomposition;
 import org.jeometry.math.solver.Solver;
 
@@ -130,4 +132,18 @@ public interface MathBuilder {
 	 * @return the {@link SVDDecomposition Singular Values (SVD) decomposition}  from the given matrix
 	 */
 	public SVDDecomposition createSVDDecomposition(Matrix matrix);
+	
+	/**
+	 * Create a new {@link QRDecomposition QR decomposition} from the given matrix.
+	 * @param matrix the matrix to decompose
+	 * @return the {@link QRDecomposition QR decomposition} from the given matrix
+	 */
+	public QRDecomposition createQRDecomposition(Matrix matrix);
+	
+	/**
+	 * Create a new {@link CholeskyDecomposition Cholesky decomposition} from the given matrix.
+	 * @param matrix the matrix to decompose
+	 * @return the {@link CholeskyDecomposition Cholesky decomposition} from the given matrix
+	 */
+	public CholeskyDecomposition createCholeskyDecomposition(Matrix matrix);
 }

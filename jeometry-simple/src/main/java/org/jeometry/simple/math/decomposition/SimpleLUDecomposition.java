@@ -6,6 +6,7 @@ import java.util.List;
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
 import org.jeometry.math.Matrix;
+import org.jeometry.math.Vector;
 import org.jeometry.math.decomposition.LUDecomposition;
 
 /**
@@ -27,9 +28,9 @@ public class SimpleLUDecomposition implements LUDecomposition {
 
 	private Matrix P = null;
 
-	private int m;
+	private int inputRowsCount;
 	
-	private int n;
+	private int inputColumnsCount;
 	
 	private int pivsign; 
 
@@ -41,24 +42,24 @@ public class SimpleLUDecomposition implements LUDecomposition {
 
 		LU = JeometryFactory.createMatrix(matrix);
 
-		m = matrix.getRowsCount();
-		n = matrix.getColumnsCount();
+		inputRowsCount = matrix.getRowsCount();
+		inputColumnsCount = matrix.getColumnsCount();
 
 		pivsign = 1;
 
-		double[] LUcolj = new double[m];
+		double[] LUcolj = new double[inputRowsCount];
 
-		P = JeometryFactory.createMatrixEye(m);
+		P = JeometryFactory.createMatrixEye(inputRowsCount);
 		
-		for (int j = 0; j < n; j++) {
+		for (int j = 0; j < inputColumnsCount; j++) {
 
 			// Make a copy of the j-th column to localize references.
-			for (int i = 0; i < m; i++) {
+			for (int i = 0; i < inputRowsCount; i++) {
 				LUcolj[i] = LU.getValue(i, j);
 			}
 
 			// Apply previous transformations.
-			for (int i = 0; i < m; i++) {
+			for (int i = 0; i < inputRowsCount; i++) {
 				
 				// Most of the time is spent in the following dot product.
 
@@ -74,13 +75,13 @@ public class SimpleLUDecomposition implements LUDecomposition {
 
 			// Find pivot and exchange if necessary.
 			int p = j;
-			for (int i = j+1; i < m; i++) {
+			for (int i = j+1; i < inputRowsCount; i++) {
 				if (Math.abs(LUcolj[i]) > Math.abs(LUcolj[p])) {
 					p = i;
 				}
 			}
 			if (p != j) {
-				for (int k = 0; k < n; k++) {
+				for (int k = 0; k < inputColumnsCount; k++) {
 					double t = LU.getValue(p, k); 
 					LU.setValue(p, k, LU.getValue(j, k)); 
 					LU.setValue(j, k, t);
@@ -94,8 +95,8 @@ public class SimpleLUDecomposition implements LUDecomposition {
 			}
 
 			// Compute multipliers.
-			if (j < m & LU.getValue(j, j) != 0.0) {
-				for (int i = j+1; i < m; i++) {
+			if (j < inputRowsCount & LU.getValue(j, j) != 0.0) {
+				for (int i = j+1; i < inputRowsCount; i++) {
 					LU.setValue(i, j,  LU.getValue(i, j) / LU.getValue(j, j));
 				}
 			}
@@ -104,9 +105,9 @@ public class SimpleLUDecomposition implements LUDecomposition {
 		}
 		
 		// Compute L matrix
-		L = JeometryFactory.createMatrix(m,n);
-		for (int i = 0; i < m; i++) {
-			for (int j = 0; j < n; j++) {
+		L = JeometryFactory.createMatrix(inputRowsCount,inputColumnsCount);
+		for (int i = 0; i < inputRowsCount; i++) {
+			for (int j = 0; j < inputColumnsCount; j++) {
 				if (i > j) {
 					L.setValue(i, j, LU.getValue(i, j));
 				} else if (i == j) {
@@ -118,9 +119,9 @@ public class SimpleLUDecomposition implements LUDecomposition {
 		}
 
 		// Compute U matrix
-		U = JeometryFactory.createMatrix(n,n);
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
+		U = JeometryFactory.createMatrix(inputColumnsCount,inputColumnsCount);
+		for (int i = 0; i < inputColumnsCount; i++) {
+			for (int j = 0; j < inputColumnsCount; j++) {
 				if (i <= j) {
 					U.setValue(i, j, LU.getValue(i, j));
 				} else {
@@ -135,7 +136,7 @@ public class SimpleLUDecomposition implements LUDecomposition {
 	 * @return <code>true</code> if the matrix is not singular and <code>false</code> otherwise
 	 */
 	public boolean isNonsingular () {
-		for (int j = 0; j < n; j++) {
+		for (int j = 0; j < inputColumnsCount; j++) {
 			if (LU.getValue(j, j) == 0)
 				return false;
 		}
@@ -149,63 +150,15 @@ public class SimpleLUDecomposition implements LUDecomposition {
 	 * @throws IllegalArgumentException if the decomposed matrix is not suare
 	 */
 	public double det() {
-		if (m != n) {
+		if (inputRowsCount != inputColumnsCount) {
 			throw new IllegalArgumentException("Matrix must be square.");
 		}
 		double d = (double) pivsign;
-		for (int j = 0; j < n; j++) {
+		for (int j = 0; j < inputColumnsCount; j++) {
 			d *= LU.getValue(j, j);
 		}
 		return d;
 	}
-
-	/**
-	 * Compute the matrix <i>X</i> that solve the linear system:<br>
-	 * <div style="text-align: center"><i>AX</i>&nbsp;=&nbsp;<i>B</i></div>
-	 * <br>
-	 * where <i>A</i> is the matrix from which this decomposition is computed.<br><br>
-	 * 
-	 * This linear solving is equivalent to find the <i>X</i> that solve the linear system:<br><br>
-	 * <div style="text-align: center"><i>LUX</i>&nbsp;=&nbsp;<i>PB</i></div>
-	 * <br>
-	 * @param B the constants parameters
-	 * @return the matrix <i>X</i> that solve the linear system <i>AX</i>&nbsp;=&nbsp;<i>B</i>
-	 * @throws IllegalArgumentException ix the dimension of <i>B</i> does not match the system
-	 * @throws IllegalStateException if the <i>A</i> matrix is singular
-	 */
-   public Matrix solve(Matrix B) {
-      if (B.getRowsCount() != m) {
-         throw new IllegalArgumentException("Matrix row dimensions must agree.");
-      }
-      if (!this.isNonsingular()) {
-         throw new IllegalStateException("Matrix is singular.");
-      }
-
-      // Copy right hand side with pivoting
-      Matrix x = P.multiply(B);
-
-      // Solve L*Y = B(piv,:)
-      for (int k = 0; k < n; k++) {
-         for (int i = k+1; i < n; i++) {
-            for (int j = 0; j < B.getColumnsCount(); j++) {
-            	x.setValue(i, j, x.getValue(i, j) - x.getValue(k, j)*LU.getValue(i, k));
-            }
-         }
-      }
-      
-      // Solve U*X = Y;
-      for (int k = n-1; k >= 0; k--) {
-         for (int j = 0; j < B.getColumnsCount(); j++) {
-        	 x.setValue(k, j, x.getValue(k, j) / LU.getValue(k, k));
-         }
-         for (int i = 0; i < k; i++) {
-            for (int j = 0; j < B.getColumnsCount(); j++) {
-               x.setValue(i, j,  x.getValue(i, j) - x.getValue(k, j)*LU.getValue(i, k));
-            }
-         }
-      }
-      return x;
-   }
 
 	@Override
 	public List<Matrix> getComponents() {
@@ -230,5 +183,121 @@ public class SimpleLUDecomposition implements LUDecomposition {
 	@Override
 	public Matrix getPivot() {
 		return P;
+	}
+
+	/**
+	 * Compute the matrix <i>X</i> that solve the linear system:<br>
+	 * <div style="text-align: center"><i>AX</i>&nbsp;=&nbsp;<i>B</i></div>
+	 * <br>
+	 * where <i>A</i> is the matrix from which this decomposition is computed.<br><br>
+	 * 
+	 * This linear solving is equivalent to find the <i>X</i> that solve the linear system:<br><br>
+	 * <div style="text-align: center"><i>LUX</i>&nbsp;=&nbsp;<i>PB</i></div>
+	 * <br>
+	 * @param b the constants parameters
+	 * @return the matrix <i>X</i> that solve the linear system <i>AX</i>&nbsp;=&nbsp;<i>B</i>
+	 * @throws IllegalArgumentException ix the dimension of <i>B</i> does not match the system
+	 * @throws IllegalStateException if the <i>A</i> matrix is singular
+	 */
+   @Override
+   public Matrix solve(Matrix b) {
+	   return solve(b, JeometryFactory.createMatrix(inputRowsCount, 1));
+   }
+	
+	@Override
+	public Matrix solve(Matrix b, Matrix x) {
+		
+		if (b == null) {
+			throw new IllegalArgumentException("Constant matrix is null");
+		}
+
+		if (b.getRowsCount() != inputRowsCount) {
+	      throw new IllegalArgumentException("Invalid constant matrix rows count "+b.getRowsCount()+", expected "+inputRowsCount);
+	    }
+		
+		if (x == null) {
+			throw new IllegalArgumentException("Result matrix is null");
+		}
+		
+		if (x.getRowsCount() != inputRowsCount) {
+		  throw new IllegalArgumentException("Invalid result matrix rows count "+x.getRowsCount()+", expected "+inputRowsCount);
+		}
+		
+	      if (!this.isNonsingular()) {
+	         throw new IllegalStateException("Matrix is singular.");
+	      }
+
+	      // Copy right hand side with pivoting
+	      P.multiply(b, x);
+
+	      // Solve L*Y = B(piv,:)
+	      for (int k = 0; k < inputColumnsCount; k++) {
+	         for (int i = k+1; i < inputColumnsCount; i++) {
+	            for (int j = 0; j < b.getColumnsCount(); j++) {
+	            	x.setValue(i, j, x.getValue(i, j) - x.getValue(k, j)*LU.getValue(i, k));
+	            }
+	         }
+	      }
+	      
+	      // Solve U*X = Y;
+	      for (int k = inputColumnsCount-1; k >= 0; k--) {
+	         for (int j = 0; j < b.getColumnsCount(); j++) {
+	        	 x.setValue(k, j, x.getValue(k, j) / LU.getValue(k, k));
+	         }
+	         for (int i = 0; i < k; i++) {
+	            for (int j = 0; j < b.getColumnsCount(); j++) {
+	               x.setValue(i, j,  x.getValue(i, j) - x.getValue(k, j)*LU.getValue(i, k));
+	            }
+	         }
+	      }
+	      return x;
+	}
+
+	@Override
+	public Vector solve(Vector b) {
+		return solve(b, JeometryFactory.createVector(inputRowsCount));
+	}
+
+	@Override
+	public Vector solve(Vector b, Vector x) {
+		if (b == null) {
+			throw new IllegalArgumentException("Constant vector is null");
+		}
+
+		if (b.getDimension() != inputRowsCount) {
+	      throw new IllegalArgumentException("Invalid constant vector rows count "+b.getDimension()+", expected "+inputRowsCount);
+	    }
+		
+		if (x == null) {
+			throw new IllegalArgumentException("Result vector is null");
+		}
+		
+		if (x.getDimension() != inputColumnsCount) {
+		  throw new IllegalArgumentException("Invalid result vector rows count "+x.getDimension()+", expected "+inputColumnsCount);
+		}
+		
+	      if (!this.isNonsingular()) {
+	         throw new IllegalStateException("Matrix is singular.");
+	      }
+
+	      // Copy right hand side with pivoting
+	      P.multiply(b, x);
+
+	      // Solve L*Y = B(piv,:)
+	      for (int k = 0; k < inputColumnsCount; k++) {
+	         for (int i = k+1; i < inputColumnsCount; i++) {
+	            x.setVectorComponent(i, x.getVectorComponent(i) - x.getVectorComponent(k)*LU.getValue(i, k));
+	         }
+	      }
+	      
+	      // Solve U*X = Y;
+	      for (int k = inputColumnsCount-1; k >= 0; k--) {
+	         x.setVectorComponent(k, x.getVectorComponent(k) / LU.getValue(k, k));
+	         
+	         for (int i = 0; i < k; i++) {
+	            x.setVectorComponent(i,  x.getVectorComponent(i) - x.getVectorComponent(k)*LU.getValue(i, k));
+	         }
+	      }
+	      return x;
 	}
 }

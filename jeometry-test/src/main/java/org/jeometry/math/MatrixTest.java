@@ -484,7 +484,7 @@ public class MatrixTest {
 		Vector v = JeometryFactory.createVector(MatrixTestData.V_4_A);
 		Matrix m = JeometryFactory.createMatrix(MatrixTestData.M_4x4_A);
 
-		Vector result = JeometryFactory.createVector(v.getDimension());
+		Vector result = JeometryFactory.createVector(m.getRowsCount());
 
 		Vector u = null;
 
@@ -514,53 +514,22 @@ public class MatrixTest {
 		v = JeometryFactory.createVector(MatrixTestData.V_4_A);
 		m = JeometryFactory.createMatrix(MatrixTestData.M_4L_A);
 
-		result = JeometryFactory.createVector(v.getDimension());
+		result = JeometryFactory.createVector(m.getRowsCount());
 
 		try {
 
 			u = m.multiply(v, result);
-
+			
 			assertNotNull("Invalid vector v.", v);
 			assertNotNull("Invalid vector u.", u);
 			assertNotNull("Invalid vector result.", result);
 			assertSame("Invalid vector reference result.", result, u);
 
 			if ((v != null) && (u != null) && (result != null)) {
-				assertEquals("Invalid dimensions", MatrixTestData.V_PROD_M_4x4_A_X_V_4_A.length, u.getDimension());
+				assertEquals("Invalid dimensions", MatrixTestData.V_PROD_M_4L_A_V_4_A.length, u.getDimension());
 
-				if (u.getDimension() == MatrixTestData.V_PROD_M_4L_A_V_4_A.length) {
-					for (int dimension = 0; dimension < v.getDimension(); dimension++) {						
-						assertEquals("Invalid dimension "+dimension+" value.", MatrixTestData.V_PROD_M_4L_A_V_4_A[dimension], u.getVectorComponent(dimension), Double.MIN_VALUE);
-					}
-				}
-			}
-
-		} catch (Exception e) {
-			fail("Exception raised: "+e.getMessage());
-		}
-
-		// Testing column matrix 
-		v = JeometryFactory.createVector(MatrixTestData.V_4_A);
-		m = JeometryFactory.createMatrix(MatrixTestData.M_4C_A);
-
-		result = JeometryFactory.createVector(v.getDimension());
-
-		try {
-
-			u = m.multiply(v, result);
-
-			assertNotNull("Invalid vector v.", v);
-			assertNotNull("Invalid vector u.", u);
-			assertNotNull("Invalid vector result.", result);
-			assertSame("Invalid vector reference result.", result, u);
-
-			if ((v != null) && (u != null) && (result != null)) {
-				assertEquals("Invalid dimensions", MatrixTestData.V_PROD_M_4x4_A_X_V_4_A.length, u.getDimension());
-
-				if (u.getDimension() == MatrixTestData.V_PROD_M_4L_A_V_4_A.length) {
-					for (int dimension = 0; dimension < v.getDimension(); dimension++) {						
-						assertEquals("Invalid dimension "+dimension+" value.", MatrixTestData.V_PROD_M_4L_A_V_4_A[dimension], u.getVectorComponent(dimension), Double.MIN_VALUE);
-					}
+				for (int dimension = 0; dimension < u.getDimension(); dimension++) {						
+					assertEquals("Invalid dimension "+dimension+" value.", MatrixTestData.V_PROD_M_4L_A_V_4_A[dimension], u.getVectorComponent(dimension), Double.MIN_VALUE);
 				}
 			}
 
@@ -1152,6 +1121,57 @@ public class MatrixTest {
 		}
 	}
 
+	/**
+	 * Testing {@link Matrix#extract(int, int, int, int)}
+	 */
+	@Test
+	public void extractTest() {
+		
+		int rowOffset = 1;
+		int colOffset = 1;
+		int rowCount = 3;
+		int colCount = 2;
+		
+		Matrix a = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		
+		Matrix extraction = a.extract(rowOffset, colOffset, rowCount, colCount);
+		
+		assertNotNull("Invertion result is null", extraction);
+		
+		for(int row = 0; row < extraction.getRowsCount(); row++) {
+			for(int col = 0; col < extraction.getColumnsCount(); col++) {
+				assertEquals("Invalid cell ["+row+"x"+col+"] value.", a.getValue(row+rowOffset, col+colOffset), extraction.getValue(row, col), Double.MIN_VALUE);
+			}
+		}
+	}
+	
+	/**
+	 * Testing {@link Matrix#extract(int, int, int, int, Matrix)}
+	 */
+	@Test
+	public void extractResultTest() {
+		int rowOffset = 1;
+		int colOffset = 1;
+		int rowCount = 3;
+		int colCount = 2;
+		
+		Matrix a = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		
+		Matrix result = a.extract(rowOffset, colOffset, rowCount, colCount);
+		
+		Matrix extraction = a.extract(rowOffset, colOffset, rowCount, colCount, result);
+		
+		assertNotNull("Extraction result is null", extraction);
+		
+		assertSame("Extraction result and reference differs", extraction, result);
+		
+		for(int row = 0; row < extraction.getRowsCount(); row++) {
+			for(int col = 0; col < extraction.getColumnsCount(); col++) {
+				assertEquals("Invalid cell ["+row+"x"+col+"] value.", a.getValue(row+rowOffset, col+colOffset), extraction.getValue(row, col), Double.MIN_VALUE);
+			}
+		}
+	}
+	
 	/**
 	 * Testing {@link Matrix#concatHorizontal(Matrix)}
 	 */

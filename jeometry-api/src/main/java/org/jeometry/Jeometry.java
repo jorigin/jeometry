@@ -24,12 +24,12 @@ public class Jeometry {
   /**
    * The build version.
    */
-  public static final long BUILD     = 202004161000L;
+  public static final long BUILD     = 202004211000L;
   
   /**
    * The version number
    */
-  public static final String version = "1.0.1";
+  public static final String version = "1.0.2";
   
   /**
    * The {@link java.util.logging.Logger logger} used for reporting.
@@ -161,7 +161,7 @@ public class Jeometry {
    * @param stream the stream to use as output.
    * @param prefix a prefix to add to the print.
    */
-  public static void printVector(Vector vector, PrintStream stream, String prefix) {
+  public static void print(Vector vector, PrintStream stream, String prefix) {
 	  if ((stream != null) && (vector != null)) {
 			    System.out.print(prefix+"[");
 				for(int dimension = 0; dimension < vector.getDimension(); dimension++) {

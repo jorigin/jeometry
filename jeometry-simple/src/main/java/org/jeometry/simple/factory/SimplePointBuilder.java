@@ -4,10 +4,10 @@ import org.jeometry.Jeometry;
 import org.jeometry.factory.PointBuilder;
 import org.jeometry.geom2D.point.Point2D;
 import org.jeometry.geom2D.point.Point2DContainer;
-import org.jeometry.geom2D.point.SimplePoint2D;
 import org.jeometry.geom3D.point.Point3D;
 import org.jeometry.geom3D.point.Point3DContainer;
 import org.jeometry.math.Vector;
+import org.jeometry.simple.geom2D.point.SimplePoint2D;
 import org.jeometry.simple.geom3D.point.SimplePoint3D;
 import org.jeometry.simple.math.SimpleVector;
 

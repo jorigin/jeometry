@@ -82,7 +82,7 @@ public class SimplePoint3D implements Point3D{
 	public void setH(double h) {
 		coordinates[DIMENSION_H] = h;
 	}
-	
+
 	@Override
 	public double getXMin() {
 		return getX();
@@ -240,7 +240,7 @@ public class SimplePoint3D implements Point3D{
 	@Override
 	public Vector multiply(double scalar, Vector result) throws IllegalArgumentException {
 		if (result != null) {
-			
+
 			if (result instanceof Point3D) {
 				return mult(scalar, (Point3D) result);
 			} else {
@@ -483,6 +483,79 @@ public class SimplePoint3D implements Point3D{
 		setX(x);
 		setY(y);
 		setZ(z);
+	}
+
+	@Override
+	public void setComponents(Vector v) {
+		if (v == null) {
+			throw new IllegalArgumentException("Null input vector");
+		}
+
+		if (getDimension() != v.getDimension()) {
+			throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+		}
+
+		for(int dimension = 0; dimension < getDimension(); dimension++) {
+			setVectorComponent(dimension, v.getVectorComponent(dimension));
+		}
+	}
+
+	@Override
+	public double[] getComponents() {
+		return getComponents(new double[getDimension()]);
+	}
+
+	@Override
+	public double[] getComponents(double[] components) {
+		if (components == null) {
+			throw new IllegalArgumentException("Null output array");
+		}
+
+		if (getDimension() != components.length) {
+			throw new IllegalArgumentException("Invalid output array length "+components.length+", expected "+getDimension());
+		}
+
+		for(int dimension = 0; dimension < getDimension(); dimension++) {
+			components[dimension] = getVectorComponent(dimension);
+		}
+
+		return components;
+	}
+
+	@Override
+	public void setComponents(double[] components) {
+		if (components == null) {
+			throw new IllegalArgumentException("Null input array");
+		}
+
+		if (getDimension() != components.length) {
+			throw new IllegalArgumentException("Invalid input components length "+components.length+", expected "+getDimension());
+		}
+
+		for(int dimension = 0; dimension < getDimension(); dimension++) {
+			setVectorComponent(dimension, components[dimension]);
+		}
+	}
+	
+	@Override
+	public Vector extract(int start, int length) {
+		Vector extracted = null;
+		
+		if ((start < 0) || (start >= getDimension())) {
+			throw new IllegalArgumentException("Invalid first index "+start+", expected values within [0, "+(getDimension() - 1)+"]");
+		}
+		
+		if ((length < 1) || (length > getDimension() - start)) {
+			throw new IllegalArgumentException("Invalid length "+start+", expected values within [0, "+(getDimension() - start)+"[");
+		}
+		
+		extracted = JeometryFactory.createVector(length);
+		
+		for(int dimension = 0; dimension < extracted.getDimension(); dimension++) {
+			extracted.setVectorComponent(dimension, getVectorComponent(dimension+start));
+		}
+		
+		return extracted;
 	}
 
 }

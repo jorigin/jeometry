@@ -1,6 +1,7 @@
 package org.jeometry.simple.math;
 
 import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.math.Vector;
 
 /**
@@ -31,6 +32,79 @@ public class SimpleVector implements Vector {
 		 components[dimension] = value;;
 	}
 
+	@Override
+	public void setComponents(Vector v) {
+		if (v == null) {
+			throw new IllegalArgumentException("Null input vector");
+		}
+		
+		if (getDimension() != v.getDimension()) {
+			throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+		}
+		
+		for(int dimension = 0; dimension < getDimension(); dimension++) {
+			setVectorComponent(dimension, v.getVectorComponent(dimension));
+		}
+	}
+	
+	@Override
+	public double[] getComponents() {
+		return getComponents(new double[getDimension()]);
+	}
+	  
+	@Override
+	public double[] getComponents(double[] components) {
+		if (components == null) {
+			throw new IllegalArgumentException("Null output array");
+		}
+		
+		if (getDimension() != components.length) {
+			throw new IllegalArgumentException("Invalid output array length "+components.length+", expected "+getDimension());
+		}
+		
+		for(int dimension = 0; dimension < getDimension(); dimension++) {
+			components[dimension] = getVectorComponent(dimension);
+		}
+		
+		return components;
+	}
+	
+	@Override
+	  public void setComponents(double[] components) {
+		if (components == null) {
+			throw new IllegalArgumentException("Null input array");
+		}
+		
+		if (getDimension() != components.length) {
+			throw new IllegalArgumentException("Invalid input components length "+components.length+", expected "+getDimension());
+		}
+		
+		for(int dimension = 0; dimension < getDimension(); dimension++) {
+			setVectorComponent(dimension, components[dimension]);
+		}
+	  }
+	
+	@Override
+	public Vector extract(int start, int length) {
+		Vector extracted = null;
+		
+		if ((start < 0) || (start >= getDimension())) {
+			throw new IllegalArgumentException("Invalid first index "+start+", expected values within [0, "+(getDimension() - 1)+"]");
+		}
+		
+		if ((length < 1) || (length > getDimension() - start)) {
+			throw new IllegalArgumentException("Invalid length "+start+", expected values within [0, "+(getDimension() - start)+"[");
+		}
+		
+		extracted = JeometryFactory.createVector(length);
+		
+		for(int dimension = 0; dimension < extracted.getDimension(); dimension++) {
+			extracted.setVectorComponent(dimension, getVectorComponent(dimension+start));
+		}
+		
+		return extracted;
+	}
+	
 	@Override
 	public double normSquare() {
 		
@@ -112,12 +186,15 @@ public class SimpleVector implements Vector {
 	}
 
 	/**
-	 * Create a new vector from the given values. 
-	 * The values are used as reference and are not copied.
+	 * Create a new vector from the given values (values are copied). 
 	 * @param values the values that represents the components of the vector.
 	 */
 	public SimpleVector(double[] values) {
-        components = values;
+        components = new double[values.length];
+        
+        for(int i = 0; i < values.length; i++) {
+        	components[i] = values[i];
+        }
 	}
 
 	/**
@@ -131,4 +208,5 @@ public class SimpleVector implements Vector {
 			components[dimension] = source.getVectorComponent(dimension);
 		}
 	}
+
 }

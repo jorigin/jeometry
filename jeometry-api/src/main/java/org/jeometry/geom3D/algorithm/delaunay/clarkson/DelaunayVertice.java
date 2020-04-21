@@ -34,7 +34,7 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 	public DelaunayVertice(){
 		point = JeometryFactory.createPoint3D();
 	}
-	
+
 	/**
 	 * Create a new vertex.
 	 * @param x the x coordinate
@@ -44,7 +44,7 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 	public DelaunayVertice(double x, double y, double z) {
 		point = JeometryFactory.createPoint3D(x, y, z);
 	}
-	
+
 	@Override
 	public double getX() {
 		return point.getX();
@@ -291,7 +291,7 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 		point.divideAffect(scalar);
 		return this;
 	}
-	
+
 	/**
 	 * Set a user property for this point.
 	 * @param key the key of the property.
@@ -345,5 +345,30 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 		}
 
 		return faces.add(face);
+	}
+
+	@Override
+	public void setComponents(Vector v) {
+		point.setComponents(v);
+	}
+
+	@Override
+	public double[] getComponents() {
+		return point.getComponents();
+	}
+
+	@Override
+	public double[] getComponents(double[] components) {
+		return point.getComponents(components);
+	}
+
+	@Override
+	public void setComponents(double[] components) {
+		point.setComponents(components);
+	}
+	
+	@Override
+	public Vector extract(int start, int length) {
+		return point.extract(start, length);
 	}
 }

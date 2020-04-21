@@ -1,8 +1,10 @@
-package org.jeometry.geom2D.point;
+package org.jeometry.simple.geom2D.point;
 
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom2D.SpatialLocalization2D;
+import org.jeometry.geom2D.point.Coord2D;
+import org.jeometry.geom2D.point.Point2D;
 import org.jeometry.geom3D.point.Coord3D;
 import org.jeometry.math.Vector;
 
@@ -40,7 +42,7 @@ public class SimplePoint2D implements Point2D{
 	public int getDimension() {
 		return 2;
 	}
-	
+
 	@Override
 	public double getVectorComponent(int dimension) {
 		return coordinates[dimension];
@@ -116,7 +118,7 @@ public class SimplePoint2D implements Point2D{
 		setY(getY()*scalar);
 		return this;
 	}
-	
+
 	@Override
 	public double getX() {
 		return coordinates[DIMENSION_X];
@@ -136,7 +138,7 @@ public class SimplePoint2D implements Point2D{
 	public void setY(double y) {
 		coordinates[DIMENSION_Y] = y;
 	}
-	
+
 	@Override
 	public double getXMin() {
 		return getX();
@@ -169,6 +171,79 @@ public class SimplePoint2D implements Point2D{
 
 	@Override
 	public void updateLocalization() {
+	}
+
+	@Override
+	public void setComponents(Vector v) {
+		if (v == null) {
+			throw new IllegalArgumentException("Null input vector");
+		}
+
+		if (getDimension() != v.getDimension()) {
+			throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+		}
+
+		for(int dimension = 0; dimension < getDimension(); dimension++) {
+			setVectorComponent(dimension, v.getVectorComponent(dimension));
+		}
+	}
+
+	@Override
+	public double[] getComponents() {
+		return getComponents(new double[getDimension()]);
+	}
+
+	@Override
+	public double[] getComponents(double[] components) {
+		if (components == null) {
+			throw new IllegalArgumentException("Null output array");
+		}
+
+		if (getDimension() != components.length) {
+			throw new IllegalArgumentException("Invalid output array length "+components.length+", expected "+getDimension());
+		}
+
+		for(int dimension = 0; dimension < getDimension(); dimension++) {
+			components[dimension] = getVectorComponent(dimension);
+		}
+
+		return components;
+	}
+
+	@Override
+	public void setComponents(double[] components) {
+		if (components == null) {
+			throw new IllegalArgumentException("Null input array");
+		}
+
+		if (getDimension() != components.length) {
+			throw new IllegalArgumentException("Invalid input components length "+components.length+", expected "+getDimension());
+		}
+
+		for(int dimension = 0; dimension < getDimension(); dimension++) {
+			setVectorComponent(dimension, components[dimension]);
+		}
+	}
+	
+	@Override
+	public Vector extract(int start, int length) {
+		Vector extracted = null;
+		
+		if ((start < 0) || (start >= getDimension())) {
+			throw new IllegalArgumentException("Invalid first index "+start+", expected values within [0, "+(getDimension() - 1)+"]");
+		}
+		
+		if ((length < 1) || (length > getDimension() - start)) {
+			throw new IllegalArgumentException("Invalid length "+start+", expected values within [0, "+(getDimension() - start)+"[");
+		}
+		
+		extracted = JeometryFactory.createVector(length);
+		
+		for(int dimension = 0; dimension < extracted.getDimension(); dimension++) {
+			extracted.setVectorComponent(dimension, getVectorComponent(dimension+start));
+		}
+		
+		return extracted;
 	}
 
 }

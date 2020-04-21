@@ -1,6 +1,7 @@
 package org.jeometry.simple.math;
 
 import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.math.Quaternion;
 import org.jeometry.math.Vector;
 
@@ -17,15 +18,15 @@ public class SimpleQuaternion implements Quaternion {
 	private double i      = Double.NaN;
 	private double j      = Double.NaN;
 	private double k      = Double.NaN;
-	
+
 	@Override
 	public int getDimension() {
 		return 4;
 	}
-	
+
 	@Override
 	public double getVectorComponent(int dimension) {
-		
+
 		if ((dimension >= 0) && (dimension < 4)) {
 			if (dimension == Quaternion.QUATERNION_SCALAR_COMPONENT) {
 				return scalar;
@@ -42,11 +43,11 @@ public class SimpleQuaternion implements Quaternion {
 			throw new IllegalArgumentException("Invalid dimension "+dimension+". Expected 0 to 3");
 		}
 	}
-	
+
 	@Override
 	public void setVectorComponent(int dimension, double value) {
 		if ((dimension >= 0) && (dimension < 4)) {
-			
+
 			if (dimension == Quaternion.QUATERNION_SCALAR_COMPONENT) {
 				scalar = value;;
 			} else if (dimension == Quaternion.QUATERNION_I_COMPONENT) {
@@ -58,50 +59,101 @@ public class SimpleQuaternion implements Quaternion {
 			} else {
 				throw new IllegalArgumentException("Invalid dimension "+dimension+". Expected 0 to 3");
 			}
-			
+
 		} else {
 			throw new IllegalArgumentException("Invalid dimension "+dimension+". Expected 0 to 3");
 		}
+
+	}
+
+	@Override
+	public void setComponents(Vector v) {
+		if (v == null) {
+			throw new IllegalArgumentException("Null input vector");
+		}
+
+		if (getDimension() != v.getDimension()) {
+			throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+		}
+
+		for(int dimension = 0; dimension < getDimension(); dimension++) {
+			setVectorComponent(dimension, v.getVectorComponent(dimension));
+		}
+	}
+
+	@Override
+	public void setComponents(double[] components) {
+		if (components == null) {
+			throw new IllegalArgumentException("Null input array");
+		}
+
+		if (getDimension() != components.length) {
+			throw new IllegalArgumentException("Invalid input components length "+components.length+", expected "+getDimension());
+		}
+
+		for(int dimension = 0; dimension < getDimension(); dimension++) {
+			setVectorComponent(dimension, components[dimension]);
+		}
+	}
+
+	@Override
+	public Vector extract(int start, int length) {
+		Vector extracted = null;
 		
+		if ((start < 0) || (start >= getDimension())) {
+			throw new IllegalArgumentException("Invalid first index "+start+", expected values within [0, "+(getDimension() - 1)+"]");
+		}
+		
+		if ((length < 1) || (length > getDimension() - start)) {
+			throw new IllegalArgumentException("Invalid length "+start+", expected values within [0, "+(getDimension() - start)+"[");
+		}
+		
+		extracted = JeometryFactory.createVector(length);
+		
+		for(int dimension = 0; dimension < extracted.getDimension(); dimension++) {
+			extracted.setVectorComponent(dimension, getVectorComponent(dimension+start));
+		}
+		
+		return extracted;
 	}
 	
 	@Override
 	public double normSquare() {
 		return scalar*scalar + i*i + j*j + k*k;
 	}
-	
+
 	@Override
 	public double norm() {
-	  return Math.sqrt(normSquare());
+		return Math.sqrt(normSquare());
 	}
-	
+
 	@Override
 	public void normalize() {
 		double norm = norm();
-		
+
 		scalar = scalar / norm;
 		i = i / norm;
 		j = j / norm;
 		k = k / norm;
 	}
-	
+
 	@Override
 	public Vector orthogonal() {
 		// TODO implements SimpleQuaternion.orthogonal()
 		System.err.println("SimpleQuaternion.orthogonal() NOT YET IMPLEMENTED");
 		return null;
 	}
-	
+
 	@Override
 	public Vector orthogonal(Vector result) {
 		// TODO implements SimpleQuaternion.orthogonal(Vector)
 		System.err.println("SimpleQuaternion.orthogonal(Vector) NOT YET IMPLEMENTED");
 		return null;
 	}
-	
+
 	@Override
 	public Vector multiply(double scalar) {
-		
+
 		return multiply(scalar, new SimpleVector(getDimension()));
 	}
 
@@ -116,7 +168,7 @@ public class SimpleQuaternion implements Quaternion {
 				throw new IllegalArgumentException("Invalid result vector dimension ("+result.getDimension()+"), expected at least "+getDimension());
 			}
 		}
-		
+
 		return result;
 	}
 
@@ -127,52 +179,52 @@ public class SimpleQuaternion implements Quaternion {
 		}
 		return this;
 	}
-	
+
 	@Override
 	public double getScalar() {
 		return scalar;
 	}
-	
+
 	@Override
 	public void setScalar(double value) {
 		this.scalar = value;
 	}
-	
+
 	@Override
 	public double getI() {
 		return i;
 	}
-	
+
 	@Override
 	public void setI(double value) {
-	  this.i = value;
+		this.i = value;
 	}
-	
+
 	@Override
 	public double getJ() {
 		return j;
 	}
-	
+
 	@Override
 	public void setJ(double value) {
 		j = value;
 	}
-	
+
 	@Override
 	public double getK() {
 		return k;
 	}
-	
+
 	@Override
 	public void setK(double value) {
 		this.k = value;
 	}
-	
+
 	@Override
 	public double[] getComponents() {
 		return new double[] {scalar, i, j, k};
 	}
-	
+
 	@Override
 	public double[] getComponents(double[] components) throws IllegalArgumentException {
 		if (components != null) {
@@ -185,10 +237,10 @@ public class SimpleQuaternion implements Quaternion {
 				throw new IllegalArgumentException("Invalid components length "+components.length+". Expected at least 4");
 			}
 		}
-		
+
 		return components;
 	}
-	
+
 	@Override
 	public void setComponents(double a, double b, double c, double d) {
 		scalar = a;
@@ -196,74 +248,74 @@ public class SimpleQuaternion implements Quaternion {
 		j      = c;
 		k      = d;
 	}
-	
+
 	@Override
 	public Quaternion mult(Quaternion p) {
 		return mult(p, new SimpleQuaternion());
 	}
-	
+
 	@Override
 	public Quaternion mult(Quaternion p, Quaternion result) {
-		
+
 		if ((result != null) && (p != null)){
-		  result.setComponents(scalar * p.getScalar() - i * p.getI()      - j * p.getJ()      - k * p.getK(),
-			                   scalar * p.getI()      + i * p.getScalar() + j * p.getK()      - k * p.getJ(),
-                               scalar * p.getJ()      - i * p.getK()      + j * p.getScalar() + k * p.getI(),
-			                   scalar * p.getK()      + i * p.getJ()      - j * p.getI()      + k * p.getScalar());
+			result.setComponents(scalar * p.getScalar() - i * p.getI()      - j * p.getJ()      - k * p.getK(),
+					scalar * p.getI()      + i * p.getScalar() + j * p.getK()      - k * p.getJ(),
+					scalar * p.getJ()      - i * p.getK()      + j * p.getScalar() + k * p.getI(),
+					scalar * p.getK()      + i * p.getJ()      - j * p.getI()      + k * p.getScalar());
 		}
-		
+
 		return result;
 	}
-	
+
 	@Override
 	public Quaternion multAffect(Quaternion p) {
 		return mult(p, this);
 	}
-	
+
 	@Override
 	public Quaternion invertQuaternion() throws IllegalStateException {
 		double normSquare = normSquare();
-		
+
 		return new SimpleQuaternion(   scalar / normSquare,
-				                    -1.0d * i / normSquare,
-				                    -1.0d * j / normSquare,
-				                    -1.0d * k / normSquare);
+				-1.0d * i / normSquare,
+				-1.0d * j / normSquare,
+				-1.0d * k / normSquare);
 	}
-	
+
 	@Override
 	public Quaternion invertQuaternion(Quaternion result) throws IllegalStateException {
-		
+
 		if (result != null) {
-			
+
 			double normSquare = normSquare();
-			
+
 			result.setComponents(scalar / normSquare,
-				                 -1.0d * i / normSquare,
-				                 -1.0d * j / normSquare,
-				                 -1.0d * k / normSquare);
+					-1.0d * i / normSquare,
+					-1.0d * j / normSquare,
+					-1.0d * k / normSquare);
 		}
-		
+
 		return result;
 	}
-	
+
 	@Override
 	public Quaternion invertQuaternionAffect() throws IllegalStateException {
-		
+
 		double normSquare = normSquare();
-		
+
 		scalar = scalar / normSquare;
-        i      = -1.0d * i / normSquare;
-        j      = -1.0d * j / normSquare;
-        k      = -1.0d * k / normSquare;
-		
+		i      = -1.0d * i / normSquare;
+		j      = -1.0d * j / normSquare;
+		k      = -1.0d * k / normSquare;
+
 		return this;
 	}
-	
+
 	@Override
 	public Quaternion conjugateQuaternion() {
 		return new SimpleQuaternion(   scalar, -1.0d * i, -1.0d * j, -1.0d * k);
 	}
-	
+
 	@Override
 	public Quaternion conjugateQuaternion(Quaternion result) {
 		if (result != null) {
@@ -271,42 +323,42 @@ public class SimpleQuaternion implements Quaternion {
 		}
 		return result;
 	}
-	
+
 	@Override
 	public Quaternion conjugateQuaternionAffect() {
-        i      = -1.0d * i;
-        j      = -1.0d * j;
-        k      = -1.0d * k;
+		i      = -1.0d * i;
+		j      = -1.0d * j;
+		k      = -1.0d * k;
 		return this;
 	}
 
 	@Override
 	public String toString() {
-        String str = "";
-		
+		String str = "";
+
 		str += getScalar();
-		
+
 		if (getI() > 0) {
 			str += " + "+getI();
 		} else if (getI() < 0){
 			str += " - "+Math.abs(getI());
 		}
-		
+
 		if (getJ() > 0) {
 			str += " + "+getJ();
 		} else if (getJ() < 0){
 			str += " - "+Math.abs(getJ());
 		}
-		
+
 		if (getK() > 0) {
 			str += " + "+getK();
 		} else if (getK() < 0){
 			str += " - "+Math.abs(getK());
 		}
-		
+
 		return str;
 	}
-	
+
 	/**
 	 * Create a new simple quaternion equals to <i>0</i>
 	 */
@@ -316,7 +368,7 @@ public class SimpleQuaternion implements Quaternion {
 		this.j = 0.0d;
 		this.k = 0.0d;
 	}
-	
+
 	/**
 	 * Create a new simple quaternion with the given components.
 	 * @param scalar the quaternion real part (or scalar) parameter, denoted <i>a</i> within the definition .
@@ -330,7 +382,7 @@ public class SimpleQuaternion implements Quaternion {
 		this.j = j;
 		this.k = k;
 	}
-	
+
 	/**
 	 * Create a new simple quaternion that is a copy of the given one.
 	 * @param quaternion the quaternion to copy.

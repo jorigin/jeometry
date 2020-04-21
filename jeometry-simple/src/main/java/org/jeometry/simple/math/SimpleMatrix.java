@@ -6,8 +6,6 @@ import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
 import org.jeometry.math.Matrix;
 import org.jeometry.math.Vector;
-import org.jeometry.math.decomposition.LUDecomposition;
-import org.jeometry.math.decomposition.SVDDecomposition;
 
 /**
  * A simple implementation of the {@link Matrix} interface. 
@@ -158,13 +156,22 @@ public class SimpleMatrix implements Matrix {
 
 	@Override
 	public void setValues(Matrix matrix) {
-		if (matrix != null) {
-			if ((matrix.getRowsCount() > this.getRowsCount()) || (matrix.getColumnsCount() > this.getColumnsCount())) {
-				throw new IllegalArgumentException("Given ["+matrix.getRowsCount()+"x"+matrix.getColumnsCount()+"] matrix cannot be affected to this one.");
+
+		if (matrix == null) {
+			throw new IllegalArgumentException("Invalid null input.");
+		}
+
+		if ((matrix.getRowsCount() > this.getRowsCount()) || (matrix.getColumnsCount() > this.getColumnsCount())) {
+			throw new IllegalArgumentException("Input ["+matrix.getRowsCount()+"x"+matrix.getColumnsCount()+"] matrix has incorrect size.");
+		}
+
+		for(int row = 0; row < rows; row++) {
+			for(int col = 0; col < cols; col++) {
+				setValue(row, col, matrix.getValue(row, col));
 			}
 		}
 	}
-	
+
 	@Override
 	public void setTo(double value) {
 		for(int row = 0; row < rows; row++) {
@@ -173,7 +180,50 @@ public class SimpleMatrix implements Matrix {
 			}
 		}
 	}
-	
+
+	@Override
+	public Matrix extract(int rowOffset, int columnOffset, int rowCount, int columnCount) {
+		return extract(rowOffset, columnOffset, rowCount, columnCount, JeometryFactory.createMatrix(rowCount, columnCount));
+	}
+
+	@Override
+	public Matrix extract(int rowOffset, int columnOffset, int rowCount, int columnCount, Matrix result) {
+		if ((rowOffset < 0) || (rowOffset >= getRowsCount())){
+			throw new IllegalArgumentException("Invalid row offset "+rowOffset+" extpected ["+0+", "+(getRowsCount()-1)+"] values.");
+		}
+
+		if ((columnOffset < 0) || (columnOffset >= getColumnsCount())){
+			throw new IllegalArgumentException("Invalid column offset "+columnOffset+" extpected ["+0+", "+(getColumnsCount()-1)+"] values.");
+		}
+
+		if ((rowCount < 0) || (rowOffset +rowCount > getRowsCount())){
+			throw new IllegalArgumentException("Invalid row count "+rowCount+" extpected ["+0+", "+(getRowsCount()-rowOffset)+"] values.");
+		}
+
+		if ((columnCount < 0) || (columnOffset +columnCount > getColumnsCount())){
+			throw new IllegalArgumentException("Invalid column count "+columnCount+" extpected ["+0+", "+(getColumnsCount()-columnOffset)+"] values.");
+		}
+
+
+		if (result != null) {
+
+			if ((result.getRowsCount() < rowCount) || (result.getColumnsCount() < columnCount)){
+				throw new IllegalArgumentException("Invalid result size ["+result.getRowsCount()+"x"+result.getColumnsCount()+"], expected ["+rowCount+"x"+columnCount+"].");
+			}
+
+			for(int row = 0; row < result.getRowsCount(); row = row +1 ) {
+				for(int col = 0; col < result.getColumnsCount(); col = col +1 ) {
+					result.setValue(row, col, getValue(row+rowOffset, col+columnOffset));
+				}
+			}
+
+		} else {
+			throw new IllegalArgumentException("Invalid (null) result");
+		}
+
+		return result;
+	}
+
 	@Override
 	public int getRowsCount() {
 		return rows;
@@ -362,7 +412,7 @@ public class SimpleMatrix implements Matrix {
 	@Override
 	public Vector multiply(Vector v) {
 		if (v != null) {
-			return multiply(v, new SimpleVector(getColumnsCount()));
+			return multiply(v, new SimpleVector(getRowsCount()));
 		}
 		return null;
 	}
@@ -372,37 +422,24 @@ public class SimpleMatrix implements Matrix {
 		if (v != null) {
 			if (result != null) {
 
-				if (getRowsCount() == 1) {
-					double value = 0.0d;
-					for(int dimension = 0; dimension < result.getDimension(); dimension++) {
-						value = value + getValue(0, dimension) * v.getVectorComponent(dimension);
-						result.setVectorComponent(dimension, value);
+				if (v.getDimension() != getColumnsCount()) {
+					throw new IllegalArgumentException("Invalid vector operand dimension ("+v.getDimension()+"), expected "+getColumnsCount());
+				} 
+
+				if (result.getDimension() != getRowsCount()) {
+					throw new IllegalArgumentException("Invalid vector operand dimension ("+v.getDimension()+"), expected "+getRowsCount());
+				} 
+
+				double value = 0.0d;
+				for(int dimension = 0; dimension < result.getDimension(); dimension++) {
+					value = 0.0d;
+					for(int commonIndex = 0; commonIndex < getColumnsCount(); commonIndex++) {
+						value = value + getValue(dimension, commonIndex) * v.getVectorComponent(commonIndex);
 					}
-				} else if (getColumnsCount() == 1) {
-					double value = 0.0d;
-					for(int dimension = 0; dimension < result.getDimension(); dimension++) {
-						value = value + getValue(dimension, 0) * v.getVectorComponent(dimension);
-						result.setVectorComponent(dimension, value);
-					}
-				} else {
 
-					if (result.getDimension() == getColumnsCount()) {
+					result.setVectorComponent(dimension, value);
 
-						double value = 0.0d;
-						for(int dimension = 0; dimension < result.getDimension(); dimension++) {
-							value = 0.0d;
-							for(int commonIndex = 0; commonIndex < getColumnsCount(); commonIndex++) {
-								value = value + getValue(dimension, commonIndex) * v.getVectorComponent(commonIndex);
-							}
-
-							result.setVectorComponent(dimension, value);
-
-						}
-					} else {
-						throw new IllegalArgumentException("Invalid result size ["+result.getDimension()+"]. Expected "+getColumnsCount());
-					}
 				}
-
 
 				return result;
 			}
@@ -594,7 +631,7 @@ public class SimpleMatrix implements Matrix {
 	public Matrix subtractAffect(double s) {
 		return subtract(s, this);
 	}
-	
+
 	@Override
 	public Matrix invert() throws IllegalStateException {
 		return invert(new SimpleMatrix(getRowsCount(), getColumnsCount()));
@@ -602,83 +639,83 @@ public class SimpleMatrix implements Matrix {
 
 	@Override
 	public Matrix invert(Matrix result) throws IllegalStateException, IllegalArgumentException{
-		
+
 		if (result != null) {
-			
+
 			if ((result.getRowsCount() == getRowsCount()) && (result.getColumnsCount() == getColumnsCount())) {
-				
+
 				double det = determinant();
-				
+
 				if (det != 0) {
-					
+
 					// Compute the cofactor matrix
 					cofactor(result);
-					
+
 					// Transpose the cofactor matrix
 					result.transposeAffect();
-					
+
 					// Divide the transposed cofactor matrix by the inverse of the determinant
 					result.multiplyAffect(1.0d/det);
-					
+
 				} else {
 					throw new IllegalStateException("MAtrix is not invertible (determinant is 0)");
 				}
-				
+
 			} else {
 				throw new IllegalArgumentException("Invalid result matrix size ["+result.getRowsCount()+"x"+result.getColumnsCount()+"]. Expected ["+getRowsCount()+"x"+getColumnsCount()+"]");
 			}
-			
+
 		}
-		
+
 		return result;
 	}
-	
+
 	@Override
 	public Matrix cofactor() throws IllegalStateException{
-	    return cofactor(new SimpleMatrix(getRowsCount(), getColumnsCount()));
+		return cofactor(new SimpleMatrix(getRowsCount(), getColumnsCount()));
 	}
-	
+
 	@Override
 	public Matrix cofactor(Matrix result) throws IllegalStateException, IllegalArgumentException{
-		
+
 		if (result != null) {
-			
+
 			if ((result.getRowsCount() == getRowsCount()) && (result.getColumnsCount() == getColumnsCount())) {
-			    for (int row = 0; row < result.getRowsCount(); row++) {
-			        for (int col = 0; col < result.getColumnsCount(); col++) {
-			            result.setValue(row, col, Math.pow(-1, row + col) * removeRowCol(row, col).determinant());
-			        }
-			    }
-			    
+				for (int row = 0; row < result.getRowsCount(); row++) {
+					for (int col = 0; col < result.getColumnsCount(); col++) {
+						result.setValue(row, col, Math.pow(-1, row + col) * removeRowCol(row, col).determinant());
+					}
+				}
+
 			} else {
 				throw new IllegalArgumentException("Invalid result matrix size ["+result.getRowsCount()+"x"+result.getColumnsCount()+"]. Expected ["+getRowsCount()+"x"+getColumnsCount()+"]");
 			}
 		}
-		
-	    return result;
+
+		return result;
 	}
-	
+
 	@Override
 	public Matrix concatHorizontal(Matrix right) {
 		return concatHorizontal(right, JeometryFactory.createMatrix(right.getRowsCount(), getColumnsCount()+right.getColumnsCount()));
 	}
-	
+
 	@Override
 	public Matrix concatHorizontal(Matrix right, Matrix result) {
 		if (getRowsCount() == right.getRowsCount()) {
 			if (getRowsCount() == result.getRowsCount()) {
 				for (int row = 0; row < getRowsCount(); row++) {
-			        for (int col = 0; col < getColumnsCount(); col++) {
-			            result.setValue(row, col, getValue(row, col));
-			        }
-			    }
-				
+					for (int col = 0; col < getColumnsCount(); col++) {
+						result.setValue(row, col, getValue(row, col));
+					}
+				}
+
 				for (int row = 0; row < right.getRowsCount(); row++) {
-			        for (int col = 0; col < right.getColumnsCount(); col++) {
-			            result.setValue(row, col+getColumnsCount(), right.getValue(row, col));
-			        }
-			    }
-	
+					for (int col = 0; col < right.getColumnsCount(); col++) {
+						result.setValue(row, col+getColumnsCount(), right.getValue(row, col));
+					}
+				}
+
 			} else {
 				throw new IllegalArgumentException("Incompatible result matrix size, expected "+getRowsCount()+"x"+getColumnsCount()+right.getColumnsCount()+" and got "+result.getRowsCount()+"x"+result.getColumnsCount());
 			}
@@ -687,28 +724,28 @@ public class SimpleMatrix implements Matrix {
 		}
 		return result;
 	}
-	
+
 	@Override
 	public Matrix concatVertical(Matrix bottom) {
 		return concatVertical(bottom, JeometryFactory.createMatrix(getRowsCount()+bottom.getRowsCount(), getColumnsCount()));
 	}
-	
+
 	@Override
 	public Matrix concatVertical(Matrix bottom, Matrix result) {
 		if (getColumnsCount() == bottom.getColumnsCount()) {
 			if (getColumnsCount() == result.getColumnsCount()) {
 				for (int row = 0; row < getRowsCount(); row++) {
-			        for (int col = 0; col < getColumnsCount(); col++) {
-			            result.setValue(row, col, getValue(row, col));
-			        }
-			    }
-				
+					for (int col = 0; col < getColumnsCount(); col++) {
+						result.setValue(row, col, getValue(row, col));
+					}
+				}
+
 				for (int row = 0; row < bottom.getRowsCount(); row++) {
-			        for (int col = 0; col < bottom.getColumnsCount(); col++) {
-			            result.setValue(row+getRowsCount(), col, bottom.getValue(row, col));
-			        }
-			    }
-	
+					for (int col = 0; col < bottom.getColumnsCount(); col++) {
+						result.setValue(row+getRowsCount(), col, bottom.getValue(row, col));
+					}
+				}
+
 			} else {
 				throw new IllegalArgumentException("Incompatible result matrix size, expected "+(getRowsCount()+bottom.getRowsCount())+"x"+getColumnsCount()+" and got "+result.getRowsCount()+"x"+result.getColumnsCount());
 			}
@@ -717,19 +754,7 @@ public class SimpleMatrix implements Matrix {
 		}
 		return result;
 	}
-	
-	@Override
-	public SVDDecomposition decomposeSVD() {
-		// TODO Implements decomposeSVD()
-		return null;
-	}
 
-	@Override
-	public LUDecomposition decomposeLU() {
-		// TODO Implements decomposeLU()
-		return null;
-	}
-	
 	/**
 	 * Create a new simple matrix with the given size.
 	 * @param rows the number of rows.
@@ -742,7 +767,8 @@ public class SimpleMatrix implements Matrix {
 	}
 
 	/**
-	 * Create a new simple matrix from the given data.
+	 * Create a new simple matrix from the given data. 
+	 * The data are copied from the input.
 	 * @param data the data to use.
 	 */
 	public SimpleMatrix(double[][] data) {
@@ -779,7 +805,7 @@ public class SimpleMatrix implements Matrix {
 
 		}
 	}
-	
+
 	/**
 	 * Create a new simple matrix by copying the given one.
 	 * @param matrix the {@link Matrix matrix} to copy
@@ -799,7 +825,7 @@ public class SimpleMatrix implements Matrix {
 
 		}
 	}
-	
+
 	/**
 	 * Remove the given row and column from the current matrix. 
 	 * @param row the row to remove
@@ -807,20 +833,20 @@ public class SimpleMatrix implements Matrix {
 	 * @return a matrix that is a copy of the current one without the removec row / column.
 	 */
 	private Matrix removeRowCol(int row, int col) {
-	    Matrix result = new SimpleMatrix(this.rows - 1, this.cols - 1);
+		Matrix result = new SimpleMatrix(this.rows - 1, this.cols - 1);
 
-	    int k = 0, l = 0;
-	    for (int i = 0; i < this.rows; i++) {
-	        if (i == row) continue;
-	        for (int j = 0; j < this.cols; j++) {
-	            if (j == col) continue;
-	            result.setValue(l, k, this.getValue(i, j));
+		int k = 0, l = 0;
+		for (int i = 0; i < this.rows; i++) {
+			if (i == row) continue;
+			for (int j = 0; j < this.cols; j++) {
+				if (j == col) continue;
+				result.setValue(l, k, this.getValue(i, j));
 
-	            k = (k + 1) % (this.rows - 1);
-	            if (k == 0) l++;
-	        }
-	    }
+				k = (k + 1) % (this.rows - 1);
+				if (k == 0) l++;
+			}
+		}
 
-	    return result;
+		return result;
 	}
 }

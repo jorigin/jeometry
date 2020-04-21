@@ -2,6 +2,7 @@ package org.jeometry.math.decomposition;
 
 import org.jeometry.Jeometry;
 import org.jeometry.math.Matrix;
+import org.jeometry.math.solver.Resolvable;
 
 /**
  * This interface describes a Lower Upper (LU) decomposition.<br>
@@ -15,7 +16,7 @@ import org.jeometry.math.Matrix;
  * @version {@value Jeometry#version} b{@value Jeometry#BUILD}
  * @since 1.0.0
  */
-public interface LUDecomposition extends Decomposition {
+public interface LUDecomposition extends Decomposition, Resolvable {
 
 	/**
 	 * The index of the triangular lower <i>L</i> matrix within the {@link Decomposition#getComponents() decomposition components}. 

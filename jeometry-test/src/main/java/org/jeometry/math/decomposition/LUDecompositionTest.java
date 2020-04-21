@@ -8,6 +8,7 @@ import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
 import org.jeometry.math.Matrix;
 import org.jeometry.math.MatrixTestData;
+import org.jeometry.math.solver.ResolvableTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -38,12 +39,12 @@ public class LUDecompositionTest {
 	 * Epsilon for numeric comparison.
 	 */
 	public static double EPSILON = 0.0000001d;
-	
+
 	/**
 	 * The class of the decomposition
 	 */
 	protected static Class<?> decompositionClass = null;
-	
+
 	/**
 	 * Initialize the test static context.
 	 */
@@ -51,7 +52,7 @@ public class LUDecompositionTest {
 	public static void initClass() {
 		fail("method public static void init() has to be set up with @BeforeClass annotation");
 	}
-	
+
 	/**
 	 * A test dedicated to the {@link LUDecomposition}.
 	 */
@@ -60,65 +61,94 @@ public class LUDecompositionTest {
 		Matrix k = JeometryFactory.createMatrix(MatrixTestData.DECOMPOSITION_LU_INPUT);
 
 		LUDecomposition decomposition = JeometryFactory.createLUDecomposition(k);
-		
-        assertNotNull("Decomposition is null", decomposition);
-		
+
+		assertNotNull("Decomposition is null", decomposition);
+
 		if (decompositionClass != null) {
 			assertEquals("Expected decomposition class "+decompositionClass.getSimpleName()+" but got "+decomposition.getClass().getSimpleName(), decompositionClass, decomposition.getClass());
 		}
-		
+
 		Matrix l = decomposition.getLower();
 
 		assertNotNull("L is null", l);
-		
+
 		assertEquals("L size error, expected ("+MatrixTestData.DECOMPOSITION_LU_L.length+", "+MatrixTestData.DECOMPOSITION_LU_L[0].length+") but got ("+l.getRowsCount()+", "+l.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_LU_L.length, l.getRowsCount());
 		assertEquals("L size error, expected ("+MatrixTestData.DECOMPOSITION_LU_L.length+", "+MatrixTestData.DECOMPOSITION_LU_L[0].length+") but got ("+l.getRowsCount()+", "+l.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_LU_L[0].length, l.getColumnsCount());
-		
+
 		for(int row = 0; row < l.getRowsCount(); row++) {
 			for(int col = 0; col < l.getColumnsCount(); col++) {
 				assertEquals("Bad value ("+row+", "+col+")", l.getValue(row, col), MatrixTestData.DECOMPOSITION_LU_L[row][col], EPSILON);
 			}
 		}
-		
+
 		Matrix u = decomposition.getUpper();
-		
-        assertNotNull("U is null", l);
-		
+
+		assertNotNull("U is null", l);
+
 		assertEquals("U size error, expected ("+MatrixTestData.DECOMPOSITION_LU_U.length+", "+MatrixTestData.DECOMPOSITION_LU_U[0].length+") but got ("+u.getRowsCount()+", "+u.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_LU_U.length, u.getRowsCount());
 		assertEquals("U size error, expected ("+MatrixTestData.DECOMPOSITION_LU_U.length+", "+MatrixTestData.DECOMPOSITION_LU_U[0].length+") but got ("+u.getRowsCount()+", "+u.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_LU_U[0].length, u.getColumnsCount());
-		
+
 		for(int row = 0; row < u.getRowsCount(); row++) {
 			for(int col = 0; col < u.getColumnsCount(); col++) {
 				assertEquals("Bad value ("+row+", "+col+")", u.getValue(row, col), MatrixTestData.DECOMPOSITION_LU_U[row][col], EPSILON);
 			}
 		}
-		
+
 
 		Matrix p = decomposition.getPivot();
-		
-        assertNotNull("P is null", l);
-		
+
+		assertNotNull("P is null", l);
+
 		assertEquals("P size error, expected ("+MatrixTestData.DECOMPOSITION_LU_P.length+", "+MatrixTestData.DECOMPOSITION_LU_P[0].length+") but got ("+p.getRowsCount()+", "+p.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_LU_P.length, p.getRowsCount());
 		assertEquals("P size error, expected ("+MatrixTestData.DECOMPOSITION_LU_P.length+", "+MatrixTestData.DECOMPOSITION_LU_P[0].length+") but got ("+p.getRowsCount()+", "+p.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_LU_P[0].length, p.getColumnsCount());
-		
+
 		for(int row = 0; row < p.getRowsCount(); row++) {
 			for(int col = 0; col < p.getColumnsCount(); col++) {
 				assertEquals("Bad value ("+row+", "+col+")", p.getValue(row, col), MatrixTestData.DECOMPOSITION_LU_P[row][col], EPSILON);
 			}
 		}
-		
+
 		// Check PK = LU
 		Matrix pk = p.multiply(k);
-		
+
 		Matrix lu = l.multiply(u);
-		
+
 		assertEquals("PK size error, expected ("+pk.getRowsCount()+", "+pk.getColumnsCount()+") but got ("+lu.getRowsCount()+", "+lu.getColumnsCount()+")", pk.getRowsCount(), lu.getRowsCount());
 		assertEquals("PK size error, expected ("+pk.getRowsCount()+", "+pk.getColumnsCount()+") but got ("+lu.getRowsCount()+", "+lu.getColumnsCount()+")", pk.getColumnsCount(), lu.getColumnsCount());
-	
+
 		for(int row = 0; row < p.getRowsCount(); row++) {
 			for(int col = 0; col < p.getColumnsCount(); col++) {
 				assertEquals("Bad value ("+row+", "+col+")", pk.getValue(row, col), lu.getValue(row, col), EPSILON);
 			}
 		}
+
+		// Test solve
+		double[][] solveInput  = MatrixTestData.DECOMPOSITION_LU_INPUT;
+		double[] solveConstant = MatrixTestData.DECOMPOSITION_LU_SOLVE_CONSTANT;
+		double[] solveResult   = MatrixTestData.DECOMPOSITION_LU_SOLVE_RESULT;
+
+		ResolvableTest.testSolve(JeometryFactory.createMatrix(solveInput),
+				JeometryFactory.createMatrix(solveConstant.length, 1, solveConstant, Matrix.ROW_MAJOR),
+				JeometryFactory.createMatrix(solveResult.length, 1, solveResult, Matrix.ROW_MAJOR),
+				decomposition,
+				EPSILON);
+
+		ResolvableTest.testSolve(JeometryFactory.createMatrix(solveInput),
+				JeometryFactory.createVector(solveConstant),
+				JeometryFactory.createVector(solveResult),
+				decomposition,
+				EPSILON);
+
+		ResolvableTest.testSolveResult(JeometryFactory.createMatrix(solveInput),
+				JeometryFactory.createMatrix(solveConstant.length, 1, solveConstant, Matrix.ROW_MAJOR),
+				JeometryFactory.createMatrix(solveResult.length, 1, solveResult, Matrix.ROW_MAJOR),
+				decomposition,
+				EPSILON);
+
+		ResolvableTest.testSolveResult(JeometryFactory.createMatrix(solveInput),
+				JeometryFactory.createVector(solveConstant),
+				JeometryFactory.createVector(solveResult),
+				decomposition,
+				EPSILON);
 	}
 }
