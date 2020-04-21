@@ -5,7 +5,7 @@
    <parent>
      <groupId>org.jorigin</groupId>
      <artifactId>jeometry</artifactId>
-     <version>1.0.2</version>
+     <version>1.0.3-SNAPSHOT</version>
    </parent>
 
   <!-- <groupId>org.jorigin</groupId>-->
@@ -66,7 +66,7 @@
     <connection>scm:git:git://github.com/jorigin/jeometry.git</connection>
     <developerConnection>scm:git:git@github.com:jorigin/jeometry.git</developerConnection>
     <url>https://github.com/jorigin/jeometry</url>
-    <tag>jeometry-1.0.2</tag>
+    <tag>HEAD</tag>
   </scm>
   
   <profiles>
