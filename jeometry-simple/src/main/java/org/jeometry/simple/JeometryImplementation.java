@@ -5,6 +5,7 @@ import org.jeometry.factory.JeometryFactory;
 import org.jeometry.simple.factory.SimpleMathBuilder;
 import org.jeometry.simple.factory.SimpleMeshBuilder;
 import org.jeometry.simple.factory.SimplePointBuilder;
+import org.jeometry.simple.factory.SimpleTransformBuilder;
 
 /**
  * The Jeometry implementation class. This class enables to automatically register implementation classes to the global factories.
@@ -22,6 +23,7 @@ public class JeometryImplementation {
 		JeometryFactory.setMathBuilder(new SimpleMathBuilder());
 		JeometryFactory.setMeshBuilder(new SimpleMeshBuilder());
 		JeometryFactory.setPointBuilder(new SimplePointBuilder());
+		JeometryFactory.setTransformBuilder(new SimpleTransformBuilder());
 	}
 	
 }

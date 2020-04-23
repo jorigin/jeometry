@@ -7,7 +7,7 @@ import static org.junit.Assert.fail;
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
 import org.jeometry.math.Matrix;
-import org.jeometry.math.MatrixTestData;
+import org.jeometry.math.MathTestData;
 import org.jeometry.math.solver.ResolvableTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -56,7 +56,7 @@ public class QRDecompositionTest {
 	 */
 	@Test
 	public void qrDecompositionTest() {
-		Matrix input = JeometryFactory.createMatrix(MatrixTestData.DECOMPOSITION_QR_INPUT);
+		Matrix input = JeometryFactory.createMatrix(MathTestData.DECOMPOSITION_QR_INPUT);
 
 		QRDecomposition decomposition = JeometryFactory.createQRDecomposition(input);
 
@@ -70,8 +70,8 @@ public class QRDecompositionTest {
 
 		assertNotNull("Q is null", q);
 
-		assertEquals("Q size error, expected ("+MatrixTestData.DECOMPOSITION_QR_Q.length+", "+MatrixTestData.DECOMPOSITION_QR_Q[0].length+") but got ("+q.getRowsCount()+", "+q.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_QR_Q.length, q.getRowsCount());
-		assertEquals("Q size error, expected ("+MatrixTestData.DECOMPOSITION_QR_Q.length+", "+MatrixTestData.DECOMPOSITION_QR_Q[0].length+") but got ("+q.getRowsCount()+", "+q.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_QR_Q[0].length, q.getColumnsCount());
+		assertEquals("Q size error, expected ("+MathTestData.DECOMPOSITION_QR_Q.length+", "+MathTestData.DECOMPOSITION_QR_Q[0].length+") but got ("+q.getRowsCount()+", "+q.getColumnsCount()+")", MathTestData.DECOMPOSITION_QR_Q.length, q.getRowsCount());
+		assertEquals("Q size error, expected ("+MathTestData.DECOMPOSITION_QR_Q.length+", "+MathTestData.DECOMPOSITION_QR_Q[0].length+") but got ("+q.getRowsCount()+", "+q.getColumnsCount()+")", MathTestData.DECOMPOSITION_QR_Q[0].length, q.getColumnsCount());
 		/*		
 		for(int row = 0; row < q.getRowsCount(); row++) {
 			for(int col = 0; col < q.getColumnsCount(); col++) {
@@ -85,8 +85,8 @@ public class QRDecompositionTest {
 
 		assertNotNull("R is null", r);
 
-		assertEquals("R size error, expected ("+MatrixTestData.DECOMPOSITION_QR_R.length+", "+MatrixTestData.DECOMPOSITION_QR_R[0].length+") but got ("+r.getRowsCount()+", "+r.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_QR_R.length, r.getRowsCount());
-		assertEquals("R size error, expected ("+MatrixTestData.DECOMPOSITION_QR_R.length+", "+MatrixTestData.DECOMPOSITION_QR_R[0].length+") but got ("+r.getRowsCount()+", "+r.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_QR_R[0].length, r.getColumnsCount());
+		assertEquals("R size error, expected ("+MathTestData.DECOMPOSITION_QR_R.length+", "+MathTestData.DECOMPOSITION_QR_R[0].length+") but got ("+r.getRowsCount()+", "+r.getColumnsCount()+")", MathTestData.DECOMPOSITION_QR_R.length, r.getRowsCount());
+		assertEquals("R size error, expected ("+MathTestData.DECOMPOSITION_QR_R.length+", "+MathTestData.DECOMPOSITION_QR_R[0].length+") but got ("+r.getRowsCount()+", "+r.getColumnsCount()+")", MathTestData.DECOMPOSITION_QR_R[0].length, r.getColumnsCount());
 		/*		
 		for(int row = 0; row < r.getRowsCount(); row++) {
 			for(int col = 0; col < r.getColumnsCount(); col++) {
@@ -100,19 +100,19 @@ public class QRDecompositionTest {
 
 		assertNotNull("Composed is null", composed);
 
-		assertEquals("Composed size error, expected ("+MatrixTestData.DECOMPOSITION_QR_INPUT.length+", "+MatrixTestData.DECOMPOSITION_QR_INPUT[0].length+") but got ("+composed.getRowsCount()+", "+composed.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_QR_INPUT.length, composed.getRowsCount());
-		assertEquals("Composed size error, expected ("+MatrixTestData.DECOMPOSITION_QR_INPUT.length+", "+MatrixTestData.DECOMPOSITION_QR_INPUT[0].length+") but got ("+composed.getRowsCount()+", "+composed.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_QR_INPUT[0].length, composed.getColumnsCount());
+		assertEquals("Composed size error, expected ("+MathTestData.DECOMPOSITION_QR_INPUT.length+", "+MathTestData.DECOMPOSITION_QR_INPUT[0].length+") but got ("+composed.getRowsCount()+", "+composed.getColumnsCount()+")", MathTestData.DECOMPOSITION_QR_INPUT.length, composed.getRowsCount());
+		assertEquals("Composed size error, expected ("+MathTestData.DECOMPOSITION_QR_INPUT.length+", "+MathTestData.DECOMPOSITION_QR_INPUT[0].length+") but got ("+composed.getRowsCount()+", "+composed.getColumnsCount()+")", MathTestData.DECOMPOSITION_QR_INPUT[0].length, composed.getColumnsCount());
 
 		for(int row = 0; row < composed.getRowsCount(); row++) {
 			for(int col = 0; col < composed.getColumnsCount(); col++) {
-				assertEquals("Bad value ("+row+", "+col+")", MatrixTestData.DECOMPOSITION_QR_INPUT[row][col], composed.getValue(row, col), EPSILON);
+				assertEquals("Bad value ("+row+", "+col+")", MathTestData.DECOMPOSITION_QR_INPUT[row][col], composed.getValue(row, col), EPSILON);
 			}
 		}
 
 		// Test solve
-		double[][] solveInput  = MatrixTestData.DECOMPOSITION_QR_INPUT;
-		double[] solveConstant = MatrixTestData.DECOMPOSITION_QR_SOLVE_CONSTANT;
-		double[] solveResult   = MatrixTestData.DECOMPOSITION_QR_SOLVE_RESULT;
+		double[][] solveInput  = MathTestData.DECOMPOSITION_QR_INPUT;
+		double[] solveConstant = MathTestData.DECOMPOSITION_QR_SOLVE_CONSTANT;
+		double[] solveResult   = MathTestData.DECOMPOSITION_QR_SOLVE_RESULT;
 		
 		ResolvableTest.testSolve(JeometryFactory.createMatrix(solveInput),
 				JeometryFactory.createMatrix(solveConstant.length, 1, solveConstant, Matrix.ROW_MAJOR),

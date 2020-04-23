@@ -2,6 +2,7 @@ package org.jeometry.simple.math;
 
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
+import org.jeometry.math.Matrix;
 import org.jeometry.math.Vector;
 
 /**
@@ -13,7 +14,7 @@ import org.jeometry.math.Vector;
 public class SimpleVector implements Vector {
 
 	double[] components = null;
-	
+
 	@Override
 	public int getDimension() {
 		if (components != null) {
@@ -21,7 +22,7 @@ public class SimpleVector implements Vector {
 		}
 		return 0;
 	}
-	
+
 	@Override
 	public double getVectorComponent(int dimension) {
 		return components[dimension];
@@ -29,7 +30,7 @@ public class SimpleVector implements Vector {
 
 	@Override
 	public void setVectorComponent(int dimension, double value) {
-		 components[dimension] = value;;
+		components[dimension] = value;;
 	}
 
 	@Override
@@ -37,85 +38,133 @@ public class SimpleVector implements Vector {
 		if (v == null) {
 			throw new IllegalArgumentException("Null input vector");
 		}
-		
+
 		if (getDimension() != v.getDimension()) {
 			throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
 		}
-		
+
 		for(int dimension = 0; dimension < getDimension(); dimension++) {
 			setVectorComponent(dimension, v.getVectorComponent(dimension));
 		}
 	}
-	
+
 	@Override
 	public double[] getComponents() {
 		return getComponents(new double[getDimension()]);
 	}
-	  
+
 	@Override
 	public double[] getComponents(double[] components) {
 		if (components == null) {
 			throw new IllegalArgumentException("Null output array");
 		}
-		
+
 		if (getDimension() != components.length) {
 			throw new IllegalArgumentException("Invalid output array length "+components.length+", expected "+getDimension());
 		}
-		
+
 		for(int dimension = 0; dimension < getDimension(); dimension++) {
 			components[dimension] = getVectorComponent(dimension);
 		}
-		
+
 		return components;
 	}
-	
+
 	@Override
-	  public void setComponents(double[] components) {
+	public void setComponents(double[] components) {
 		if (components == null) {
 			throw new IllegalArgumentException("Null input array");
 		}
-		
+
 		if (getDimension() != components.length) {
 			throw new IllegalArgumentException("Invalid input components length "+components.length+", expected "+getDimension());
 		}
-		
+
 		for(int dimension = 0; dimension < getDimension(); dimension++) {
 			setVectorComponent(dimension, components[dimension]);
 		}
-	  }
-	
+	}
+
+	@Override
+	public void setComponents(double value) {
+		for(int dimension = 0; dimension < getDimension(); dimension++) {
+			setVectorComponent(dimension, value);
+		}
+	}
+
+	@Override
+	public void setComponents(Matrix matrix) {
+		if (matrix == null) {
+			throw new IllegalArgumentException("Null input.");
+		}
+
+		int min = -1;
+		int max = -1;
+
+		boolean columnMatrix = false;
+
+		if (matrix.getRowsCount() < matrix.getColumnsCount()) {
+			min = matrix.getRowsCount();
+			max = matrix.getColumnsCount();
+			columnMatrix = true;
+		} else {
+			min = matrix.getColumnsCount();
+			max = matrix.getRowsCount();
+			columnMatrix = false;
+		}
+
+		if (min != 1) {
+			throw new IllegalArgumentException("Matrix "+matrix.getRowsCount()+"x"+ matrix.getColumnsCount()+" cannot be set to vector.");
+		}
+
+		if (max != getDimension()) {
+			throw new IllegalArgumentException("Matrix "+matrix.getRowsCount()+"x"+ matrix.getColumnsCount()+" cannot be set to a "+getDimension()+" vector");
+		}
+
+		if (columnMatrix) {
+			for(int dimension = 0; dimension < matrix.getColumnsCount(); dimension++) {
+				setVectorComponent(dimension, matrix.getValue(0, dimension));
+			}
+		} else {
+			for(int dimension = 0; dimension < matrix.getRowsCount(); dimension++) {
+				setVectorComponent(dimension, matrix.getValue(dimension, 0));	
+			}
+		}
+
+	}
+
 	@Override
 	public Vector extract(int start, int length) {
 		Vector extracted = null;
-		
+
 		if ((start < 0) || (start >= getDimension())) {
 			throw new IllegalArgumentException("Invalid first index "+start+", expected values within [0, "+(getDimension() - 1)+"]");
 		}
-		
+
 		if ((length < 1) || (length > getDimension() - start)) {
 			throw new IllegalArgumentException("Invalid length "+start+", expected values within [0, "+(getDimension() - start)+"[");
 		}
-		
+
 		extracted = JeometryFactory.createVector(length);
-		
+
 		for(int dimension = 0; dimension < extracted.getDimension(); dimension++) {
 			extracted.setVectorComponent(dimension, getVectorComponent(dimension+start));
 		}
-		
+
 		return extracted;
 	}
-	
+
 	@Override
 	public double normSquare() {
-		
+
 		if (components != null) {
 			double square = 0.0d;
 			for(int i = 0; i < components.length; i++) {
 				square = square + components[i]*components[i];
 			}
-			
+
 			return square;
-			
+
 		} else {
 			return Double.NaN;
 		}
@@ -150,7 +199,7 @@ public class SimpleVector implements Vector {
 
 	@Override
 	public Vector multiply(double scalar) {
-		
+
 		return multiply(scalar, new SimpleVector(getDimension()));
 	}
 
@@ -165,7 +214,7 @@ public class SimpleVector implements Vector {
 				throw new IllegalArgumentException("Invalid result vector dimension ("+result.getDimension()+"), expected at least "+getDimension());
 			}
 		}
-		
+
 		return result;
 	}
 
@@ -176,7 +225,7 @@ public class SimpleVector implements Vector {
 		}
 		return this;
 	}
-	
+
 	/**
 	 * Create a new vector with the given dimensions.
 	 * @param dimensions the dimensions of the vector.
@@ -190,11 +239,11 @@ public class SimpleVector implements Vector {
 	 * @param values the values that represents the components of the vector.
 	 */
 	public SimpleVector(double[] values) {
-        components = new double[values.length];
-        
-        for(int i = 0; i < values.length; i++) {
-        	components[i] = values[i];
-        }
+		components = new double[values.length];
+
+		for(int i = 0; i < values.length; i++) {
+			components[i] = values[i];
+		}
 	}
 
 	/**
@@ -203,10 +252,209 @@ public class SimpleVector implements Vector {
 	 */
 	public SimpleVector(Vector source) {
 		components = new double[source.getDimension()];
-		
+
 		for(int dimension = 0; dimension < source.getDimension(); dimension++) {
 			components[dimension] = source.getVectorComponent(dimension);
 		}
 	}
 
+	@Override
+	public Vector plus(Vector v) {
+		return plus(v, JeometryFactory.createVector(getDimension()));
+	}
+
+	@Override
+	public Vector plus(Vector v, Vector result) {
+		if (v != null) {
+
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+
+			if (result != null) {
+
+				if (v.getDimension() != getDimension()) {
+					throw new IllegalArgumentException("Invalid result vector dimension "+result.getDimension()+", expected "+getDimension());
+				}
+
+				for(int dimension = 0; dimension < getDimension(); dimension++) {
+					result.setVectorComponent(dimension, getVectorComponent(dimension) + v.getVectorComponent(dimension));
+				}
+			}
+
+
+		}
+
+		return result;
+	}
+
+	@Override
+	public Vector plusAffect(Vector v) {
+		if (v != null) {
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+
+			for(int dimension = 0; dimension < getDimension(); dimension++) {
+				setVectorComponent(dimension, getVectorComponent(dimension) + v.getVectorComponent(dimension));
+			}
+		}
+
+		return this;
+	}
+
+	@Override
+	public Vector minus(Vector v) {
+		return minus(v, JeometryFactory.createVector(getDimension()));
+	}
+
+	@Override
+	public Vector minus(Vector v, Vector result) {
+		if (v != null) {
+
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+
+			if (result != null) {
+
+				if (v.getDimension() != getDimension()) {
+					throw new IllegalArgumentException("Invalid result vector dimension "+result.getDimension()+", expected "+getDimension());
+				}
+
+				for(int dimension = 0; dimension < getDimension(); dimension++) {
+					result.setVectorComponent(dimension, getVectorComponent(dimension) - v.getVectorComponent(dimension));
+				}
+			}
+
+
+		}
+
+		return result;
+	}
+
+	@Override
+	public Vector minusAffect(Vector v) {
+		if (v != null) {
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+
+			for(int dimension = 0; dimension < getDimension(); dimension++) {
+				setVectorComponent(dimension, getVectorComponent(dimension) - v.getVectorComponent(dimension));
+			}
+		}
+
+		return this;
+	}
+
+	@Override
+	public Vector multiply(Vector v) {
+		return multiply(v, JeometryFactory.createVector(getDimension()));
+	}
+
+	@Override
+	public Vector multiply(Vector v, Vector result) {
+		if (v != null) {
+
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+
+			if (result != null) {
+
+				if (v.getDimension() != getDimension()) {
+					throw new IllegalArgumentException("Invalid result vector dimension "+result.getDimension()+", expected "+getDimension());
+				}
+
+				for(int dimension = 0; dimension < getDimension(); dimension++) {
+					result.setVectorComponent(dimension, getVectorComponent(dimension) * v.getVectorComponent(dimension));
+				}
+			}
+
+
+		}
+
+		return result;
+	}
+
+	@Override
+	public Vector multiplyAffect(Vector v) {
+		if (v != null) {
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+
+			for(int dimension = 0; dimension < getDimension(); dimension++) {
+				setVectorComponent(dimension, getVectorComponent(dimension) * v.getVectorComponent(dimension));
+			}
+		}
+
+		return this;
+	}
+
+	@Override
+	public Vector divide(Vector v) {
+		return divide(v, JeometryFactory.createVector(getDimension()));
+	}
+
+	@Override
+	public Vector divide(Vector v, Vector result) {
+		if (v != null) {
+
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+
+			if (result != null) {
+
+				if (v.getDimension() != getDimension()) {
+					throw new IllegalArgumentException("Invalid result vector dimension "+result.getDimension()+", expected "+getDimension());
+				}
+
+				for(int dimension = 0; dimension < getDimension(); dimension++) {
+					result.setVectorComponent(dimension, getVectorComponent(dimension) / v.getVectorComponent(dimension));
+				}
+			}
+
+
+		}
+
+		return result;
+	}
+
+	@Override
+	public Vector divideAffect(Vector v) {
+		if (v != null) {
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+
+			for(int dimension = 0; dimension < getDimension(); dimension++) {
+				setVectorComponent(dimension, getVectorComponent(dimension) / v.getVectorComponent(dimension));
+			}
+		}
+
+		return this;
+	}
+
+	@Override
+	public double dot(Vector v) {
+		
+		if (v != null) {
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+			
+			double d = 0.0d;
+			
+			for(int dimension = 0; dimension < getDimension(); dimension++) {
+				d = d + getVectorComponent(dimension) * v.getVectorComponent(dimension);
+			}
+			
+			return d;
+		}
+		
+		return Double.NaN;
+	}
 }

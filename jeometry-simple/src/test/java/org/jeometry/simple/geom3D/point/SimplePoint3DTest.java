@@ -17,7 +17,7 @@ public class SimplePoint3DTest extends Point3DTest{
    * Initialize the tests.
    */
   @BeforeClass
-  public static void initTest(){
+  public static void initClass() {
     JeometryFactory.setMathBuilder(new SimpleMathBuilder());
   }
   

@@ -40,6 +40,13 @@ public interface PointBuilder {
 	public Point2D createPoint2D(double x, double y);
 
 	/**
+	 * Create a new instance of {@link Point2D} that is a copy of the point given in parameter. 
+	 * @param point the point to copy
+	 * @return a new instance of {@link Point2D} that is a copy of the point given in parameter
+	 */
+	public Point2D createPoint2D(Point2D point);
+	
+	/**
 	 * Create a new instance of {@link Point2DContainer}. 
 	 * @return a new instance of {@link Point2DContainer}
 	 * @throws IllegalArgumentException if an instantiation error occurs
@@ -72,6 +79,13 @@ public interface PointBuilder {
 	 */
 	public Point3D createPoint3D(double x, double y, double z);
 
+	/**
+	 * Create a new instance of {@link Point3D} that is a copy of the point given in parameter. 
+	 * @param point the point to copy
+	 * @return a new instance of {@link Point3D} that is a copy of the point given in parameter
+	 */
+	public Point3D createPoint3D(Point3D point);
+	
 	/**
 	 * Create a new instance of {@link Point3DContainer}. 
 	 * @param <T> The type of the 3D points

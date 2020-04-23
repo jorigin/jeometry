@@ -7,7 +7,7 @@ import static org.junit.Assert.fail;
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
 import org.jeometry.math.Matrix;
-import org.jeometry.math.MatrixTestData;
+import org.jeometry.math.MathTestData;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -56,7 +56,7 @@ public class EigenDecompositionTest {
 	 */
 	@Test
 	public void eigenDecompositionTest() {
-		Matrix k = JeometryFactory.createMatrix(MatrixTestData.DECOMPOSITION_EIGEN_INPUT);
+		Matrix k = JeometryFactory.createMatrix(MathTestData.DECOMPOSITION_EIGEN_INPUT);
 
 		EigenDecomposition decomposition = JeometryFactory.createEigenDecomposition(k);
 		
@@ -70,12 +70,12 @@ public class EigenDecompositionTest {
 
 		assertNotNull("V is null", v);
 		
-		assertEquals("V size error, expected ("+MatrixTestData.DECOMPOSITION_EIGEN_V.length+", "+MatrixTestData.DECOMPOSITION_EIGEN_V[0].length+") but got ("+v.getRowsCount()+", "+v.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_EIGEN_V.length, v.getRowsCount());
-		assertEquals("V size error, expected ("+MatrixTestData.DECOMPOSITION_EIGEN_V.length+", "+MatrixTestData.DECOMPOSITION_EIGEN_V[0].length+") but got ("+v.getRowsCount()+", "+v.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_EIGEN_V[0].length, v.getColumnsCount());
+		assertEquals("V size error, expected ("+MathTestData.DECOMPOSITION_EIGEN_V.length+", "+MathTestData.DECOMPOSITION_EIGEN_V[0].length+") but got ("+v.getRowsCount()+", "+v.getColumnsCount()+")", MathTestData.DECOMPOSITION_EIGEN_V.length, v.getRowsCount());
+		assertEquals("V size error, expected ("+MathTestData.DECOMPOSITION_EIGEN_V.length+", "+MathTestData.DECOMPOSITION_EIGEN_V[0].length+") but got ("+v.getRowsCount()+", "+v.getColumnsCount()+")", MathTestData.DECOMPOSITION_EIGEN_V[0].length, v.getColumnsCount());
 		
 		for(int row = 0; row < v.getRowsCount(); row++) {
 			for(int col = 0; col < v.getColumnsCount(); col++) {
-				assertEquals("Bad value ("+row+", "+col+")", v.getValue(row, col), MatrixTestData.DECOMPOSITION_EIGEN_V[row][col], EPSILON);
+				assertEquals("Bad value ("+row+", "+col+")", v.getValue(row, col), MathTestData.DECOMPOSITION_EIGEN_V[row][col], EPSILON);
 			}
 		}
 		
@@ -83,12 +83,12 @@ public class EigenDecompositionTest {
 		
         assertNotNull("D is null", d);
 		
-		assertEquals("D size error, expected ("+MatrixTestData.DECOMPOSITION_EIGEN_D.length+", "+MatrixTestData.DECOMPOSITION_EIGEN_D[0].length+") but got ("+d.getRowsCount()+", "+d.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_EIGEN_D.length, d.getRowsCount());
-		assertEquals("D size error, expected ("+MatrixTestData.DECOMPOSITION_EIGEN_D.length+", "+MatrixTestData.DECOMPOSITION_EIGEN_D[0].length+") but got ("+d.getRowsCount()+", "+d.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_EIGEN_D[0].length, d.getColumnsCount());
+		assertEquals("D size error, expected ("+MathTestData.DECOMPOSITION_EIGEN_D.length+", "+MathTestData.DECOMPOSITION_EIGEN_D[0].length+") but got ("+d.getRowsCount()+", "+d.getColumnsCount()+")", MathTestData.DECOMPOSITION_EIGEN_D.length, d.getRowsCount());
+		assertEquals("D size error, expected ("+MathTestData.DECOMPOSITION_EIGEN_D.length+", "+MathTestData.DECOMPOSITION_EIGEN_D[0].length+") but got ("+d.getRowsCount()+", "+d.getColumnsCount()+")", MathTestData.DECOMPOSITION_EIGEN_D[0].length, d.getColumnsCount());
 		
 		for(int row = 0; row < d.getRowsCount(); row++) {
 			for(int col = 0; col < d.getColumnsCount(); col++) {
-				assertEquals("Bad value ("+row+", "+col+")", d.getValue(row, col), MatrixTestData.DECOMPOSITION_EIGEN_D[row][col], EPSILON);
+				assertEquals("Bad value ("+row+", "+col+")", d.getValue(row, col), MathTestData.DECOMPOSITION_EIGEN_D[row][col], EPSILON);
 			}
 		}
 		

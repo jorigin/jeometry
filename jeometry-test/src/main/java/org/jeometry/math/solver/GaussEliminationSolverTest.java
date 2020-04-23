@@ -8,7 +8,7 @@ import static org.junit.Assert.fail;
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
 import org.jeometry.math.Matrix;
-import org.jeometry.math.MatrixTestData;
+import org.jeometry.math.MathTestData;
 import org.jeometry.math.Vector;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -50,8 +50,8 @@ public class GaussEliminationSolverTest {
 		
 		assertNotNull("Solver is not initialized", solver);
 		
-		Matrix a = JeometryFactory.createMatrix(MatrixTestData.SOLVER_GAUSS_ELIMINATION_A);
-		Vector b = JeometryFactory.createVector(MatrixTestData.SOLVER_GAUSS_ELIMINATION_B);
+		Matrix a = JeometryFactory.createMatrix(MathTestData.SOLVER_GAUSS_ELIMINATION_A);
+		Vector b = JeometryFactory.createVector(MathTestData.SOLVER_GAUSS_ELIMINATION_B);
 		
 		Vector x;
 		try {
@@ -61,9 +61,9 @@ public class GaussEliminationSolverTest {
 			
 			assertEquals("Invalid x size", a.getRowsCount(), x.getDimension());
 			
-			assertEquals("Invalid x vector ("+x.getVectorComponent(0)+", "+x.getVectorComponent(1)+", "+x.getVectorComponent(2)+")", MatrixTestData.SOLVER_GAUSS_ELIMINATION_X[0], x.getVectorComponent(0), 0.000000000001d);
-			assertEquals("Invalid x vector ("+x.getVectorComponent(0)+", "+x.getVectorComponent(1)+", "+x.getVectorComponent(2)+")", MatrixTestData.SOLVER_GAUSS_ELIMINATION_X[1], x.getVectorComponent(1), 0.000000000001d);
-			assertEquals("Invalid x vector ("+x.getVectorComponent(0)+", "+x.getVectorComponent(1)+", "+x.getVectorComponent(2)+")", MatrixTestData.SOLVER_GAUSS_ELIMINATION_X[2], x.getVectorComponent(2), 0.000000000001d);
+			assertEquals("Invalid x vector ("+x.getVectorComponent(0)+", "+x.getVectorComponent(1)+", "+x.getVectorComponent(2)+")", MathTestData.SOLVER_GAUSS_ELIMINATION_X[0], x.getVectorComponent(0), 0.000000000001d);
+			assertEquals("Invalid x vector ("+x.getVectorComponent(0)+", "+x.getVectorComponent(1)+", "+x.getVectorComponent(2)+")", MathTestData.SOLVER_GAUSS_ELIMINATION_X[1], x.getVectorComponent(1), 0.000000000001d);
+			assertEquals("Invalid x vector ("+x.getVectorComponent(0)+", "+x.getVectorComponent(1)+", "+x.getVectorComponent(2)+")", MathTestData.SOLVER_GAUSS_ELIMINATION_X[2], x.getVectorComponent(2), 0.000000000001d);
 		} catch (Exception e) {
 			fail("Unexpected excpetion "+e.getMessage());
 		}

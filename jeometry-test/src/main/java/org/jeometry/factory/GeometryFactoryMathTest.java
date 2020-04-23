@@ -6,7 +6,7 @@ import static org.junit.Assert.fail;
 
 import org.jeometry.Jeometry;
 import org.jeometry.math.Matrix;
-import org.jeometry.math.MatrixTestData;
+import org.jeometry.math.MathTestData;
 import org.jeometry.math.Quaternion;
 import org.jeometry.math.Vector;
 import org.junit.BeforeClass;
@@ -78,16 +78,16 @@ public class GeometryFactoryMathTest {
 	@Test
 	public void createVectorComponentsTest() {
 		try {
-			Vector vector = JeometryFactory.createVector(MatrixTestData.V_4_A);
+			Vector vector = JeometryFactory.createVector(MathTestData.V_4_A);
 			assertNotNull("Cannot instantiate vector using GeometryFactory.createVector(double[]).", vector);
 			assertEquals("Invalid class, got "+vector.getClass().getSimpleName()+" but exptected "+vectorClass.getSimpleName(), vectorClass, vector.getClass());
 			
-			assertEquals("Invalid vector dimension", MatrixTestData.V_4_A.length, vector.getDimension());
+			assertEquals("Invalid vector dimension", MathTestData.V_4_A.length, vector.getDimension());
 
 			
 			
 			for(int dimension = 0; dimension < vector.getDimension(); dimension++) {
-				assertEquals("Invalid vector component "+dimension, MatrixTestData.V_4_A[dimension], vector.getVectorComponent(dimension), Double.MIN_VALUE);
+				assertEquals("Invalid vector component "+dimension, MathTestData.V_4_A[dimension], vector.getVectorComponent(dimension), Double.MIN_VALUE);
 			}
 			
 		} catch (Exception e) {

@@ -57,4 +57,17 @@ public interface Point2D extends Coord2D, SpatialLocalization2D {
    */
   public void setY(double y);
   
+  /**
+   * Set the coordinates values of this point according to the given ones.
+   * @param x the X coordinate
+   * @param y the Y coordinate
+   */
+  public void setValues(double x, double y);
+  
+  /**
+   * Set this 2D point coordinates as a copy of those from the given 2D point.
+   * @param point the 2D point to copy
+   */
+  public void setValues(Point2D point);
+  
 }

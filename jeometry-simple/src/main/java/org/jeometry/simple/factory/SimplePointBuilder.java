@@ -40,6 +40,12 @@ public class SimplePointBuilder implements PointBuilder {
 		return new SimplePoint2D(x, y);
 	}
 
+    @Override
+	public Point2D createPoint2D(Point2D point) {
+    	return new SimplePoint2D(point);
+    }
+
+	
 	@Override
 	public Point2DContainer createPoint2DContainer() {
         // TODO Implements SimplePointBuilder# createPoint2DContainer()
@@ -62,6 +68,11 @@ public class SimplePointBuilder implements PointBuilder {
 		return new SimplePoint3D(x, y, z);
 	}
 
+    @Override
+	public Point3D createPoint3D(Point3D point) {
+    	return new SimplePoint3D(point);
+    }
+	
 	@Override
 	public <T extends Point3D> Point3DContainer<T> createPoint3DContainer() {
 		// TODO Auto-generated method stub

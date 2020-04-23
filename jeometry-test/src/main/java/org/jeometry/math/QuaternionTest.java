@@ -32,7 +32,7 @@ import org.junit.Test;
  * @version {@value Jeometry#version} b{@value Jeometry#BUILD}
  * @since 1.0.0
  */
-public class QuaternionTest {
+public class QuaternionTest extends VectorTest {
 
 	/**
 	 * The class that the quaternion objects have to respect.

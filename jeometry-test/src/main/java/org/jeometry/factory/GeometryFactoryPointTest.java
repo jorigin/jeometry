@@ -78,6 +78,26 @@ public class GeometryFactoryPointTest {
 	}
 	
 	/**
+	 * Testing {@link JeometryFactory#createPoint3D(Point3D)}
+	 */
+	@Test
+	public void createPoint3DCopyTest() {
+		Point3D point = JeometryFactory.createPoint3D();
+		point.setX(1.0d);
+		point.setY(2.0d);
+		point.setY(3.0d);
+		
+		Point3D test = JeometryFactory.createPoint3D(point);
+		
+		assertNotNull("Null point", test);
+		assertEquals("Invalid X coordinate "+test.getX(), point.getX(), test.getX(), Double.MIN_VALUE);
+		assertEquals("Invalid Y coordinate "+test.getX(), point.getY(), test.getY(), Double.MIN_VALUE);
+		assertEquals("Invalid Y coordinate "+test.getX(), point.getZ(), test.getZ(), Double.MIN_VALUE);
+		
+	}
+	
+	
+	/**
 	 * Testing {@link JeometryFactory#createPoint2D()}
 	 */
 	@Test
@@ -107,6 +127,23 @@ public class GeometryFactoryPointTest {
 		} catch (Exception e) {
 			fail("Cannot instantiate 2D point using GeometryFactory.createPoint2D(double, double): "+e.getMessage());
 		}
+	}
+	
+	/**
+	 * Testing {@link JeometryFactory#createPoint2D(Point2D)}
+	 */
+	@Test
+	public void createPoint2DCopyTest() {
+		Point2D point = JeometryFactory.createPoint2D();
+		point.setX(1.0d);
+		point.setY(2.0d);
+		
+		Point2D test = JeometryFactory.createPoint2D(point);
+		
+		assertNotNull("Null point", test);
+		assertEquals("Invalid X coordinate "+test.getX(), point.getX(), test.getX(), Double.MIN_VALUE);
+		assertEquals("Invalid Y coordinate "+test.getX(), point.getY(), test.getY(), Double.MIN_VALUE);
+		
 	}
 	
 	/**

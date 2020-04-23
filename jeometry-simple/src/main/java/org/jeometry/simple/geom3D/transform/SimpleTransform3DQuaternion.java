@@ -28,26 +28,64 @@ public class SimpleTransform3DQuaternion extends SimpleQuaternion implements Tra
 	
 	@Override
 	public Point3D transform(Point3D point, Point3D result) {
-	  if ((point != null) && (result != null)){
+		
+	  if (result != null) {
+		  if ((point != null)){
 
-		  double dotUV    = getI()*point.getX()+getJ()*point.getZ()+getK()*point.getZ(); 
-		  double dotUU    = getI()*getI()+getJ()*getJ()+getK()*getK(); 
-		  
-		  double crossUVx =  getJ() * point.getZ() - getK() * point.getZ();
-		  double crossUVY = -getI() * point.getZ() + getK() * point.getX(); 
-		  double crossUVZ =  getI() * point.getZ() - getJ() * point.getX();
+			  double dotUV    = getI()*point.getX()+getJ()*point.getZ()+getK()*point.getZ(); 
+			  double dotUU    = getI()*getI()+getJ()*getJ()+getK()*getK(); 
+			  
+			  double crossUVx =  getJ() * point.getZ() - getK() * point.getZ();
+			  double crossUVY = -getI() * point.getZ() + getK() * point.getX(); 
+			  double crossUVZ =  getI() * point.getZ() - getJ() * point.getX();
 
-		  // Original computation formula:
-		  // u  = (qx, qy, qz)
-		  // s  = qw
-		  // v  = (point.getX(), point.getY(), point.getZ())
-		  // v' = 2.0f * dot(u, v) * u + (s*s - dot(u, u)) * v + 2.0f * s * cross(u, v);  
-		  result.setX(2.0f * dotUV * getI() + (getScalar()*getScalar() - dotUU) * point.getX() + 2.0f * getScalar() * crossUVx);
-		  result.setY(2.0f * dotUV * getJ() + (getScalar()*getScalar() - dotUU) * point.getZ() + 2.0f * getScalar() * crossUVY);
-		  result.setZ(2.0f * dotUV * getK() + (getScalar()*getScalar() - dotUU) * point.getZ() + 2.0f * getScalar() * crossUVZ);
+			  // Original computation formula:
+			  // u  = (qx, qy, qz)
+			  // s  = qw
+			  // v  = (point.getX(), point.getY(), point.getZ())
+			  // v' = 2.0f * dot(u, v) * u + (s*s - dot(u, u)) * v + 2.0f * s * cross(u, v);  
+			  result.setValues(2.0f * dotUV * getI() + (getScalar()*getScalar() - dotUU) * point.getX() + 2.0f * getScalar() * crossUVx, 
+					           2.0f * dotUV * getJ() + (getScalar()*getScalar() - dotUU) * point.getZ() + 2.0f * getScalar() * crossUVY, 
+					           2.0f * dotUV * getK() + (getScalar()*getScalar() - dotUU) * point.getZ() + 2.0f * getScalar() * crossUVZ);
+		  } else {
+			  result.setValues(Double.NaN, Double.NaN, Double.NaN);
+		  }
+			
 	  }
-		  
+		
+  
       return result;
+	}
+	
+	@Override
+	public Point3D transformAffect(Point3D point3d) {
+		return transform(point3d, point3d);
+	}
+	
+	@Override
+	public Point3D transformInverse(Point3D point3d) {
+		return transformInverse(point3d, JeometryFactory.createPoint3D());
+	}
+
+	@Override
+	public Point3D transformInverse(Point3D point3d, Point3D result) {
+		  if (result != null) {
+			  if ((point3d != null)){
+
+				 // TODO Implements SimpleTransformationQuaternion.transformInverse(Point3D point3d, Point3D result)
+			  } else {
+				  result.setValues(Double.NaN, Double.NaN, Double.NaN);
+			  }
+				
+		  }
+			
+	  
+	      return result;
+	}
+
+	@Override
+	public Point3D transformInverseAffect(Point3D point3d) {
+		return transformInverse(point3d, point3d);
 	}
 	
 	@Override
@@ -56,11 +94,17 @@ public class SimpleTransform3DQuaternion extends SimpleQuaternion implements Tra
 		System.err.println("[SimpleTransform3DQuaternion][invertTransform()] NOT YET IMPLEMENTED");
 		return null;
 	}
-
+	
 	@Override
 	public Transform3D invertTransform(Transform3D inverted) throws IllegalStateException, IllegalArgumentException {
 		// TODO implements SimpleTransform3DQuaternion.invertTransform(Transform3D)
 		System.err.println("[SimpleTransform3DQuaternion][invertTransform(Transform3D inverted)] NOT YET IMPLEMENTED");
+		return null;
+	}
+	
+	@Override
+	public Transform3D invertTransformAffect() throws IllegalStateException {
+		// TODO implements SimpleTransform3DQuaternion.invertTransformAffect()
 		return null;
 	}
 	

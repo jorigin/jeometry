@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.jeometry.factory.JeometryFactory;
+import org.jeometry.math.VectorTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -18,13 +19,13 @@ import org.junit.Test;
  * @since 1.0.0
  *
  */
-public class Point3DTest {
+public class Point3DTest extends VectorTest {
 
   /**
    * Initialize the tests.
    */
   @BeforeClass
-  public static void initTest(){
+  public static void initClass() {
 	  fail("method public static void init() has to be set up with @BeforeClass annotation");
   }
   
@@ -250,5 +251,50 @@ public class Point3DTest {
     assertEquals("div scalar affect operator: Unexpected X value", divScalarResult.getX(), resultPoint3DB.getX(), 0.0d);
     assertEquals("div scalar affect operator: Unexpected Y value", divScalarResult.getY(), resultPoint3DB.getY(), 0.0d);
     assertEquals("div scalar affect operator: Unexpected Z value", divScalarResult.getZ(), resultPoint3DB.getZ(), 0.0d);
+  }
+  
+  /**
+   * Testing {@link Point3D#setValues(double, double, double)}
+   */
+  @Test
+  public void setValuesXYZTest() {
+	  
+	  double[] values = new double[] {1.0d, 2.0d, 3.0d};
+	  
+	  Point3D p = JeometryFactory.createPoint3D();
+	  
+	  p.setValues(values[0], values[1], values[2]);
+	 
+	  assertEquals("Invalid X coordinate", values[0], p.getX(), Double.MIN_VALUE);
+	  assertEquals("Invalid Y coordinate", values[1], p.getY(), Double.MIN_VALUE);
+	  assertEquals("Invalid Z coordinate", values[2], p.getZ(), Double.MIN_VALUE);
+	  
+	  p.setValues(values[1], values[2], values[0]);
+		 
+	  assertEquals("Invalid X coordinate", values[1], p.getX(), Double.MIN_VALUE);
+	  assertEquals("Invalid Y coordinate", values[2], p.getY(), Double.MIN_VALUE);
+	  assertEquals("Invalid Z coordinate", values[0], p.getZ(), Double.MIN_VALUE);
+  }
+  
+  /**
+   * Testing {@link Point3D#setValues(Point3D)}
+   */
+  @Test
+  public void setValuesPoint3DTest() {
+      double[] values = new double[] {1.0d, 2.0d, 3.0d};
+	  
+	  Point3D p = JeometryFactory.createPoint3D();
+	  
+	  p.setValues(JeometryFactory.createPoint3D(values[0], values[1], values[2]));
+	 
+	  assertEquals("Invalid X coordinate", values[0], p.getX(), Double.MIN_VALUE);
+	  assertEquals("Invalid Y coordinate", values[1], p.getY(), Double.MIN_VALUE);
+	  assertEquals("Invalid Z coordinate", values[2], p.getZ(), Double.MIN_VALUE);
+	  
+	  p.setValues(JeometryFactory.createPoint3D(values[1], values[2], values[0]));
+		 
+	  assertEquals("Invalid X coordinate", values[1], p.getX(), Double.MIN_VALUE);
+	  assertEquals("Invalid Y coordinate", values[2], p.getY(), Double.MIN_VALUE);
+	  assertEquals("Invalid Z coordinate", values[0], p.getZ(), Double.MIN_VALUE);
   }
 }

@@ -25,6 +25,12 @@ import org.jeometry.math.Matrix;
  */
 public interface Transform3DMatrix extends Transform3D, Matrix{
 	
+    @Override
+	public Transform3DMatrix invertTransform() throws IllegalStateException;
+		
+    @Override
+	public Transform3DMatrix invertTransformAffect() throws IllegalStateException;
+	
 	/**
 	 * Get the {@link org.jeometry.math.Matrix matrix} that describes this 3D transformation.
 	 * @return the {@link org.jeometry.math.Matrix matrix} that describes this 3D transformation.

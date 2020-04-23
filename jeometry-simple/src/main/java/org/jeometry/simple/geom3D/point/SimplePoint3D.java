@@ -5,6 +5,7 @@ import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.SpatialLocalization3D;
 import org.jeometry.geom3D.point.Coord3D;
 import org.jeometry.geom3D.point.Point3D;
+import org.jeometry.math.Matrix;
 import org.jeometry.math.Vector;
 
 /**
@@ -258,7 +259,7 @@ public class SimplePoint3D implements Point3D{
 	}
 
 	@Override
-	public Vector multiplyAffect(double scalar) {
+	public SimplePoint3D multiplyAffect(double scalar) {
 		return multAffect(scalar);
 	}
 
@@ -371,7 +372,7 @@ public class SimplePoint3D implements Point3D{
 	}
 
 	@Override
-	public Point3D plusAffect(double scalar) {
+	public SimplePoint3D plusAffect(double scalar) {
 		setX(getX() + scalar);
 		setY(getY() + scalar);
 		setZ(getZ() + scalar);
@@ -379,7 +380,7 @@ public class SimplePoint3D implements Point3D{
 	}
 
 	@Override
-	public Point3D minusAffect(Point3D point) {
+	public SimplePoint3D minusAffect(Point3D point) {
 		setX(getX() - point.getX());
 		setY(getY() - point.getY());
 		setZ(getZ() - point.getZ());
@@ -387,7 +388,7 @@ public class SimplePoint3D implements Point3D{
 	}
 
 	@Override
-	public Point3D minusAffect(double scalar) {
+	public SimplePoint3D minusAffect(double scalar) {
 		setX(getX() - scalar);
 		setY(getY() - scalar);
 		setZ(getZ() - scalar);
@@ -418,7 +419,7 @@ public class SimplePoint3D implements Point3D{
 	}
 
 	@Override
-	public Point3D multAffect(double scalar) {
+	public SimplePoint3D multAffect(double scalar) {
 		setX(getX() * scalar);
 		setY(getY() * scalar);
 		setZ(getZ() * scalar);
@@ -449,7 +450,7 @@ public class SimplePoint3D implements Point3D{
 	}
 
 	@Override
-	public Point3D divideAffect(double scalar) {
+	public SimplePoint3D divideAffect(double scalar) {
 		setX(getX() / scalar);
 		setY(getY() / scalar);
 		setZ(getZ() / scalar);
@@ -485,6 +486,33 @@ public class SimplePoint3D implements Point3D{
 		setZ(z);
 	}
 
+	/**
+	 * Create a new 3D point by copying the point given in parameter.<br>
+	 * The direct instantiation of an {@link Point3D} implementation using its own constructors is not recommended. Prefer using the {@link JeometryFactory geometry factory} to create instances.
+	 * @param point the point to copy
+	 * @see #SimplePoint3D()
+	 */
+	public SimplePoint3D(Point3D point){
+		coordinates = new double[3];
+		setX(point.getX());
+		setY(point.getY());
+		setZ(point.getZ());
+	}
+	
+	@Override
+	public void setValues(double x, double y, double z) {
+		setX(x);
+		setY(y);
+		setZ(z);
+	}
+
+	@Override
+	public void setValues(Point3D point) {
+		setX(point.getX());
+		setY(point.getY());
+		setZ(point.getZ());
+	}
+	
 	@Override
 	public void setComponents(Vector v) {
 		if (v == null) {
@@ -538,6 +566,54 @@ public class SimplePoint3D implements Point3D{
 	}
 	
 	@Override
+	public void setComponents(double value) {
+		for(int dimension = 0; dimension < getDimension(); dimension++) {
+			setVectorComponent(dimension, value);
+		}
+	}
+
+	@Override
+	public void setComponents(Matrix matrix) {
+		if (matrix == null) {
+			throw new IllegalArgumentException("Null input.");
+		}
+
+		int min = -1;
+		int max = -1;
+
+		boolean columnMatrix = false;
+
+		if (matrix.getRowsCount() < matrix.getColumnsCount()) {
+			min = matrix.getRowsCount();
+			max = matrix.getColumnsCount();
+			columnMatrix = true;
+		} else {
+			min = matrix.getColumnsCount();
+			max = matrix.getRowsCount();
+			columnMatrix = false;
+		}
+
+		if (min != 1) {
+			throw new IllegalArgumentException("Matrix "+matrix.getRowsCount()+"x"+ matrix.getColumnsCount()+" cannot be set to vector.");
+		}
+
+		if (max != getDimension()) {
+			throw new IllegalArgumentException("Matrix "+matrix.getRowsCount()+"x"+ matrix.getColumnsCount()+" cannot be set to a "+getDimension()+" vector");
+		}
+
+		if (columnMatrix) {
+			for(int dimension = 0; dimension < matrix.getColumnsCount(); dimension++) {
+				setVectorComponent(dimension, matrix.getValue(0, dimension));
+			}
+		} else {
+			for(int dimension = 0; dimension < matrix.getRowsCount(); dimension++) {
+				setVectorComponent(dimension, matrix.getValue(dimension, 0));	
+			}
+		}
+
+	}
+	
+	@Override
 	public Vector extract(int start, int length) {
 		Vector extracted = null;
 		
@@ -558,4 +634,174 @@ public class SimplePoint3D implements Point3D{
 		return extracted;
 	}
 
+	@Override
+	public Point3D plus(Vector v) {
+		return (Point3D) plus(v, JeometryFactory.createPoint3D());
+	}
+
+	@Override
+	public Vector plus(Vector v, Vector result) {
+		if (v != null) {
+
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+
+			if (result != null) {
+
+				if (v.getDimension() != getDimension()) {
+					throw new IllegalArgumentException("Invalid result vector dimension "+result.getDimension()+", expected "+getDimension());
+				}
+
+				for(int dimension = 0; dimension < getDimension(); dimension++) {
+					result.setVectorComponent(dimension, getVectorComponent(dimension) + v.getVectorComponent(dimension));
+				}
+			}
+
+
+		}
+
+		return result;
+	}
+
+	@Override
+	public SimplePoint3D plusAffect(Vector v) {
+		if (v != null) {
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+
+			for(int dimension = 0; dimension < getDimension(); dimension++) {
+				setVectorComponent(dimension, getVectorComponent(dimension) + v.getVectorComponent(dimension));
+			}
+		}
+
+		return this;
+	}
+
+
+	@Override
+	public Vector minus(Vector v) {
+		return (Point3D) minus(v, JeometryFactory.createPoint3D());
+	}
+
+	@Override
+	public Vector minus(Vector v, Vector result) {
+		if (v != null) {
+
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+
+			if (result != null) {
+
+				if (v.getDimension() != getDimension()) {
+					throw new IllegalArgumentException("Invalid result vector dimension "+result.getDimension()+", expected "+getDimension());
+				}
+
+				for(int dimension = 0; dimension < getDimension(); dimension++) {
+					result.setVectorComponent(dimension, getVectorComponent(dimension) - v.getVectorComponent(dimension));
+				}
+			}
+
+
+		}
+
+		return result;
+	}
+
+	@Override
+	public SimplePoint3D minusAffect(Vector v) {
+		return (SimplePoint3D) minus(v, this);
+	}
+
+	@Override
+	public Point3D multiply(Vector v) {
+		return (Point3D) multiply(v, JeometryFactory.createPoint3D());
+	}
+
+	@Override
+	public Vector multiply(Vector v, Vector result) {
+		if (v != null) {
+
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+
+			if (result != null) {
+
+				if (v.getDimension() != getDimension()) {
+					throw new IllegalArgumentException("Invalid result vector dimension "+result.getDimension()+", expected "+getDimension());
+				}
+
+				for(int dimension = 0; dimension < getDimension(); dimension++) {
+					result.setVectorComponent(dimension, getVectorComponent(dimension) * v.getVectorComponent(dimension));
+				}
+			}
+
+
+		}
+
+		return result;
+	}
+
+	@Override
+	public SimplePoint3D multiplyAffect(Vector v) {
+		return (SimplePoint3D) multiply(v, this);
+	}
+
+	@Override
+	public Point3D divide(Vector v) {
+		return (Point3D) divide(v, JeometryFactory.createPoint3D());
+	}
+
+	@Override
+	public Vector divide(Vector v, Vector result) {
+		if (v != null) {
+
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+
+			if (result != null) {
+
+				if (v.getDimension() != getDimension()) {
+					throw new IllegalArgumentException("Invalid result vector dimension "+result.getDimension()+", expected "+getDimension());
+				}
+
+				for(int dimension = 0; dimension < getDimension(); dimension++) {
+					result.setVectorComponent(dimension, getVectorComponent(dimension) / v.getVectorComponent(dimension));
+				}
+			}
+
+
+		}
+
+		return result;
+	}
+
+	@Override
+	public SimplePoint3D divideAffect(Vector v) {
+		return (SimplePoint3D) divide(v, this);
+	}
+
+	@Override
+	public double dot(Vector v) {
+		
+		if (v != null) {
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+			
+			double d = 0.0d;
+			
+			for(int dimension = 0; dimension < getDimension(); dimension++) {
+				d = d + getVectorComponent(dimension) * v.getVectorComponent(dimension);
+			}
+			
+			return d;
+		}
+		
+		return Double.NaN;
+	}
 }

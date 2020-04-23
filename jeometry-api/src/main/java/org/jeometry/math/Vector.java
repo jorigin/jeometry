@@ -63,6 +63,100 @@ public interface Vector {
 	public void setComponents(double[] components);
 
 	/**
+	 * Set all the components of this vector to the given <code>value</code>.
+	 * @param value the value to set to all components
+	 */
+	public void setComponents(double value);
+	
+	/**
+	 * Set the components of this vector according to the given {@link Matrix matrix}. 
+	 * The matrix has to be a single row or a single column. 
+	 * @param matrix the matrix to use as the values provider
+	 * @throws IllegalArgumentException if the matrix is not single row / single column or if its size does not fit the vector
+	 */
+	public void setComponents(Matrix matrix);
+	
+	/**
+	 * Compute the vector that is the sum, component by component of this vector and the given one. 
+	 * More formally, let <i>U</i> be this vector and let <i>V</i> the vector given in parameter, this method compute the vector <i>W</i> such that:<br>
+	 * <div style="text-align: center;"><i>W</i>&nbsp;=&nbsp;(<i>u</i><sub>0</sub>&nbsp;+&nbsp;<i>v</i><sub>0</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>i</sub>&nbsp;+&nbsp;<i>v</i><sub>i</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>n</sub>&nbsp;+&nbsp;<i>v</i><sub>n</sub>)</div>
+	 * <br>
+	 * where <i>u</i><sub>i</sub>, <i>v</i><sub>i</sub> are respectively the values of the <i>i</i><sup>th</sup> component of vector <i>U</i>, <i>V</i>.
+	 * <br> 
+	 * @param v the vector to add to this one
+	 * @return the vector that is the sum, component by component of this vector and the given one
+	 * @throws IllegalArgumentException if the input vector dimension does not fit with this one
+	 */
+	public Vector plus(Vector v);
+	
+	/**
+	 * Compute the vector that is the sum, component by component of this vector and the given one. 
+	 * More formally, let <i>U</i> be this vector and let <i>V</i> the vector given in parameter, this method compute the vector <i>W</i> such that:<br>
+	 * <div style="text-align: center;"><i>W</i>&nbsp;=&nbsp;(<i>u</i><sub>0</sub>&nbsp;+&nbsp;<i>v</i><sub>0</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>i</sub>&nbsp;+&nbsp;<i>v</i><sub>i</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>n</sub>&nbsp;+&nbsp;<i>v</i><sub>n</sub>)</div>
+	 * <br>
+	 * where <i>u</i><sub>i</sub>, <i>v</i><sub>i</sub> are respectively the values of the <i>i</i><sup>th</sup> component of vector <i>U</i>, <i>V</i>.
+	 * <br> 
+	 * @param v the vector to add to this one
+	 * @param result the vector that holds the result
+	 * @return a reference on the <code>result</code> vector
+	 * @throws IllegalArgumentException if the input vector or the result vector dimension does not fit with this one
+	 */
+	public Vector plus(Vector v, Vector result);
+	
+	/**
+	 * Affect this vector with the sum, component by component of this vector and the given one. 
+	 * More formally, let <i>U</i> be this vector and let <i>V</i> the vector given in parameter, this method compute the vector <i>W</i> such that:<br>
+	 * <div style="text-align: center;"><i>W</i>&nbsp;=&nbsp;(<i>u</i><sub>0</sub>&nbsp;+&nbsp;<i>v</i><sub>0</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>i</sub>&nbsp;+&nbsp;<i>v</i><sub>i</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>n</sub>&nbsp;+&nbsp;<i>v</i><sub>n</sub>)</div>
+	 * <br>
+	 * where <i>u</i><sub>i</sub>, <i>v</i><sub>i</sub> are respectively the values of the <i>i</i><sup>th</sup> component of vector <i>U</i>, <i>V</i>.
+	 * <br> 
+	 * @param v the vector to add to this one
+	 * @return a reference on this vector
+	 * @throws IllegalArgumentException if the input vector dimension does not fit with this one
+	 */
+	public Vector plusAffect(Vector v);
+	
+	/**
+	 * Compute the vector that is the subtraction, component by component of this vector and the given one. 
+	 * More formally, let <i>U</i> be this vector and let <i>V</i> the vector given in parameter, this method compute the vector <i>W</i> such that:<br>
+	 * <div style="text-align: center;"><i>W</i>&nbsp;=&nbsp;(<i>u</i><sub>0</sub>&nbsp;-&nbsp;<i>v</i><sub>0</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>i</sub>&nbsp;-&nbsp;<i>v</i><sub>i</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>n</sub>&nbsp;-&nbsp;<i>v</i><sub>n</sub>)</div>
+	 * <br>
+	 * where <i>u</i><sub>i</sub>, <i>v</i><sub>i</sub> are respectively the values of the <i>i</i><sup>th</sup> component of vector <i>U</i>, <i>V</i>.
+	 * <br> 
+	 * @param v the vector to subtract from this one
+	 * @return the vector that is the subtraction, component by component of this vector and the given one
+	 * @throws IllegalArgumentException if the input vector dimension does not fit with this one
+	 */
+	public Vector minus(Vector v);
+	
+	/**
+	 * Compute the vector that is the subtraction, component by component of this vector and the given one. 
+	 * More formally, let <i>U</i> be this vector and let <i>V</i> the vector given in parameter, this method compute the vector <i>W</i> such that:<br>
+	 * <div style="text-align: center;"><i>W</i>&nbsp;=&nbsp;(<i>u</i><sub>0</sub>&nbsp;-&nbsp;<i>v</i><sub>0</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>i</sub>&nbsp;-&nbsp;<i>v</i><sub>i</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>n</sub>&nbsp;-&nbsp;<i>v</i><sub>n</sub>)</div>
+	 * <br>
+	 * where <i>u</i><sub>i</sub>, <i>v</i><sub>i</sub> are respectively the values of the <i>i</i><sup>th</sup> component of vector <i>U</i>, <i>V</i>.
+	 * <br> 
+	 * @param v the vector to subtract from this one
+	 * @param result the vector that holds the result
+	 * @return a reference on the <code>result</code> vector
+	 * @throws IllegalArgumentException if the input vector or the result vector dimension does not fit with this one
+	 */
+	public Vector minus(Vector v, Vector result);
+	
+	/**
+	 * Affect this vector with the subtraction, component by component of this vector and the given one. 
+	 * More formally, let <i>U</i> be this vector and let <i>V</i> the vector given in parameter, this method compute the vector <i>W</i> such that:<br>
+	 * <div style="text-align: center;"><i>W</i>&nbsp;=&nbsp;(<i>u</i><sub>0</sub>&nbsp;-&nbsp;<i>v</i><sub>0</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>i</sub>&nbsp;-&nbsp;<i>v</i><sub>i</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>n</sub>&nbsp;-&nbsp;<i>v</i><sub>n</sub>)</div>
+	 * <br>
+	 * where <i>u</i><sub>i</sub>, <i>v</i><sub>i</sub> are respectively the values of the <i>i</i><sup>th</sup> component of vector <i>U</i>, <i>V</i>.
+	 * <br> 
+	 * @param v the vector to subtract from this one
+	 * @return a reference on this vector
+	 * @throws IllegalArgumentException if the input vector dimension does not fit with this one
+	 */
+	public Vector minusAffect(Vector v);
+	
+	/**
 	 * Extract a vector that contains the part of this vector specified by the parameters.
 	 * @param start the index of the first component to extract (inclusive)
 	 * @param length the number of contiguous components to extract from the first
@@ -126,8 +220,8 @@ public interface Vector {
 	 * Formally, let <i>V</i>&nbsp;=&nbsp;[<i>v<sub>0</sub></i>,...,<i>v<sub>i</sub></i>,...,<i>v<sub>n</sub></i>] a vector and <i>s</i> a scalar, 
 	 * the multiplication of <i>V</i> by the scalar is the vector <i>V'</i> such that:<br><br>
 	 * <i>V'</i>&nbsp;=&nbsp;[<i>sv<sub>0</sub></i>,...,<i>sv<sub>i</sub></i>,...,<i>sv<sub>n</sub></i>]<br>
-	 * @param scalar the scalar to multiply.
-	 * @param result the vector that has to store the result.
+	 * @param scalar the scalar to multiply
+	 * @param result the vector that has to store the result
 	 * @return the same reference as <code>result</code>.
 	 * @throws IllegalArgumentException if the result vector does not fit for the multiplication.
 	 */
@@ -138,9 +232,101 @@ public interface Vector {
 	 * Formally, let <i>V</i>&nbsp;=&nbsp;[<i>v<sub>0</sub></i>,...,<i>v<sub>i</sub></i>,...,<i>v<sub>n</sub></i>] a vector and <i>s</i> a scalar, 
 	 * the multiplication of <i>V</i> by the scalar is the vector <i>V'</i> such that:<br><br>
 	 * <i>V'</i>&nbsp;=&nbsp;[<i>sv<sub>0</sub></i>,...,<i>sv<sub>i</sub></i>,...,<i>sv<sub>n</sub></i>]<br>
-	 * @param scalar the scalar to multiply.
-	 * @return a reference to this object.
+	 * @param scalar the scalar to multiply
+	 * @return a reference to this object
 	 */
 	public Vector multiplyAffect(double scalar);
+	
+	/**
+	 * Compute the vector that is the product, component by component of this vector and the given one. 
+	 * More formally, let <i>U</i> be this vector and let <i>V</i> the vector given in parameter, this method compute the vector <i>W</i> such that:<br>
+	 * <div style="text-align: center;"><i>W</i>&nbsp;=&nbsp;(<i>u</i><sub>0</sub>&nbsp;&times;&nbsp;<i>v</i><sub>0</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>i</sub>&nbsp;&times;&nbsp;<i>v</i><sub>i</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>n</sub>&nbsp;&times;&nbsp;<i>v</i><sub>n</sub>)</div>
+	 * <br>
+	 * where <i>u</i><sub>i</sub>, <i>v</i><sub>i</sub> are respectively the values of the <i>i</i><sup>th</sup> component of vector <i>U</i>, <i>V</i>.
+	 * <br> 
+	 * @param v the vector to multiply to this one
+	 * @return the vector that is the product, component by component of this vector and the given one
+	 * @throws IllegalArgumentException if the input vector dimension does not fit with this one
+	 */
+	public Vector multiply(Vector v);
 
+	/**
+	 * Compute the vector that is the product, component by component of this vector and the given one. 
+	 * More formally, let <i>U</i> be this vector and let <i>V</i> the vector given in parameter, this method compute the vector <i>W</i> such that:<br>
+	 * <div style="text-align: center;"><i>W</i>&nbsp;=&nbsp;(<i>u</i><sub>0</sub>&nbsp;&times;&nbsp;<i>v</i><sub>0</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>i</sub>&nbsp;&times;&nbsp;<i>v</i><sub>i</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>n</sub>&nbsp;&times;&nbsp;<i>v</i><sub>n</sub>)</div>
+	 * <br>
+	 * where <i>u</i><sub>i</sub>, <i>v</i><sub>i</sub> are respectively the values of the <i>i</i><sup>th</sup> component of vector <i>U</i>, <i>V</i>.
+	 * <br> 
+	 * @param v the vector to multiply to this one
+	 * @param result the vector that holds the result
+	 * @return a reference on the <code>result</code> vector
+	 * @throws IllegalArgumentException if the input vector or the result vector dimension does not fit with this one
+	 */
+	public Vector multiply(Vector v, Vector result);
+
+	/**
+	 * Affect this vector with the product, component by component of this vector and the given one. 
+	 * More formally, let <i>U</i> be this vector and let <i>V</i> the vector given in parameter, this method compute the vector <i>W</i> such that:<br>
+	 * <div style="text-align: center;"><i>W</i>&nbsp;=&nbsp;(<i>u</i><sub>0</sub>&nbsp;&times;&nbsp;<i>v</i><sub>0</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>i</sub>&nbsp;&times;&nbsp;<i>v</i><sub>i</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>n</sub>&nbsp;&times;&nbsp;<i>v</i><sub>n</sub>)</div>
+	 * <br>
+	 * where <i>u</i><sub>i</sub>, <i>v</i><sub>i</sub> are respectively the values of the <i>i</i><sup>th</sup> component of vector <i>U</i>, <i>V</i>.
+	 * <br> 
+	 * @param v the vector to product from this one
+	 * @return a reference on this vector
+	 * @throws IllegalArgumentException if the input vector dimension does not fit with this one
+	 */
+	public Vector multiplyAffect(Vector v);
+	
+	/**
+	 * Compute the vector that is the division, component by component of this vector and the given one. 
+	 * More formally, let <i>U</i> be this vector and let <i>V</i> the vector given in parameter, this method compute the vector <i>W</i> such that:<br>
+	 * <div style="text-align: center;"><i>W</i>&nbsp;=&nbsp;(<i>u</i><sub>0</sub>&nbsp;/&nbsp;<i>v</i><sub>0</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>i</sub>&nbsp;/&nbsp;<i>v</i><sub>i</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>n</sub>&nbsp;/&nbsp;<i>v</i><sub>n</sub>)</div>
+	 * <br>
+	 * where <i>u</i><sub>i</sub>, <i>v</i><sub>i</sub> are respectively the values of the <i>i</i><sup>th</sup> component of vector <i>U</i>, <i>V</i>.
+	 * <br> 
+	 * @param v the divider vector 
+	 * @return the vector that is the division, component by component of this vector and the given one
+	 * @throws IllegalArgumentException if the input vector dimension does not fit with this one
+	 */
+	public Vector divide(Vector v);
+
+	/**
+	 * Compute the vector that is the division, component by component of this vector and the given one. 
+	 * More formally, let <i>U</i> be this vector and let <i>V</i> the vector given in parameter, this method compute the vector <i>W</i> such that:<br>
+	 * <div style="text-align: center;"><i>W</i>&nbsp;=&nbsp;(<i>u</i><sub>0</sub>&nbsp;/&nbsp;<i>v</i><sub>0</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>i</sub>&nbsp;/&nbsp;<i>v</i><sub>i</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>n</sub>&nbsp;/&nbsp;<i>v</i><sub>n</sub>)</div>
+	 * <br>
+	 * where <i>u</i><sub>i</sub>, <i>v</i><sub>i</sub> are respectively the values of the <i>i</i><sup>th</sup> component of vector <i>U</i>, <i>V</i>.
+	 * <br> 
+	 * @param v the divider vector 
+	 * @param result the vector that holds the result
+	 * @return a reference on the <code>result</code> vector
+	 * @throws IllegalArgumentException if the input vector or the result vector dimension does not fit with this one
+	 */
+	public Vector divide(Vector v, Vector result);
+
+	/**
+	 * Affect this vector with the division, component by component of this vector and the given one. 
+	 * More formally, let <i>U</i> be this vector and let <i>V</i> the vector given in parameter, this method compute the vector <i>W</i> such that:<br>
+	 * <div style="text-align: center;"><i>W</i>&nbsp;=&nbsp;(<i>u</i><sub>0</sub>&nbsp;/&nbsp;<i>v</i><sub>0</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>i</sub>&nbsp;/&nbsp;<i>v</i><sub>i</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>n</sub>&nbsp;/&nbsp;<i>v</i><sub>n</sub>)</div>
+	 * <br>
+	 * where <i>u</i><sub>i</sub>, <i>v</i><sub>i</sub> are respectively the values of the <i>i</i><sup>th</sup> component of vector <i>U</i>, <i>V</i>.
+	 * <br> 
+	 * @param v the divider vector 
+	 * @return a reference on this vector
+	 * @throws IllegalArgumentException if the input vector dimension does not fit with this one
+	 */
+	public Vector divideAffect(Vector v);
+	
+	/**
+	 * Compute the scalar product of this vector and the given one. 
+	 * More formally, let <i>U</i> be this vector and let <i>V</i> the vector given in parameter, this method compute the scalar <i>U</i>&middot;<i>V</i> such that:<br>
+	 * <div style="text-align: center;"><i>U</i>&middot;<i>V</i>&nbsp;=&nbsp;(<i>u</i><sub>0</sub>&nbsp;&times;&nbsp;<i>v</i><sub>0</sub>&nbsp;+&nbsp;&hellip;+&nbsp;<i>u</i><sub>i</sub>&nbsp;&times;&nbsp;<i>v</i><sub>i</sub>&nbsp;+&nbsp;&hellip;+&nbsp;<i>u</i><sub>n</sub>&nbsp;&times;&nbsp;<i>v</i><sub>n</sub>)</div>
+	 * <br>
+	 * where <i>u</i><sub>i</sub>, <i>v</i><sub>i</sub> are respectively the values of the <i>i</i><sup>th</sup> component of vector <i>U</i>, <i>V</i>.
+	 * <br> 
+	 * @param v the second operand
+	 * @return the scalar product of this vector and the given one or {@link Double#NaN Double.Nan} if <code>v</code> is <code>null</code>
+	 * @throws IllegalArgumentException if the input vector dimension does not fit with this one
+	 */
+	public double dot(Vector v);
 }

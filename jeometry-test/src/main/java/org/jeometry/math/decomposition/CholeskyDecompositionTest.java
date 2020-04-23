@@ -7,7 +7,7 @@ import static org.junit.Assert.fail;
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
 import org.jeometry.math.Matrix;
-import org.jeometry.math.MatrixTestData;
+import org.jeometry.math.MathTestData;
 import org.jeometry.math.solver.ResolvableTest;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -57,7 +57,7 @@ public class CholeskyDecompositionTest {
 	 */
 	@Test
 	public void choleskyDecompositionTest() {
-		Matrix input = JeometryFactory.createMatrix(MatrixTestData.DECOMPOSITION_CHOLESKY_INPUT);
+		Matrix input = JeometryFactory.createMatrix(MathTestData.DECOMPOSITION_CHOLESKY_INPUT);
 
 		CholeskyDecomposition decomposition = JeometryFactory.createCholeskyDecomposition(input);
 		
@@ -71,27 +71,27 @@ public class CholeskyDecompositionTest {
 
 		assertNotNull("R is null", r);
 		
-		assertEquals("R size error, expected ("+MatrixTestData.DECOMPOSITION_CHOLESKY_R.length+", "+MatrixTestData.DECOMPOSITION_CHOLESKY_R[0].length+") but got ("+r.getRowsCount()+", "+r.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_CHOLESKY_R.length, r.getRowsCount());
-		assertEquals("R size error, expected ("+MatrixTestData.DECOMPOSITION_CHOLESKY_R.length+", "+MatrixTestData.DECOMPOSITION_CHOLESKY_R[0].length+") but got ("+r.getRowsCount()+", "+r.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_CHOLESKY_R[0].length, r.getColumnsCount());	
+		assertEquals("R size error, expected ("+MathTestData.DECOMPOSITION_CHOLESKY_R.length+", "+MathTestData.DECOMPOSITION_CHOLESKY_R[0].length+") but got ("+r.getRowsCount()+", "+r.getColumnsCount()+")", MathTestData.DECOMPOSITION_CHOLESKY_R.length, r.getRowsCount());
+		assertEquals("R size error, expected ("+MathTestData.DECOMPOSITION_CHOLESKY_R.length+", "+MathTestData.DECOMPOSITION_CHOLESKY_R[0].length+") but got ("+r.getRowsCount()+", "+r.getColumnsCount()+")", MathTestData.DECOMPOSITION_CHOLESKY_R[0].length, r.getColumnsCount());	
 		
 		// Test composition
 		Matrix composed = r.multiply(r.transpose());
 		
 		assertNotNull("Composed is null", composed);
 		
-		assertEquals("Composed size error, expected ("+MatrixTestData.DECOMPOSITION_CHOLESKY_INPUT.length+", "+MatrixTestData.DECOMPOSITION_CHOLESKY_INPUT[0].length+") but got ("+composed.getRowsCount()+", "+composed.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_CHOLESKY_INPUT.length, composed.getRowsCount());
-		assertEquals("Composed size error, expected ("+MatrixTestData.DECOMPOSITION_CHOLESKY_INPUT.length+", "+MatrixTestData.DECOMPOSITION_CHOLESKY_INPUT[0].length+") but got ("+composed.getRowsCount()+", "+composed.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_CHOLESKY_INPUT[0].length, composed.getColumnsCount());
+		assertEquals("Composed size error, expected ("+MathTestData.DECOMPOSITION_CHOLESKY_INPUT.length+", "+MathTestData.DECOMPOSITION_CHOLESKY_INPUT[0].length+") but got ("+composed.getRowsCount()+", "+composed.getColumnsCount()+")", MathTestData.DECOMPOSITION_CHOLESKY_INPUT.length, composed.getRowsCount());
+		assertEquals("Composed size error, expected ("+MathTestData.DECOMPOSITION_CHOLESKY_INPUT.length+", "+MathTestData.DECOMPOSITION_CHOLESKY_INPUT[0].length+") but got ("+composed.getRowsCount()+", "+composed.getColumnsCount()+")", MathTestData.DECOMPOSITION_CHOLESKY_INPUT[0].length, composed.getColumnsCount());
 		
 		for(int row = 0; row < composed.getRowsCount(); row++) {
 			for(int col = 0; col < composed.getColumnsCount(); col++) {
-				assertEquals("Bad value ("+row+", "+col+")", MatrixTestData.DECOMPOSITION_CHOLESKY_INPUT[row][col], composed.getValue(row, col), EPSILON);
+				assertEquals("Bad value ("+row+", "+col+")", MathTestData.DECOMPOSITION_CHOLESKY_INPUT[row][col], composed.getValue(row, col), EPSILON);
 			}
 		}
 		
 		// Test solve
-		double[][] solveInput  = MatrixTestData.DECOMPOSITION_CHOLESKY_INPUT;
-		double[] solveConstant = MatrixTestData.DECOMPOSITION_CHOLESKY_SOLVE_CONSTANT;
-		double[] solveResult   = MatrixTestData.DECOMPOSITION_CHOLESKY_SOLVE_RESULT;
+		double[][] solveInput  = MathTestData.DECOMPOSITION_CHOLESKY_INPUT;
+		double[] solveConstant = MathTestData.DECOMPOSITION_CHOLESKY_SOLVE_CONSTANT;
+		double[] solveResult   = MathTestData.DECOMPOSITION_CHOLESKY_SOLVE_RESULT;
 		
 		ResolvableTest.testSolve(JeometryFactory.createMatrix(solveInput),
 				JeometryFactory.createMatrix(solveConstant.length, 1, solveConstant, Matrix.ROW_MAJOR),

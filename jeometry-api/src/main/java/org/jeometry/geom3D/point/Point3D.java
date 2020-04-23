@@ -12,7 +12,7 @@ import org.jeometry.math.Vector;
  * @since 1.0.0
  */
 public interface Point3D extends Coord3D, SpatialLocalization3D {
-  
+	
   /**
    * Return a normalized point that is orthogonal to this one.
    * @return a normalized point that is orthogonal to this one.
@@ -30,6 +30,20 @@ public interface Point3D extends Coord3D, SpatialLocalization3D {
    */
   @Override
   public Point3D orthogonal(Vector result);
+  
+  /**
+   * Set the coordinates values of this point according to the given ones.
+   * @param x the X coordinate
+   * @param y the Y coordinate
+   * @param z the Z coordinate
+   */
+  public void setValues(double x, double y, double z);
+  
+  /**
+   * Set this 3D point coordinates as a copy of those from the given 3D point.
+   * @param point the 3D point to copy
+   */
+  public void setValues(Point3D point);
   
   /**
    * Compute the <a href="https://en.wikipedia.org/wiki/Cross_product">cross product</a> between this point and the given one. 

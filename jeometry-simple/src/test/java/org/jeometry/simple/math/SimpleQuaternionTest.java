@@ -2,6 +2,7 @@ package org.jeometry.simple.math;
 
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
+import org.jeometry.math.QuaternionTest;
 import org.jeometry.simple.factory.SimpleMathBuilder;
 import org.junit.BeforeClass;
 
@@ -11,7 +12,7 @@ import org.junit.BeforeClass;
  * @version {@value Jeometry#version} b{@value Jeometry#BUILD}
  * @since 1.0.0
  */
-public class SimpleQuaternionTest {
+public class SimpleQuaternionTest extends QuaternionTest {
 
 	/**
 	 * Initialize the test static context.

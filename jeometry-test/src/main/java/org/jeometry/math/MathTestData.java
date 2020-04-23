@@ -12,7 +12,7 @@ import org.jeometry.math.decomposition.QRDecomposition;
  * @since 1.0.0
  *
  */
-public class MatrixTestData {
+public class MathTestData {
 
 	/**
 	 * a 3 component vector.
@@ -34,6 +34,12 @@ public class MatrixTestData {
 	 */
 	public static final double V_4_A_NORM = Math.sqrt(V_4_A_NORM2);
 
+	/**
+	 * a 4 component vector.
+	 */
+	public static final double[] V_4_B = new double[] {-3.2695, 1.46970, -0.80230, -3.14152368};
+
+	
 	/**
 	 * a 4 component normalized vector.
 	 */
@@ -90,7 +96,7 @@ public class MatrixTestData {
 		};
 
 		/**
-		 * The {@link MatrixTestData#M_3x3_A M_3x3_A} matrix determinant.
+		 * The {@link MathTestData#M_3x3_A M_3x3_A} matrix determinant.
 		 */
 		public static final double M_3x3_A_DETERMINANT = -0.3380498916232778d;
 
@@ -126,7 +132,7 @@ public class MatrixTestData {
 		};
 
 		/**
-		 * The {@link MatrixTestData#M_4x4_A M_4x4_A} matrix expressed within a single dimensional array in {@link Matrix#ROW_MAJOR}.
+		 * The {@link MathTestData#M_4x4_A M_4x4_A} matrix expressed within a single dimensional array in {@link Matrix#ROW_MAJOR}.
 		 */
 		public static final double[] M_4x4_A_ROWMAJOR = new double[] {
 				3.45692302, -1.36528596,    1.3685204, -459.0254136,
@@ -136,7 +142,7 @@ public class MatrixTestData {
 		};
 
 		/**
-		 * The {@link MatrixTestData#M_4x4_A M_4x4_A} matrix expressed within a single dimensional array in {@link Matrix#COLUMN_MAJOR}
+		 * The {@link MathTestData#M_4x4_A M_4x4_A} matrix expressed within a single dimensional array in {@link Matrix#COLUMN_MAJOR}
 		 */
 		public static final double[] M_4x4_A_COLUMNMAJOR = new double[] {
 				3.45692302, 22.65974148, 12.87456921,  36.25697942, 
@@ -146,7 +152,7 @@ public class MatrixTestData {
 		};
 
 		/**
-		 * The {@link MatrixTestData#M_4x4_A M_4x4_A} matrix determinant.
+		 * The {@link MathTestData#M_4x4_A M_4x4_A} matrix determinant.
 		 */
 		public static final double M_4x4_A_DETERMINANT = -2.1846152041017145E8;
 
@@ -172,7 +178,7 @@ public class MatrixTestData {
 		};
 
 		/**
-		 * The {@link MatrixTestData#M_5x5_A M_5x5_A} expressed within a single dimensional array in {@link Matrix#ROW_MAJOR}.
+		 * The {@link MathTestData#M_5x5_A M_5x5_A} expressed within a single dimensional array in {@link Matrix#ROW_MAJOR}.
 		 */
 		public static final double[] M_5x5_A_ROWMAJOR = new double[] {
 				-0.1180710, -0.3937494,  0.6888403, -0.7191015, -0.0774862,
@@ -183,7 +189,7 @@ public class MatrixTestData {
 		};
 
 		/**
-		 * The {@link MatrixTestData#M_5x5_A M_5x5_A} matrix expressed within a single dimensional array in {@link Matrix#COLUMN_MAJOR}.
+		 * The {@link MathTestData#M_5x5_A M_5x5_A} matrix expressed within a single dimensional array in {@link Matrix#COLUMN_MAJOR}.
 		 */
 		public static final double[] M_5x5_A_COLUMNMAJOR = new double[] {
 				-0.1180710, -0.3663894,  0.0091618, -0.9802176,  0.4253439,
@@ -194,7 +200,7 @@ public class MatrixTestData {
 		};
 
 		/**
-		 * The {@link MatrixTestData#M_5x5_A 5x5 C matrix} determinant.
+		 * The {@link MathTestData#M_5x5_A 5x5 C matrix} determinant.
 		 */
 		public static final double M_5x5_A_DETERMINANT = -0.4944084244983374;
 
@@ -209,7 +215,7 @@ public class MatrixTestData {
 		};
 
 		/**
-		 * The transpose of the {@link MatrixTestData#M_4x3_A} matrix.
+		 * The transpose of the {@link MathTestData#M_4x3_A} matrix.
 		 */
 		public static final double[][] M_4x3_A_TRANSPOSE = new double[][] {			
 			{-0.6814359, -0.9660992, -0.3560276, -0.3269735}, 
@@ -228,7 +234,7 @@ public class MatrixTestData {
 		};
 
 		/**
-		 * The matrix that represents the {@link MatrixTestData#M_4x3_A M_4x3_A}&times;{@link MatrixTestData#M_3x4_A M_3x4_A} product result.
+		 * The matrix that represents the {@link MathTestData#M_4x3_A M_4x3_A}&times;{@link MathTestData#M_3x4_A M_3x4_A} product result.
 		 */
 		public static final double[][] M_4x4_PRODUCT_A = new double[][] {
 			{ -0.9085148810695599,  -1.4693691695447202,   1.3285460214131,     -1.09171973800408 },
@@ -238,7 +244,7 @@ public class MatrixTestData {
 		};
 
 		/**
-		 * This matrix represent the {@link MatrixTestData#M_4x3_A M_4x3_A}&times;{@link MatrixTestData#M_4x4_A M_4x4_A} product result.
+		 * This matrix represent the {@link MathTestData#M_4x3_A M_4x3_A}&times;{@link MathTestData#M_4x4_A M_4x4_A} product result.
 		 */
 		public static final double[][] M_4x3_A_M_4x4_A_PRODUCT = new double[][] {
 			{ -0.6814359, -0.9401949,  0.4056839 },
@@ -312,7 +318,7 @@ public class MatrixTestData {
 		};
 
 		/**
-		 * A constant vector <i>B</i> used for testing linear system solving with {@link LUDecomposition LU decomposition} of {@link MatrixTestData#DECOMPOSITION_LU_INPUT input matrix}.
+		 * A constant vector <i>B</i> used for testing linear system solving with {@link LUDecomposition LU decomposition} of {@link MathTestData#DECOMPOSITION_LU_INPUT input matrix}.
 		 * @see #DECOMPOSITION_LU_INPUT
 		 * @see #DECOMPOSITION_LU_L
 		 * @see #DECOMPOSITION_LU_U
@@ -328,7 +334,7 @@ public class MatrixTestData {
 		};
 
 		/**
-		 * A result vector <i>X</i> used for testing linear system solving with {@link LUDecomposition LU decomposition} of {@link MatrixTestData#DECOMPOSITION_LU_INPUT input matrix}.
+		 * A result vector <i>X</i> used for testing linear system solving with {@link LUDecomposition LU decomposition} of {@link MathTestData#DECOMPOSITION_LU_INPUT input matrix}.
 		 * @see #DECOMPOSITION_LU_INPUT
 		 * @see #DECOMPOSITION_LU_L
 		 * @see #DECOMPOSITION_LU_U
@@ -548,9 +554,9 @@ public class MatrixTestData {
 
 			/**
 			 * The matrix is dedicated to the testing of {@link CholeskyDecomposition Cholesky decomposition}.
-			 * @see MatrixTestData#DECOMPOSITION_CHOLESKY_R
-			 * @see MatrixTestData#DECOMPOSITION_CHOLESKY_SOLVE_CONSTANT
-			 * @see MatrixTestData#DECOMPOSITION_CHOLESKY_SOLVE_RESULT
+			 * @see MathTestData#DECOMPOSITION_CHOLESKY_R
+			 * @see MathTestData#DECOMPOSITION_CHOLESKY_SOLVE_CONSTANT
+			 * @see MathTestData#DECOMPOSITION_CHOLESKY_SOLVE_RESULT
 			 */
 			public static final double[][] DECOMPOSITION_CHOLESKY_INPUT = new double[][] {
 				{1.000000000000000, 0.500000000000000, 0.333333333333333, 0.250000000000000, 0.200000000000000,   0.166666666666667},
@@ -562,10 +568,10 @@ public class MatrixTestData {
 			};
 
 			/**
-			 * The triangular matrix <i>R</i> obtained after {@link CholeskyDecomposition Cholesky decomposition} of the matrix {@link MatrixTestData#DECOMPOSITION_CHOLESKY_INPUT}.
-			 * @see MatrixTestData#DECOMPOSITION_CHOLESKY_INPUT
-			 * @see MatrixTestData#DECOMPOSITION_CHOLESKY_SOLVE_CONSTANT
-			 * @see MatrixTestData#DECOMPOSITION_CHOLESKY_SOLVE_RESULT
+			 * The triangular matrix <i>R</i> obtained after {@link CholeskyDecomposition Cholesky decomposition} of the matrix {@link MathTestData#DECOMPOSITION_CHOLESKY_INPUT}.
+			 * @see MathTestData#DECOMPOSITION_CHOLESKY_INPUT
+			 * @see MathTestData#DECOMPOSITION_CHOLESKY_SOLVE_CONSTANT
+			 * @see MathTestData#DECOMPOSITION_CHOLESKY_SOLVE_RESULT
 			 */
 			public static final double[][] DECOMPOSITION_CHOLESKY_R = new double[][] {
 				{1.000000000000000,   0.500000000000000, 0.333333333333333, 0.250000000000000,   0.200000000000000,   0.166666666666667},
@@ -577,10 +583,10 @@ public class MatrixTestData {
 			};
 
 			/**
-			 * A constant vector <i>B</i> used for testing linear system solving with {@link CholeskyDecomposition Cholesky decomposition} of the matrix {@link MatrixTestData#DECOMPOSITION_CHOLESKY_INPUT}.
-			 * @see MatrixTestData#DECOMPOSITION_CHOLESKY_INPUT
-			 * @see MatrixTestData#DECOMPOSITION_CHOLESKY_R
-			 * @see MatrixTestData#DECOMPOSITION_CHOLESKY_SOLVE_RESULT
+			 * A constant vector <i>B</i> used for testing linear system solving with {@link CholeskyDecomposition Cholesky decomposition} of the matrix {@link MathTestData#DECOMPOSITION_CHOLESKY_INPUT}.
+			 * @see MathTestData#DECOMPOSITION_CHOLESKY_INPUT
+			 * @see MathTestData#DECOMPOSITION_CHOLESKY_R
+			 * @see MathTestData#DECOMPOSITION_CHOLESKY_SOLVE_RESULT
 			 */
 			public static final double[] DECOMPOSITION_CHOLESKY_SOLVE_CONSTANT = new double[] {
 					2.450000000000000,
@@ -592,10 +598,10 @@ public class MatrixTestData {
 			};
 
 			/**
-			 * A result vector <i>X</i> used for testing linear system solving with {@link CholeskyDecomposition Cholesky decomposition} of the matrix {@link MatrixTestData#DECOMPOSITION_CHOLESKY_INPUT}.
-			 * @see MatrixTestData#DECOMPOSITION_CHOLESKY_INPUT
-			 * @see MatrixTestData#DECOMPOSITION_CHOLESKY_R
-			 * @see MatrixTestData#DECOMPOSITION_CHOLESKY_SOLVE_CONSTANT
+			 * A result vector <i>X</i> used for testing linear system solving with {@link CholeskyDecomposition Cholesky decomposition} of the matrix {@link MathTestData#DECOMPOSITION_CHOLESKY_INPUT}.
+			 * @see MathTestData#DECOMPOSITION_CHOLESKY_INPUT
+			 * @see MathTestData#DECOMPOSITION_CHOLESKY_R
+			 * @see MathTestData#DECOMPOSITION_CHOLESKY_SOLVE_CONSTANT
 			 */
 			public static final double[] DECOMPOSITION_CHOLESKY_SOLVE_RESULT = new double[] {
 					1.000000000000000,

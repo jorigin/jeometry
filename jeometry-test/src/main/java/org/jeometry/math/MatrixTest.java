@@ -69,7 +69,7 @@ public class MatrixTest {
 		Matrix matrix = null;
 		double[] dataArray = null;
 
-		matrix = JeometryFactory.createMatrix(MatrixTestData.M_5x5_A);
+		matrix = JeometryFactory.createMatrix(MathTestData.M_5x5_A);
 
 		if (matrixClass != null) {
 			assertTrue("Unexpected matrix implementation "+matrix.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(matrix.getClass()));
@@ -80,16 +80,16 @@ public class MatrixTest {
 		assertNotNull("Invalid row major data array", dataArray);
 
 		if (dataArray != null) {
-			assertEquals("Invalid row major data array size", MatrixTestData.M_5x5_A_ROWMAJOR.length, dataArray.length, 0);
+			assertEquals("Invalid row major data array size", MathTestData.M_5x5_A_ROWMAJOR.length, dataArray.length, 0);
 
-			if (dataArray.length == MatrixTestData.M_5x5_A_ROWMAJOR.length) {
+			if (dataArray.length == MathTestData.M_5x5_A_ROWMAJOR.length) {
 				for(int index = 0; index < dataArray.length; index++) {
-					assertEquals("Invalid row major data at index "+index, MatrixTestData.M_5x5_A_ROWMAJOR[index], dataArray[index], 0);
+					assertEquals("Invalid row major data at index "+index, MathTestData.M_5x5_A_ROWMAJOR[index], dataArray[index], 0);
 				}
 			}
 		}
 
-		matrix = JeometryFactory.createMatrix(MatrixTestData.M_5x5_A);
+		matrix = JeometryFactory.createMatrix(MathTestData.M_5x5_A);
 
 		if (matrixClass != null) {
 			assertTrue("Unexpected matrix implementation "+matrix.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(matrix.getClass()));
@@ -100,11 +100,11 @@ public class MatrixTest {
 		assertNotNull("Invalid column major data array", dataArray);
 
 		if (dataArray != null) {
-			assertEquals("Invalid column major data array size", MatrixTestData.M_5x5_A_COLUMNMAJOR.length, dataArray.length, 0);
+			assertEquals("Invalid column major data array size", MathTestData.M_5x5_A_COLUMNMAJOR.length, dataArray.length, 0);
 
-			if (dataArray.length == MatrixTestData.M_5x5_A_COLUMNMAJOR.length) {
+			if (dataArray.length == MathTestData.M_5x5_A_COLUMNMAJOR.length) {
 				for(int index = 0; index < dataArray.length; index++) {
-					assertEquals("Invalid column major data at index "+index, MatrixTestData.M_5x5_A_COLUMNMAJOR[index], dataArray[index], 0);
+					assertEquals("Invalid column major data at index "+index, MathTestData.M_5x5_A_COLUMNMAJOR[index], dataArray[index], 0);
 				}
 			}
 		}
@@ -120,13 +120,13 @@ public class MatrixTest {
 		double[] output     = null;
 		double[] dataArray  = null;
 
-		matrix = JeometryFactory.createMatrix(MatrixTestData.M_5x5_A);
+		matrix = JeometryFactory.createMatrix(MathTestData.M_5x5_A);
 
 		if (matrixClass != null) {
 			assertTrue("Unexpected matrix implementation "+matrix.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(matrix.getClass()));
 		}
 
-		output = new double[MatrixTestData.M_5x5_A_ROWMAJOR.length];
+		output = new double[MathTestData.M_5x5_A_ROWMAJOR.length];
 		try {
 			dataArray = matrix.getDataArray(Matrix.ROW_MAJOR, output);
 
@@ -134,11 +134,11 @@ public class MatrixTest {
 			assertSame("Invalid row major data array return", dataArray, output);
 
 			if (dataArray != null) {
-				assertEquals("Invalid row major data array size", MatrixTestData.M_5x5_A_ROWMAJOR.length, dataArray.length, 0);
+				assertEquals("Invalid row major data array size", MathTestData.M_5x5_A_ROWMAJOR.length, dataArray.length, 0);
 
-				if (dataArray.length == MatrixTestData.M_5x5_A_ROWMAJOR.length) {
+				if (dataArray.length == MathTestData.M_5x5_A_ROWMAJOR.length) {
 					for(int index = 0; index < dataArray.length; index++) {
-						assertEquals("Invalid row major data at index "+index, MatrixTestData.M_5x5_A_ROWMAJOR[index], dataArray[index], 0);
+						assertEquals("Invalid row major data at index "+index, MathTestData.M_5x5_A_ROWMAJOR[index], dataArray[index], 0);
 					}
 				}
 			}
@@ -146,13 +146,13 @@ public class MatrixTest {
 			fail("Exception raised: "+e.getMessage());
 		}
 
-		matrix = JeometryFactory.createMatrix(MatrixTestData.M_5x5_A);
+		matrix = JeometryFactory.createMatrix(MathTestData.M_5x5_A);
 
 		if (matrixClass != null) {
 			assertTrue("Unexpected matrix implementation "+matrix.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(matrix.getClass()));
 		}
 
-		output = new double[MatrixTestData.M_5x5_A_COLUMNMAJOR.length];
+		output = new double[MathTestData.M_5x5_A_COLUMNMAJOR.length];
 		try {
 			dataArray = matrix.getDataArray(Matrix.COLUMN_MAJOR, output);
 
@@ -160,11 +160,11 @@ public class MatrixTest {
 			assertSame("Invalid column major data array return", dataArray, output);
 
 			if (dataArray != null) {
-				assertEquals("Invalid column major data array size", MatrixTestData.M_5x5_A_COLUMNMAJOR.length, dataArray.length, 0);
+				assertEquals("Invalid column major data array size", MathTestData.M_5x5_A_COLUMNMAJOR.length, dataArray.length, 0);
 
-				if (dataArray.length == MatrixTestData.M_5x5_A_COLUMNMAJOR.length) {
+				if (dataArray.length == MathTestData.M_5x5_A_COLUMNMAJOR.length) {
 					for(int index = 0; index < dataArray.length; index++) {
-						assertEquals("Invalid column major data at index "+index, MatrixTestData.M_5x5_A_COLUMNMAJOR[index], dataArray[index], 0);
+						assertEquals("Invalid column major data at index "+index, MathTestData.M_5x5_A_COLUMNMAJOR[index], dataArray[index], 0);
 					}
 				}
 			}
@@ -187,11 +187,11 @@ public class MatrixTest {
 		}
 
 		try {
-			matrix.setDataArray(Matrix.ROW_MAJOR, MatrixTestData.M_5x5_A_ROWMAJOR);
+			matrix.setDataArray(Matrix.ROW_MAJOR, MathTestData.M_5x5_A_ROWMAJOR);
 
-			for(int row = 0; row < MatrixTestData.M_5x5_A.length; row++) {
-				for(int col = 0; col < MatrixTestData.M_5x5_A[0].length; col++) {
-					assertEquals("Different values at cell ["+row+", "+col+"]", MatrixTestData.M_5x5_A[row][col], matrix.getValue(row, col), 0.0d);
+			for(int row = 0; row < MathTestData.M_5x5_A.length; row++) {
+				for(int col = 0; col < MathTestData.M_5x5_A[0].length; col++) {
+					assertEquals("Different values at cell ["+row+", "+col+"]", MathTestData.M_5x5_A[row][col], matrix.getValue(row, col), 0.0d);
 				}
 			}
 
@@ -206,11 +206,11 @@ public class MatrixTest {
 		}
 
 		try {
-			matrix.setDataArray(Matrix.COLUMN_MAJOR, MatrixTestData.M_5x5_A_COLUMNMAJOR);
+			matrix.setDataArray(Matrix.COLUMN_MAJOR, MathTestData.M_5x5_A_COLUMNMAJOR);
 
-			for(int row = 0; row < MatrixTestData.M_5x5_A.length; row++) {
-				for(int col = 0; col < MatrixTestData.M_5x5_A[0].length; col++) {
-					assertEquals("Different values at cell ["+row+", "+col+"]", MatrixTestData.M_5x5_A[row][col], matrix.getValue(row, col), 0.0d);
+			for(int row = 0; row < MathTestData.M_5x5_A.length; row++) {
+				for(int col = 0; col < MathTestData.M_5x5_A[0].length; col++) {
+					assertEquals("Different values at cell ["+row+", "+col+"]", MathTestData.M_5x5_A[row][col], matrix.getValue(row, col), 0.0d);
 				}
 			}
 
@@ -228,32 +228,32 @@ public class MatrixTest {
 		Matrix matrix = null;
 		double determinant  = Double.NaN;
 
-		matrix = JeometryFactory.createMatrix(MatrixTestData.M_3x3_A);
+		matrix = JeometryFactory.createMatrix(MathTestData.M_3x3_A);
 
 		if (matrixClass != null) {
 			assertTrue("Unexpected matrix implementation "+matrix.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(matrix.getClass()));
 		}
 
 		determinant = matrix.determinant();
-		assertEquals("Invalid determinant: ", MatrixTestData.M_3x3_A_DETERMINANT, determinant, Double.MIN_VALUE);
+		assertEquals("Invalid determinant: ", MathTestData.M_3x3_A_DETERMINANT, determinant, Double.MIN_VALUE);
 
-		matrix = JeometryFactory.createMatrix(MatrixTestData.M_4x4_A);
-
-		if (matrixClass != null) {
-			assertTrue("Unexpected matrix implementation "+matrix.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(matrix.getClass()));
-		}
-
-		determinant = matrix.determinant();
-		assertEquals("Invalid determinant: ", MatrixTestData.M_4x4_A_DETERMINANT, determinant, Double.MIN_VALUE);
-
-		matrix = JeometryFactory.createMatrix(MatrixTestData.M_5x5_A);
+		matrix = JeometryFactory.createMatrix(MathTestData.M_4x4_A);
 
 		if (matrixClass != null) {
 			assertTrue("Unexpected matrix implementation "+matrix.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(matrix.getClass()));
 		}
 
 		determinant = matrix.determinant();
-		assertEquals("Invalid determinant: ", MatrixTestData.M_5x5_A_DETERMINANT, determinant, Double.MIN_VALUE);
+		assertEquals("Invalid determinant: ", MathTestData.M_4x4_A_DETERMINANT, determinant, Double.MIN_VALUE);
+
+		matrix = JeometryFactory.createMatrix(MathTestData.M_5x5_A);
+
+		if (matrixClass != null) {
+			assertTrue("Unexpected matrix implementation "+matrix.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(matrix.getClass()));
+		}
+
+		determinant = matrix.determinant();
+		assertEquals("Invalid determinant: ", MathTestData.M_5x5_A_DETERMINANT, determinant, Double.MIN_VALUE);
 
 	}
 
@@ -262,7 +262,7 @@ public class MatrixTest {
 	 */
 	@Test
 	public void transposeTest() {
-		Matrix matrix = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix matrix = JeometryFactory.createMatrix(MathTestData.M_4x3_A);
 
 		if (matrixClass != null) {
 			assertTrue("Unexpected matrix implementation "+matrix.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(matrix.getClass()));
@@ -279,7 +279,7 @@ public class MatrixTest {
 			if ((matrix.getColumnsCount() == transpose.getRowsCount()) && (matrix.getRowsCount() == transpose.getColumnsCount())) {
 				for(int row = 0; row < transpose.getRowsCount(); row++) {
 					for(int col = 0; col < transpose.getColumnsCount(); col++) {
-						assertEquals("Invalid transpose value ["+row+", "+col+"]", MatrixTestData.M_4x3_A_TRANSPOSE[row][col], transpose.getValue(row, col), Double.MIN_VALUE);
+						assertEquals("Invalid transpose value ["+row+", "+col+"]", MathTestData.M_4x3_A_TRANSPOSE[row][col], transpose.getValue(row, col), Double.MIN_VALUE);
 					}
 				}
 			}
@@ -291,7 +291,7 @@ public class MatrixTest {
 	 */
 	@Test
 	public void transposeResultTest() {
-		Matrix matrix    = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix matrix    = JeometryFactory.createMatrix(MathTestData.M_4x3_A);
 
 		if (matrixClass != null) {
 			assertTrue("Unexpected matrix implementation "+matrix.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(matrix.getClass()));
@@ -315,7 +315,7 @@ public class MatrixTest {
 			if ((matrix.getColumnsCount() == transpose.getRowsCount()) && (matrix.getRowsCount() == transpose.getColumnsCount())) {
 				for(int row = 0; row < transpose.getRowsCount(); row++) {
 					for(int col = 0; col < transpose.getColumnsCount(); col++) {
-						assertEquals("Invalid transpose value ["+row+", "+col+"]", MatrixTestData.M_4x3_A_TRANSPOSE[row][col], transpose.getValue(row, col), Double.MIN_VALUE);
+						assertEquals("Invalid transpose value ["+row+", "+col+"]", MathTestData.M_4x3_A_TRANSPOSE[row][col], transpose.getValue(row, col), Double.MIN_VALUE);
 					}
 				}
 			}
@@ -327,7 +327,7 @@ public class MatrixTest {
 	 */
 	@Test
 	public void transposeAffectTest() {
-		Matrix matrix    = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);	
+		Matrix matrix    = JeometryFactory.createMatrix(MathTestData.M_4x3_A);	
 
 		if (matrixClass != null) {
 			assertTrue("Unexpected matrix implementation "+matrix.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(matrix.getClass()));
@@ -340,10 +340,10 @@ public class MatrixTest {
 
 		if (matrix != null) {
 
-			if ((matrix.getColumnsCount() == MatrixTestData.M_4x3_A.length) && (matrix.getRowsCount() == MatrixTestData.M_4x3_A[0].length)) {
+			if ((matrix.getColumnsCount() == MathTestData.M_4x3_A.length) && (matrix.getRowsCount() == MathTestData.M_4x3_A[0].length)) {
 				for(int row = 0; row < matrix.getRowsCount(); row++) {
 					for(int col = 0; col < matrix.getColumnsCount(); col++) {
-						assertEquals("Invalid transpose value ["+row+", "+col+"]", MatrixTestData.M_4x3_A_TRANSPOSE[row][col], matrix.getValue(row, col), Double.MIN_VALUE);
+						assertEquals("Invalid transpose value ["+row+", "+col+"]", MathTestData.M_4x3_A_TRANSPOSE[row][col], matrix.getValue(row, col), Double.MIN_VALUE);
 					}
 				}
 			}
@@ -355,26 +355,26 @@ public class MatrixTest {
 	 */
 	@Test
 	public void multiplyTest() {
-		Matrix a = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix a = JeometryFactory.createMatrix(MathTestData.M_4x3_A);
 
 		if (matrixClass != null) {
 			assertTrue("Unexpected matrix implementation "+a.getClass().getSimpleName()+", expected "+matrixClass.getSimpleName(), matrixClass.equals(a.getClass()));
 		}
 
-		Matrix b = JeometryFactory.createMatrix(MatrixTestData.M_3x4_A);
+		Matrix b = JeometryFactory.createMatrix(MathTestData.M_3x4_A);
 
 		try {
 			Matrix result = a.multiply(b);
 
 			assertNotNull("Multiplication result is null", result);
 
-			assertEquals("Invalid multiplication result rows", MatrixTestData.M_4x4_PRODUCT_A.length, result.getRowsCount());
-			assertEquals("Invalid multiplication result columns", MatrixTestData.M_4x4_PRODUCT_A[0].length, result.getColumnsCount());
+			assertEquals("Invalid multiplication result rows", MathTestData.M_4x4_PRODUCT_A.length, result.getRowsCount());
+			assertEquals("Invalid multiplication result columns", MathTestData.M_4x4_PRODUCT_A[0].length, result.getColumnsCount());
 
-			if ((result.getRowsCount() == MatrixTestData.M_4x4_PRODUCT_A.length) && (result.getColumnsCount() == MatrixTestData.M_4x4_PRODUCT_A[0].length)) {
+			if ((result.getRowsCount() == MathTestData.M_4x4_PRODUCT_A.length) && (result.getColumnsCount() == MathTestData.M_4x4_PRODUCT_A[0].length)) {
 				for(int row = 0; row < result.getRowsCount(); row++) {
 					for(int col = 0; col < result.getColumnsCount(); col++) {
-						assertEquals("Invalid value ["+row+"x"+col+"]", MatrixTestData.M_4x4_PRODUCT_A[row][col], result.getValue(row, col), Double.MIN_VALUE);
+						assertEquals("Invalid value ["+row+"x"+col+"]", MathTestData.M_4x4_PRODUCT_A[row][col], result.getValue(row, col), Double.MIN_VALUE);
 					}
 				}
 			}
@@ -389,9 +389,9 @@ public class MatrixTest {
 	 */
 	@Test
 	public void multiplyResultTest() {
-		Matrix a      = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
-		Matrix b      = JeometryFactory.createMatrix(MatrixTestData.M_3x4_A);
-		Matrix result = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A.length, MatrixTestData.M_3x4_A[0].length);
+		Matrix a      = JeometryFactory.createMatrix(MathTestData.M_4x3_A);
+		Matrix b      = JeometryFactory.createMatrix(MathTestData.M_3x4_A);
+		Matrix result = JeometryFactory.createMatrix(MathTestData.M_4x3_A.length, MathTestData.M_3x4_A[0].length);
 
 		try {
 			Matrix reference = a.multiply(b, result);
@@ -399,13 +399,13 @@ public class MatrixTest {
 			assertNotNull("Multiplication result is null", result);
 			assertSame("Return reference and result parameters differs.", reference, result);
 
-			assertEquals("Invalid multiplication result rows", MatrixTestData.M_4x4_PRODUCT_A.length, result.getRowsCount());
-			assertEquals("Invalid multiplication result columns", MatrixTestData.M_4x4_PRODUCT_A[0].length, result.getColumnsCount());
+			assertEquals("Invalid multiplication result rows", MathTestData.M_4x4_PRODUCT_A.length, result.getRowsCount());
+			assertEquals("Invalid multiplication result columns", MathTestData.M_4x4_PRODUCT_A[0].length, result.getColumnsCount());
 
-			if ((result.getRowsCount() == MatrixTestData.M_4x4_PRODUCT_A.length) && (result.getColumnsCount() == MatrixTestData.M_4x4_PRODUCT_A[0].length)) {
+			if ((result.getRowsCount() == MathTestData.M_4x4_PRODUCT_A.length) && (result.getColumnsCount() == MathTestData.M_4x4_PRODUCT_A[0].length)) {
 				for(int row = 0; row < result.getRowsCount(); row++) {
 					for(int col = 0; col < result.getColumnsCount(); col++) {
-						assertEquals("Invalid value ["+row+"x"+col+"]", MatrixTestData.M_4x4_PRODUCT_A[row][col], result.getValue(row, col), Double.MIN_VALUE);
+						assertEquals("Invalid value ["+row+"x"+col+"]", MathTestData.M_4x4_PRODUCT_A[row][col], result.getValue(row, col), Double.MIN_VALUE);
 					}
 				}
 			}
@@ -420,8 +420,8 @@ public class MatrixTest {
 	 */
 	@Test
 	public void multiplyAffectTest() {
-		Matrix matrix = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
-		Matrix b      = JeometryFactory.createMatrix(MatrixTestData.M_4x4_A);
+		Matrix matrix = JeometryFactory.createMatrix(MathTestData.M_4x3_A);
+		Matrix b      = JeometryFactory.createMatrix(MathTestData.M_4x4_A);
 
 		try {
 			Matrix reference = matrix.multiplyAffect(b);
@@ -429,13 +429,13 @@ public class MatrixTest {
 			assertNotNull("Multiplication result is null", reference);
 			assertSame("Return reference and result parameters differs.", reference, matrix);
 
-			assertEquals("Invalid multiplication result rows",MatrixTestData.M_4x3_A.length, matrix.getRowsCount());
-			assertEquals("Invalid multiplication result columns", MatrixTestData.M_4x3_A[0].length, matrix.getColumnsCount());
+			assertEquals("Invalid multiplication result rows",MathTestData.M_4x3_A.length, matrix.getRowsCount());
+			assertEquals("Invalid multiplication result columns", MathTestData.M_4x3_A[0].length, matrix.getColumnsCount());
 
-			if ((matrix.getRowsCount() == MatrixTestData.M_4x3_A.length) && (matrix.getColumnsCount() == MatrixTestData.M_4x3_A[0].length)) {
+			if ((matrix.getRowsCount() == MathTestData.M_4x3_A.length) && (matrix.getColumnsCount() == MathTestData.M_4x3_A[0].length)) {
 				for(int row = 0; row < matrix.getRowsCount(); row++) {
 					for(int col = 0; col < matrix.getColumnsCount(); col++) {
-						assertEquals("Invalid value ["+row+"x"+col+"]", MatrixTestData.M_4x3_A_M_4x4_A_PRODUCT[row][col], matrix.getValue(row, col), Double.MIN_VALUE);
+						assertEquals("Invalid value ["+row+"x"+col+"]", MathTestData.M_4x3_A_M_4x4_A_PRODUCT[row][col], matrix.getValue(row, col), Double.MIN_VALUE);
 					}
 				}
 			}
@@ -450,8 +450,8 @@ public class MatrixTest {
 	 */
 	@Test
 	public void multiplyVectorTest() {
-		Vector v = JeometryFactory.createVector(MatrixTestData.V_4_A);
-		Matrix m = JeometryFactory.createMatrix(MatrixTestData.M_4x4_A);
+		Vector v = JeometryFactory.createVector(MathTestData.V_4_A);
+		Matrix m = JeometryFactory.createMatrix(MathTestData.M_4x4_A);
 
 		Vector u = null;
 
@@ -462,11 +462,11 @@ public class MatrixTest {
 			assertNotNull("Invalid vector u."+u, u);
 
 			if ((v != null) && (u != null)) {
-				assertEquals("Invalid dimensions", MatrixTestData.V_PROD_M_4x4_A_X_V_4_A.length, u.getDimension());
+				assertEquals("Invalid dimensions", MathTestData.V_PROD_M_4x4_A_X_V_4_A.length, u.getDimension());
 
-				if (u.getDimension() == MatrixTestData.V_PROD_M_4x4_A_X_V_4_A.length) {
-					for (int dimension = 0; dimension < MatrixTestData.V_PROD_M_4x4_A_X_V_4_A.length; dimension++) {
-						assertEquals("Invalid dimension "+dimension+" value.", MatrixTestData.V_PROD_M_4x4_A_X_V_4_A[dimension], u.getVectorComponent(dimension), Double.MIN_VALUE);
+				if (u.getDimension() == MathTestData.V_PROD_M_4x4_A_X_V_4_A.length) {
+					for (int dimension = 0; dimension < MathTestData.V_PROD_M_4x4_A_X_V_4_A.length; dimension++) {
+						assertEquals("Invalid dimension "+dimension+" value.", MathTestData.V_PROD_M_4x4_A_X_V_4_A[dimension], u.getVectorComponent(dimension), Double.MIN_VALUE);
 					}
 				}
 			}
@@ -481,8 +481,8 @@ public class MatrixTest {
 	 */
 	@Test
 	public void multiplyVectorResultTest() {
-		Vector v = JeometryFactory.createVector(MatrixTestData.V_4_A);
-		Matrix m = JeometryFactory.createMatrix(MatrixTestData.M_4x4_A);
+		Vector v = JeometryFactory.createVector(MathTestData.V_4_A);
+		Matrix m = JeometryFactory.createMatrix(MathTestData.M_4x4_A);
 
 		Vector result = JeometryFactory.createVector(m.getRowsCount());
 
@@ -497,11 +497,11 @@ public class MatrixTest {
 			assertSame("Invalid vector reference result.", result, u);
 
 			if ((v != null) && (u != null) && (result != null)) {
-				assertEquals("Invalid dimensions", MatrixTestData.V_PROD_M_4x4_A_X_V_4_A.length, u.getDimension());
+				assertEquals("Invalid dimensions", MathTestData.V_PROD_M_4x4_A_X_V_4_A.length, u.getDimension());
 
-				if (u.getDimension() == MatrixTestData.V_PROD_M_4x4_A_X_V_4_A.length) {
-					for (int dimension = 0; dimension < MatrixTestData.V_PROD_M_4x4_A_X_V_4_A.length; dimension++) {
-						assertEquals("Invalid dimension "+dimension+" value.", MatrixTestData.V_PROD_M_4x4_A_X_V_4_A[dimension], u.getVectorComponent(dimension), Double.MIN_VALUE);
+				if (u.getDimension() == MathTestData.V_PROD_M_4x4_A_X_V_4_A.length) {
+					for (int dimension = 0; dimension < MathTestData.V_PROD_M_4x4_A_X_V_4_A.length; dimension++) {
+						assertEquals("Invalid dimension "+dimension+" value.", MathTestData.V_PROD_M_4x4_A_X_V_4_A[dimension], u.getVectorComponent(dimension), Double.MIN_VALUE);
 					}
 				}
 			}
@@ -511,8 +511,8 @@ public class MatrixTest {
 		}
 
 		// Testing line matrix 
-		v = JeometryFactory.createVector(MatrixTestData.V_4_A);
-		m = JeometryFactory.createMatrix(MatrixTestData.M_4L_A);
+		v = JeometryFactory.createVector(MathTestData.V_4_A);
+		m = JeometryFactory.createMatrix(MathTestData.M_4L_A);
 
 		result = JeometryFactory.createVector(m.getRowsCount());
 
@@ -526,10 +526,10 @@ public class MatrixTest {
 			assertSame("Invalid vector reference result.", result, u);
 
 			if ((v != null) && (u != null) && (result != null)) {
-				assertEquals("Invalid dimensions", MatrixTestData.V_PROD_M_4L_A_V_4_A.length, u.getDimension());
+				assertEquals("Invalid dimensions", MathTestData.V_PROD_M_4L_A_V_4_A.length, u.getDimension());
 
 				for (int dimension = 0; dimension < u.getDimension(); dimension++) {						
-					assertEquals("Invalid dimension "+dimension+" value.", MatrixTestData.V_PROD_M_4L_A_V_4_A[dimension], u.getVectorComponent(dimension), Double.MIN_VALUE);
+					assertEquals("Invalid dimension "+dimension+" value.", MathTestData.V_PROD_M_4L_A_V_4_A[dimension], u.getVectorComponent(dimension), Double.MIN_VALUE);
 				}
 			}
 
@@ -544,7 +544,7 @@ public class MatrixTest {
 	 */
 	@Test
 	public void multiplyScalarTest() {
-		Matrix a      = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix a      = JeometryFactory.createMatrix(MathTestData.M_4x3_A);
 		double scalar       = 2.3698d;
 
 		try {
@@ -573,7 +573,7 @@ public class MatrixTest {
 	 */
 	@Test
 	public void multiplyScalarResultTest() {
-		Matrix a      = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix a      = JeometryFactory.createMatrix(MathTestData.M_4x3_A);
 		Matrix result = JeometryFactory.createMatrix(a.getRowsCount(), a.getColumnsCount());
 		double scalar       = 2.3698d;
 
@@ -605,8 +605,8 @@ public class MatrixTest {
 	 */
 	@Test
 	public void multiplyScalarAffectTest() {
-		Matrix a      = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
-		Matrix ref    = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix a      = JeometryFactory.createMatrix(MathTestData.M_4x3_A);
+		Matrix ref    = JeometryFactory.createMatrix(MathTestData.M_4x3_A);
 		double scalar       = 2.3698d;
 
 		try {
@@ -636,8 +636,8 @@ public class MatrixTest {
 	 */
 	@Test
 	public void addMatrixTest() {
-		Matrix a      = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
-		Matrix b      = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix a      = JeometryFactory.createMatrix(MathTestData.M_4x3_A);
+		Matrix b      = JeometryFactory.createMatrix(MathTestData.M_4x3_A);
 
 		Matrix result = null;
 
@@ -670,8 +670,8 @@ public class MatrixTest {
 	 */
 	@Test
 	public void addMatrixResultTest() {
-		Matrix a         = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
-		Matrix b         = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix a         = JeometryFactory.createMatrix(MathTestData.M_4x3_A);
+		Matrix b         = JeometryFactory.createMatrix(MathTestData.M_4x3_A);
 
 		Matrix result    = JeometryFactory.createMatrix(a.getRowsCount(), a.getColumnsCount());
 
@@ -708,8 +708,8 @@ public class MatrixTest {
 	 */
 	@Test
 	public void addMatrixAffectTest() {
-		Matrix a         = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
-		Matrix b         = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix a         = JeometryFactory.createMatrix(MathTestData.M_4x3_A);
+		Matrix b         = JeometryFactory.createMatrix(MathTestData.M_4x3_A);
 
 		Matrix reference = null;
 
@@ -728,7 +728,7 @@ public class MatrixTest {
 
 				for(int row = 0; row < reference.getRowsCount(); row++) {
 					for(int col = 0; col < reference.getColumnsCount(); col++) {
-						assertEquals("Invalid value ["+row+"x"+col+"]", MatrixTestData.M_4x3_A[row][col]+b.getValue(row, col), reference.getValue(row, col), Double.MIN_VALUE);
+						assertEquals("Invalid value ["+row+"x"+col+"]", MathTestData.M_4x3_A[row][col]+b.getValue(row, col), reference.getValue(row, col), Double.MIN_VALUE);
 					}
 				}
 
@@ -744,7 +744,7 @@ public class MatrixTest {
 	 */
 	@Test
 	public void addScalarTest() {
-		Matrix a = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix a = JeometryFactory.createMatrix(MathTestData.M_4x3_A);
 		double s = 3.567802356d;
 
 		Matrix result = null;
@@ -777,7 +777,7 @@ public class MatrixTest {
 	 */
 	@Test
 	public void addScalarResultTest() {
-		Matrix a         = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix a         = JeometryFactory.createMatrix(MathTestData.M_4x3_A);
 		double s = 3.567802356d;
 
 		Matrix result    = JeometryFactory.createMatrix(a.getRowsCount(), a.getColumnsCount());
@@ -815,8 +815,8 @@ public class MatrixTest {
 	 */
 	@Test
 	public void subtractMatrixTest() {
-		Matrix a      = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
-		Matrix b      = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix a      = JeometryFactory.createMatrix(MathTestData.M_4x3_A);
+		Matrix b      = JeometryFactory.createMatrix(MathTestData.M_4x3_A);
 
 		Matrix result = null;
 
@@ -849,8 +849,8 @@ public class MatrixTest {
 	 */
 	@Test
 	public void subtractMatrixResultTest() {
-		Matrix a         = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
-		Matrix b         = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix a         = JeometryFactory.createMatrix(MathTestData.M_4x3_A);
+		Matrix b         = JeometryFactory.createMatrix(MathTestData.M_4x3_A);
 
 		Matrix result    = JeometryFactory.createMatrix(a.getRowsCount(), a.getColumnsCount());
 
@@ -887,8 +887,8 @@ public class MatrixTest {
 	 */
 	@Test
 	public void subtractMatrixAffectTest() {
-		Matrix a         = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
-		Matrix b         = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix a         = JeometryFactory.createMatrix(MathTestData.M_4x3_A);
+		Matrix b         = JeometryFactory.createMatrix(MathTestData.M_4x3_A);
 
 		Matrix reference = null;
 
@@ -907,7 +907,7 @@ public class MatrixTest {
 
 				for(int row = 0; row < reference.getRowsCount(); row++) {
 					for(int col = 0; col < reference.getColumnsCount(); col++) {
-						assertEquals("Invalid value ["+row+"x"+col+"]", MatrixTestData.M_4x3_A[row][col]-b.getValue(row, col), reference.getValue(row, col), Double.MIN_VALUE);
+						assertEquals("Invalid value ["+row+"x"+col+"]", MathTestData.M_4x3_A[row][col]-b.getValue(row, col), reference.getValue(row, col), Double.MIN_VALUE);
 					}
 				}
 
@@ -925,7 +925,7 @@ public class MatrixTest {
 	public void invertMatrixTest() {
 
 		// Test 3x3 matrix
-		Matrix a = JeometryFactory.createMatrix(MatrixTestData.M_3x3_A);
+		Matrix a = JeometryFactory.createMatrix(MathTestData.M_3x3_A);
 
 		Matrix result = null;
 
@@ -941,7 +941,7 @@ public class MatrixTest {
 
 				for(int row = 0; row < result.getRowsCount(); row++) {
 					for(int col = 0; col < result.getColumnsCount(); col++) {
-						assertEquals("Invalid value ["+row+"x"+col+"]", MatrixTestData.M_3x3_A_INV[row][col], result.getValue(row, col), Double.MIN_VALUE);
+						assertEquals("Invalid value ["+row+"x"+col+"]", MathTestData.M_3x3_A_INV[row][col], result.getValue(row, col), Double.MIN_VALUE);
 					}
 				}
 
@@ -952,7 +952,7 @@ public class MatrixTest {
 		}	
 
 		// Test 4x4 matrix
-		a = JeometryFactory.createMatrix(MatrixTestData.M_4x4_A);
+		a = JeometryFactory.createMatrix(MathTestData.M_4x4_A);
 
 		result = null;
 
@@ -968,7 +968,7 @@ public class MatrixTest {
 
 				for(int row = 0; row < result.getRowsCount(); row++) {
 					for(int col = 0; col < result.getColumnsCount(); col++) {
-						assertEquals("Invalid value ["+row+"x"+col+"]", MatrixTestData.M_4x4_A_INV[row][col], result.getValue(row, col), Double.MIN_VALUE);
+						assertEquals("Invalid value ["+row+"x"+col+"]", MathTestData.M_4x4_A_INV[row][col], result.getValue(row, col), Double.MIN_VALUE);
 					}
 				}
 
@@ -986,7 +986,7 @@ public class MatrixTest {
 	public void invertMatrixResultTest() {
 
 		// Testing 3x3 matrix
-		Matrix a = JeometryFactory.createMatrix(MatrixTestData.M_3x3_A);
+		Matrix a = JeometryFactory.createMatrix(MathTestData.M_3x3_A);
 
 		Matrix result = JeometryFactory.createMatrix(a.getRowsCount(), a.getColumnsCount());
 
@@ -1004,7 +1004,7 @@ public class MatrixTest {
 
 				for(int row = 0; row < result.getRowsCount(); row++) {
 					for(int col = 0; col < result.getColumnsCount(); col++) {
-						assertEquals("Invalid value ["+row+"x"+col+"]", MatrixTestData.M_3x3_A_INV[row][col], result.getValue(row, col), Double.MIN_VALUE);
+						assertEquals("Invalid value ["+row+"x"+col+"]", MathTestData.M_3x3_A_INV[row][col], result.getValue(row, col), Double.MIN_VALUE);
 					}
 				}
 
@@ -1015,7 +1015,7 @@ public class MatrixTest {
 		}
 
 		// Testing 4x4 matrix
-		a = JeometryFactory.createMatrix(MatrixTestData.M_4x4_A);
+		a = JeometryFactory.createMatrix(MathTestData.M_4x4_A);
 
 		result = JeometryFactory.createMatrix(a.getRowsCount(), a.getColumnsCount());
 
@@ -1033,7 +1033,7 @@ public class MatrixTest {
 
 				for(int row = 0; row < result.getRowsCount(); row++) {
 					for(int col = 0; col < result.getColumnsCount(); col++) {
-						assertEquals("Invalid value ["+row+"x"+col+"]", MatrixTestData.M_4x4_A_INV[row][col], result.getValue(row, col), Double.MIN_VALUE);
+						assertEquals("Invalid value ["+row+"x"+col+"]", MathTestData.M_4x4_A_INV[row][col], result.getValue(row, col), Double.MIN_VALUE);
 					}
 				}
 
@@ -1049,7 +1049,7 @@ public class MatrixTest {
 	 */
 	@Test
 	public void cofactorMatrixTest() {
-		Matrix a = JeometryFactory.createMatrix(MatrixTestData.M_3x3_A);
+		Matrix a = JeometryFactory.createMatrix(MathTestData.M_3x3_A);
 
 		Matrix result = null;
 
@@ -1065,7 +1065,7 @@ public class MatrixTest {
 
 				for(int row = 0; row < result.getRowsCount(); row++) {
 					for(int col = 0; col < result.getColumnsCount(); col++) {
-						assertEquals("Invalid value ["+row+"x"+col+"]", MatrixTestData.M_3x3_A_COFACTOR[row][col], result.getValue(row, col), Double.MIN_VALUE);
+						assertEquals("Invalid value ["+row+"x"+col+"]", MathTestData.M_3x3_A_COFACTOR[row][col], result.getValue(row, col), Double.MIN_VALUE);
 					}
 				}
 
@@ -1077,7 +1077,7 @@ public class MatrixTest {
 
 
 		// 4x4 matrix cofactor
-		a = JeometryFactory.createMatrix(MatrixTestData.M_4x4_A);
+		a = JeometryFactory.createMatrix(MathTestData.M_4x4_A);
 
 		result = null;
 
@@ -1093,7 +1093,7 @@ public class MatrixTest {
 
 				for(int row = 0; row < result.getRowsCount(); row++) {
 					for(int col = 0; col < result.getColumnsCount(); col++) {
-						assertEquals("Invalid value ["+row+"x"+col+"]", MatrixTestData.M_4x4_A_COFACTOR[row][col], result.getValue(row, col), Double.MIN_VALUE);
+						assertEquals("Invalid value ["+row+"x"+col+"]", MathTestData.M_4x4_A_COFACTOR[row][col], result.getValue(row, col), Double.MIN_VALUE);
 					}
 				}
 
@@ -1110,7 +1110,7 @@ public class MatrixTest {
 	@Test
 	public void setToTest() {
 
-		Matrix a = JeometryFactory.createMatrix(MatrixTestData.M_3x3_A);
+		Matrix a = JeometryFactory.createMatrix(MathTestData.M_3x3_A);
 
 		a.setTo(5.0d);
 
@@ -1132,7 +1132,7 @@ public class MatrixTest {
 		int rowCount = 3;
 		int colCount = 2;
 		
-		Matrix a = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix a = JeometryFactory.createMatrix(MathTestData.M_4x3_A);
 		
 		Matrix extraction = a.extract(rowOffset, colOffset, rowCount, colCount);
 		
@@ -1155,7 +1155,7 @@ public class MatrixTest {
 		int rowCount = 3;
 		int colCount = 2;
 		
-		Matrix a = JeometryFactory.createMatrix(MatrixTestData.M_4x3_A);
+		Matrix a = JeometryFactory.createMatrix(MathTestData.M_4x3_A);
 		
 		Matrix result = a.extract(rowOffset, colOffset, rowCount, colCount);
 		

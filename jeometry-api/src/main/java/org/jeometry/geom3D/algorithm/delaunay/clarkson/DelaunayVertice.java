@@ -9,6 +9,7 @@ import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.SpatialLocalization3D;
 import org.jeometry.geom3D.mesh.indexed.IndexedFace;
 import org.jeometry.geom3D.point.Point3D;
+import org.jeometry.math.Matrix;
 import org.jeometry.math.Vector;
 
 
@@ -366,9 +367,98 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 	public void setComponents(double[] components) {
 		point.setComponents(components);
 	}
-	
+
 	@Override
 	public Vector extract(int start, int length) {
 		return point.extract(start, length);
+	}
+
+	@Override
+	public void setComponents(double value) {
+		point.setComponents(value);
+	}
+
+	@Override
+	public void setComponents(Matrix matrix) {
+		point.setComponents(matrix);
+	}
+
+	@Override
+	public Vector plus(Vector v) {
+		return point.plus(v);
+	}
+
+	@Override
+	public Vector plus(Vector v, Vector result) {
+		return point.plus(v, result);
+	}
+
+	@Override
+	public DelaunayVertice<T> plusAffect(Vector v) {
+		point.plusAffect(v);
+		return this;
+	}
+
+	@Override
+	public Vector minus(Vector v) {
+		return point.minus(v);
+	}
+
+	@Override
+	public Vector minus(Vector v, Vector result) {
+		return point.minus(v, result);
+	}
+
+	@Override
+	public DelaunayVertice<T> minusAffect(Vector v) {
+		point.minusAffect(v);
+		return this;
+	}
+
+	@Override
+	public Vector multiply(Vector v) {
+		return point.multiply(v);
+	}
+
+	@Override
+	public Vector multiply(Vector v, Vector result) {
+		return point.multiply(v, result);
+	}
+
+	@Override
+	public Vector multiplyAffect(Vector v) {
+		point.multiplyAffect(v);
+		return this;
+	}
+
+	@Override
+	public Vector divide(Vector v) {
+		return point.divide(v);
+	}
+
+	@Override
+	public Vector divide(Vector v, Vector result) {
+		return point.divide(v);
+	}
+
+	@Override
+	public Vector divideAffect(Vector v) {
+		point.divideAffect(v);
+		return this;
+	}
+
+	@Override
+	public double dot(Vector v) {
+		return point.dot(v);
+	}
+
+	@Override
+	public void setValues(double x, double y, double z) {
+		point.setValues(x, y, z);
+	}
+
+	@Override
+	public void setValues(Point3D point) {
+		point.setValues(point);
 	}
 }

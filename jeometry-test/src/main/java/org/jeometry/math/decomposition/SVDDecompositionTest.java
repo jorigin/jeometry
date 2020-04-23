@@ -7,7 +7,7 @@ import static org.junit.Assert.fail;
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
 import org.jeometry.math.Matrix;
-import org.jeometry.math.MatrixTestData;
+import org.jeometry.math.MathTestData;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -57,7 +57,7 @@ public class SVDDecompositionTest {
 	@Test
 	public void svdDecompositionTest() {
 		
-		Matrix k = JeometryFactory.createMatrix(MatrixTestData.DECOMPOSITION_SVD_INPUT);
+		Matrix k = JeometryFactory.createMatrix(MathTestData.DECOMPOSITION_SVD_INPUT);
 
 		SVDDecomposition decomposition = JeometryFactory.createSVDDecomposition(k);
 		
@@ -70,8 +70,8 @@ public class SVDDecompositionTest {
 		Matrix u = decomposition.getU();
 		
 		assertNotNull("U is null", u);
-		assertEquals("U size error, expected ("+MatrixTestData.DECOMPOSITION_SVD_U.length+", "+MatrixTestData.DECOMPOSITION_SVD_U[0].length+") but got ("+u.getRowsCount()+", "+u.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_SVD_V.length, u.getRowsCount());
-		assertEquals("U size error, expected ("+MatrixTestData.DECOMPOSITION_SVD_U.length+", "+MatrixTestData.DECOMPOSITION_SVD_U[0].length+") but got ("+u.getRowsCount()+", "+u.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_SVD_V[0].length, u.getColumnsCount());
+		assertEquals("U size error, expected ("+MathTestData.DECOMPOSITION_SVD_U.length+", "+MathTestData.DECOMPOSITION_SVD_U[0].length+") but got ("+u.getRowsCount()+", "+u.getColumnsCount()+")", MathTestData.DECOMPOSITION_SVD_V.length, u.getRowsCount());
+		assertEquals("U size error, expected ("+MathTestData.DECOMPOSITION_SVD_U.length+", "+MathTestData.DECOMPOSITION_SVD_U[0].length+") but got ("+u.getRowsCount()+", "+u.getColumnsCount()+")", MathTestData.DECOMPOSITION_SVD_V[0].length, u.getColumnsCount());
 /*		
 		for(int row = 0; row < u.getRowsCount(); row++) {
 			for(int col = 0; col < u.getColumnsCount(); col++) {
@@ -84,12 +84,12 @@ public class SVDDecompositionTest {
 
         assertNotNull("S is null", s);
 		
-		assertEquals("S size error, expected ("+MatrixTestData.DECOMPOSITION_SVD_S.length+", "+MatrixTestData.DECOMPOSITION_SVD_S[0].length+") but got ("+s.getRowsCount()+", "+s.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_SVD_S.length, s.getRowsCount());
-		assertEquals("S size error, expected ("+MatrixTestData.DECOMPOSITION_SVD_S.length+", "+MatrixTestData.DECOMPOSITION_SVD_S[0].length+") but got ("+s.getRowsCount()+", "+s.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_SVD_S[0].length, s.getColumnsCount());
+		assertEquals("S size error, expected ("+MathTestData.DECOMPOSITION_SVD_S.length+", "+MathTestData.DECOMPOSITION_SVD_S[0].length+") but got ("+s.getRowsCount()+", "+s.getColumnsCount()+")", MathTestData.DECOMPOSITION_SVD_S.length, s.getRowsCount());
+		assertEquals("S size error, expected ("+MathTestData.DECOMPOSITION_SVD_S.length+", "+MathTestData.DECOMPOSITION_SVD_S[0].length+") but got ("+s.getRowsCount()+", "+s.getColumnsCount()+")", MathTestData.DECOMPOSITION_SVD_S[0].length, s.getColumnsCount());
 		
 		for(int row = 0; row < s.getRowsCount(); row++) {
 			for(int col = 0; col < s.getColumnsCount(); col++) {
-				assertEquals("Bad value ("+row+", "+col+")", s.getValue(row, col), MatrixTestData.DECOMPOSITION_SVD_S[row][col], EPSILON);
+				assertEquals("Bad value ("+row+", "+col+")", s.getValue(row, col), MathTestData.DECOMPOSITION_SVD_S[row][col], EPSILON);
 			}
 		}
 		
@@ -99,8 +99,8 @@ public class SVDDecompositionTest {
 		
         assertNotNull("V is null", v);
 		
-		assertEquals("V size error, expected ("+MatrixTestData.DECOMPOSITION_SVD_V.length+", "+MatrixTestData.DECOMPOSITION_SVD_V[0].length+") but got ("+v.getRowsCount()+", "+v.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_SVD_V.length, v.getRowsCount());
-		assertEquals("V size error, expected ("+MatrixTestData.DECOMPOSITION_SVD_V.length+", "+MatrixTestData.DECOMPOSITION_SVD_V[0].length+") but got ("+v.getRowsCount()+", "+v.getColumnsCount()+")", MatrixTestData.DECOMPOSITION_SVD_V[0].length, v.getColumnsCount());
+		assertEquals("V size error, expected ("+MathTestData.DECOMPOSITION_SVD_V.length+", "+MathTestData.DECOMPOSITION_SVD_V[0].length+") but got ("+v.getRowsCount()+", "+v.getColumnsCount()+")", MathTestData.DECOMPOSITION_SVD_V.length, v.getRowsCount());
+		assertEquals("V size error, expected ("+MathTestData.DECOMPOSITION_SVD_V.length+", "+MathTestData.DECOMPOSITION_SVD_V[0].length+") but got ("+v.getRowsCount()+", "+v.getColumnsCount()+")", MathTestData.DECOMPOSITION_SVD_V[0].length, v.getColumnsCount());
 /*		
 		for(int row = 0; row < v.getRowsCount(); row++) {
 			for(int col = 0; col < v.getColumnsCount(); col++) {

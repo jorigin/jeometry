@@ -6,6 +6,7 @@ import org.jeometry.geom2D.SpatialLocalization2D;
 import org.jeometry.geom2D.point.Coord2D;
 import org.jeometry.geom2D.point.Point2D;
 import org.jeometry.geom3D.point.Coord3D;
+import org.jeometry.math.Matrix;
 import org.jeometry.math.Vector;
 
 /**
@@ -38,6 +39,28 @@ public class SimplePoint2D implements Point2D{
 		coordinates[DIMENSION_Y] = y;
 	}
 
+	/**
+	 * Create a new {@link Point2D} by copying the given point. 
+	 * @param point the point to copy
+	 */
+	public SimplePoint2D(Point2D point) {
+		coordinates = new double[2];
+		coordinates[DIMENSION_X] = point.getX();
+		coordinates[DIMENSION_Y] = point.getY();
+	}
+	
+	@Override
+	public void setValues(double x, double y) {
+		setX(x);
+		setY(y);
+	}
+
+	@Override
+	public void setValues(Point2D point) {
+		setX(point.getX());
+		setY(point.getY());
+	}
+	
 	@Override
 	public int getDimension() {
 		return 2;
@@ -224,26 +247,235 @@ public class SimplePoint2D implements Point2D{
 			setVectorComponent(dimension, components[dimension]);
 		}
 	}
-	
+
+	@Override
+	public void setComponents(double value) {
+		for(int dimension = 0; dimension < getDimension(); dimension++) {
+			setVectorComponent(dimension, value);
+		}
+	}
+
+	@Override
+	public void setComponents(Matrix matrix) {
+		if (matrix == null) {
+			throw new IllegalArgumentException("Null input.");
+		}
+
+		int min = -1;
+		int max = -1;
+
+		boolean columnMatrix = false;
+
+		if (matrix.getRowsCount() < matrix.getColumnsCount()) {
+			min = matrix.getRowsCount();
+			max = matrix.getColumnsCount();
+			columnMatrix = true;
+		} else {
+			min = matrix.getColumnsCount();
+			max = matrix.getRowsCount();
+			columnMatrix = false;
+		}
+
+		if (min != 1) {
+			throw new IllegalArgumentException("Matrix "+matrix.getRowsCount()+"x"+ matrix.getColumnsCount()+" cannot be set to vector.");
+		}
+
+		if (max != getDimension()) {
+			throw new IllegalArgumentException("Matrix "+matrix.getRowsCount()+"x"+ matrix.getColumnsCount()+" cannot be set to a "+getDimension()+" vector");
+		}
+
+		if (columnMatrix) {
+			for(int dimension = 0; dimension < matrix.getColumnsCount(); dimension++) {
+				setVectorComponent(dimension, matrix.getValue(0, dimension));
+			}
+		} else {
+			for(int dimension = 0; dimension < matrix.getRowsCount(); dimension++) {
+				setVectorComponent(dimension, matrix.getValue(dimension, 0));	
+			}
+		}
+
+	}
+
 	@Override
 	public Vector extract(int start, int length) {
 		Vector extracted = null;
-		
+
 		if ((start < 0) || (start >= getDimension())) {
 			throw new IllegalArgumentException("Invalid first index "+start+", expected values within [0, "+(getDimension() - 1)+"]");
 		}
-		
+
 		if ((length < 1) || (length > getDimension() - start)) {
 			throw new IllegalArgumentException("Invalid length "+start+", expected values within [0, "+(getDimension() - start)+"[");
 		}
-		
+
 		extracted = JeometryFactory.createVector(length);
-		
+
 		for(int dimension = 0; dimension < extracted.getDimension(); dimension++) {
 			extracted.setVectorComponent(dimension, getVectorComponent(dimension+start));
 		}
-		
+
 		return extracted;
 	}
+
+	@Override
+	public Vector plus(Vector v) {
+		return (Point2D)plus(v, JeometryFactory.createPoint2D());
+	}
+
+	@Override
+	public Vector plus(Vector v, Vector result) {
+		if (v != null) {
+
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+
+			if (result != null) {
+
+				if (v.getDimension() != getDimension()) {
+					throw new IllegalArgumentException("Invalid result vector dimension "+result.getDimension()+", expected "+getDimension());
+				}
+
+				for(int dimension = 0; dimension < getDimension(); dimension++) {
+					result.setVectorComponent(dimension, getVectorComponent(dimension) + v.getVectorComponent(dimension));
+				}
+			}
+
+
+		}
+
+		return result;
+	}
+
+	@Override
+	public Vector plusAffect(Vector v) {
+		return (SimplePoint2D) plus(v, this);
+	}
+
+	@Override
+	public Point2D minus(Vector v) {
+		return (Point2D) minus(v, JeometryFactory.createPoint2D());
+	}
+
+	@Override
+	public Vector minus(Vector v, Vector result) {
+		if (v != null) {
+
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+
+			if (result != null) {
+
+				if (v.getDimension() != getDimension()) {
+					throw new IllegalArgumentException("Invalid result vector dimension "+result.getDimension()+", expected "+getDimension());
+				}
+
+				for(int dimension = 0; dimension < getDimension(); dimension++) {
+					result.setVectorComponent(dimension, getVectorComponent(dimension) - v.getVectorComponent(dimension));
+				}
+			}
+
+
+		}
+
+		return result;
+	}
+
+	@Override
+	public SimplePoint2D minusAffect(Vector v) {
+		return (SimplePoint2D) minus(v, this);
+	}
+
+	@Override
+	public Point2D multiply(Vector v) {
+		return (Point2D) multiply(v, JeometryFactory.createPoint2D());
+	}
+
+	@Override
+	public Vector multiply(Vector v, Vector result) {
+		if (v != null) {
+
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+
+			if (result != null) {
+
+				if (v.getDimension() != getDimension()) {
+					throw new IllegalArgumentException("Invalid result vector dimension "+result.getDimension()+", expected "+getDimension());
+				}
+
+				for(int dimension = 0; dimension < getDimension(); dimension++) {
+					result.setVectorComponent(dimension, getVectorComponent(dimension) * v.getVectorComponent(dimension));
+				}
+			}
+
+
+		}
+
+		return result;
+	}
+
+	@Override
+	public SimplePoint2D multiplyAffect(Vector v) {
+		return (SimplePoint2D) multiply(v, this);
+	}
+
+	@Override
+	public Point2D divide(Vector v) {
+		return (Point2D) divide(v, JeometryFactory.createPoint2D());
+	}
+
+	@Override
+	public Vector divide(Vector v, Vector result) {
+		if (v != null) {
+
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+
+			if (result != null) {
+
+				if (v.getDimension() != getDimension()) {
+					throw new IllegalArgumentException("Invalid result vector dimension "+result.getDimension()+", expected "+getDimension());
+				}
+
+				for(int dimension = 0; dimension < getDimension(); dimension++) {
+					result.setVectorComponent(dimension, getVectorComponent(dimension) * v.getVectorComponent(dimension));
+				}
+			}
+
+
+		}
+
+		return result;
+	}
+
+	@Override
+	public SimplePoint2D divideAffect(Vector v) {
+		return (SimplePoint2D) divide(v, this);
+	}
+
+	@Override
+	public double dot(Vector v) {
+		
+		if (v != null) {
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+			
+			double d = 0.0d;
+			
+			for(int dimension = 0; dimension < getDimension(); dimension++) {
+				d = d + getVectorComponent(dimension) * v.getVectorComponent(dimension);
+			}
+			
+			return d;
+		}
+		
+		return Double.NaN;
+	}
+
 
 }

@@ -2,6 +2,7 @@ package org.jeometry.simple.math;
 
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
+import org.jeometry.math.Matrix;
 import org.jeometry.math.Quaternion;
 import org.jeometry.math.Vector;
 
@@ -19,6 +20,43 @@ public class SimpleQuaternion implements Quaternion {
 	private double j      = Double.NaN;
 	private double k      = Double.NaN;
 
+	/**
+	 * Create a new simple quaternion equals to <i>0</i>
+	 */
+	public SimpleQuaternion() {
+		this.scalar = 0.0d;
+		this.i = 0.0d;
+		this.j = 0.0d;
+		this.k = 0.0d;
+	}
+
+	/**
+	 * Create a new simple quaternion with the given components.
+	 * @param scalar the quaternion real part (or scalar) parameter, denoted <i>a</i> within the definition .
+	 * @param i the <i>i</i> basis component of the quaternion vector part (or imaginary part) parameter.
+	 * @param j the <i>j</i> basis component of the quaternion vector part (or imaginary part) parameter.
+	 * @param k the <i>k</i> basis component of the quaternion vector part (or imaginary part) parameter.
+	 */
+	public SimpleQuaternion(double scalar, double i, double j, double k) {
+		this.scalar = scalar;
+		this.i = i;
+		this.j = j;
+		this.k = k;
+	}
+
+	/**
+	 * Create a new simple quaternion that is a copy of the given one.
+	 * @param quaternion the quaternion to copy.
+	 */
+	public SimpleQuaternion(Quaternion quaternion) {
+		if (quaternion != null) {
+			this.scalar = quaternion.getScalar();
+			this.i = quaternion.getI();
+			this.j = quaternion.getJ();
+			this.k = quaternion.getK();
+		}
+	}
+	
 	@Override
 	public int getDimension() {
 		return 4;
@@ -173,7 +211,7 @@ public class SimpleQuaternion implements Quaternion {
 	}
 
 	@Override
-	public Vector multiplyAffect(double scalar) {
+	public Quaternion multiplyAffect(double scalar) {
 		for(int dimension = 0; dimension < getDimension(); dimension++) {
 			setVectorComponent(dimension, getVectorComponent(dimension)*scalar);
 		}
@@ -249,6 +287,54 @@ public class SimpleQuaternion implements Quaternion {
 		k      = d;
 	}
 
+	@Override
+	public void setComponents(double value) {
+		for(int dimension = 0; dimension < getDimension(); dimension++) {
+			setVectorComponent(dimension, value);
+		}
+	}
+
+	@Override
+	public void setComponents(Matrix matrix) {
+		if (matrix == null) {
+			throw new IllegalArgumentException("Null input.");
+		}
+
+		int min = -1;
+		int max = -1;
+
+		boolean columnMatrix = false;
+
+		if (matrix.getRowsCount() < matrix.getColumnsCount()) {
+			min = matrix.getRowsCount();
+			max = matrix.getColumnsCount();
+			columnMatrix = true;
+		} else {
+			min = matrix.getColumnsCount();
+			max = matrix.getRowsCount();
+			columnMatrix = false;
+		}
+
+		if (min != 1) {
+			throw new IllegalArgumentException("Matrix "+matrix.getRowsCount()+"x"+ matrix.getColumnsCount()+" cannot be set to vector.");
+		}
+
+		if (max != getDimension()) {
+			throw new IllegalArgumentException("Matrix "+matrix.getRowsCount()+"x"+ matrix.getColumnsCount()+" cannot be set to a "+getDimension()+" vector");
+		}
+
+		if (columnMatrix) {
+			for(int dimension = 0; dimension < matrix.getColumnsCount(); dimension++) {
+				setVectorComponent(dimension, matrix.getValue(0, dimension));
+			}
+		} else {
+			for(int dimension = 0; dimension < matrix.getRowsCount(); dimension++) {
+				setVectorComponent(dimension, matrix.getValue(dimension, 0));	
+			}
+		}
+
+	}
+	
 	@Override
 	public Quaternion mult(Quaternion p) {
 		return mult(p, new SimpleQuaternion());
@@ -359,41 +445,163 @@ public class SimpleQuaternion implements Quaternion {
 		return str;
 	}
 
-	/**
-	 * Create a new simple quaternion equals to <i>0</i>
-	 */
-	public SimpleQuaternion() {
-		this.scalar = 0.0d;
-		this.i = 0.0d;
-		this.j = 0.0d;
-		this.k = 0.0d;
+	@Override
+	public Quaternion plus(Vector v) {
+		return (Quaternion)plus(v, JeometryFactory.createQuaternion());
 	}
 
-	/**
-	 * Create a new simple quaternion with the given components.
-	 * @param scalar the quaternion real part (or scalar) parameter, denoted <i>a</i> within the definition .
-	 * @param i the <i>i</i> basis component of the quaternion vector part (or imaginary part) parameter.
-	 * @param j the <i>j</i> basis component of the quaternion vector part (or imaginary part) parameter.
-	 * @param k the <i>k</i> basis component of the quaternion vector part (or imaginary part) parameter.
-	 */
-	public SimpleQuaternion(double scalar, double i, double j, double k) {
-		this.scalar = scalar;
-		this.i = i;
-		this.j = j;
-		this.k = k;
-	}
+	@Override
+	public Vector plus(Vector v, Vector result) {
+		if (v != null) {
 
-	/**
-	 * Create a new simple quaternion that is a copy of the given one.
-	 * @param quaternion the quaternion to copy.
-	 */
-	public SimpleQuaternion(Quaternion quaternion) {
-		if (quaternion != null) {
-			this.scalar = quaternion.getScalar();
-			this.i = quaternion.getI();
-			this.j = quaternion.getJ();
-			this.k = quaternion.getK();
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+
+			if (result != null) {
+
+				if (v.getDimension() != getDimension()) {
+					throw new IllegalArgumentException("Invalid result vector dimension "+result.getDimension()+", expected "+getDimension());
+				}
+
+				for(int dimension = 0; dimension < getDimension(); dimension++) {
+					result.setVectorComponent(dimension, getVectorComponent(dimension) + v.getVectorComponent(dimension));
+				}
+			}
+
+
 		}
+
+		return result;
 	}
 
+	@Override
+	public Quaternion plusAffect(Vector v) {
+		return (Quaternion) plus(v, this);
+	}
+
+	@Override
+	public Vector minus(Vector v) {
+		return minus(v, JeometryFactory.createVector(getDimension()));
+	}
+
+	@Override
+	public Vector minus(Vector v, Vector result) {
+		if (v != null) {
+
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+
+			if (result != null) {
+
+				if (v.getDimension() != getDimension()) {
+					throw new IllegalArgumentException("Invalid result vector dimension "+result.getDimension()+", expected "+getDimension());
+				}
+
+				for(int dimension = 0; dimension < getDimension(); dimension++) {
+					result.setVectorComponent(dimension, getVectorComponent(dimension) - v.getVectorComponent(dimension));
+				}
+			}
+
+
+		}
+
+		return result;
+	}
+
+	@Override
+	public Quaternion minusAffect(Vector v) {
+		return (Quaternion) minus(v, this);
+	}
+
+	@Override
+	public Vector multiply(Vector v) {
+		return multiply(v, JeometryFactory.createVector(getDimension()));
+	}
+
+	@Override
+	public Vector multiply(Vector v, Vector result) {
+		if (v != null) {
+
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+
+			if (result != null) {
+
+				if (v.getDimension() != getDimension()) {
+					throw new IllegalArgumentException("Invalid result vector dimension "+result.getDimension()+", expected "+getDimension());
+				}
+
+				for(int dimension = 0; dimension < getDimension(); dimension++) {
+					result.setVectorComponent(dimension, getVectorComponent(dimension) * v.getVectorComponent(dimension));
+				}
+			}
+
+
+		}
+
+		return result;
+	}
+
+	@Override
+	public Quaternion multiplyAffect(Vector v) {
+		return (Quaternion) multiply(v, this);
+	}
+
+	@Override
+	public Vector divide(Vector v) {
+		return divide(v, JeometryFactory.createVector(getDimension()));
+	}
+
+	@Override
+	public Vector divide(Vector v, Vector result) {
+		if (v != null) {
+
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+
+			if (result != null) {
+
+				if (v.getDimension() != getDimension()) {
+					throw new IllegalArgumentException("Invalid result vector dimension "+result.getDimension()+", expected "+getDimension());
+				}
+
+				for(int dimension = 0; dimension < getDimension(); dimension++) {
+					result.setVectorComponent(dimension, getVectorComponent(dimension) / v.getVectorComponent(dimension));
+				}
+			}
+
+
+		}
+
+		return result;
+	}
+
+	@Override
+	public Quaternion divideAffect(Vector v) {
+		return (Quaternion) divide(v, this);
+	}
+	
+	@Override
+	public double dot(Vector v) {
+		
+		if (v != null) {
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+			
+			double d = 0.0d;
+			
+			for(int dimension = 0; dimension < getDimension(); dimension++) {
+				d = d + dimension + getVectorComponent(dimension) * v.getVectorComponent(dimension);
+			}
+			
+			return d;
+		}
+		
+		return Double.NaN;
+	}
 }
