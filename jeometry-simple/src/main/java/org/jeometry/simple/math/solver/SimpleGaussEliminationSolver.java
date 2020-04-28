@@ -121,18 +121,18 @@ public class SimpleGaussEliminationSolver implements Solver {
         
     	// Initialisation
     	for(int row = 0; row < result.getDimension(); row++) {
-    		result.setVectorComponent(row, 0.0d);
+    		result.setValue(row, 0.0d);
     	}
  
     	// back substitution
         for (int i = Math.min(columns-1, rows-1); i >= 0; i--) {
             double sum = 0.0;
             for (int j = i+1; j < columns; j++) {
-                sum += augmented.getValue(i, j) * result.getVectorComponent(j);
+                sum += augmented.getValue(i, j) * result.getValue(j);
             }
 
             if (Math.abs(augmented.getValue(i, i)) > EPSILON) {
-            	result.setVectorComponent(i, (augmented.getValue(i, columns) - sum) / augmented.getValue(i, i));
+            	result.setValue(i, (augmented.getValue(i, columns) - sum) / augmented.getValue(i, i));
             } else if (Math.abs(augmented.getValue(i, columns) - sum) > EPSILON) {
                 return false;
             }
@@ -142,7 +142,7 @@ public class SimpleGaussEliminationSolver implements Solver {
         for (int i = columns; i < rows; i++) {
             double sum = 0.0;
             for (int j = 0; j < columns; j++) {
-                sum += augmented.getValue(i, j) * result.getVectorComponent(j);
+                sum += augmented.getValue(i, j) * result.getValue(j);
             }
             
             if (Math.abs(augmented.getValue(i, columns) - sum) > EPSILON) {
@@ -224,7 +224,7 @@ public class SimpleGaussEliminationSolver implements Solver {
 		        }
 		            
 		        for (int i = 0; i < rows; i++) {
-		        	augmented.setValue(i, columns, b.getVectorComponent(i));
+		        	augmented.setValue(i, columns, b.getValue(i));
 		        }
 
 		        // Forward elimination

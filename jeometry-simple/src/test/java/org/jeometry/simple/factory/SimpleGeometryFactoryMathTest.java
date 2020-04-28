@@ -2,11 +2,11 @@ package org.jeometry.simple.factory;
 
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
-import org.jeometry.factory.GeometryFactoryMathTest;
 import org.jeometry.simple.math.SimpleMatrix;
 import org.jeometry.simple.math.SimpleQuaternion;
 import org.jeometry.simple.math.SimpleVector;
-import org.junit.BeforeClass;
+import org.jeometry.test.factory.GeometryFactoryMathTest;
+import org.junit.jupiter.api.BeforeAll;
 
 /**
  * A test class for {@link JeometryFactory} methods.
@@ -20,7 +20,7 @@ public class SimpleGeometryFactoryMathTest extends GeometryFactoryMathTest {
 	/**
 	 * Test initialization.
 	 */
-	@BeforeClass
+	@BeforeAll
 	public static void init() {
 		JeometryFactory.setMathBuilder(new SimpleMathBuilder());
 		

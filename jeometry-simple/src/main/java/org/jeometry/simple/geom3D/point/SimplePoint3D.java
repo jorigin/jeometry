@@ -24,7 +24,7 @@ public class SimplePoint3D implements Point3D{
 	}
 
 	@Override
-	public double getVectorComponent(int dimension) {
+	public double getValue(int dimension) {
 
 		if ((dimension >= 0)&&(dimension < 4)){
 			return coordinates[dimension];
@@ -36,7 +36,7 @@ public class SimplePoint3D implements Point3D{
 	}
 
 	@Override
-	public void setVectorComponent(int dimension, double value) {
+	public void setValue(int dimension, double value) {
 		if ((dimension >= 0)&&(dimension < 4)){
 			coordinates[dimension] = value;
 		} else {
@@ -182,6 +182,15 @@ public class SimplePoint3D implements Point3D{
 		return getX()*point.getX() + getY()*point.getY() + getZ()*point.getZ();
 	}
 
+	@Override
+	public Vector multiply(double scalar, Vector result) throws IllegalArgumentException {
+		
+		if (result != null) {
+			result.setValues(new double[] {getX()*scalar, getY()*scalar, getZ()*scalar});
+		}
+		
+		return result;
+	}
 
 	@Override
 	public double norm() {
@@ -211,17 +220,17 @@ public class SimplePoint3D implements Point3D{
 	public Point3D orthogonal(Vector result) {
 
 		if (Math.abs(getX()) <= Math.abs(getY()) && Math.abs(getX()) <= Math.abs(getX())) {
-			result.setVectorComponent(Coord3D.DIMENSION_X, 0); 
-			result.setVectorComponent(Coord3D.DIMENSION_Y, getZ()); 
-			result.setVectorComponent(Coord3D.DIMENSION_Z, -getY());
+			result.setValue(Coord3D.DIMENSION_X, 0); 
+			result.setValue(Coord3D.DIMENSION_Y, getZ()); 
+			result.setValue(Coord3D.DIMENSION_Z, -getY());
 		} else if (Math.abs(getY()) <= Math.abs(getX()) && Math.abs(getY()) <= Math.abs(getZ())) {
-			result.setVectorComponent(Coord3D.DIMENSION_X, -getZ()); 
-			result.setVectorComponent(Coord3D.DIMENSION_Y, 0); 
-			result.setVectorComponent(Coord3D.DIMENSION_Z, getX());
+			result.setValue(Coord3D.DIMENSION_X, -getZ()); 
+			result.setValue(Coord3D.DIMENSION_Y, 0); 
+			result.setValue(Coord3D.DIMENSION_Z, getX());
 		} else {
-			result.setVectorComponent(Coord3D.DIMENSION_X, getY()); 
-			result.setVectorComponent(Coord3D.DIMENSION_Y, -getX()); 
-			result.setVectorComponent(Coord3D.DIMENSION_Z, 0);
+			result.setValue(Coord3D.DIMENSION_X, getY()); 
+			result.setValue(Coord3D.DIMENSION_Y, -getX()); 
+			result.setValue(Coord3D.DIMENSION_Z, 0);
 		}
 
 		result.normalize();
@@ -231,36 +240,6 @@ public class SimplePoint3D implements Point3D{
 		} else {
 			return null;
 		}
-	}
-
-	@Override
-	public Vector multiply(double scalar) {
-		return mult(scalar);
-	}
-
-	@Override
-	public Vector multiply(double scalar, Vector result) throws IllegalArgumentException {
-		if (result != null) {
-
-			if (result instanceof Point3D) {
-				return mult(scalar, (Point3D) result);
-			} else {
-				if (result.getDimension() >= getDimension()) {
-					for(int dimension = 0; dimension < getDimension(); dimension++) {
-						result.setVectorComponent(dimension, getVectorComponent(dimension)*scalar);
-					}
-				} else {
-					throw new IllegalArgumentException("Invalid result vector dimension ("+result.getDimension()+"), expected at least "+getDimension());
-				}
-			}
-		}
-
-		return result;
-	}
-
-	@Override
-	public SimplePoint3D multiplyAffect(double scalar) {
-		return multAffect(scalar);
 	}
 
 	/**
@@ -395,23 +374,13 @@ public class SimplePoint3D implements Point3D{
 		return this;
 	}
 
-	/**
-	 * Compute the product of the vector represented by this point and the scalar given in parameter and return the result as a new point.
-	 * Let <i>a</i> be a vector and let <i>&lambda;</i> be a scalar, the product, denoted <i>a</i>&nbsp;&times;&nbsp;<i>&lambda;</i>, is a vector such that:<br>
-	 * $$ a \times \lambda\ =\ (x \times \lambda,\ y \times \lambda,\ z \times \lambda)$$
-	 * If this point has to be modified, the {@link #multAffect(double)} method can be used.<br><br>
-	 * The returned object is a new {@link Point3D IPoint3D} that is instantiated by the {@link JeometryFactory geometry factory} using the {@link JeometryFactory#createPoint3D(double, double, double) createPoint3D(double, double, double)} method.
-	 * @param scalar the scalar to multiply.
-	 * @return the product of the vector represented by this point and the scalar given in parameter.
-	 * @see #mult(double, Point3D)
-	 */
 	@Override
-	public Point3D mult(double scalar) {
+	public Point3D multiply(double scalar) {
 		return JeometryFactory.createPoint3D(getX()*scalar, getY()*scalar, getZ()*scalar);
 	}
 
 	@Override
-	public Point3D mult(double scalar, Point3D result) {
+	public Point3D multiply(double scalar, Point3D result) {
 		result.setX(getX()*scalar);
 		result.setY(getY()*scalar);
 		result.setZ(getZ()*scalar);
@@ -419,7 +388,7 @@ public class SimplePoint3D implements Point3D{
 	}
 
 	@Override
-	public SimplePoint3D multAffect(double scalar) {
+	public SimplePoint3D multiplyAffect(double scalar) {
 		setX(getX() * scalar);
 		setY(getY() * scalar);
 		setZ(getZ() * scalar);
@@ -514,7 +483,7 @@ public class SimplePoint3D implements Point3D{
 	}
 	
 	@Override
-	public void setComponents(Vector v) {
+	public void setValues(Vector v) {
 		if (v == null) {
 			throw new IllegalArgumentException("Null input vector");
 		}
@@ -524,17 +493,17 @@ public class SimplePoint3D implements Point3D{
 		}
 
 		for(int dimension = 0; dimension < getDimension(); dimension++) {
-			setVectorComponent(dimension, v.getVectorComponent(dimension));
+			setValue(dimension, v.getValue(dimension));
 		}
 	}
 
 	@Override
-	public double[] getComponents() {
-		return getComponents(new double[getDimension()]);
+	public double[] getValues() {
+		return getValues(new double[getDimension()]);
 	}
 
 	@Override
-	public double[] getComponents(double[] components) {
+	public double[] getValues(double[] components) {
 		if (components == null) {
 			throw new IllegalArgumentException("Null output array");
 		}
@@ -544,14 +513,14 @@ public class SimplePoint3D implements Point3D{
 		}
 
 		for(int dimension = 0; dimension < getDimension(); dimension++) {
-			components[dimension] = getVectorComponent(dimension);
+			components[dimension] = getValue(dimension);
 		}
 
 		return components;
 	}
 
 	@Override
-	public void setComponents(double[] components) {
+	public void setValues(double[] components) {
 		if (components == null) {
 			throw new IllegalArgumentException("Null input array");
 		}
@@ -561,19 +530,19 @@ public class SimplePoint3D implements Point3D{
 		}
 
 		for(int dimension = 0; dimension < getDimension(); dimension++) {
-			setVectorComponent(dimension, components[dimension]);
+			setValue(dimension, components[dimension]);
 		}
 	}
 	
 	@Override
-	public void setComponents(double value) {
+	public void setValues(double value) {
 		for(int dimension = 0; dimension < getDimension(); dimension++) {
-			setVectorComponent(dimension, value);
+			setValue(dimension, value);
 		}
 	}
 
 	@Override
-	public void setComponents(Matrix matrix) {
+	public void setValues(Matrix matrix) {
 		if (matrix == null) {
 			throw new IllegalArgumentException("Null input.");
 		}
@@ -603,11 +572,11 @@ public class SimplePoint3D implements Point3D{
 
 		if (columnMatrix) {
 			for(int dimension = 0; dimension < matrix.getColumnsCount(); dimension++) {
-				setVectorComponent(dimension, matrix.getValue(0, dimension));
+				setValue(dimension, matrix.getValue(0, dimension));
 			}
 		} else {
 			for(int dimension = 0; dimension < matrix.getRowsCount(); dimension++) {
-				setVectorComponent(dimension, matrix.getValue(dimension, 0));	
+				setValue(dimension, matrix.getValue(dimension, 0));	
 			}
 		}
 
@@ -628,7 +597,7 @@ public class SimplePoint3D implements Point3D{
 		extracted = JeometryFactory.createVector(length);
 		
 		for(int dimension = 0; dimension < extracted.getDimension(); dimension++) {
-			extracted.setVectorComponent(dimension, getVectorComponent(dimension+start));
+			extracted.setValue(dimension, getValue(dimension+start));
 		}
 		
 		return extracted;
@@ -654,7 +623,7 @@ public class SimplePoint3D implements Point3D{
 				}
 
 				for(int dimension = 0; dimension < getDimension(); dimension++) {
-					result.setVectorComponent(dimension, getVectorComponent(dimension) + v.getVectorComponent(dimension));
+					result.setValue(dimension, getValue(dimension) + v.getValue(dimension));
 				}
 			}
 
@@ -672,7 +641,7 @@ public class SimplePoint3D implements Point3D{
 			}
 
 			for(int dimension = 0; dimension < getDimension(); dimension++) {
-				setVectorComponent(dimension, getVectorComponent(dimension) + v.getVectorComponent(dimension));
+				setValue(dimension, getValue(dimension) + v.getValue(dimension));
 			}
 		}
 
@@ -700,7 +669,7 @@ public class SimplePoint3D implements Point3D{
 				}
 
 				for(int dimension = 0; dimension < getDimension(); dimension++) {
-					result.setVectorComponent(dimension, getVectorComponent(dimension) - v.getVectorComponent(dimension));
+					result.setValue(dimension, getValue(dimension) - v.getValue(dimension));
 				}
 			}
 
@@ -735,7 +704,7 @@ public class SimplePoint3D implements Point3D{
 				}
 
 				for(int dimension = 0; dimension < getDimension(); dimension++) {
-					result.setVectorComponent(dimension, getVectorComponent(dimension) * v.getVectorComponent(dimension));
+					result.setValue(dimension, getValue(dimension) * v.getValue(dimension));
 				}
 			}
 
@@ -770,7 +739,7 @@ public class SimplePoint3D implements Point3D{
 				}
 
 				for(int dimension = 0; dimension < getDimension(); dimension++) {
-					result.setVectorComponent(dimension, getVectorComponent(dimension) / v.getVectorComponent(dimension));
+					result.setValue(dimension, getValue(dimension) / v.getValue(dimension));
 				}
 			}
 
@@ -796,7 +765,7 @@ public class SimplePoint3D implements Point3D{
 			double d = 0.0d;
 			
 			for(int dimension = 0; dimension < getDimension(); dimension++) {
-				d = d + getVectorComponent(dimension) * v.getVectorComponent(dimension);
+				d = d + getValue(dimension) * v.getValue(dimension);
 			}
 			
 			return d;
@@ -804,4 +773,5 @@ public class SimplePoint3D implements Point3D{
 		
 		return Double.NaN;
 	}
+
 }

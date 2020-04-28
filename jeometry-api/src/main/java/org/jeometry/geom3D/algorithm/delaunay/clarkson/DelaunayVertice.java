@@ -107,29 +107,18 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 	}
 
 	@Override
-	public double getVectorComponent(int dimension) {
-		return point.getVectorComponent(dimension);
+	public double getValue(int dimension) {
+		return point.getValue(dimension);
 	}
 
 	@Override
-	public void setVectorComponent(int dimension, double value) {
-		point.setVectorComponent(dimension, value);
-	}
-
-	@Override
-	public Vector multiply(double scalar) {
-		return point.multiply(scalar);
+	public void setValue(int dimension, double value) {
+		point.setValue(dimension, value);
 	}
 
 	@Override
 	public Vector multiply(double scalar, Vector result) throws IllegalArgumentException {
 		return point.multiply(scalar, result);
-	}
-
-	@Override
-	public Vector multiplyAffect(double scalar) {
-		point.multiplyAffect(scalar);
-		return this;
 	}
 
 	@Override
@@ -262,18 +251,18 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 	}
 
 	@Override
-	public Point3D mult(double scalar) {
-		return point.mult(scalar);
+	public Point3D multiply(double scalar) {
+		return point.multiply(scalar);
 	}
 
 	@Override
-	public Point3D mult(double scalar, Point3D result) {
-		return point.mult(scalar, result);
+	public Point3D multiply(double scalar, Point3D result) {
+		return point.multiply(scalar, result);
 	}
 
 	@Override
-	public Point3D multAffect(double scalar) {
-		point.multAffect(scalar);
+	public Point3D multiplyAffect(double scalar) {
+		point.multiplyAffect(scalar);
 		return this;
 	}
 
@@ -349,23 +338,23 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 	}
 
 	@Override
-	public void setComponents(Vector v) {
-		point.setComponents(v);
+	public void setValues(Vector v) {
+		point.setValues(v);
 	}
 
 	@Override
-	public double[] getComponents() {
-		return point.getComponents();
+	public double[] getValues() {
+		return point.getValues();
 	}
 
 	@Override
-	public double[] getComponents(double[] components) {
-		return point.getComponents(components);
+	public double[] getValues(double[] components) {
+		return point.getValues(components);
 	}
 
 	@Override
-	public void setComponents(double[] components) {
-		point.setComponents(components);
+	public void setValues(double[] components) {
+		point.setValues(components);
 	}
 
 	@Override
@@ -374,13 +363,13 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 	}
 
 	@Override
-	public void setComponents(double value) {
-		point.setComponents(value);
+	public void setValues(double value) {
+		point.setValues(value);
 	}
 
 	@Override
-	public void setComponents(Matrix matrix) {
-		point.setComponents(matrix);
+	public void setValues(Matrix matrix) {
+		point.setValues(matrix);
 	}
 
 	@Override

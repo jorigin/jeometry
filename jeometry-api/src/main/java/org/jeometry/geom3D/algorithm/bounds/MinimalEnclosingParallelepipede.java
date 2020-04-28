@@ -518,9 +518,9 @@ public class MinimalEnclosingParallelepipede {
 
 			try {
 				if (solver.solve(coefficients, constants, solution) != null) {
-					parallelepipedVertices[0][0]  = solution.getVectorComponent(0);
-					parallelepipedVertices[0][1]  = solution.getVectorComponent(1);
-					parallelepipedVertices[0][3]  = solution.getVectorComponent(2);
+					parallelepipedVertices[0][0]  = solution.getValue(0);
+					parallelepipedVertices[0][1]  = solution.getValue(1);
+					parallelepipedVertices[0][3]  = solution.getValue(2);
 				} else {
 					Jeometry.logger.log(Level.SEVERE, "Cannot solve linear system");
 					parallelepipedVertices[0] = null;
@@ -546,9 +546,9 @@ public class MinimalEnclosingParallelepipede {
 
 			try {
 				if (solver.solve(coefficients, constants, solution) != null) {
-					parallelepipedVertices[1][0]  = solution.getVectorComponent(0);
-					parallelepipedVertices[1][1]  = solution.getVectorComponent(1);
-					parallelepipedVertices[1][3]  = solution.getVectorComponent(2);
+					parallelepipedVertices[1][0]  = solution.getValue(0);
+					parallelepipedVertices[1][1]  = solution.getValue(1);
+					parallelepipedVertices[1][3]  = solution.getValue(2);
 				} else {
 					Jeometry.logger.log(Level.SEVERE, "Cannot solve linear system");
 					parallelepipedVertices[1] = null;
@@ -574,9 +574,9 @@ public class MinimalEnclosingParallelepipede {
 
 			try {
 				if (solver.solve(coefficients, constants, solution) != null) {
-					parallelepipedVertices[2][0]  = solution.getVectorComponent(0);
-					parallelepipedVertices[2][1]  = solution.getVectorComponent(1);
-					parallelepipedVertices[2][3]  = solution.getVectorComponent(2);
+					parallelepipedVertices[2][0]  = solution.getValue(0);
+					parallelepipedVertices[2][1]  = solution.getValue(1);
+					parallelepipedVertices[2][3]  = solution.getValue(2);
 				} else {
 					Jeometry.logger.log(Level.SEVERE, "Cannot solve linear system");
 					parallelepipedVertices[2] = null;
@@ -602,9 +602,9 @@ public class MinimalEnclosingParallelepipede {
 
 			try {
 				if (solver.solve(coefficients, constants, solution) != null) {
-					parallelepipedVertices[3][0]  = solution.getVectorComponent(0);
-					parallelepipedVertices[3][1]  = solution.getVectorComponent(1);
-					parallelepipedVertices[3][3]  = solution.getVectorComponent(2);
+					parallelepipedVertices[3][0]  = solution.getValue(0);
+					parallelepipedVertices[3][1]  = solution.getValue(1);
+					parallelepipedVertices[3][3]  = solution.getValue(2);
 				} else {
 					Jeometry.logger.log(Level.SEVERE, "Cannot solve linear system");
 					parallelepipedVertices[3] = null;
@@ -630,9 +630,9 @@ public class MinimalEnclosingParallelepipede {
 
 			try {
 				if (solver.solve(coefficients, constants, solution) != null) {
-					parallelepipedVertices[4][0]  = solution.getVectorComponent(0);
-					parallelepipedVertices[4][1]  = solution.getVectorComponent(1);
-					parallelepipedVertices[4][3]  = solution.getVectorComponent(2);
+					parallelepipedVertices[4][0]  = solution.getValue(0);
+					parallelepipedVertices[4][1]  = solution.getValue(1);
+					parallelepipedVertices[4][3]  = solution.getValue(2);
 				} else {
 					Jeometry.logger.log(Level.SEVERE, "Cannot solve linear system");
 					parallelepipedVertices[4] = null;
@@ -658,9 +658,9 @@ public class MinimalEnclosingParallelepipede {
 
 			try {
 				if (solver.solve(coefficients, constants, solution) != null) {
-					parallelepipedVertices[5][0]  = solution.getVectorComponent(0);
-					parallelepipedVertices[5][1]  = solution.getVectorComponent(1);
-					parallelepipedVertices[5][3]  = solution.getVectorComponent(2);
+					parallelepipedVertices[5][0]  = solution.getValue(0);
+					parallelepipedVertices[5][1]  = solution.getValue(1);
+					parallelepipedVertices[5][3]  = solution.getValue(2);
 				} else {
 					Jeometry.logger.log(Level.SEVERE, "Cannot solve linear system");
 					parallelepipedVertices[5] = null;
@@ -686,9 +686,9 @@ public class MinimalEnclosingParallelepipede {
 
 			try {
 				if (solver.solve(coefficients, constants, solution) != null) {
-					parallelepipedVertices[6][0]  = solution.getVectorComponent(0);
-					parallelepipedVertices[6][1]  = solution.getVectorComponent(1);
-					parallelepipedVertices[6][3]  = solution.getVectorComponent(2);
+					parallelepipedVertices[6][0]  = solution.getValue(0);
+					parallelepipedVertices[6][1]  = solution.getValue(1);
+					parallelepipedVertices[6][3]  = solution.getValue(2);
 				} else {
 					Jeometry.logger.log(Level.SEVERE, "Cannot solve linear system");
 					parallelepipedVertices[6] = null;
@@ -714,9 +714,9 @@ public class MinimalEnclosingParallelepipede {
 
 			try {
 				if (solver.solve(coefficients, constants, solution) != null) {
-					parallelepipedVertices[7][0]  = solution.getVectorComponent(0);
-					parallelepipedVertices[7][1]  = solution.getVectorComponent(1);
-					parallelepipedVertices[7][3]  = solution.getVectorComponent(2);
+					parallelepipedVertices[7][0]  = solution.getValue(0);
+					parallelepipedVertices[7][1]  = solution.getValue(1);
+					parallelepipedVertices[7][3]  = solution.getValue(2);
 				} else {
 					Jeometry.logger.log(Level.SEVERE, "Cannot solve linear system");
 					parallelepipedVertices[7] = null;

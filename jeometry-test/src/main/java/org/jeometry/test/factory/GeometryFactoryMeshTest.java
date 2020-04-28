@@ -1,20 +1,23 @@
-package org.jeometry.factory;
+package org.jeometry.test.factory;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
+import org.jeometry.factory.MeshBuilder;
 import org.jeometry.geom3D.mesh.indexed.IndexedEdge;
 import org.jeometry.geom3D.mesh.indexed.IndexedFace;
 import org.jeometry.geom3D.mesh.indexed.IndexedMesh;
 import org.jeometry.geom3D.point.Point3D;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * A test class for {@link JeometryFactory} methods that delegate to a {@link MeshBuilder mesh builder}.<br>
@@ -58,7 +61,7 @@ public class GeometryFactoryMeshTest {
 	/**
 	 * Test initialization.
 	 */
-	@BeforeClass
+	@BeforeAll
 	public static void init() {
 		fail("method public static void init() has to be set up with @BeforeClass annotation");
 	}	
@@ -71,10 +74,10 @@ public class GeometryFactoryMeshTest {
 		
 		try {
 			IndexedMesh<Point3D> mesh = JeometryFactory.createIndexedMesh();
-			assertNotNull("Cannot instantiate indexed mesh using GeometryFactory.createIndexedMesh().", mesh);	
+			assertNotNull(mesh, "Cannot instantiate indexed mesh using GeometryFactory.createIndexedMesh().");	
 			
 			if (indexedMeshClass != null) {
-				assertTrue("Invalid class: "+indexedMeshClass.getSimpleName()+" expected but found "+mesh.getClass().getSimpleName(), indexedMeshClass.isInstance(mesh));
+				assertTrue(indexedMeshClass.isInstance(mesh), "Invalid class: "+indexedMeshClass.getSimpleName()+" expected but found "+mesh.getClass().getSimpleName());
 			}
 			
 			
@@ -91,10 +94,10 @@ public class GeometryFactoryMeshTest {
 		
 		try {
 			IndexedMesh<Point3D> mesh = JeometryFactory.createIndexedMesh(10);
-			assertNotNull("Cannot instantiate indexed mesh using GeometryFactory.createIndexedMesh(int).", mesh);	
+			assertNotNull(mesh, "Cannot instantiate indexed mesh using GeometryFactory.createIndexedMesh(int).");	
 			
 			if (indexedMeshClass != null) {
-				assertTrue("Invalid class: "+indexedMeshClass.getSimpleName()+" expected but found "+mesh.getClass().getSimpleName(), indexedMeshClass.isInstance(mesh));
+				assertTrue(indexedMeshClass.isInstance(mesh), "Invalid class: "+indexedMeshClass.getSimpleName()+" expected but found "+mesh.getClass().getSimpleName());
 			}
 			
 			
@@ -112,16 +115,16 @@ public class GeometryFactoryMeshTest {
 		try {
 			IndexedEdge<Point3D> edge = JeometryFactory.createIndexedMeshEdge(1, 2);
 			
-			assertNotNull("Cannot instantiate indexed edge using GeometryFactory.createIndexedMeshEdge(int, int).", edge);
+			assertNotNull(edge, "Cannot instantiate indexed edge using GeometryFactory.createIndexedMeshEdge(int, int).");
 			
 			if (indexedEdgeClass != null) {
-				assertTrue("Invalid class: "+indexedEdgeClass.getSimpleName()+" expected but found "+edge.getClass().getSimpleName(), indexedEdgeClass.isInstance(edge));
+				assertTrue(indexedEdgeClass.isInstance(edge), "Invalid class: "+indexedEdgeClass.getSimpleName()+" expected but found "+edge.getClass().getSimpleName());
 			}
 
-			assertNotNull("Edge vertex indices are invalid.", edge.getVerticesIndexes());
-			assertEquals("Edge vertex indices number is invalid.", 2, edge.getVerticesIndexes().length, 0);
-			assertEquals("Edge extremity 1 is invalid.", 1, edge.getVerticesIndexes()[0], 0);
-			assertEquals("Edge extremiti 2 is invalid.", 2, edge.getVerticesIndexes()[1], 0);
+			assertNotNull(edge.getVerticesIndexes(), "Edge vertex indices are invalid.");
+			assertEquals(2, edge.getVerticesIndexes().length, 0, "Edge vertex indices number is invalid.");
+			assertEquals(1, edge.getVerticesIndexes()[0], 0, "Edge extremity 1 is invalid.");
+			assertEquals(2, edge.getVerticesIndexes()[1], 0, "Edge extremiti 2 is invalid.");
 			
 		} catch (Exception e) {
 			fail("Cannot instantiate indexed edge using GeometryFactory.createIndexedMeshEdge(int, int): "+e.getMessage());
@@ -139,18 +142,18 @@ public class GeometryFactoryMeshTest {
 
 			IndexedEdge<Point3D> edge = JeometryFactory.createIndexedMeshEdge(1, 2, mesh);
 			
-			assertNotNull("Cannot instantiate indexed edge using GeometryFactory.createIndexedMeshEdge(int, int, IndexedMesh).", edge);
+			assertNotNull(edge, "Cannot instantiate indexed edge using GeometryFactory.createIndexedMeshEdge(int, int, IndexedMesh).");
 			
 			if (indexedEdgeClass != null) {
-				assertTrue("Invalid class: "+indexedEdgeClass.getSimpleName()+" expected but found "+edge.getClass().getSimpleName(), indexedEdgeClass.isInstance(edge));
+				assertTrue(indexedEdgeClass.isInstance(edge), "Invalid class: "+indexedEdgeClass.getSimpleName()+" expected but found "+edge.getClass().getSimpleName());
 				
 			}
 
-			assertNotNull("Edge vertex indices are invalid.", edge.getVerticesIndexes());
-			assertEquals("Edge vertex indices number is invalid.", 2, edge.getVerticesIndexes().length, 0);
-			assertEquals("Edge extremity 1 is invalid.", 1, edge.getVerticesIndexes()[0], 0);
-			assertEquals("Edge extremiti 2 is invalid.", 2, edge.getVerticesIndexes()[1], 0);
-			assertEquals("Edge mesh is invalid.", mesh, edge.getMesh());
+			assertNotNull(edge.getVerticesIndexes(), "Edge vertex indices are invalid.");
+			assertEquals(2, edge.getVerticesIndexes().length, 0, "Edge vertex indices number is invalid.");
+			assertEquals(1, edge.getVerticesIndexes()[0], 0, "Edge extremity 1 is invalid.");
+			assertEquals(2, edge.getVerticesIndexes()[1], 0, "Edge extremiti 2 is invalid.");
+			assertEquals(mesh, edge.getMesh(), "Edge mesh is invalid.");
 			
 		} catch (Exception e) {
 			fail("Cannot instantiate indexed edge using GeometryFactory.createIndexedMeshEdge(int, int, IndexedMesh): "+e.getMessage());
@@ -168,13 +171,13 @@ public class GeometryFactoryMeshTest {
 			int[] indices = new int[] {1, 2, 3, 4, 5, 6};
 			IndexedFace<Point3D> face = JeometryFactory.createIndexedMeshFace(indices);
 			
-			assertNotNull("Cannot instantiate indexed face using GeometryFactory.createIndexedMeshFace(int[]).", face);
+			assertNotNull(face, "Cannot instantiate indexed face using GeometryFactory.createIndexedMeshFace(int[]).");
 			
-			assertNotNull("Face vertex indices are invalid.", face.getVerticesIndexes());
-			assertEquals("Face vertex indices number is invalid.", indices.length, face.getVerticesIndexes().length, 0);
+			assertNotNull(face.getVerticesIndexes(), "Face vertex indices are invalid.");
+			assertEquals(indices.length, face.getVerticesIndexes().length, 0, "Face vertex indices number is invalid.");
 
 			for(int i = 0; i < indices.length; i++) {
-				assertEquals("Face indice "+i+" differs from expected.", indices[i], face.getVerticesIndexes()[i], 0);
+				assertEquals(indices[i], face.getVerticesIndexes()[i], 0, "Face indice "+i+" differs from expected.");
 			}
 			
 		} catch (Exception e) {
@@ -193,16 +196,16 @@ public class GeometryFactoryMeshTest {
 			IndexedMesh<Point3D> mesh = JeometryFactory.createIndexedMesh();
 			IndexedFace<Point3D> face = JeometryFactory.createIndexedMeshFace(indices, mesh);
 			
-			assertNotNull("Cannot instantiate indexed face using GeometryFactory.createIndexedMeshFace(int[], IndexedMesh).", face);
+			assertNotNull(face, "Cannot instantiate indexed face using GeometryFactory.createIndexedMeshFace(int[], IndexedMesh).");
 			
-			assertNotNull("Face vertex indices are invalid.", face.getVerticesIndexes());
-			assertEquals("Face vertex indices number is invalid.", indices.length, face.getVerticesIndexes().length, 0);
+			assertNotNull(face.getVerticesIndexes(), "Face vertex indices are invalid.");
+			assertEquals(indices.length, face.getVerticesIndexes().length, 0, "Face vertex indices number is invalid.");
 
 			for(int i = 0; i < indices.length; i++) {
-				assertEquals("Face indice "+i+" differs from expected.", indices[i], face.getVerticesIndexes()[i], 0);
+				assertEquals(indices[i], face.getVerticesIndexes()[i], 0, "Face indice "+i+" differs from expected.");
 			}
 			
-			assertEquals("Edge mesh is invalid.", mesh, face.getMesh());
+			assertEquals(mesh, face.getMesh(), "Edge mesh is invalid.");
 			
 		} catch (Exception e) {
 			fail("Cannot instantiate indexed edge using GeometryFactory.createIndexedMeshFace(int[], IndexedMesh): "+e.getMessage());
@@ -226,13 +229,13 @@ public class GeometryFactoryMeshTest {
 
 			IndexedFace<Point3D> face = JeometryFactory.createIndexedMeshFace(indices);
 			
-			assertNotNull("Cannot instantiate indexed face using GeometryFactory.createIndexedMeshFace(List).", face);
+			assertNotNull(face, "Cannot instantiate indexed face using GeometryFactory.createIndexedMeshFace(List).");
 			
-			assertNotNull("Face vertex indices are invalid.", face.getVerticesIndexes());
-			assertEquals("Face vertex indices number is invalid.", indices.size(), face.getVerticesIndexes().length, 0);
+			assertNotNull(face.getVerticesIndexes(), "Face vertex indices are invalid.");
+			assertEquals(indices.size(), face.getVerticesIndexes().length, 0, "Face vertex indices number is invalid.");
 
 			for(int i = 0; i < indices.size(); i++) {
-				assertEquals("Face indice "+i+" differs from expected.", indices.get(i), face.getVerticesIndexes()[i], 0);
+				assertEquals(indices.get(i), face.getVerticesIndexes()[i], 0, "Face indice "+i+" differs from expected.");
 			}
 			
 		} catch (Exception e) {
@@ -258,16 +261,16 @@ public class GeometryFactoryMeshTest {
 			IndexedMesh<Point3D> mesh = JeometryFactory.createIndexedMesh();
 			IndexedFace<Point3D> face = JeometryFactory.createIndexedMeshFace(indices, mesh);
 			
-			assertNotNull("Cannot instantiate indexed face using GeometryFactory.createIndexedMeshFace(List, IndexedMesh).", face);
+			assertNotNull(face, "Cannot instantiate indexed face using GeometryFactory.createIndexedMeshFace(List, IndexedMesh).");
 			
-			assertNotNull("Face vertex indices are invalid.", face.getVerticesIndexes());
-			assertEquals("Face vertex indices number is invalid.", indices.size(), face.getVerticesIndexes().length, 0);
+			assertNotNull(face.getVerticesIndexes(), "Face vertex indices are invalid.");
+			assertEquals(indices.size(), face.getVerticesIndexes().length, 0, "Face vertex indices number is invalid.");
 
 			for(int i = 0; i < indices.size(); i++) {
-				assertEquals("Face indice "+i+" differs from expected.", indices.get(i), face.getVerticesIndexes()[i], 0);
+				assertEquals(indices.get(i), face.getVerticesIndexes()[i], 0, "Face indice "+i+" differs from expected.");
 			}
 			
-			assertEquals("Edge mesh is invalid.", mesh, face.getMesh());
+			assertEquals(mesh, face.getMesh(), "Edge mesh is invalid.");
 			
 		} catch (Exception e) {
 			fail("Cannot instantiate indexed edge using GeometryFactory.createIndexedMeshFace(List, IndexedMesh): "+e.getMessage());

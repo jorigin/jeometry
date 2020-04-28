@@ -1,20 +1,23 @@
-package org.jeometry.geom3D.transform;
+package org.jeometry.test.geom3D.transform;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.fail;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
-import org.jeometry.geom3D.Geom3DTestData;
 import org.jeometry.geom3D.point.Point3D;
+import org.jeometry.geom3D.transform.Transform3D;
+import org.jeometry.geom3D.transform.Transform3DMatrix;
 import org.jeometry.math.Matrix;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.jeometry.test.geom3D.Geom3DTestData;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
- * A test suite dedicated to the {@link Transform3D}.<br>
+ * A test suite dedicated to the {@link Transform3DMatrix}.<br>
  * <br>
  * <b>Usage:</b>
  * <p>
@@ -47,7 +50,7 @@ public class Transform3DMatrixTest {
 	/**
 	 * Initialize the test static context.
 	 */
-	@BeforeClass
+	@BeforeAll
 	public static void initClass() {
 		fail("Test class is not initialized. method initClass() has to be implemented");
 	}
@@ -61,21 +64,21 @@ public class Transform3DMatrixTest {
 		
 		Transform3DMatrix transform = JeometryFactory.createTransform3DMatrix(data);
 
-		assertNotNull("Unable to instanciate Transfor3D implementation.", transform);
+		assertNotNull(transform, "Unable to instanciate Transfor3D implementation.");
 		
 		if (transformation3DClass != null) {
-			assertEquals("Transformation 3D class "+transform.getClass().getSimpleName()+" is not valid, expected "+transformation3DClass.getSimpleName(), transformation3DClass, transform.getClass());
+			assertEquals(transformation3DClass, transform.getClass(), "Transformation 3D class "+transform.getClass().getSimpleName()+" is not valid, expected "+transformation3DClass.getSimpleName());
 		}
 		
 		Matrix matrix = transform.getMatrix();
 
-		assertNotNull("Unable to get Matrix from transformation.", matrix);
-		assertEquals("Invalid returned matrix size "+matrix.getRowsCount()+"x"+matrix.getColumnsCount(), data.length, matrix.getRowsCount());
-		assertEquals("Invalid returned matrix size "+matrix.getRowsCount()+"x"+matrix.getColumnsCount(), data[0].length, matrix.getColumnsCount());
+		assertNotNull(matrix, "Unable to get Matrix from transformation.");
+		assertEquals(data.length, matrix.getRowsCount(), "Invalid returned matrix size "+matrix.getRowsCount()+"x"+matrix.getColumnsCount());
+		assertEquals(data[0].length, matrix.getColumnsCount(), "Invalid returned matrix size "+matrix.getRowsCount()+"x"+matrix.getColumnsCount());
 		
 		for(int row = 0; row < data.length; row++) {
 			for(int col = 0; col < data[0].length; col++) {
-				assertEquals("Invalid value ("+row+", "+col+")", matrix.getValue(row, col), data[row][col], Double.MIN_VALUE);
+				assertEquals(matrix.getValue(row, col), data[row][col], Double.MIN_VALUE, "Invalid value ("+row+", "+col+")");
 			}
 		}
 	}
@@ -89,17 +92,17 @@ public class Transform3DMatrixTest {
 		
 		Transform3DMatrix transform = JeometryFactory.createTransform3DMatrix(Geom3DTestData.TRANSFORM_MATRIX_ID);
 
-		assertNotNull("Unable to instanciate Transfor3D implementation.", transform);
+		assertNotNull(transform, "Unable to instanciate Transfor3D implementation.");
 		
 		if (transformation3DClass != null) {
-			assertEquals("Transformation 3D class "+transform.getClass().getSimpleName()+" is not valid, expected "+transformation3DClass.getSimpleName(), transformation3DClass, transform.getClass());
+			assertEquals(transformation3DClass, transform.getClass());
 		}
 		
 		Matrix matrix = JeometryFactory.createMatrix(data);
 				
-		assertNotNull("Unable to instanciate Matrix implementation.", matrix);
-		assertEquals("Invalid returned matrix size "+matrix.getRowsCount()+"x"+matrix.getColumnsCount(), data.length, matrix.getRowsCount());
-		assertEquals("Invalid returned matrix size "+matrix.getRowsCount()+"x"+matrix.getColumnsCount(), data[0].length, matrix.getColumnsCount());
+		assertNotNull(matrix, "Unable to instanciate Matrix implementation.");
+		assertEquals(data.length, matrix.getRowsCount(), "Invalid returned matrix size "+matrix.getRowsCount()+"x"+matrix.getColumnsCount());
+		assertEquals(data[0].length, matrix.getColumnsCount(), "Invalid returned matrix size "+matrix.getRowsCount()+"x"+matrix.getColumnsCount());
 
 		try {
 			transform.setMatrix(matrix);
@@ -109,7 +112,7 @@ public class Transform3DMatrixTest {
 
 		for(int row = 0; row < data.length; row++) {
 			for(int col = 0; col < data[0].length; col++) {
-				assertEquals("Invalid value ("+row+", "+col+")", matrix.getValue(row, col), data[row][col], Double.MIN_VALUE);
+				assertEquals(matrix.getValue(row, col), data[row][col], Double.MIN_VALUE, "Invalid value ("+row+", "+col+")");
 			}
 		}
 	}
@@ -122,10 +125,10 @@ public class Transform3DMatrixTest {
 
 		Transform3D transform = JeometryFactory.createTransform3DMatrix(Geom3DTestData.TRANSFORM_MATRIX_RT);
 
-		assertNotNull("Unable to instanciate Transfor3D implementation.", transform);
+		assertNotNull(transform, "Unable to instanciate Transfor3D implementation.");
 
 		if (transformation3DClass != null) {
-			assertEquals("Transformation 3D class "+transform.getClass().getSimpleName()+" is not valid, expected "+transformation3DClass.getSimpleName(), transformation3DClass, transform.getClass());
+			assertEquals(transformation3DClass, transform.getClass(), "Transformation 3D class "+transform.getClass().getSimpleName()+" is not valid, expected "+transformation3DClass.getSimpleName());
 		}
 
 		Point3D source   = null;
@@ -171,10 +174,10 @@ public class Transform3DMatrixTest {
 
 		Transform3D transform = JeometryFactory.createTransform3DMatrix(Geom3DTestData.TRANSFORM_MATRIX_RT);
 
-		assertNotNull("Unable to instanciate Transfor3D implementation.", transform);
+		assertNotNull(transform, "Unable to instanciate Transfor3D implementation.");
 
 		if (transformation3DClass != null) {
-			assertEquals("Transformation 3D class "+transform.getClass().getSimpleName()+" is not valid, expected "+transformation3DClass.getSimpleName(), transformation3DClass, transform.getClass());
+			assertEquals(transformation3DClass, transform.getClass(), "Transformation 3D class "+transform.getClass().getSimpleName()+" is not valid, expected "+transformation3DClass.getSimpleName());
 		}
 
 		Point3D source   = null;
@@ -220,10 +223,10 @@ public class Transform3DMatrixTest {
 
 		Transform3D transform = JeometryFactory.createTransform3DMatrix(Geom3DTestData.TRANSFORM_MATRIX_RT);
 
-		assertNotNull("Unable to instanciate Transfor3D implementation.", transform);
+		assertNotNull(transform, "Unable to instanciate Transfor3D implementation.");
 
 		if (transformation3DClass != null) {
-			assertEquals("Transformation 3D class "+transform.getClass().getSimpleName()+" is not valid, expected "+transformation3DClass.getSimpleName(), transformation3DClass, transform.getClass());
+			assertEquals(transformation3DClass, transform.getClass(), "Transformation 3D class "+transform.getClass().getSimpleName()+" is not valid, expected "+transformation3DClass.getSimpleName());
 		}
 
 		Point3D source   = null;
@@ -268,10 +271,10 @@ public class Transform3DMatrixTest {
 	public void transformInverseTest() {
 		Transform3D transform = JeometryFactory.createTransform3DMatrix(Geom3DTestData.TRANSFORM_MATRIX_RT);
 
-		assertNotNull("Unable to instanciate Transfor3D implementation.", transform);
+		assertNotNull(transform, "Unable to instanciate Transfor3D implementation.");
 
 		if (transformation3DClass != null) {
-			assertEquals("Transformation 3D class "+transform.getClass().getSimpleName()+" is not valid, expected "+transformation3DClass.getSimpleName(), transformation3DClass, transform.getClass());
+			assertEquals(transformation3DClass, transform.getClass(), "Transformation 3D class "+transform.getClass().getSimpleName()+" is not valid, expected "+transformation3DClass.getSimpleName());
 		}
 
 		Point3D source   = null;
@@ -322,10 +325,10 @@ public class Transform3DMatrixTest {
 	public void transformInverseResultTest() {
 		Transform3D transform = JeometryFactory.createTransform3DMatrix(Geom3DTestData.TRANSFORM_MATRIX_RT);
 
-		assertNotNull("Unable to instanciate Transfor3D implementation.", transform);
+		assertNotNull(transform, "Unable to instanciate Transfor3D implementation.");
 
 		if (transformation3DClass != null) {
-			assertEquals("Transformation 3D class "+transform.getClass().getSimpleName()+" is not valid, expected "+transformation3DClass.getSimpleName(), transformation3DClass, transform.getClass());
+			assertEquals(transformation3DClass, transform.getClass(), "Transformation 3D class "+transform.getClass().getSimpleName()+" is not valid, expected "+transformation3DClass.getSimpleName());
 		}
 
 		Point3D source   = null;
@@ -370,10 +373,10 @@ public class Transform3DMatrixTest {
 	public void transformInverseAffectTest() {
 		Transform3D transform = JeometryFactory.createTransform3DMatrix(Geom3DTestData.TRANSFORM_MATRIX_RT);
 
-		assertNotNull("Unable to instanciate Transfor3D implementation.", transform);
+		assertNotNull(transform, "Unable to instanciate Transfor3D implementation.");
 
 		if (transformation3DClass != null) {
-			assertEquals("Transformation 3D class "+transform.getClass().getSimpleName()+" is not valid, expected "+transformation3DClass.getSimpleName(), transformation3DClass, transform.getClass());
+			assertEquals(transformation3DClass, transform.getClass(), "Transformation 3D class "+transform.getClass().getSimpleName()+" is not valid, expected "+transformation3DClass.getSimpleName());
 		}
 
 		Point3D source   = null;
@@ -418,10 +421,10 @@ public class Transform3DMatrixTest {
 	public void invertTransformTest() {
     	Transform3DMatrix transform = JeometryFactory.createTransform3DMatrix(Geom3DTestData.TRANSFORM_MATRIX_RT);
 
-		assertNotNull("Unable to instanciate Transfor3D implementation.", transform);
+		assertNotNull(transform, "Unable to instanciate Transfor3D implementation.");
 
 		if (transformation3DClass != null) {
-			assertEquals("Transformation 3D class "+transform.getClass().getSimpleName()+" is not valid, expected "+transformation3DClass.getSimpleName(), transformation3DClass, transform.getClass());
+			assertEquals(transformation3DClass, transform.getClass(),"Transformation 3D class "+transform.getClass().getSimpleName()+" is not valid, expected "+transformation3DClass.getSimpleName());
 		}
 		
 		Transform3DMatrix inverted = null;
@@ -432,25 +435,25 @@ public class Transform3DMatrixTest {
 			fail("Unable to invert transformation: "+t.getMessage());
 		}
 		
-		assertNotNull("Unable to invert transform.", inverted);
-		assertEquals("Invalid returned matrix size "+inverted.getRowsCount()+"x"+inverted.getColumnsCount(), transform.getRowsCount(), inverted.getRowsCount());
-		assertEquals("Invalid returned matrix size "+inverted.getRowsCount()+"x"+inverted.getColumnsCount(), transform.getColumnsCount(), inverted.getColumnsCount());
+		assertNotNull(inverted, "Unable to invert transform.");
+		assertEquals(transform.getMatrix().getRowsCount(), inverted.getMatrix().getRowsCount(), "Invalid returned matrix size "+inverted.getMatrix().getRowsCount()+"x"+inverted.getMatrix().getColumnsCount());
+		assertEquals(transform.getMatrix().getColumnsCount(), inverted.getMatrix().getColumnsCount(), "Invalid returned matrix size "+inverted.getMatrix().getRowsCount()+"x"+inverted.getMatrix().getColumnsCount());
 		
 		Matrix m = null;
 		
 		try {
-			m = transform.multiply(inverted);
+			m = transform.getMatrix().multiply(inverted.getMatrix());
 		} catch (Throwable t) {
 			fail("Unable to compute transform x inverted: "+t.getMessage());
 		}
 		
-		assertNotNull("Unable to compute transform x inverted.", m);
-		assertEquals("Invalid transform x inverted matrix size "+m.getRowsCount()+"x"+m.getColumnsCount(), Geom3DTestData.TRANSFORM_MATRIX_ID.length, m.getRowsCount());
-		assertEquals("Invalid transform x inverted matrix size "+m.getRowsCount()+"x"+m.getColumnsCount(), Geom3DTestData.TRANSFORM_MATRIX_ID[0].length, m.getColumnsCount());
+		assertNotNull(m, "Unable to compute transform x inverted.");
+		assertEquals(Geom3DTestData.TRANSFORM_MATRIX_ID.length, m.getRowsCount(), "Invalid transform x inverted matrix size "+m.getRowsCount()+"x"+m.getColumnsCount());
+		assertEquals(Geom3DTestData.TRANSFORM_MATRIX_ID[0].length, m.getColumnsCount(), "Invalid transform x inverted matrix size "+m.getRowsCount()+"x"+m.getColumnsCount());
 		
 		for(int row = 0; row < Geom3DTestData.TRANSFORM_MATRIX_ID.length; row++) {
 			for(int col = 0; col < Geom3DTestData.TRANSFORM_MATRIX_ID[0].length; col++) {
-				assertEquals("Invalid transform x inverted value ("+row+", "+col+")", Geom3DTestData.TRANSFORM_MATRIX_ID[row][col], m.getValue(row, col), EPSILON);
+				assertEquals(Geom3DTestData.TRANSFORM_MATRIX_ID[row][col], m.getValue(row, col), EPSILON, "Invalid transform x inverted value ("+row+", "+col+")");
 			}
 		}
     }
@@ -464,11 +467,11 @@ public class Transform3DMatrixTest {
 
     	Transform3DMatrix original = JeometryFactory.createTransform3DMatrix(Geom3DTestData.TRANSFORM_MATRIX_RT);
     	
-		assertNotNull("Unable to instanciate Transfor3D implementation.", transform);
-		assertNotNull("Unable to instanciate Transfor3D implementation.", original);
+		assertNotNull(transform, "Unable to instanciate Transfor3D implementation.");
+		assertNotNull(original, "Unable to instanciate Transfor3D implementation.");
 
 		if (transformation3DClass != null) {
-			assertEquals("Transformation 3D class "+transform.getClass().getSimpleName()+" is not valid, expected "+transformation3DClass.getSimpleName(), transformation3DClass, transform.getClass());
+			assertEquals(transformation3DClass, transform.getClass(), "Transformation 3D class "+transform.getClass().getSimpleName()+" is not valid, expected "+transformation3DClass.getSimpleName());
 		}
 		
 		Transform3DMatrix inverted = null;
@@ -479,26 +482,26 @@ public class Transform3DMatrixTest {
 			fail("Unable to invert transformation: "+t.getMessage());
 		}
 		
-		assertNotNull("Unable to invert transform.", inverted);
-		assertSame("Inverted matrix and source transforms differ.", transform, inverted);
-		assertEquals("Invalid returned matrix size "+inverted.getRowsCount()+"x"+inverted.getColumnsCount(), transform.getRowsCount(), inverted.getRowsCount());
-		assertEquals("Invalid returned matrix size "+inverted.getRowsCount()+"x"+inverted.getColumnsCount(), transform.getColumnsCount(), inverted.getColumnsCount());
+		assertNotNull(inverted, "Unable to invert transform.");
+		assertSame(transform, inverted, "Inverted matrix and source transforms differ.");
+		assertEquals(transform.getMatrix().getRowsCount(), inverted.getMatrix().getRowsCount(), "Invalid returned matrix size "+inverted.getMatrix().getRowsCount()+"x"+inverted.getMatrix().getColumnsCount());
+		assertEquals(transform.getMatrix().getColumnsCount(), inverted.getMatrix().getColumnsCount(), "Invalid returned matrix size "+inverted.getMatrix().getRowsCount()+"x"+inverted.getMatrix().getColumnsCount());
 		
 		Matrix m = null;
 		
 		try {
-			m = original.multiply(inverted);
+			m = original.getMatrix().multiply(inverted.getMatrix());
 		} catch (Throwable t) {
 			fail("Unable to compute transform x inverted: "+t.getMessage());
 		}
 		
-		assertNotNull("Unable to compute transform x inverted.", m);
-		assertEquals("Invalid transform x inverted matrix size "+m.getRowsCount()+"x"+m.getColumnsCount(), Geom3DTestData.TRANSFORM_MATRIX_ID.length, m.getRowsCount());
-		assertEquals("Invalid transform x inverted matrix size "+m.getRowsCount()+"x"+m.getColumnsCount(), Geom3DTestData.TRANSFORM_MATRIX_ID[0].length, m.getColumnsCount());
+		assertNotNull(m, "Unable to compute transform x inverted.");
+		assertEquals(Geom3DTestData.TRANSFORM_MATRIX_ID.length, m.getRowsCount(), "Invalid transform x inverted matrix size "+m.getRowsCount()+"x"+m.getColumnsCount());
+		assertEquals(Geom3DTestData.TRANSFORM_MATRIX_ID[0].length, m.getColumnsCount(), "Invalid transform x inverted matrix size "+m.getRowsCount()+"x"+m.getColumnsCount());
 		
 		for(int row = 0; row < Geom3DTestData.TRANSFORM_MATRIX_ID.length; row++) {
 			for(int col = 0; col < Geom3DTestData.TRANSFORM_MATRIX_ID[0].length; col++) {
-				assertEquals("Invalid transform x inverted value ("+row+", "+col+")", Geom3DTestData.TRANSFORM_MATRIX_ID[row][col], m.getValue(row, col), EPSILON);
+				assertEquals(Geom3DTestData.TRANSFORM_MATRIX_ID[row][col], m.getValue(row, col), EPSILON, "Invalid transform x inverted value ("+row+", "+col+")");
 			}
 		}
     }

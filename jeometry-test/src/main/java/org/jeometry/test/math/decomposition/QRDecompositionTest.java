@@ -1,16 +1,18 @@
-package org.jeometry.math.decomposition;
+package org.jeometry.test.math.decomposition;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
 import org.jeometry.math.Matrix;
-import org.jeometry.math.MathTestData;
-import org.jeometry.math.solver.ResolvableTest;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.jeometry.math.decomposition.QRDecomposition;
+import org.jeometry.test.math.MathTestData;
+import org.jeometry.test.math.solver.ResolvableTest;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * A test suite dedicated to the {@link QRDecomposition}.<br>
@@ -46,13 +48,13 @@ public class QRDecompositionTest {
 	/**
 	 * Initialize the test static context.
 	 */
-	@BeforeClass
+	@BeforeAll
 	public static void initClass() {
 		fail("method public static void init() has to be set up with @BeforeClass annotation");
 	}
 
 	/**
-	 * A test dedicated to the {@link LUDecomposition}.
+	 * A test dedicated to the {@link QRDecomposition}.
 	 */
 	@Test
 	public void qrDecompositionTest() {
@@ -60,18 +62,18 @@ public class QRDecompositionTest {
 
 		QRDecomposition decomposition = JeometryFactory.createQRDecomposition(input);
 
-		assertNotNull("Decomposition is null", decomposition);
+		assertNotNull(decomposition, "Decomposition is null");
 
 		if (decompositionClass != null) {
-			assertEquals("Expected decomposition class "+decompositionClass.getSimpleName()+" but got "+decomposition.getClass().getSimpleName(), decompositionClass, decomposition.getClass());
+			assertEquals(decompositionClass, decomposition.getClass(), "Expected decomposition class "+decompositionClass.getSimpleName()+" but got "+decomposition.getClass().getSimpleName());
 		}
 
 		Matrix q = decomposition.getQ();
 
-		assertNotNull("Q is null", q);
+		assertNotNull(q, "Q is null");
 
-		assertEquals("Q size error, expected ("+MathTestData.DECOMPOSITION_QR_Q.length+", "+MathTestData.DECOMPOSITION_QR_Q[0].length+") but got ("+q.getRowsCount()+", "+q.getColumnsCount()+")", MathTestData.DECOMPOSITION_QR_Q.length, q.getRowsCount());
-		assertEquals("Q size error, expected ("+MathTestData.DECOMPOSITION_QR_Q.length+", "+MathTestData.DECOMPOSITION_QR_Q[0].length+") but got ("+q.getRowsCount()+", "+q.getColumnsCount()+")", MathTestData.DECOMPOSITION_QR_Q[0].length, q.getColumnsCount());
+		assertEquals(MathTestData.DECOMPOSITION_QR_Q.length, q.getRowsCount(), "Q size error, expected ("+MathTestData.DECOMPOSITION_QR_Q.length+", "+MathTestData.DECOMPOSITION_QR_Q[0].length+") but got ("+q.getRowsCount()+", "+q.getColumnsCount()+")");
+		assertEquals(MathTestData.DECOMPOSITION_QR_Q[0].length, q.getColumnsCount(), "Q size error, expected ("+MathTestData.DECOMPOSITION_QR_Q.length+", "+MathTestData.DECOMPOSITION_QR_Q[0].length+") but got ("+q.getRowsCount()+", "+q.getColumnsCount()+")");
 		/*		
 		for(int row = 0; row < q.getRowsCount(); row++) {
 			for(int col = 0; col < q.getColumnsCount(); col++) {
@@ -83,10 +85,10 @@ public class QRDecompositionTest {
 		Matrix r = decomposition.getR();
 
 
-		assertNotNull("R is null", r);
+		assertNotNull(r, "R is null");
 
-		assertEquals("R size error, expected ("+MathTestData.DECOMPOSITION_QR_R.length+", "+MathTestData.DECOMPOSITION_QR_R[0].length+") but got ("+r.getRowsCount()+", "+r.getColumnsCount()+")", MathTestData.DECOMPOSITION_QR_R.length, r.getRowsCount());
-		assertEquals("R size error, expected ("+MathTestData.DECOMPOSITION_QR_R.length+", "+MathTestData.DECOMPOSITION_QR_R[0].length+") but got ("+r.getRowsCount()+", "+r.getColumnsCount()+")", MathTestData.DECOMPOSITION_QR_R[0].length, r.getColumnsCount());
+		assertEquals(MathTestData.DECOMPOSITION_QR_R.length, r.getRowsCount(), "R size error, expected ("+MathTestData.DECOMPOSITION_QR_R.length+", "+MathTestData.DECOMPOSITION_QR_R[0].length+") but got ("+r.getRowsCount()+", "+r.getColumnsCount()+")");
+		assertEquals(MathTestData.DECOMPOSITION_QR_R[0].length, r.getColumnsCount(), "R size error, expected ("+MathTestData.DECOMPOSITION_QR_R.length+", "+MathTestData.DECOMPOSITION_QR_R[0].length+") but got ("+r.getRowsCount()+", "+r.getColumnsCount()+")");
 		/*		
 		for(int row = 0; row < r.getRowsCount(); row++) {
 			for(int col = 0; col < r.getColumnsCount(); col++) {
@@ -98,14 +100,14 @@ public class QRDecompositionTest {
 		// Test composition
 		Matrix composed = q.multiply(r);
 
-		assertNotNull("Composed is null", composed);
+		assertNotNull(composed, "Composed is null");
 
-		assertEquals("Composed size error, expected ("+MathTestData.DECOMPOSITION_QR_INPUT.length+", "+MathTestData.DECOMPOSITION_QR_INPUT[0].length+") but got ("+composed.getRowsCount()+", "+composed.getColumnsCount()+")", MathTestData.DECOMPOSITION_QR_INPUT.length, composed.getRowsCount());
-		assertEquals("Composed size error, expected ("+MathTestData.DECOMPOSITION_QR_INPUT.length+", "+MathTestData.DECOMPOSITION_QR_INPUT[0].length+") but got ("+composed.getRowsCount()+", "+composed.getColumnsCount()+")", MathTestData.DECOMPOSITION_QR_INPUT[0].length, composed.getColumnsCount());
+		assertEquals(MathTestData.DECOMPOSITION_QR_INPUT.length, composed.getRowsCount(), "Composed size error, expected ("+MathTestData.DECOMPOSITION_QR_INPUT.length+", "+MathTestData.DECOMPOSITION_QR_INPUT[0].length+") but got ("+composed.getRowsCount()+", "+composed.getColumnsCount()+")");
+		assertEquals(MathTestData.DECOMPOSITION_QR_INPUT[0].length, composed.getColumnsCount(), "Composed size error, expected ("+MathTestData.DECOMPOSITION_QR_INPUT.length+", "+MathTestData.DECOMPOSITION_QR_INPUT[0].length+") but got ("+composed.getRowsCount()+", "+composed.getColumnsCount()+")");
 
 		for(int row = 0; row < composed.getRowsCount(); row++) {
 			for(int col = 0; col < composed.getColumnsCount(); col++) {
-				assertEquals("Bad value ("+row+", "+col+")", MathTestData.DECOMPOSITION_QR_INPUT[row][col], composed.getValue(row, col), EPSILON);
+				assertEquals(MathTestData.DECOMPOSITION_QR_INPUT[row][col], composed.getValue(row, col), EPSILON, "Bad value ("+row+", "+col+")");
 			}
 		}
 

@@ -286,16 +286,16 @@ public class SimpleLUDecomposition implements LUDecomposition {
 	      // Solve L*Y = B(piv,:)
 	      for (int k = 0; k < inputColumnsCount; k++) {
 	         for (int i = k+1; i < inputColumnsCount; i++) {
-	            x.setVectorComponent(i, x.getVectorComponent(i) - x.getVectorComponent(k)*LU.getValue(i, k));
+	            x.setValue(i, x.getValue(i) - x.getValue(k)*LU.getValue(i, k));
 	         }
 	      }
 	      
 	      // Solve U*X = Y;
 	      for (int k = inputColumnsCount-1; k >= 0; k--) {
-	         x.setVectorComponent(k, x.getVectorComponent(k) / LU.getValue(k, k));
+	         x.setValue(k, x.getValue(k) / LU.getValue(k, k));
 	         
 	         for (int i = 0; i < k; i++) {
-	            x.setVectorComponent(i,  x.getVectorComponent(i) - x.getVectorComponent(k)*LU.getValue(i, k));
+	            x.setValue(i,  x.getValue(i) - x.getValue(k)*LU.getValue(i, k));
 	         }
 	      }
 	      return x;

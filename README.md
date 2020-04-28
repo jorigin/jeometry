@@ -10,14 +10,14 @@ To import the library just add the following dependency to your maven project:
 <dependency>
   <groupId>org.jorigin</groupId>
   <artifactId>jeometry-api</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
 </dependency>
 
 <!-- The Jeometry Simple implementation -->
 <dependency>
   <groupId>org.jorigin</groupId>
   <artifactId>jeometry-simple</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
 </dependency>
 ```
 For a quick overwiew ot the library, please refer to the [Getting Started](https://github.com/jorigin/jeometry/wiki/Getting-Started).

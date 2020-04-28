@@ -40,9 +40,9 @@ public class PlaneFitting {
 	
 	private static double DistanceSquared(Vector u, Vector v) {
 		
-		return    (v.getVectorComponent(0) - u.getVectorComponent(0)) * (v.getVectorComponent(0) - u.getVectorComponent(0))
-				+ (v.getVectorComponent(1) - u.getVectorComponent(1)) * (v.getVectorComponent(1) - u.getVectorComponent(1))
-				+ (v.getVectorComponent(2) - u.getVectorComponent(2)) * (v.getVectorComponent(2) - u.getVectorComponent(2));
+		return    (v.getValue(0) - u.getValue(0)) * (v.getValue(0) - u.getValue(0))
+				+ (v.getValue(1) - u.getValue(1)) * (v.getValue(1) - u.getValue(1))
+				+ (v.getValue(2) - u.getValue(2)) * (v.getValue(2) - u.getValue(2));
 	}
 	
 	private static double FindLargestEntry(Matrix m){
@@ -76,9 +76,9 @@ public class PlaneFitting {
 	        lastV=v;
 	    }
 	    
-	    return JeometryFactory.createPoint3D(v.getVectorComponent(Coord3D.DIMENSION_X), 
-	    		                             v.getVectorComponent(Coord3D.DIMENSION_Y), 
-	    		                             v.getVectorComponent(Coord3D.DIMENSION_Z));
+	    return JeometryFactory.createPoint3D(v.getValue(Coord3D.DIMENSION_X), 
+	    		                             v.getValue(Coord3D.DIMENSION_Y), 
+	    		                             v.getValue(Coord3D.DIMENSION_Z));
 	} 
 
    /**
@@ -102,7 +102,7 @@ public class PlaneFitting {
 		    	sum.plusAffect(points.get(i));
 		    }
 		    
-		    Point3D center = sum.mult(1.0f/points.size());
+		    Point3D center = sum.multiply(1.0f/points.size());
 		    if(origin != null){
 		    	origin=center;
 		    }

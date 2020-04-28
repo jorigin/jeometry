@@ -3,14 +3,14 @@ package org.jeometry.simple.factory;
 
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
-import org.jeometry.factory.GeometryFactoryMeshTest;
 import org.jeometry.simple.geom3D.mesh.SimpleEdge;
 import org.jeometry.simple.geom3D.mesh.SimpleFace;
 import org.jeometry.simple.geom3D.mesh.SimpleMesh;
 import org.jeometry.simple.geom3D.mesh.indexed.SimpleIndexedEdge;
 import org.jeometry.simple.geom3D.mesh.indexed.SimpleIndexedFace;
 import org.jeometry.simple.geom3D.mesh.indexed.SimpleIndexedMesh;
-import org.junit.BeforeClass;
+import org.jeometry.test.factory.GeometryFactoryMeshTest;
+import org.junit.jupiter.api.BeforeAll;
 
 /**
  * A test class for {@link JeometryFactory} methods.
@@ -25,7 +25,7 @@ public class SimpleGeometryFactoryMeshTest extends GeometryFactoryMeshTest {
 	/**
 	 * Test initialization.
 	 */
-	@BeforeClass
+	@BeforeAll
 	public static void init() {
 		
 	    meshClass         = SimpleMesh.class;

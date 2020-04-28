@@ -3,9 +3,9 @@ package org.jeometry.simple.math;
 
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
-import org.jeometry.math.MatrixTest;
 import org.jeometry.simple.factory.SimpleMathBuilder;
-import org.junit.BeforeClass;
+import org.jeometry.test.math.MatrixTest;
+import org.junit.jupiter.api.BeforeAll;
 
 /**
  * A test suite dedicated to the {@link SimpleMatrix}.
@@ -18,7 +18,7 @@ public class SimpleMatrixTest extends MatrixTest {
 	/**
 	 * Initialize the test static context.
 	 */
-	@BeforeClass
+	@BeforeAll
 	public static void initClass() {
 		
 		matrixClass = SimpleMatrix.class;

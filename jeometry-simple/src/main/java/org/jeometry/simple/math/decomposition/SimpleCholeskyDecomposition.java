@@ -165,22 +165,22 @@ public class SimpleCholeskyDecomposition implements CholeskyDecomposition {
 			throw new RuntimeException("Cholesky cannot resolve from non symmetric positive definite matrix.");
 		}
 
-		x.setComponents(b);
+		x.setValues(b);
 		
 		// Solve L*Y = B;
 		for (int k = 0; k < n; k++) {
 				for (int i = 0; i < k ; i++) {
-					x.setVectorComponent(k,  x.getVectorComponent(k) - x.getVectorComponent(i)*R[k][i]);
+					x.setValue(k,  x.getValue(k) - x.getValue(i)*R[k][i]);
 				}
-				x.setVectorComponent(k,  x.getVectorComponent(k) / R[k][k]);
+				x.setValue(k,  x.getValue(k) / R[k][k]);
 		}
 
 		// Solve L'*X = Y;
 		for (int k = n-1; k >= 0; k--) {
 				for (int i = k+1; i < n ; i++) {
-					x.setVectorComponent(k,  x.getVectorComponent(k) - x.getVectorComponent(i)*R[i][k]);
+					x.setValue(k,  x.getValue(k) - x.getValue(i)*R[i][k]);
 				}
-				x.setVectorComponent(k, x.getVectorComponent(k) / R[k][k]);
+				x.setValue(k, x.getValue(k) / R[k][k]);
 		}
 
 		//return new Matrix(X,n,nx);

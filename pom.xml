@@ -44,7 +44,17 @@
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
     
-    <jeometry.version>1.0.0-SNAPSHOT</jeometry.version>
+    <maven.plugin.compiler.version>3.8.1</maven.plugin.compiler.version>
+    <maven.plugin.deploy.version>3.1.1</maven.plugin.deploy.version>
+    <maven.plugin.javadoc.version>3.1.1</maven.plugin.javadoc.version>
+    <maven.plugin.release.version>3.0.0-M1</maven.plugin.release.version>
+    <maven.plugin.nexus.version>1.6.8</maven.plugin.nexus.version>
+    <maven.plugin.source.version>3.2.0</maven.plugin.source.version>
+    <maven.plugin.scm-provider-gitexe.version>1.11.12</maven.plugin.scm-provider-gitexe.version>
+    
+    <jeometry.version>1.0.3-SNAPSHOT</jeometry.version>
+    
+    <junit.jupiter.version>5.6.2</junit.jupiter.version>
     
   </properties>
   
@@ -121,15 +131,9 @@
     <dependency>
       <groupId>org.jorigin</groupId>
       <artifactId>jcommon</artifactId>
-      <version>1.0.11</version>
+      <version>1.0.12</version>
     </dependency>
   
-  <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
   
   <build>
@@ -140,7 +144,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.0</version>
+        <version>${maven.plugin.compiler.version}</version>
         <configuration>
           <release>${maven.compiler.release}</release>
           <source>${maven.compiler.source}</source>
@@ -153,7 +157,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-		<version>3.0.1</version>
+		<version>${maven.plugin.source.version}</version>
         <executions>
           <execution>
             <id>attach-sources</id>
@@ -169,7 +173,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-		<version>3.0.1</version>
+		<version>${maven.plugin.javadoc.version}</version>
 		
 		<!-- Embedding Latex formulas within javadoc using MathJax-->
 		<configuration>

@@ -1,13 +1,14 @@
-package org.jeometry.geom3D.transform;
+package org.jeometry.test.geom3D.transform;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.point.Point3D;
+import org.jeometry.geom3D.transform.Transform3D;
 
 /**
  * A set of data dedicated to 3D transform functionalities test<br>
@@ -26,7 +27,7 @@ public class Transform3DTest {
 	 */
 	public static void transformTest(Transform3D transform, Point3D input, Point3D expected, double epsilon) {
 
-		assertNotNull("Null transform provided.", transform);
+		assertNotNull(transform, "Null transform provided.");
 
 		Point3D result = null;
 
@@ -37,11 +38,11 @@ public class Transform3DTest {
 				fail("Unexpected exception: "+t.getMessage());
 			}
 			
-			assertNull("No null result from transformation.", result);
+			assertNull(result, "No null result from transformation.");
 			
 		} else {
 
-			assertNotNull("Null expected point provided.", expected);
+			assertNotNull(expected, "Null expected point provided.");
 
 			try {
 				result = transform.transform(input);
@@ -49,11 +50,11 @@ public class Transform3DTest {
 				fail("Unexpected exception: "+t.getMessage());
 			}
 			
-			assertNotNull("Null result from transformation.", result);
+			assertNotNull(result, "Null result from transformation.");
 
-			assertEquals("Invalid coordinate x", expected.getX(), result.getX(), epsilon);
-			assertEquals("Invalid coordinate y", expected.getY(), result.getY(), epsilon);
-			assertEquals("Invalid coordinate z", expected.getZ(), result.getZ(), epsilon);
+			assertEquals(expected.getX(), result.getX(), epsilon, "Invalid coordinate x");
+			assertEquals(expected.getY(), result.getY(), epsilon, "Invalid coordinate y");
+			assertEquals(expected.getZ(), result.getZ(), epsilon, "Invalid coordinate z");
 		}
 
 
@@ -72,14 +73,14 @@ public class Transform3DTest {
 
 		Point3D result = null;
 
-		assertNotNull("Null transform provided.", transform);
+		assertNotNull(transform, "Null transform provided.");
 
 		// Test with null result
 		reference = transform.transform(input, null);		
-		assertNull("Expected null refrence.", reference);
+		assertNull(reference, "Expected null refrence.");
 
 		result = JeometryFactory.createPoint3D();		
-		assertNotNull("Unable to instanciate result point.", result);
+		assertNotNull(result, "Unable to instanciate result point.");
 
 		if (input == null) {
 			try {
@@ -89,16 +90,16 @@ public class Transform3DTest {
 			}
 			
 
-			assertNotNull("Null reference from transformation.", reference);
-			assertSame("Result and reference are not the same object.", result, reference);
+			assertNotNull(reference, "Null reference from transformation.");
+			assertSame(result, reference, "Result and reference are not the same object.");
 
-			assertEquals("Invalid coordinate x", Double.NaN, reference.getX(), epsilon);
-			assertEquals("Invalid coordinate y", Double.NaN, reference.getY(), epsilon);
-			assertEquals("Invalid coordinate z", Double.NaN, reference.getZ(), epsilon);
+			assertEquals(Double.NaN, reference.getX(), epsilon, "Invalid coordinate x");
+			assertEquals(Double.NaN, reference.getY(), epsilon, "Invalid coordinate y");
+			assertEquals(Double.NaN, reference.getZ(), epsilon, "Invalid coordinate z");
 			
 		} else {
 
-			assertNotNull("Null expected point provided.", expected);
+			assertNotNull(expected, "Null expected point provided.");
 
 			try {
 				reference = transform.transform(input, result);
@@ -107,12 +108,12 @@ public class Transform3DTest {
 			}
 			
 
-			assertNotNull("Null reference from transformation.", reference);
-			assertSame("Result and reference are not the same object.", result, reference);
+			assertNotNull(reference, "Null reference from transformation.");
+			assertSame(result, reference, "Result and reference are not the same object.");
 
-			assertEquals("Invalid coordinate x", expected.getX(), reference.getX(), epsilon);
-			assertEquals("Invalid coordinate y", expected.getY(), reference.getY(), epsilon);
-			assertEquals("Invalid coordinate z", expected.getZ(), reference.getZ(), epsilon);
+			assertEquals(expected.getX(), reference.getX(), epsilon, "Invalid coordinate x");
+			assertEquals(expected.getY(), reference.getY(), epsilon, "Invalid coordinate y");
+			assertEquals(expected.getZ(), reference.getZ(), epsilon, "Invalid coordinate z");
 		}	
 	}
 
@@ -125,7 +126,7 @@ public class Transform3DTest {
 	 */
 	public static void transformAffectTest(Transform3D transform, Point3D input, Point3D expected, double epsilon) {
 
-		assertNotNull("Null transform provided.", transform);
+		assertNotNull(transform, "Null transform provided.");
 
 		Point3D result = null;
 
@@ -136,11 +137,11 @@ public class Transform3DTest {
 				fail("Unexpected exception: "+t.getMessage());
 			}
 			
-			assertNull("No null result from transformation.", result);
+			assertNull(result, "No null result from transformation.");
 			
 		} else {
 
-			assertNotNull("Null expected point provided.", expected);
+			assertNotNull(expected, "Null expected point provided.");
 
 			try {
 				result = transform.transformAffect(input);
@@ -148,12 +149,12 @@ public class Transform3DTest {
 				fail("Unexpected exception: "+t.getMessage());
 			}
 			
-			assertNotNull("Null result from transformation.", result);
-			assertSame("Result and input are not the same object.", input, result);
+			assertNotNull(result, "Null result from transformation.");
+			assertSame(input, result, "Result and input are not the same object.");
 
-			assertEquals("Invalid coordinate x", expected.getX(), result.getX(), epsilon);
-			assertEquals("Invalid coordinate y", expected.getY(), result.getY(), epsilon);
-			assertEquals("Invalid coordinate z", expected.getZ(), result.getZ(), epsilon);
+			assertEquals(expected.getX(), result.getX(), epsilon, "Invalid coordinate x");
+			assertEquals( expected.getY(), result.getY(), epsilon, "Invalid coordinate y");
+			assertEquals(expected.getZ(), result.getZ(), epsilon, "Invalid coordinate z");
 		}
 
 
@@ -168,7 +169,7 @@ public class Transform3DTest {
 	 */
 	public static void transformInverseTest(Transform3D transform, Point3D input, Point3D expected, double epsilon) {
 
-		assertNotNull("Null transform provided.", transform);
+		assertNotNull(transform, "Null transform provided.");
 
 		Point3D result = null;
 
@@ -179,11 +180,11 @@ public class Transform3DTest {
 				fail("Unexpected exception: "+t.getMessage());
 			}
 			
-			assertNull("No null result from transformation.", result);
+			assertNull(result, "No null result from transformation.");
 			
 		} else {
 
-			assertNotNull("Null expected point provided.", expected);
+			assertNotNull(expected, "Null expected point provided.");
 
 			try {
 				result = transform.transformInverse(input);
@@ -192,11 +193,11 @@ public class Transform3DTest {
 			}
 
 
-			assertNotNull("Null result from transformation.", result);
+			assertNotNull(result, "Null result from transformation.");
 
-			assertEquals("Invalid coordinate x", expected.getX(), result.getX(), epsilon);
-			assertEquals("Invalid coordinate y", expected.getY(), result.getY(), epsilon);
-			assertEquals("Invalid coordinate z", expected.getZ(), result.getZ(), epsilon);
+			assertEquals(expected.getX(), result.getX(), epsilon, "Invalid coordinate x");
+			assertEquals(expected.getY(), result.getY(), epsilon, "Invalid coordinate y");
+			assertEquals(expected.getZ(), result.getZ(), epsilon, "Invalid coordinate z");
 
 		}
 
@@ -216,14 +217,14 @@ public class Transform3DTest {
 
 		Point3D result = null;
 
-		assertNotNull("Null transform provided.", transform);
+		assertNotNull(transform, "Null transform provided.");
 
 		// Test with null result
 		reference = transform.transformInverse(input, null);		
-		assertNull("Expected null refrence.", reference);
+		assertNull(reference, "Expected null refrence.");
 
 		result = JeometryFactory.createPoint3D();		
-		assertNotNull("Unable to instanciate result point.", result);
+		assertNotNull(result, "Unable to instanciate result point.");
 
 		if (input == null) {
 			try {
@@ -232,15 +233,15 @@ public class Transform3DTest {
 				fail("Unexpected exception: "+t.getMessage());
 			}
 			
-			assertNotNull("Null reference from transformation.", reference);
-			assertSame("Result and reference are not the same object.", result, reference);
+			assertNotNull(reference, "Null reference from transformation.");
+			assertSame(result, reference, "Result and reference are not the same object.");
 
-			assertEquals("Invalid coordinate x", Double.NaN, reference.getX(), epsilon);
-			assertEquals("Invalid coordinate y", Double.NaN, reference.getY(), epsilon);
-			assertEquals("Invalid coordinate z", Double.NaN, reference.getZ(), epsilon);
+			assertEquals(Double.NaN, reference.getX(), epsilon, "Invalid coordinate x");
+			assertEquals(Double.NaN, reference.getY(), epsilon, "Invalid coordinate y");
+			assertEquals(Double.NaN, reference.getZ(), epsilon, "Invalid coordinate z");
 		} else {
 
-			assertNotNull("Null expected point provided.", expected);
+			assertNotNull(expected, "Null expected point provided.");
 
 			try {
 				reference = transform.transformInverse(input, result);
@@ -248,12 +249,12 @@ public class Transform3DTest {
 				fail("Unexpected exception: "+t.getMessage());
 			}
 			
-			assertNotNull("Null reference from transformation.", reference);
-			assertSame("Result and reference are not the same object.", result, reference);
+			assertNotNull(reference, "Null reference from transformation.");
+			assertSame(result, reference, "Result and reference are not the same object.");
 
-			assertEquals("Invalid coordinate x", expected.getX(), reference.getX(), epsilon);
-			assertEquals("Invalid coordinate y", expected.getY(), reference.getY(), epsilon);
-			assertEquals("Invalid coordinate z", expected.getZ(), reference.getZ(), epsilon);
+			assertEquals(expected.getX(), reference.getX(), epsilon, "Invalid coordinate x");
+			assertEquals(expected.getY(), reference.getY(), epsilon, "Invalid coordinate y");
+			assertEquals(expected.getZ(), reference.getZ(), epsilon, "Invalid coordinate z");
 		}	
 	}
 
@@ -266,7 +267,7 @@ public class Transform3DTest {
 	 */
 	public static void transformInverseAffectTest(Transform3D transform, Point3D input, Point3D expected, double epsilon) {
 
-		assertNotNull("Null transform provided.", transform);
+		assertNotNull(transform, "Null transform provided.");
 
 		Point3D result = null;
 
@@ -277,11 +278,11 @@ public class Transform3DTest {
 				fail("Unexpected exception: "+t.getMessage());
 			}
 			
-			assertNull("No null result from transformation.", result);
+			assertNull(result, "No null result from transformation.");
 			
 		} else {
 
-			assertNotNull("Null expected point provided.", expected);
+			assertNotNull(expected, "Null expected point provided.");
 
 			try {
 				result = transform.transformInverseAffect(input);
@@ -290,12 +291,12 @@ public class Transform3DTest {
 			}
 			
 
-			assertNotNull("Null result from transformation.", result);
-			assertSame("Result and input are not the same object.", input, result);
+			assertNotNull(result, "Null result from transformation.");
+			assertSame(input, result, "Result and input are not the same object.");
 
-			assertEquals("Invalid coordinate x", expected.getX(), result.getX(), epsilon);
-			assertEquals("Invalid coordinate y", expected.getY(), result.getY(), epsilon);
-			assertEquals("Invalid coordinate z", expected.getZ(), result.getZ(), epsilon);
+			assertEquals(expected.getX(), result.getX(), epsilon, "Invalid coordinate x");
+			assertEquals(expected.getY(), result.getY(), epsilon, "Invalid coordinate y");
+			assertEquals(expected.getZ(), result.getZ(), epsilon, "Invalid coordinate z");
 
 		}
 

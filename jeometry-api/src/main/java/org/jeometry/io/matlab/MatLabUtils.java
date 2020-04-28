@@ -77,13 +77,13 @@ public class MatLabUtils {
 			if (representation == VECTOR_ROW) {
 				code += "[";
 				for(int dimension = 0; dimension < vector.getDimension(); dimension++) {
-					code += " "+vector.getVectorComponent(dimension);
+					code += " "+vector.getValue(dimension);
 				}
 				code += "]";
 			} else if (representation == VECTOR_COLUMN) {
 				code += "[";
 				for(int dimension = 0; dimension < vector.getDimension(); dimension++) {
-					code += " "+vector.getVectorComponent(dimension);
+					code += " "+vector.getValue(dimension);
 					
 					if (dimension < (vector.getDimension() - 1)) {
 						code +=";";

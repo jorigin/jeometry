@@ -182,6 +182,160 @@ public class SimpleMatrix implements Matrix {
 	}
 
 	@Override
+	public Vector getColumn(int index) {
+		return getColumn(index, JeometryFactory.createVector(getRowsCount()));
+	}
+
+	@Override
+	public Vector getColumn(int index, Vector output) {
+		if ((index < 0) || (index >= getColumnsCount())) {
+			throw new IllegalArgumentException("Invalid column index "+index+", expected values between 0 to "+(getColumnsCount()-1));
+		}
+		
+		if (output != null) {
+			if (output.getDimension() != getRowsCount()) {
+				throw new IllegalArgumentException("Invalid output size "+output.getDimension()+", expected "+getRowsCount());
+			}
+			
+			for(int row = 0; row < getRowsCount(); row++) {
+				output.setValue(row, getValue(row, index));
+			}
+		}
+		return output;
+	}
+
+	@Override
+	public double[] getColumn(int index, double[] output) {
+		if ((index < 0) || (index >= getColumnsCount())) {
+			throw new IllegalArgumentException("Invalid column index "+index+", expected values between 0 to "+(getColumnsCount()-1));
+		}
+		
+		if (output != null) {
+			if (output.length != getRowsCount()) {
+				throw new IllegalArgumentException("Invalid output size "+output.length+", expected "+getRowsCount());
+			}
+			
+			for(int row = 0; row < getRowsCount(); row++) {
+				output[row] = getValue(row, index);
+			}
+		}
+		return output;
+	}
+
+	@Override
+	public Matrix setColumn(int index, Vector input) {
+		if ((index < 0) || (index >= getColumnsCount())) {
+			throw new IllegalArgumentException("Invalid column index "+index+", expected values between 0 to "+(getColumnsCount()-1));
+		}
+		
+		if (input != null) {
+			if (input.getDimension() != getRowsCount()) {
+				throw new IllegalArgumentException("Invalid input size "+input.getDimension()+", expected "+getRowsCount());
+			}
+			
+			for(int row = 0; row < getRowsCount(); row++) {
+				setValue(row, index, input.getValue(row));
+			}
+		}
+		return this;
+	}
+
+	@Override
+	public Matrix setColumn(int index, double[] input) {
+		if ((index < 0) || (index >= getColumnsCount())) {
+			throw new IllegalArgumentException("Invalid column index "+index+", expected values between 0 to "+(getColumnsCount()-1));
+		}
+		
+		if (input != null) {
+			if (input.length != getRowsCount()) {
+				throw new IllegalArgumentException("Invalid input size "+input.length+", expected "+getRowsCount());
+			}
+			
+			for(int row = 0; row < getRowsCount(); row++) {
+				setValue(row, index, input[row]);
+			}
+		}
+		return this;
+	}
+
+	@Override
+	public Vector getRow(int index) {
+       return getRow(index, JeometryFactory.createVector(getColumnsCount()));
+	}
+
+	@Override
+	public Vector getRow(int index, Vector output) {
+		if ((index < 0) || (index >= getRowsCount())) {
+			throw new IllegalArgumentException("Invalid row index "+index+", expected values between 0 to "+(getRowsCount()-1));
+		}
+		
+		if (output != null) {
+			if (output.getDimension() != getColumnsCount()) {
+				throw new IllegalArgumentException("Invalid output size "+output.getDimension()+", expected "+getColumnsCount());
+			}
+			
+			for(int column = 0; column < getColumnsCount(); column++) {
+				output.setValue(column, getValue(index, column));
+			}
+		}
+		return output;
+	}
+
+	@Override
+	public double[] getRow(int index, double[] output) {
+		if ((index < 0) || (index >= getRowsCount())) {
+			throw new IllegalArgumentException("Invalid row index "+index+", expected values between 0 to "+(getRowsCount()-1));
+		}
+		
+		if (output != null) {
+			if (output.length != getColumnsCount()) {
+				throw new IllegalArgumentException("Invalid output size "+output.length+", expected "+getColumnsCount());
+			}
+			
+			for(int column = 0; column < getColumnsCount(); column++) {
+				output[column] = getValue(index, column);
+			}
+		}
+		return output;
+	}
+
+	@Override
+	public Matrix setRow(int index, Vector input) {
+		if ((index < 0) || (index >= getRowsCount())) {
+			throw new IllegalArgumentException("Invalid row index "+index+", expected values between 0 to "+(getRowsCount()-1));
+		}
+		
+		if (input != null) {
+			if (input.getDimension() != getColumnsCount()) {
+				throw new IllegalArgumentException("Invalid input size "+input.getDimension()+", expected "+getColumnsCount());
+			}
+			
+			for(int column = 0; column < getColumnsCount(); column++) {
+				setValue(index, column, input.getValue(column));
+			}
+		}
+		return this;
+	}
+
+	@Override
+	public Matrix setRow(int index, double[] input) {
+		if ((index < 0) || (index >= getRowsCount())) {
+			throw new IllegalArgumentException("Invalid row index "+index+", expected values between 0 to "+(getRowsCount()-1));
+		}
+		
+		if (input != null) {
+			if (input.length != getColumnsCount()) {
+				throw new IllegalArgumentException("Invalid input size "+input.length+", expected "+getColumnsCount());
+			}
+			
+			for(int column = 0; column < getColumnsCount(); column++) {
+				setValue(index, column, input[column]);
+			}
+		}
+		return this;
+	}
+	
+	@Override
 	public Matrix extract(int rowOffset, int columnOffset, int rowCount, int columnCount) {
 		return extract(rowOffset, columnOffset, rowCount, columnCount, JeometryFactory.createMatrix(rowCount, columnCount));
 	}
@@ -434,10 +588,10 @@ public class SimpleMatrix implements Matrix {
 				for(int dimension = 0; dimension < result.getDimension(); dimension++) {
 					value = 0.0d;
 					for(int commonIndex = 0; commonIndex < getColumnsCount(); commonIndex++) {
-						value = value + getValue(dimension, commonIndex) * v.getVectorComponent(commonIndex);
+						value = value + getValue(dimension, commonIndex) * v.getValue(commonIndex);
 					}
 
-					result.setVectorComponent(dimension, value);
+					result.setValue(dimension, value);
 
 				}
 
@@ -697,7 +851,7 @@ public class SimpleMatrix implements Matrix {
 
 	@Override
 	public Matrix concatHorizontal(Matrix right) {
-		return concatHorizontal(right, JeometryFactory.createMatrix(right.getRowsCount(), getColumnsCount()+right.getColumnsCount()));
+		return concatHorizontal(right, JeometryFactory.createMatrix(getRowsCount(), getColumnsCount()+right.getColumnsCount()));
 	}
 
 	@Override
@@ -725,6 +879,34 @@ public class SimpleMatrix implements Matrix {
 		return result;
 	}
 
+	@Override
+	public Matrix concatHorizontal(Vector right) {
+		return concatHorizontal(right, JeometryFactory.createMatrix(getRowsCount(), getColumnsCount()+right.getDimension()));
+	}
+
+	@Override
+	public Matrix concatHorizontal(Vector right, Matrix result) {
+		if (getRowsCount() == right.getDimension()) {
+			if (getRowsCount() == result.getRowsCount()) {
+				for (int row = 0; row < getRowsCount(); row++) {
+					for (int col = 0; col < getColumnsCount(); col++) {
+						result.setValue(row, col, getValue(row, col));
+					}
+				}
+
+				for (int row = 0; row < right.getDimension(); row++) {
+					result.setValue(row, getColumnsCount(), right.getValue(row));
+				}
+
+			} else {
+				throw new IllegalArgumentException("Incompatible result matrix size, expected "+getRowsCount()+"x"+getColumnsCount()+right.getDimension()+" and got "+result.getRowsCount()+"x"+result.getColumnsCount());
+			}
+		} else {
+			throw new IllegalArgumentException("Incompatible right vector dimension, expected "+getRowsCount()+" and got "+right.getDimension());
+		}
+		return result;
+	}
+	
 	@Override
 	public Matrix concatVertical(Matrix bottom) {
 		return concatVertical(bottom, JeometryFactory.createMatrix(getRowsCount()+bottom.getRowsCount(), getColumnsCount()));
@@ -755,6 +937,33 @@ public class SimpleMatrix implements Matrix {
 		return result;
 	}
 
+	@Override
+	public Matrix concatVertical(Vector bottom) {
+		return concatVertical(bottom, JeometryFactory.createMatrix(getRowsCount()+bottom.getDimension(), getColumnsCount()));
+	}
+
+	@Override
+	public Matrix concatVertical(Vector bottom, Matrix result) {
+		if (getColumnsCount() == bottom.getDimension()) {
+			if (getColumnsCount() == result.getColumnsCount()) {
+				for (int row = 0; row < getRowsCount(); row++) {
+					for (int col = 0; col < getColumnsCount(); col++) {
+						result.setValue(row, col, getValue(row, col));
+					}
+				}
+
+				for (int col = 0; col < getColumnsCount(); col++) {
+					result.setValue(getRowsCount(), col, bottom.getValue(col));
+				}
+			} else {
+				throw new IllegalArgumentException("Incompatible result matrix size, expected "+(getRowsCount()+bottom.getDimension())+"x"+getColumnsCount()+" and got "+result.getRowsCount()+"x"+result.getColumnsCount());
+			}
+		} else {
+			throw new IllegalArgumentException("Incompatible bottom vector dimension, expected "+getColumnsCount()+" and got "+bottom.getDimension());
+		}
+		return result;
+	}
+	
 	/**
 	 * Create a new simple matrix with the given size.
 	 * @param rows the number of rows.
@@ -849,4 +1058,5 @@ public class SimpleMatrix implements Matrix {
 
 		return result;
 	}
+
 }

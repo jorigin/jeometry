@@ -286,31 +286,31 @@ public class SimpleQRDecomposition implements QRDecomposition {
 
 		Vector xTmp = JeometryFactory.createVector(b);
 		
-		xTmp.setComponents(b);
+		xTmp.setValues(b);
 
 		// Compute Y = transpose(Q)*B
 		for (int k = 0; k < inputColumnsCount; k++) {
 			double s = 0.0; 
 			for (int i = k; i < inputRowsCount; i++) {
-				s += QR.getValue(i, k)*xTmp.getVectorComponent(i);
+				s += QR.getValue(i, k)*xTmp.getValue(i);
 			}
 			s = -s/QR.getValue(k, k);
 			for (int i = k; i < inputRowsCount; i++) {
-				xTmp.setVectorComponent(i, xTmp.getVectorComponent(i) + s*QR.getValue(i, k));
+				xTmp.setValue(i, xTmp.getValue(i) + s*QR.getValue(i, k));
 			}
 		}
 
 		// Solve R*X = Y;
 		for (int k = inputColumnsCount-1; k >= 0; k--) {
 
-			xTmp.setVectorComponent(k,  xTmp.getVectorComponent(k) / Rdiag[k]);
+			xTmp.setValue(k,  xTmp.getValue(k) / Rdiag[k]);
 
 			for (int i = 0; i < k; i++) {
-				xTmp.setVectorComponent(i,  xTmp.getVectorComponent(i) - xTmp.getVectorComponent(k)*QR.getValue(i, k));
+				xTmp.setValue(i,  xTmp.getValue(i) - xTmp.getValue(k)*QR.getValue(i, k));
 			}
 		}
 
-		x.setComponents(xTmp.extract(0, inputColumnsCount));
+		x.setValues(xTmp.extract(0, inputColumnsCount));
 		
 		return x;
 	}

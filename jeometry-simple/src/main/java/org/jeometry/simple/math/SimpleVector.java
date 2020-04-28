@@ -24,17 +24,17 @@ public class SimpleVector implements Vector {
 	}
 
 	@Override
-	public double getVectorComponent(int dimension) {
+	public double getValue(int dimension) {
 		return components[dimension];
 	}
 
 	@Override
-	public void setVectorComponent(int dimension, double value) {
+	public void setValue(int dimension, double value) {
 		components[dimension] = value;;
 	}
 
 	@Override
-	public void setComponents(Vector v) {
+	public void setValues(Vector v) {
 		if (v == null) {
 			throw new IllegalArgumentException("Null input vector");
 		}
@@ -44,17 +44,17 @@ public class SimpleVector implements Vector {
 		}
 
 		for(int dimension = 0; dimension < getDimension(); dimension++) {
-			setVectorComponent(dimension, v.getVectorComponent(dimension));
+			setValue(dimension, v.getValue(dimension));
 		}
 	}
 
 	@Override
-	public double[] getComponents() {
-		return getComponents(new double[getDimension()]);
+	public double[] getValues() {
+		return getValues(new double[getDimension()]);
 	}
 
 	@Override
-	public double[] getComponents(double[] components) {
+	public double[] getValues(double[] components) {
 		if (components == null) {
 			throw new IllegalArgumentException("Null output array");
 		}
@@ -64,14 +64,14 @@ public class SimpleVector implements Vector {
 		}
 
 		for(int dimension = 0; dimension < getDimension(); dimension++) {
-			components[dimension] = getVectorComponent(dimension);
+			components[dimension] = getValue(dimension);
 		}
 
 		return components;
 	}
 
 	@Override
-	public void setComponents(double[] components) {
+	public void setValues(double[] components) {
 		if (components == null) {
 			throw new IllegalArgumentException("Null input array");
 		}
@@ -81,19 +81,19 @@ public class SimpleVector implements Vector {
 		}
 
 		for(int dimension = 0; dimension < getDimension(); dimension++) {
-			setVectorComponent(dimension, components[dimension]);
+			setValue(dimension, components[dimension]);
 		}
 	}
 
 	@Override
-	public void setComponents(double value) {
+	public void setValues(double value) {
 		for(int dimension = 0; dimension < getDimension(); dimension++) {
-			setVectorComponent(dimension, value);
+			setValue(dimension, value);
 		}
 	}
 
 	@Override
-	public void setComponents(Matrix matrix) {
+	public void setValues(Matrix matrix) {
 		if (matrix == null) {
 			throw new IllegalArgumentException("Null input.");
 		}
@@ -123,11 +123,11 @@ public class SimpleVector implements Vector {
 
 		if (columnMatrix) {
 			for(int dimension = 0; dimension < matrix.getColumnsCount(); dimension++) {
-				setVectorComponent(dimension, matrix.getValue(0, dimension));
+				setValue(dimension, matrix.getValue(0, dimension));
 			}
 		} else {
 			for(int dimension = 0; dimension < matrix.getRowsCount(); dimension++) {
-				setVectorComponent(dimension, matrix.getValue(dimension, 0));	
+				setValue(dimension, matrix.getValue(dimension, 0));	
 			}
 		}
 
@@ -148,7 +148,7 @@ public class SimpleVector implements Vector {
 		extracted = JeometryFactory.createVector(length);
 
 		for(int dimension = 0; dimension < extracted.getDimension(); dimension++) {
-			extracted.setVectorComponent(dimension, getVectorComponent(dimension+start));
+			extracted.setValue(dimension, getValue(dimension+start));
 		}
 
 		return extracted;
@@ -208,7 +208,7 @@ public class SimpleVector implements Vector {
 		if (result != null) {
 			if (result.getDimension() >= getDimension()) {
 				for(int dimension = 0; dimension < getDimension(); dimension++) {
-					result.setVectorComponent(dimension, getVectorComponent(dimension)*scalar);
+					result.setValue(dimension, getValue(dimension)*scalar);
 				}
 			} else {
 				throw new IllegalArgumentException("Invalid result vector dimension ("+result.getDimension()+"), expected at least "+getDimension());
@@ -221,7 +221,7 @@ public class SimpleVector implements Vector {
 	@Override
 	public Vector multiplyAffect(double scalar) {
 		for(int dimension = 0; dimension < getDimension(); dimension++) {
-			setVectorComponent(dimension, getVectorComponent(dimension)*scalar);
+			setValue(dimension, getValue(dimension)*scalar);
 		}
 		return this;
 	}
@@ -254,7 +254,7 @@ public class SimpleVector implements Vector {
 		components = new double[source.getDimension()];
 
 		for(int dimension = 0; dimension < source.getDimension(); dimension++) {
-			components[dimension] = source.getVectorComponent(dimension);
+			components[dimension] = source.getValue(dimension);
 		}
 	}
 
@@ -278,7 +278,7 @@ public class SimpleVector implements Vector {
 				}
 
 				for(int dimension = 0; dimension < getDimension(); dimension++) {
-					result.setVectorComponent(dimension, getVectorComponent(dimension) + v.getVectorComponent(dimension));
+					result.setValue(dimension, getValue(dimension) + v.getValue(dimension));
 				}
 			}
 
@@ -296,7 +296,7 @@ public class SimpleVector implements Vector {
 			}
 
 			for(int dimension = 0; dimension < getDimension(); dimension++) {
-				setVectorComponent(dimension, getVectorComponent(dimension) + v.getVectorComponent(dimension));
+				setValue(dimension, getValue(dimension) + v.getValue(dimension));
 			}
 		}
 
@@ -323,7 +323,7 @@ public class SimpleVector implements Vector {
 				}
 
 				for(int dimension = 0; dimension < getDimension(); dimension++) {
-					result.setVectorComponent(dimension, getVectorComponent(dimension) - v.getVectorComponent(dimension));
+					result.setValue(dimension, getValue(dimension) - v.getValue(dimension));
 				}
 			}
 
@@ -341,7 +341,7 @@ public class SimpleVector implements Vector {
 			}
 
 			for(int dimension = 0; dimension < getDimension(); dimension++) {
-				setVectorComponent(dimension, getVectorComponent(dimension) - v.getVectorComponent(dimension));
+				setValue(dimension, getValue(dimension) - v.getValue(dimension));
 			}
 		}
 
@@ -368,7 +368,7 @@ public class SimpleVector implements Vector {
 				}
 
 				for(int dimension = 0; dimension < getDimension(); dimension++) {
-					result.setVectorComponent(dimension, getVectorComponent(dimension) * v.getVectorComponent(dimension));
+					result.setValue(dimension, getValue(dimension) * v.getValue(dimension));
 				}
 			}
 
@@ -386,7 +386,7 @@ public class SimpleVector implements Vector {
 			}
 
 			for(int dimension = 0; dimension < getDimension(); dimension++) {
-				setVectorComponent(dimension, getVectorComponent(dimension) * v.getVectorComponent(dimension));
+				setValue(dimension, getValue(dimension) * v.getValue(dimension));
 			}
 		}
 
@@ -413,7 +413,7 @@ public class SimpleVector implements Vector {
 				}
 
 				for(int dimension = 0; dimension < getDimension(); dimension++) {
-					result.setVectorComponent(dimension, getVectorComponent(dimension) / v.getVectorComponent(dimension));
+					result.setValue(dimension, getValue(dimension) / v.getValue(dimension));
 				}
 			}
 
@@ -431,7 +431,7 @@ public class SimpleVector implements Vector {
 			}
 
 			for(int dimension = 0; dimension < getDimension(); dimension++) {
-				setVectorComponent(dimension, getVectorComponent(dimension) / v.getVectorComponent(dimension));
+				setValue(dimension, getValue(dimension) / v.getValue(dimension));
 			}
 		}
 
@@ -449,7 +449,7 @@ public class SimpleVector implements Vector {
 			double d = 0.0d;
 			
 			for(int dimension = 0; dimension < getDimension(); dimension++) {
-				d = d + getVectorComponent(dimension) * v.getVectorComponent(dimension);
+				d = d + getValue(dimension) * v.getValue(dimension);
 			}
 			
 			return d;

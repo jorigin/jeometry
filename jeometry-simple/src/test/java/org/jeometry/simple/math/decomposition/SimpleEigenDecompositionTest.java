@@ -3,9 +3,9 @@ package org.jeometry.simple.math.decomposition;
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
 import org.jeometry.math.decomposition.EigenDecomposition;
-import org.jeometry.math.decomposition.EigenDecompositionTest;
 import org.jeometry.simple.factory.SimpleMathBuilder;
-import org.junit.BeforeClass;
+import org.jeometry.test.math.decomposition.EigenDecompositionTest;
+import org.junit.jupiter.api.BeforeAll;
 
 /**
  * A test suite dedicated to the {@link EigenDecomposition}.
@@ -23,7 +23,7 @@ public class SimpleEigenDecompositionTest extends EigenDecompositionTest{
 	/**
 	 * Initialize the test static context.
 	 */
-	@BeforeClass
+	@BeforeAll
 	public static void initClass() {
 		
 		decompositionClass = SimpleEigenDecomposition.class;

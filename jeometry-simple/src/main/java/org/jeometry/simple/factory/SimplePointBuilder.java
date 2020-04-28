@@ -24,7 +24,7 @@ public class SimplePointBuilder implements PointBuilder {
 		Vector simpleVector = new SimpleVector(dimensions);
 		
 		for(int dimension = 0; dimension < simpleVector.getDimension(); dimension++) {
-			simpleVector.setVectorComponent(dimension, defaultValue);
+			simpleVector.setValue(dimension, defaultValue);
 		}
 		
 		return simpleVector;

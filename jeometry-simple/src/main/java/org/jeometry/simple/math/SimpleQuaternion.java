@@ -63,7 +63,7 @@ public class SimpleQuaternion implements Quaternion {
 	}
 
 	@Override
-	public double getVectorComponent(int dimension) {
+	public double getValue(int dimension) {
 
 		if ((dimension >= 0) && (dimension < 4)) {
 			if (dimension == Quaternion.QUATERNION_SCALAR_COMPONENT) {
@@ -83,7 +83,7 @@ public class SimpleQuaternion implements Quaternion {
 	}
 
 	@Override
-	public void setVectorComponent(int dimension, double value) {
+	public void setValue(int dimension, double value) {
 		if ((dimension >= 0) && (dimension < 4)) {
 
 			if (dimension == Quaternion.QUATERNION_SCALAR_COMPONENT) {
@@ -105,7 +105,7 @@ public class SimpleQuaternion implements Quaternion {
 	}
 
 	@Override
-	public void setComponents(Vector v) {
+	public void setValues(Vector v) {
 		if (v == null) {
 			throw new IllegalArgumentException("Null input vector");
 		}
@@ -115,12 +115,12 @@ public class SimpleQuaternion implements Quaternion {
 		}
 
 		for(int dimension = 0; dimension < getDimension(); dimension++) {
-			setVectorComponent(dimension, v.getVectorComponent(dimension));
+			setValue(dimension, v.getValue(dimension));
 		}
 	}
 
 	@Override
-	public void setComponents(double[] components) {
+	public void setValues(double[] components) {
 		if (components == null) {
 			throw new IllegalArgumentException("Null input array");
 		}
@@ -130,7 +130,7 @@ public class SimpleQuaternion implements Quaternion {
 		}
 
 		for(int dimension = 0; dimension < getDimension(); dimension++) {
-			setVectorComponent(dimension, components[dimension]);
+			setValue(dimension, components[dimension]);
 		}
 	}
 
@@ -149,7 +149,7 @@ public class SimpleQuaternion implements Quaternion {
 		extracted = JeometryFactory.createVector(length);
 		
 		for(int dimension = 0; dimension < extracted.getDimension(); dimension++) {
-			extracted.setVectorComponent(dimension, getVectorComponent(dimension+start));
+			extracted.setValue(dimension, getValue(dimension+start));
 		}
 		
 		return extracted;
@@ -200,7 +200,7 @@ public class SimpleQuaternion implements Quaternion {
 		if (result != null) {
 			if (result.getDimension() >= getDimension()) {
 				for(int dimension = 0; dimension < getDimension(); dimension++) {
-					result.setVectorComponent(dimension, getVectorComponent(dimension)*scalar);
+					result.setValue(dimension, getValue(dimension)*scalar);
 				}
 			} else {
 				throw new IllegalArgumentException("Invalid result vector dimension ("+result.getDimension()+"), expected at least "+getDimension());
@@ -213,7 +213,7 @@ public class SimpleQuaternion implements Quaternion {
 	@Override
 	public Quaternion multiplyAffect(double scalar) {
 		for(int dimension = 0; dimension < getDimension(); dimension++) {
-			setVectorComponent(dimension, getVectorComponent(dimension)*scalar);
+			setValue(dimension, getValue(dimension)*scalar);
 		}
 		return this;
 	}
@@ -259,12 +259,12 @@ public class SimpleQuaternion implements Quaternion {
 	}
 
 	@Override
-	public double[] getComponents() {
+	public double[] getValues() {
 		return new double[] {scalar, i, j, k};
 	}
 
 	@Override
-	public double[] getComponents(double[] components) throws IllegalArgumentException {
+	public double[] getValues(double[] components) throws IllegalArgumentException {
 		if (components != null) {
 			if (components.length >= 4) {
 				components[org.jeometry.math.Quaternion.QUATERNION_SCALAR_COMPONENT] = scalar;
@@ -288,14 +288,14 @@ public class SimpleQuaternion implements Quaternion {
 	}
 
 	@Override
-	public void setComponents(double value) {
+	public void setValues(double value) {
 		for(int dimension = 0; dimension < getDimension(); dimension++) {
-			setVectorComponent(dimension, value);
+			setValue(dimension, value);
 		}
 	}
 
 	@Override
-	public void setComponents(Matrix matrix) {
+	public void setValues(Matrix matrix) {
 		if (matrix == null) {
 			throw new IllegalArgumentException("Null input.");
 		}
@@ -325,11 +325,11 @@ public class SimpleQuaternion implements Quaternion {
 
 		if (columnMatrix) {
 			for(int dimension = 0; dimension < matrix.getColumnsCount(); dimension++) {
-				setVectorComponent(dimension, matrix.getValue(0, dimension));
+				setValue(dimension, matrix.getValue(0, dimension));
 			}
 		} else {
 			for(int dimension = 0; dimension < matrix.getRowsCount(); dimension++) {
-				setVectorComponent(dimension, matrix.getValue(dimension, 0));	
+				setValue(dimension, matrix.getValue(dimension, 0));	
 			}
 		}
 
@@ -465,7 +465,7 @@ public class SimpleQuaternion implements Quaternion {
 				}
 
 				for(int dimension = 0; dimension < getDimension(); dimension++) {
-					result.setVectorComponent(dimension, getVectorComponent(dimension) + v.getVectorComponent(dimension));
+					result.setValue(dimension, getValue(dimension) + v.getValue(dimension));
 				}
 			}
 
@@ -500,7 +500,7 @@ public class SimpleQuaternion implements Quaternion {
 				}
 
 				for(int dimension = 0; dimension < getDimension(); dimension++) {
-					result.setVectorComponent(dimension, getVectorComponent(dimension) - v.getVectorComponent(dimension));
+					result.setValue(dimension, getValue(dimension) - v.getValue(dimension));
 				}
 			}
 
@@ -535,7 +535,7 @@ public class SimpleQuaternion implements Quaternion {
 				}
 
 				for(int dimension = 0; dimension < getDimension(); dimension++) {
-					result.setVectorComponent(dimension, getVectorComponent(dimension) * v.getVectorComponent(dimension));
+					result.setValue(dimension, getValue(dimension) * v.getValue(dimension));
 				}
 			}
 
@@ -570,7 +570,7 @@ public class SimpleQuaternion implements Quaternion {
 				}
 
 				for(int dimension = 0; dimension < getDimension(); dimension++) {
-					result.setVectorComponent(dimension, getVectorComponent(dimension) / v.getVectorComponent(dimension));
+					result.setValue(dimension, getValue(dimension) / v.getValue(dimension));
 				}
 			}
 
@@ -596,7 +596,7 @@ public class SimpleQuaternion implements Quaternion {
 			double d = 0.0d;
 			
 			for(int dimension = 0; dimension < getDimension(); dimension++) {
-				d = d + dimension + getVectorComponent(dimension) * v.getVectorComponent(dimension);
+				d = d + dimension + getValue(dimension) * v.getValue(dimension);
 			}
 			
 			return d;

@@ -23,7 +23,7 @@ import org.jeometry.math.Matrix;
  * @version {@value Jeometry#version} b{@value Jeometry#BUILD}
  * @since 1.0.0
  */
-public interface Transform3DMatrix extends Transform3D, Matrix{
+public interface Transform3DMatrix extends Transform3D{
 	
     @Override
 	public Transform3DMatrix invertTransform() throws IllegalStateException;

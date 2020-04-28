@@ -4,9 +4,9 @@ package org.jeometry.simple.math.decomposition;
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
 import org.jeometry.math.decomposition.LUDecomposition;
-import org.jeometry.math.decomposition.LUDecompositionTest;
 import org.jeometry.simple.factory.SimpleMathBuilder;
-import org.junit.BeforeClass;
+import org.jeometry.test.math.decomposition.LUDecompositionTest;
+import org.junit.jupiter.api.BeforeAll;
 
 
 /**
@@ -25,7 +25,7 @@ public class SimpleLUDecompositionTest extends LUDecompositionTest {
 	/**
 	 * Initialize the test static context.
 	 */
-	@BeforeClass
+	@BeforeAll
 	public static void initClass() {
 		JeometryFactory.setMathBuilder(new SimpleMathBuilder());
 	}

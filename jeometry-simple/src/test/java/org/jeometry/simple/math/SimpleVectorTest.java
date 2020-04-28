@@ -2,9 +2,9 @@ package org.jeometry.simple.math;
 
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
-import org.jeometry.math.VectorTest;
 import org.jeometry.simple.factory.SimpleMathBuilder;
-import org.junit.BeforeClass;
+import org.jeometry.test.math.VectorTest;
+import org.junit.jupiter.api.BeforeAll;
 
 /**
  * A test suite dedicated to the {@link SimpleVector}.
@@ -18,7 +18,7 @@ public class SimpleVectorTest extends VectorTest {
 	/**
 	 * Initialize the test static context.
 	 */
-	@BeforeClass
+	@BeforeAll
 	public static void initClass() {
 		
 		vectorClass = SimpleVector.class;

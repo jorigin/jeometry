@@ -1,9 +1,9 @@
 package org.jeometry.simple.geom3D.transform;
 
 import org.jeometry.factory.JeometryFactory;
-import org.jeometry.geom3D.transform.Transform3DMatrixTest;
 import org.jeometry.simple.factory.SimpleMathBuilder;
-import org.junit.BeforeClass;
+import org.jeometry.test.geom3D.transform.Transform3DMatrixTest;
+import org.junit.jupiter.api.BeforeAll;
 
 /**
  * Unitary tests dedicated to {@link SimpleTransform3DMatrix} implementations.<br>
@@ -13,7 +13,7 @@ import org.junit.BeforeClass;
  */
 public class SimpleTransform3DMatrixTest extends Transform3DMatrixTest{
 
-	@BeforeClass
+	@BeforeAll
 	public static void initClass() {
 		JeometryFactory.setMathBuilder(new SimpleMathBuilder());	
 		transformation3DClass = SimpleTransform3DMatrix.class;

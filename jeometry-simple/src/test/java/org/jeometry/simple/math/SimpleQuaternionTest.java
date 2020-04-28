@@ -2,9 +2,9 @@ package org.jeometry.simple.math;
 
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
-import org.jeometry.math.QuaternionTest;
 import org.jeometry.simple.factory.SimpleMathBuilder;
-import org.junit.BeforeClass;
+import org.jeometry.test.math.QuaternionTest;
+import org.junit.jupiter.api.BeforeAll;
 
 /**
  * A test suite for the {@link SimpleQuaternion} implementation.
@@ -17,7 +17,7 @@ public class SimpleQuaternionTest extends QuaternionTest {
 	/**
 	 * Initialize the test static context.
 	 */
-	@BeforeClass
+	@BeforeAll
 	public static void initClass() {
 		JeometryFactory.setMathBuilder(new SimpleMathBuilder());
 	}

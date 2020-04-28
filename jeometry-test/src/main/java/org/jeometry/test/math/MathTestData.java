@@ -1,6 +1,7 @@
-package org.jeometry.math;
+package org.jeometry.test.math;
 
 import org.jeometry.Jeometry;
+import org.jeometry.math.Matrix;
 import org.jeometry.math.decomposition.CholeskyDecomposition;
 import org.jeometry.math.decomposition.LUDecomposition;
 import org.jeometry.math.decomposition.QRDecomposition;

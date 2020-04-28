@@ -1,9 +1,9 @@
 package org.jeometry.simple.math.solver;
 
 import org.jeometry.factory.JeometryFactory;
-import org.jeometry.math.solver.GaussEliminationSolverTest;
 import org.jeometry.simple.factory.SimpleMathBuilder;
-import org.junit.BeforeClass;
+import org.jeometry.test.math.solver.GaussEliminationSolverTest;
+import org.junit.jupiter.api.BeforeAll;
 
 /**
  * A Gauss Elimination based solver test.
@@ -14,7 +14,7 @@ public class SimpleGaussEliminationSolverTest extends GaussEliminationSolverTest
 	/**
 	 * Initialize the test static context.
 	 */
-	@BeforeClass
+	@BeforeAll
 	public static void initClass() {
 		
 		solver = new SimpleGaussEliminationSolver();

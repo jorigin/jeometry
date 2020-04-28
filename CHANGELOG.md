@@ -6,19 +6,62 @@
 - Views on a Vector / Matrix to focus on a specific part of the object without copying the underlying data
 - Decomposition `compose()` method to recompute input matrix from a decomposition
 - Vector concatenation
+- Vector `Vector plus(double)`
+- Vector `Vector plus(double, Vector)`
+- Vector `Vector plusAffect(double)`
+- Vector `Vector minus(double)`
+- Vector `Vector minus(double, Vector)`
+- Vector `Vector minusAffect(double)`
+- Vector `Vector plusFactor(double, Vector)`
+- Vector `Vector plusFactor(double, Vector, Vector)`
+- Vector `Vector minusFactor(double, Vector)`
+- Vector `Vector minusFactor(double, Vector, Vector)`
+- JeometryFactory `createPoint3D(Vector)`
+- Matrix matrix norms (see (Here)[https://en.wikipedia.org/wiki/Matrix_norm])
 - Test implements Point2DTest
 
 ### Change
-- Refactor Vector `getVectorComponent(int)`, `setVectorComponent(int, double)` to `getValue(int)`, `setValue(int, double)`
-- Refactor Vector `getComponents()` to `getValues()`
 - Refactor Matrix `setTo` to `setValues`
 - Refactor Quaternion `mult` into `product`
 - Refactor make all xxxAffect() methods to return a reference on the object instead of `void` in order to chain processing
+- Refactor make all setValue(s) methods to return a reference on the object for chaining purpose
 
 ## [1.0.3](https://github.com/jorigin/jeometry/releases/tag/release-1.0.3)
 ### Added
+- Unit tests upgraded to use Junit 5
+- Modular structure added
+- Jeometry `static void print(Vector vector, PrintStream stream, String prefix, int width, NumberFormat format)`
+- Jeometry `static void print(Matrix, Writer, String` for Writer output
+- Jeometry `static void print(Vector vector, Writer writer, String prefix)` for Writer output
+- Jeometry `static void print(Matrix matrix, Writer writer, String prefix, int width, NumberFormat format)` for Writer output
+- Jeometry `static void print(Matrix matrix, Writer writer, String prefix, int width, int fraction)`  for Writer output
+- Jeometry `static void print(Vector vector, Writer writer, String prefix, int width, NumberFormat format)` for Writer output
 - JeometryFactory `createPoint3D(Point3D)` method
 - JeometryFactory `createPoint2D(Point2D)` method
+- Matrix `Matrix concatHorizontal(Vector)` method
+- Matrix `Matrix concatHorizontal(Vector, Matrix)` method
+- Matrix `Matrix concatVertical(Vector)` method
+- Matrix `Matrix concatVertical(Vector, Matrix)` method
+- Matrix `Vector getColumn(int)` method
+- Matrix `Vector getColumn(int, Vector)` method
+- Matrix `double[] getColumn(int, double[])` method
+- Matrix `Vector getRow(int)` method
+- Matrix `Vector getRow(int, Vector)` method
+- Matrix `double[] getRow(int, double[])` method
+- Matrix `Matrix setColumn(int, Vector)` method
+- Matrix `Matrix setColumn(int, double[])` method
+- Matrix `Matrix setRow(int, Vector)` method
+- Matrix `Matrix setRow(int, double[])` method
+- Point2D `setValues(double, double, double)` method
+- Point2D `setValues(Point3D)` method
+- Point3D `setValues(double, double, double)` method
+- Point3D `setValues(Point3D)` methods
+- Transform3D `Point3D transformAffect(Point3D)` method
+- Transform3D `Point3D transformInverse(Point3D)` method
+- Transform3D `Point3D transformInverse(Point3D, Point3D)` method
+- Transform3D `Point3D transformInverseAffect(Point3D)` method
+- Transform3D `Transform3D invertTransformAffect()` method
+- TransformBuilder class that enables to contruct Transform3D objects
 - Vector `plus(Vector)`, `plus(Vector, Vector)`, `plusAffect(Vector)` methods
 - Vector `minus(Vector)`, `minus(Vector, Vector)`, `minusAffect(Vector)` methods
 - Vector `multiply(Vector)`, `multiply(Vector, Vector)`, `multiplyAffect(Vector)` methods
@@ -26,19 +69,21 @@
 - Vector `setComponents(double)` method
 - Vector `setComponents(Matrix)` method
 - Vector `dot(Vector)` method
-- Point2D `setValues(double, double, double)` method
-- Point2D `setValues(Point3D)` method
-- Point3D `setValues(double, double, double)` method
-- Point3D `setValues(Point3D)` method
-- Transform3D `Point3D transformAffect(Point3D)`
-- Transform3D `Point3D transformInverse(Point3D)`
-- Transform3D `Point3D transformInverse(Point3D, Point3D)`
-- Transform3D `Point3D transformInverseAffect(Point3D)`
-- Transform3D `Transform3D invertTransformAffect()`
-- TransformBuilder class that enables to contruct Transform3D objects
 
 ### Changed
-- Refactor MatrixTestData into MathTestData
+- Jeometry `static void print(Matrix matrix, PrintStream stream, String prefix)` was not writing on the stream but on System.out
+- Jeometry `static void print(Vector vector, PrintStream stream, String prefix)` was not writing on the stream but on System.out
+- MatrixTestData into MathTestData
+- Vector `double[] getComponents()` into  `double[] getValues()`
+- Vector `double[] getComponents(double[] components)` into `double[] getValues(double[] components)`
+- Vector `void setComponents(double[] components)` into `void setValues(double[] components)`
+- Vector `void setComponents(double value)` into `void setValues(double value)`
+- Vector ` void setComponents(Matrix matrix)` into ` void setValues(Matrix matrix)`
+- Vector `double getVectorComponent(int dimension)` into `double getValue(int dimension)`
+- Vector `void setVectorComponent(int dimension, double value)` into `void setValue(int dimension, double value)`
+- Vector `void setComponents(Vector v)` into `void setValues(Vector v)`
+- Transform3DMatrix does not extends Matrix anymore
+- Point3D renamed `mult` methods in `multiply` to conform to `Vector`
 - Updated unit tests with new methods
 
 ### Removed

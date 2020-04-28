@@ -20,53 +20,53 @@ public interface Vector {
 	 * Get the value of the coordinate expressed within the given dimension.
 	 * @param dimension the dimension of the coordinate.
 	 * @return the value of the coordinate expressed within the given dimension.
-	 * @see #setVectorComponent(int, double)
+	 * @see #setValue(int, double)
 	 */
-	public double getVectorComponent(int dimension);
+	public double getValue(int dimension);
 
 	/**
 	 * Set the value of the coordinate expressed within the given dimension.
 	 * @param dimension the dimension of the coordinate.
 	 * @param value the value of the coordinate expressed within the given dimension.
-	 * @see #getVectorComponent(int)
+	 * @see #getValue(int)
 	 */
-	public void setVectorComponent(int dimension, double value);
+	public void setValue(int dimension, double value);
 
 	/**
 	 * Set the components of this vector with the values of the components from the given one.
 	 * @param v the vector to copy
 	 * @throws IllegalArgumentException if the given vector has no the same dimension as this one
 	 */
-	public void setComponents(Vector v);
+	public void setValues(Vector v);
 
 	/**
 	 * Get the values of the components of this vector as an array of double.
 	 * @return the values of the components of this vector as an array of double
-	 * @see #getComponents(double[])
+	 * @see #getValues(double[])
 	 */
-	public double[] getComponents();
+	public double[] getValues();
 
 	/**
 	 * Get the values of the components of this vector as an array of double.
 	 * @param components the array that has to store the values of the components of this vector
 	 * @return a reference on <code>components</code>
-	 * @see #getComponents()
+	 * @see #getValues()
 	 * @throws IllegalArgumentException if <code>components</code> is <code>null</code> or if its length does not match the vector dimension
 	 */
-	public double[] getComponents(double[] components);
+	public double[] getValues(double[] components);
 
 	/**
 	 * Set the components of this vector with the values of the components from the vector represented by the input array.
 	 * @param components the components value to affect to this vector
 	 * @throws IllegalArgumentException if the length of the input array does not match the dimension of this vector
 	 */
-	public void setComponents(double[] components);
+	public void setValues(double[] components);
 
 	/**
 	 * Set all the components of this vector to the given <code>value</code>.
 	 * @param value the value to set to all components
 	 */
-	public void setComponents(double value);
+	public void setValues(double value);
 	
 	/**
 	 * Set the components of this vector according to the given {@link Matrix matrix}. 
@@ -74,7 +74,7 @@ public interface Vector {
 	 * @param matrix the matrix to use as the values provider
 	 * @throws IllegalArgumentException if the matrix is not single row / single column or if its size does not fit the vector
 	 */
-	public void setComponents(Matrix matrix);
+	public void setValues(Matrix matrix);
 	
 	/**
 	 * Compute the vector that is the sum, component by component of this vector and the given one. 

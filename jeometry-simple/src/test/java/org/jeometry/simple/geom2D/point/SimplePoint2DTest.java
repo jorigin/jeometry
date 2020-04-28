@@ -2,7 +2,7 @@ package org.jeometry.simple.geom2D.point;
 
 import org.jeometry.factory.JeometryFactory;
 import org.jeometry.simple.factory.SimpleMathBuilder;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 
 /**
  * Unitary tests dedicated to {@link SimplePoint2D} class.
@@ -15,7 +15,7 @@ public class SimplePoint2DTest{
 	  /**
 	   * Initialize the tests.
 	   */
-	  @BeforeClass
+	  @BeforeAll
 	  public static void initClass() {
 	    JeometryFactory.setMathBuilder(new SimpleMathBuilder());
 	  }

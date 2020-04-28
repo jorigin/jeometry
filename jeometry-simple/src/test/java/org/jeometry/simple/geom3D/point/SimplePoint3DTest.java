@@ -1,9 +1,9 @@
 package org.jeometry.simple.geom3D.point;
 
 import org.jeometry.factory.JeometryFactory;
-import org.jeometry.geom3D.point.Point3DTest;
 import org.jeometry.simple.factory.SimpleMathBuilder;
-import org.junit.BeforeClass;
+import org.jeometry.test.geom3D.point.Point3DTest;
+import org.junit.jupiter.api.BeforeAll;
 
 /**
  * Unitary tests dedicated to {@link SimplePoint3D} class.
@@ -16,7 +16,7 @@ public class SimplePoint3DTest extends Point3DTest{
   /**
    * Initialize the tests.
    */
-  @BeforeClass
+  @BeforeAll
   public static void initClass() {
     JeometryFactory.setMathBuilder(new SimpleMathBuilder());
   }

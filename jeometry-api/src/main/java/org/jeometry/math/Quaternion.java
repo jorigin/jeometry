@@ -170,7 +170,7 @@ public interface Quaternion extends Vector{
 	 * The components are stored within the given <code>components</code> array.
 	 * @return a reference to the <code>components</code> array.
 	 */
-	public double[] getComponents();
+	public double[] getValues();
 	
 	/**
 	 * Get the components that compose the quaternion. The output is an array of double, denoted <code>components</code> such as:
@@ -186,7 +186,7 @@ public interface Quaternion extends Vector{
 	 * @return a reference to the <code>components</code> array.
 	 * @throws IllegalArgumentException if the <code>components</code> array is <code>null</code> or have a size that in inferior to 4.
 	 */
-	public double[] getComponents(double[] components) throws IllegalArgumentException;
+	public double[] getValues(double[] components) throws IllegalArgumentException;
 	
 	/**
 	 * Set all the components of the quaternion. The components are such that:

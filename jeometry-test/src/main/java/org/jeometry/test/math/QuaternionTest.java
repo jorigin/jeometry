@@ -1,15 +1,17 @@
-package org.jeometry.math;
+package org.jeometry.test.math;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.jeometry.math.Quaternion;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 
 /**
  * A test suite for the {@link Quaternion} implementation.<br>
@@ -87,7 +89,7 @@ public class QuaternionTest extends VectorTest {
 	/**
 	 * Initialize the test static context.
 	 */
-	@BeforeClass
+	@BeforeAll
 	public static void initClass() {
 		fail("Test class is not initialized. method init() has to be implemented");
 	}
@@ -95,7 +97,7 @@ public class QuaternionTest extends VectorTest {
 	/**
 	 * Initialize testing.
 	 */
-	@Before
+	@BeforeEach
 	public void init() {
 		quaternionRefA =  2.12469239d;
 		quaternionRefB = -1.76893983d;
@@ -154,11 +156,11 @@ public class QuaternionTest extends VectorTest {
 			e.printStackTrace(System.err);
 		}
 		
-		assertNotNull("Created quaternion is null", q);
-		assertEquals("Invalid scalar (a) value.", 0.0d, q.getScalar(), 0.0d);
-		assertEquals("Invalid i (b) value.", 0.0d, q.getI(), 0.0d);
-		assertEquals("Invalid j (c) value.", 0.0d, q.getJ(), 0.0d);
-		assertEquals("Invalid k (d) value.", 0.0d, q.getK(), 0.0d);
+		assertNotNull(q, "Created quaternion is null");
+		assertEquals(0.0d, q.getScalar(), 0.0d, "Invalid scalar (a) value.");
+		assertEquals(0.0d, q.getI(), 0.0d, "Invalid i (b) value.");
+		assertEquals(0.0d, q.getJ(), 0.0d, "Invalid j (c) value.");
+		assertEquals(0.0d, q.getK(), 0.0d, "Invalid k (d) value.");
 	}
 	
 	/**
@@ -174,11 +176,11 @@ public class QuaternionTest extends VectorTest {
 			e.printStackTrace(System.err);
 		}
 		
-		assertNotNull("Created quaternion is null", q);
-		assertEquals("Invalid scalar (a) value.", quaternionRefA, q.getScalar(), 0.0d);
-		assertEquals("Invalid i (b) value.", quaternionRefB, q.getI(), 0.0d);
-		assertEquals("Invalid j (c) value.", quaternionRefC, q.getJ(), 0.0d);
-		assertEquals("Invalid k (d) value.", quaternionRefD, q.getK(), 0.0d);
+		assertNotNull(q, "Created quaternion is null");
+		assertEquals(quaternionRefA, q.getScalar(), 0.0d, "Invalid scalar (a) value.");
+		assertEquals(quaternionRefB, q.getI(), 0.0d, "Invalid i (b) value.");
+		assertEquals(quaternionRefC, q.getJ(), 0.0d, "Invalid j (c) value.");
+		assertEquals(quaternionRefD, q.getK(), 0.0d, "Invalid k (d) value.");
 	}
 	
 	
@@ -197,14 +199,14 @@ public class QuaternionTest extends VectorTest {
 		
 		q.setComponents(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
 		
-		assertEquals("Invalid scalar value", quaternionRefA, q.getScalar(), 0.0d);
-		assertEquals("Invalid i value", quaternionRefB, q.getI(), 0.0d);
-		assertEquals("Invalid j value", quaternionRefC, q.getJ(), 0.0d);
-		assertEquals("Invalid k value", quaternionRefD, q.getK(), 0.0d);
+		assertEquals(quaternionRefA, q.getScalar(), 0.0d, "Invalid scalar value");
+		assertEquals(quaternionRefB, q.getI(), 0.0d, "Invalid i value");
+		assertEquals(quaternionRefC, q.getJ(), 0.0d, "Invalid j value");
+		assertEquals(quaternionRefD, q.getK(), 0.0d, "Invalid k value");
 	}
 	
 	/**
-	 * Test the {@link Quaternion#getComponents()} method.
+	 * Test the {@link Quaternion#getValues()} method.
 	 */
 	@Test
 	public void getVectorComponentsTest() {
@@ -216,21 +218,21 @@ public class QuaternionTest extends VectorTest {
 			e.printStackTrace(System.err);
 		}
 		
-		assertNotNull("Created quaternion is null", q);
+		assertNotNull(q, "Created quaternion is null");
 		
-		double[] components = q.getComponents();
+		double[] components = q.getValues();
 		
-		assertNotNull("Components vector is null", components);
-		assertEquals("Components vector are not 4", 4, components.length);
-		assertEquals("Invalid scalar (a) value.", q.getScalar(), components[org.jeometry.math.Quaternion.QUATERNION_SCALAR_COMPONENT], 0.0d);
-		assertEquals("Invalid i (b) value.", q.getI(), components[org.jeometry.math.Quaternion.QUATERNION_I_COMPONENT], 0.0d);
-		assertEquals("Invalid j (c) value.", q.getJ(), components[org.jeometry.math.Quaternion.QUATERNION_J_COMPONENT], 0.0d);
-		assertEquals("Invalid k (d) value.", q.getK(), components[org.jeometry.math.Quaternion.QUATERNION_K_COMPONENT], 0.0d);
+		assertNotNull(components, "Components vector is null");
+		assertEquals(4, components.length, "Components vector are not 4");
+		assertEquals(q.getScalar(), components[org.jeometry.math.Quaternion.QUATERNION_SCALAR_COMPONENT], 0.0d, "Invalid scalar (a) value.");
+		assertEquals(q.getI(), components[org.jeometry.math.Quaternion.QUATERNION_I_COMPONENT], 0.0d, "Invalid i (b) value.");
+		assertEquals(q.getJ(), components[org.jeometry.math.Quaternion.QUATERNION_J_COMPONENT], 0.0d, "Invalid j (c) value.");
+		assertEquals(q.getK(), components[org.jeometry.math.Quaternion.QUATERNION_K_COMPONENT], 0.0d, "Invalid k (d) value.");
 		
 	}
 	
 	/**
-	 * Test the {@link Quaternion#getComponents(double[])} method.
+	 * Test the {@link Quaternion#getValues(double[])} method.
 	 */
 	@Test
 	public void getVectorComponentsResultTest() {
@@ -242,20 +244,20 @@ public class QuaternionTest extends VectorTest {
 			e.printStackTrace(System.err);
 		}
 		
-		assertNotNull("Created quaternion is null", q);
+		assertNotNull(q, "Created quaternion is null");
 		
 		double[] result = new double[4];
 		
-		double[] components = q.getComponents(result);
+		double[] components = q.getValues(result);
 		
-		assertNotNull("Components vector is null", components);
-		assertEquals("Components vector are not 4", 4, components.length);
-		assertSame("Components output are not the same", components, result);
+		assertNotNull(components, "Components vector is null");
+		assertEquals(4, components.length, "Components vector are not 4");
+		assertSame(components, result, "Components output are not the same");
 		
-		assertEquals("Invalid scalar (a) value.", q.getScalar(), components[org.jeometry.math.Quaternion.QUATERNION_SCALAR_COMPONENT], 0.0d);
-		assertEquals("Invalid i (b) value.", q.getI(), components[org.jeometry.math.Quaternion.QUATERNION_I_COMPONENT], 0.0d);
-		assertEquals("Invalid j (c) value.", q.getJ(), components[org.jeometry.math.Quaternion.QUATERNION_J_COMPONENT], 0.0d);
-		assertEquals("Invalid k (d) value.", q.getK(), components[org.jeometry.math.Quaternion.QUATERNION_K_COMPONENT], 0.0d);
+		assertEquals(q.getScalar(), components[org.jeometry.math.Quaternion.QUATERNION_SCALAR_COMPONENT], 0.0d, "Invalid scalar (a) value.");
+		assertEquals(q.getI(), components[org.jeometry.math.Quaternion.QUATERNION_I_COMPONENT], 0.0d, "Invalid i (b) value.");
+		assertEquals(q.getJ(), components[org.jeometry.math.Quaternion.QUATERNION_J_COMPONENT], 0.0d, "Invalid j (c) value.");
+		assertEquals(q.getK(), components[org.jeometry.math.Quaternion.QUATERNION_K_COMPONENT], 0.0d, "Invalid k (d) value.");
 		
 	}
 	
@@ -272,11 +274,11 @@ public class QuaternionTest extends VectorTest {
 			e.printStackTrace(System.err);
 		}
 		
-		assertEquals("Invalid scalar parameter", quaternionRefA, q.getScalar(), 0.0d);
+		assertEquals(quaternionRefA, q.getScalar(), 0.0d, "Invalid scalar parameter");
 		
 		q.setScalar(9999999);
 		
-		assertEquals("Invalid scalar parameter", 9999999, q.getScalar(), 0.0d);
+		assertEquals(9999999, q.getScalar(), 0.0d, "Invalid scalar parameter");
 	}
 	
 	/**
@@ -292,11 +294,11 @@ public class QuaternionTest extends VectorTest {
 			e.printStackTrace(System.err);
 		}
 		
-		assertEquals("Invalid i parameter", quaternionRefB, q.getI(), 0.0d);
+		assertEquals(quaternionRefB, q.getI(), 0.0d, "Invalid i parameter");
 		
 		q.setI(9999999);
 		
-		assertEquals("Invalid i parameter", 9999999, q.getI(), 0.0d);
+		assertEquals(9999999, q.getI(), 0.0d, "Invalid i parameter");
 	}
 	
 	/**
@@ -312,11 +314,11 @@ public class QuaternionTest extends VectorTest {
 			e.printStackTrace(System.err);
 		}
 		
-		assertEquals("Invalid j parameter", quaternionRefC, q.getJ(), 0.0d);
+		assertEquals(quaternionRefC, q.getJ(), 0.0d, "Invalid j parameter");
 		
 		q.setJ(9999999);
 		
-		assertEquals("Invalid j parameter", 9999999, q.getJ(), 0.0d);
+		assertEquals(9999999, q.getJ(), 0.0d, "Invalid j parameter");
 	}
 	
 	/**
@@ -332,11 +334,11 @@ public class QuaternionTest extends VectorTest {
 			e.printStackTrace(System.err);
 		}
 		
-		assertEquals("Invalid k parameter", quaternionRefD, q.getK(), 0.0d);
+		assertEquals(quaternionRefD, q.getK(), 0.0d, "Invalid k parameter");
 		
 		q.setK(9999999);
 		
-		assertEquals("Invalid k parameter", 9999999, q.getK(), 0.0d);
+		assertEquals(9999999, q.getK(), 0.0d, "Invalid k parameter");
 	}
 	
 	
@@ -353,10 +355,10 @@ public class QuaternionTest extends VectorTest {
 			e.printStackTrace(System.err);
 		}
 		
-		assertNotNull("Created quaternion is null", q);
+		assertNotNull(q, "Created quaternion is null");
 		
 		if (q != null) {
-			assertEquals("Invalid norm square value.", quaternionRefNormSquare, q.normSquare(), 0.0d);
+			assertEquals(quaternionRefNormSquare, q.normSquare(), 0.0d, "Invalid norm square value.");
 		}
 	}
 	
@@ -373,15 +375,15 @@ public class QuaternionTest extends VectorTest {
 			e.printStackTrace(System.err);
 		}
 		
-		assertNotNull("Created quaternion is null", q);
+		assertNotNull(q, "Created quaternion is null");
 		
 		if (q != null) {
-			assertEquals("Invalid norm square value.", quaternionRefNorm, q.norm(), 0.0d);
+			assertEquals(quaternionRefNorm, q.norm(), 0.0d, "Invalid norm square value.");
 		}
 	}
 	
 	/**
-	 * Test {@link Quaternion#mult(org.jeometry.math.Quaternion)} method.
+	 * Test {@link Quaternion#mult(Quaternion)} method.
 	 */
 	@Test
 	public void multTest() {
@@ -393,11 +395,11 @@ public class QuaternionTest extends VectorTest {
 			e.printStackTrace(System.err);
 		}
 		
-		assertNotNull("Created quaternion is null", q);
+		assertNotNull(q, "Created quaternion is null");
 		
 		if (q != null) {
 			
-			org.jeometry.math.Quaternion result = null;
+			Quaternion result = null;
 			try {
 				result = q.mult(quaternionTarget);
 			} catch (Exception e) {
@@ -405,13 +407,13 @@ public class QuaternionTest extends VectorTest {
 				e.printStackTrace(System.err);
 			}
 			
-			assertNotNull("Resulting quaternion is null", result);
+			assertNotNull(result, "Resulting quaternion is null");
 			
 			if (result != null) {
-				assertEquals("Invalid scalar (a) parameter.", quaternionMultA, result.getScalar(), 0.0d);
-				assertEquals("Invalid i base (b) parameter.", quaternionMultB, result.getI(), 0.0d);
-				assertEquals("Invalid j base (c) parameter.", quaternionMultC, result.getJ(), 0.0d);
-				assertEquals("Invalid k base (d) parameter.", quaternionMultD, result.getK(), 0.0d);
+				assertEquals(quaternionMultA, result.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
+				assertEquals(quaternionMultB, result.getI(), 0.0d, "Invalid i base (b) parameter.");
+				assertEquals(quaternionMultC, result.getJ(), 0.0d, "Invalid j base (c) parameter.");
+				assertEquals(quaternionMultD, result.getK(), 0.0d, "Invalid k base (d) parameter.");
 			}
 			
 			
@@ -419,7 +421,7 @@ public class QuaternionTest extends VectorTest {
 	}
 	
 	/**
-	 * Test {@link Quaternion#mult(org.jeometry.math.Quaternion, org.jeometry.math.Quaternion)} method.
+	 * Test {@link Quaternion#mult(Quaternion, Quaternion)} method.
 	 */
 	@Test
 	public void multResultTest() {
@@ -439,12 +441,12 @@ public class QuaternionTest extends VectorTest {
 			e.printStackTrace(System.err);
 		}
 		
-		assertNotNull("Created quaternion q is null", q);
-		assertNotNull("Created quaternion result is null", result);
+		assertNotNull(q, "Created quaternion q is null");
+		assertNotNull(result, "Created quaternion result is null");
 		
 		if (q != null) {
 			
-			org.jeometry.math.Quaternion resultRef = null;
+			Quaternion resultRef = null;
 			
 			try {
 				resultRef = q.mult(quaternionTarget, result);
@@ -453,23 +455,23 @@ public class QuaternionTest extends VectorTest {
 				e.printStackTrace(System.err);
 			}
 
-			assertNotNull("Resulting quaternion is null", result);
-			assertNotNull("Resulting quaternion ref is null", resultRef);
+			assertNotNull(result, "Resulting quaternion is null");
+			assertNotNull(resultRef, "Resulting quaternion ref is null");
 			
-			assertSame("Result references differs.", result, resultRef);
+			assertSame(result, resultRef, "Result references differs.");
 			
 			if (result != null) {
-				assertEquals("Invalid scalar (a) parameter.", quaternionMultA, result.getScalar(), 0.0d);
-				assertEquals("Invalid i base (b) parameter.", quaternionMultB, result.getI(), 0.0d);
-				assertEquals("Invalid j base (c) parameter.", quaternionMultC, result.getJ(), 0.0d);
-				assertEquals("Invalid k base (d) parameter.", quaternionMultD, result.getK(), 0.0d);
+				assertEquals(quaternionMultA, result.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
+				assertEquals(quaternionMultB, result.getI(), 0.0d, "Invalid i base (b) parameter.");
+				assertEquals(quaternionMultC, result.getJ(), 0.0d, "Invalid j base (c) parameter.");
+				assertEquals(quaternionMultD, result.getK(), 0.0d, "Invalid k base (d) parameter.");
 			}
 		}
 	}
 	
 	
 	/**
-	 * Test {@link Quaternion#multAffect(org.jeometry.math.Quaternion)} method.
+	 * Test {@link Quaternion#multAffect(Quaternion)} method.
 	 */
 	@Test
 	public void multAffectTest() {
@@ -481,11 +483,11 @@ public class QuaternionTest extends VectorTest {
 			e.printStackTrace(System.err);
 		}
 		
-		assertNotNull("Created quaternion is null", q);
+		assertNotNull(q, "Created quaternion is null");
 		
 		if (q != null) {
 			
-			org.jeometry.math.Quaternion result = null;
+			Quaternion result = null;
 			try {
 				result = q.multAffect(quaternionTarget);
 			} catch (Exception e) {
@@ -493,14 +495,14 @@ public class QuaternionTest extends VectorTest {
 				e.printStackTrace(System.err);
 			}
 			
-			assertNotNull("Resulting quaternion is null", result);
-			assertSame("Resulting quaternion reference is invalid.", result, q);
+			assertNotNull(result, "Resulting quaternion is null");
+			assertSame(result, q, "Resulting quaternion reference is invalid.");
 			
 			if (result != null) {
-				assertEquals("Invalid scalar (a) parameter.", quaternionMultA, result.getScalar(), 0.0d);
-				assertEquals("Invalid i base (b) parameter.", quaternionMultB, result.getI(), 0.0d);
-				assertEquals("Invalid j base (c) parameter.", quaternionMultC, result.getJ(), 0.0d);
-				assertEquals("Invalid k base (d) parameter.", quaternionMultD, result.getK(), 0.0d);
+				assertEquals(quaternionMultA, result.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
+				assertEquals(quaternionMultB, result.getI(), 0.0d, "Invalid i base (b) parameter.");
+				assertEquals(quaternionMultC, result.getJ(), 0.0d, "Invalid j base (c) parameter.");
+				assertEquals(quaternionMultD, result.getK(), 0.0d, "Invalid k base (d) parameter.");
 			}
 		}
 	}
@@ -518,10 +520,10 @@ public class QuaternionTest extends VectorTest {
 			e.printStackTrace(System.err);
 		}
 		
-        assertNotNull("Created quaternion is null", q);
+        assertNotNull(q, "Created quaternion is null");
 		
 		if (q != null) {
-			org.jeometry.math.Quaternion result = null;
+			Quaternion result = null;
 			
 			try {
 				result = q.invertQuaternion();
@@ -531,19 +533,19 @@ public class QuaternionTest extends VectorTest {
 				result = null;
 			}
 			
-			assertNotNull("Resulting quaternion is null", result);
+			assertNotNull(result, "Resulting quaternion is null");
 			
 			if (result != null) {
-				assertEquals("Invalid scalar (a) parameter.", quaternionRefInvertedA, result.getScalar(), 0.0d);
-				assertEquals("Invalid i base (b) parameter.", quaternionRefInvertedB, result.getI(), 0.0d);
-				assertEquals("Invalid j base (c) parameter.", quaternionRefInvertedC, result.getJ(), 0.0d);
-				assertEquals("Invalid k base (d) parameter.", quaternionRefInvertedD, result.getK(), 0.0d);
+				assertEquals(quaternionRefInvertedA, result.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
+				assertEquals(quaternionRefInvertedB, result.getI(), 0.0d, "Invalid i base (b) parameter.");
+				assertEquals(quaternionRefInvertedC, result.getJ(), 0.0d, "Invalid j base (c) parameter.");
+				assertEquals(quaternionRefInvertedD, result.getK(), 0.0d, "Invalid k base (d) parameter.");
 			}
 		}
 	}
 	
 	/**
-	 * Test {@link Quaternion#invertQuaternion(org.jeometry.math.Quaternion)} method.
+	 * Test {@link Quaternion#invertQuaternion(Quaternion)} method.
 	 */
 	@Test
 	public void invertResultTest() {
@@ -563,12 +565,12 @@ public class QuaternionTest extends VectorTest {
 			e.printStackTrace(System.err);
 		}
 		
-		assertNotNull("Created quaternion q is null", q);
-		assertNotNull("Created quaternion result is null", result);
+		assertNotNull(q, "Created quaternion q is null");
+		assertNotNull(result, "Created quaternion result is null");
 		
 		if (q != null) {
 			
-			org.jeometry.math.Quaternion resultRef = null;
+			Quaternion resultRef = null;
 			
 			try {
 				resultRef = q.invertQuaternion(result);
@@ -577,15 +579,15 @@ public class QuaternionTest extends VectorTest {
 				e.printStackTrace(System.err);
 			}
 
-			assertNotNull("Resulting quaternion is null", result);
-			assertNotNull("Resulting quaternion ref is null", resultRef);
-			assertSame("Result references differs.", result, resultRef);
+			assertNotNull(result, "Resulting quaternion is null");
+			assertNotNull(resultRef, "Resulting quaternion ref is null");
+			assertSame(result, resultRef, "Result references differs.");
 			
 			if (result != null) {
-				assertEquals("Invalid scalar (a) parameter.", quaternionRefInvertedA, result.getScalar(), 0.0d);
-				assertEquals("Invalid i base (b) parameter.", quaternionRefInvertedB, result.getI(), 0.0d);
-				assertEquals("Invalid j base (c) parameter.", quaternionRefInvertedC, result.getJ(), 0.0d);
-				assertEquals("Invalid k base (d) parameter.", quaternionRefInvertedD, result.getK(), 0.0d);
+				assertEquals(quaternionRefInvertedA, result.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
+				assertEquals(quaternionRefInvertedB, result.getI(), 0.0d, "Invalid i base (b) parameter.");
+				assertEquals(quaternionRefInvertedC, result.getJ(), 0.0d, "Invalid j base (c) parameter.");
+				assertEquals(quaternionRefInvertedD, result.getK(), 0.0d, "Invalid k base (d) parameter.");
 			}
 		}
 	}
@@ -603,11 +605,11 @@ public class QuaternionTest extends VectorTest {
 			e.printStackTrace(System.err);
 		}
 
-		assertNotNull("Created quaternion q is null", q);
+		assertNotNull(q, "Created quaternion q is null");
 		
 		if (q != null) {
 			
-			org.jeometry.math.Quaternion resultRef = null;
+			Quaternion resultRef = null;
 			
 			try {
 				resultRef = q.invertQuaternionAffect();
@@ -616,14 +618,14 @@ public class QuaternionTest extends VectorTest {
 				e.printStackTrace(System.err);
 			}
 
-			assertNotNull("Resulting quaternion is null", resultRef);
-			assertSame("Result references differs.", q, resultRef);
+			assertNotNull(resultRef, "Resulting quaternion is null");
+			assertSame(q, resultRef, "Result references differs.");
 			
 			if (resultRef != null) {
-				assertEquals("Invalid scalar (a) parameter.", quaternionRefInvertedA, resultRef.getScalar(), 0.0d);
-				assertEquals("Invalid i base (b) parameter.", quaternionRefInvertedB, resultRef.getI(), 0.0d);
-				assertEquals("Invalid j base (c) parameter.", quaternionRefInvertedC, resultRef.getJ(), 0.0d);
-				assertEquals("Invalid k base (d) parameter.", quaternionRefInvertedD, resultRef.getK(), 0.0d);
+				assertEquals(quaternionRefInvertedA, resultRef.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
+				assertEquals(quaternionRefInvertedB, resultRef.getI(), 0.0d, "Invalid i base (b) parameter.");
+				assertEquals(quaternionRefInvertedC, resultRef.getJ(), 0.0d, "Invalid j base (c) parameter.");
+				assertEquals(quaternionRefInvertedD, resultRef.getK(), 0.0d, "Invalid k base (d) parameter.");
 			}
 		}
 	}
@@ -641,10 +643,10 @@ public class QuaternionTest extends VectorTest {
 			e.printStackTrace(System.err);
 		}
 		
-        assertNotNull("Created quaternion is null", q);
+        assertNotNull(q, "Created quaternion is null");
 		
 		if (q != null) {
-			org.jeometry.math.Quaternion result = null;
+			Quaternion result = null;
 			
 			try {
 				result = q.conjugateQuaternion();
@@ -654,19 +656,19 @@ public class QuaternionTest extends VectorTest {
 				result = null;
 			}
 			
-			assertNotNull("Resulting quaternion is null", result);
+			assertNotNull(result, "Resulting quaternion is null");
 			
 			if (result != null) {
-				assertEquals("Invalid scalar (a) parameter.", quaternionRefConjugateA, result.getScalar(), 0.0d);
-				assertEquals("Invalid i base (b) parameter.", quaternionRefConjugateB, result.getI(), 0.0d);
-				assertEquals("Invalid j base (c) parameter.", quaternionRefConjugateC, result.getJ(), 0.0d);
-				assertEquals("Invalid k base (d) parameter.", quaternionRefConjugateD, result.getK(), 0.0d);
+				assertEquals(quaternionRefConjugateA, result.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
+				assertEquals(quaternionRefConjugateB, result.getI(), 0.0d, "Invalid i base (b) parameter.");
+				assertEquals(quaternionRefConjugateC, result.getJ(), 0.0d, "Invalid j base (c) parameter.");
+				assertEquals(quaternionRefConjugateD, result.getK(), 0.0d, "Invalid k base (d) parameter.");
 			}
 		}
 	}
 	
 	/**
-	 * Test {@link Quaternion#conjugateQuaternion(org.jeometry.math.Quaternion)} method.
+	 * Test {@link Quaternion#conjugateQuaternion(Quaternion)} method.
 	 */
 	@Test
 	public void conjugateResultTest() {
@@ -686,12 +688,12 @@ public class QuaternionTest extends VectorTest {
 			e.printStackTrace(System.err);
 		}
 		
-		assertNotNull("Created quaternion q is null", q);
-		assertNotNull("Created quaternion result is null", result);
+		assertNotNull(q, "Created quaternion q is null");
+		assertNotNull(result, "Created quaternion result is null");
 		
 		if (q != null) {
 			
-			org.jeometry.math.Quaternion resultRef = null;
+			Quaternion resultRef = null;
 			
 			try {
 				resultRef = q.conjugateQuaternion(result);
@@ -700,15 +702,15 @@ public class QuaternionTest extends VectorTest {
 				e.printStackTrace(System.err);
 			}
 
-			assertNotNull("Resulting quaternion is null", result);
-			assertNotNull("Resulting quaternion ref is null", resultRef);
-			assertSame("Result references differs.", result, resultRef);
+			assertNotNull(result, "Resulting quaternion is null");
+			assertNotNull(resultRef, "Resulting quaternion ref is null");
+			assertSame(result, resultRef, "Result references differs.");
 			
 			if (result != null) {
-				assertEquals("Invalid scalar (a) parameter.", quaternionRefConjugateA, result.getScalar(), 0.0d);
-				assertEquals("Invalid i base (b) parameter.", quaternionRefConjugateB, result.getI(), 0.0d);
-				assertEquals("Invalid j base (c) parameter.", quaternionRefConjugateC, result.getJ(), 0.0d);
-				assertEquals("Invalid k base (d) parameter.", quaternionRefConjugateD, result.getK(), 0.0d);
+				assertEquals(quaternionRefConjugateA, result.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
+				assertEquals(quaternionRefConjugateB, result.getI(), 0.0d, "Invalid i base (b) parameter.");
+				assertEquals(quaternionRefConjugateC, result.getJ(), 0.0d, "Invalid j base (c) parameter.");
+				assertEquals(quaternionRefConjugateD, result.getK(), 0.0d, "Invalid k base (d) parameter.");
 			}
 		}
 	}
@@ -726,11 +728,11 @@ public class QuaternionTest extends VectorTest {
 			e.printStackTrace(System.err);
 		}
 
-		assertNotNull("Created quaternion q is null", q);
+		assertNotNull(q, "Created quaternion q is null");
 		
 		if (q != null) {
 			
-			org.jeometry.math.Quaternion resultRef = null;
+			Quaternion resultRef = null;
 			
 			try {
 				resultRef = q.conjugateQuaternionAffect();
@@ -739,14 +741,14 @@ public class QuaternionTest extends VectorTest {
 				e.printStackTrace(System.err);
 			}
 
-			assertNotNull("Resulting quaternion is null", resultRef);
-			assertSame("Result references differs.", q, resultRef);
+			assertNotNull(resultRef, "Resulting quaternion is null");
+			assertSame(q, resultRef, "Result references differs.");
 			
 			if (resultRef != null) {
-				assertEquals("Invalid scalar (a) parameter.", quaternionRefConjugateA, resultRef.getScalar(), 0.0d);
-				assertEquals("Invalid i base (b) parameter.", quaternionRefConjugateB, resultRef.getI(), 0.0d);
-				assertEquals("Invalid j base (c) parameter.", quaternionRefConjugateC, resultRef.getJ(), 0.0d);
-				assertEquals("Invalid k base (d) parameter.", quaternionRefConjugateD, resultRef.getK(), 0.0d);
+				assertEquals(quaternionRefConjugateA, resultRef.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
+				assertEquals(quaternionRefConjugateB, resultRef.getI(), 0.0d, "Invalid i base (b) parameter.");
+				assertEquals(quaternionRefConjugateC, resultRef.getJ(), 0.0d, "Invalid j base (c) parameter.");
+				assertEquals(quaternionRefConjugateD, resultRef.getK(), 0.0d, "Invalid k base (d) parameter.");
 			}
 		}
 	}

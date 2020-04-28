@@ -1,16 +1,17 @@
-package org.jeometry.factory;
+package org.jeometry.test.factory;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom2D.point.Point2D;
 import org.jeometry.geom2D.point.Point2DContainer;
 import org.jeometry.geom3D.point.Point3D;
 import org.jeometry.geom3D.point.Point3DContainer;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * A test class for {@link JeometryFactory} methods.<br>
@@ -39,7 +40,7 @@ public class GeometryFactoryPointTest {
 	/**
 	 * Test initialization.
 	 */
-	@BeforeClass
+	@BeforeAll
 	public static void init() {
 		fail("Test class is not initialized. method init() has to be implemented");
 	}
@@ -52,7 +53,7 @@ public class GeometryFactoryPointTest {
 		
 		try {
 			Point3D point = JeometryFactory.createPoint3D();
-			assertNotNull("Cannot instantiate 3D point using GeometryFactory.createPoint3D().", point);
+			assertNotNull(point, "Cannot instantiate 3D point using GeometryFactory.createPoint3D().");
 		} catch (Exception e) {
 			fail("Cannot instantiate 3D point using GeometryFactory.createPoint3D().");
 		}
@@ -66,11 +67,11 @@ public class GeometryFactoryPointTest {
 		
 		try {
 			Point3D point = JeometryFactory.createPoint3D(1.0, 2.0, 3.0);
-			assertNotNull("Cannot instantiate 3D point using GeometryFactory.createPoint3D(double, double, double).", point);
+			assertNotNull(point, "Cannot instantiate 3D point using GeometryFactory.createPoint3D(double, double, double).");
 			
-			assertEquals("X coordinate is invalid", 1.0, point.getX(), 0.0);
-			assertEquals("Y coordinate is invalid", 2.0, point.getY(), 0.0);
-			assertEquals("Z coordinate is invalid", 3.0, point.getZ(), 0.0);
+			assertEquals(1.0, point.getX(), 0.0, "X coordinate is invalid");
+			assertEquals(2.0, point.getY(), 0.0, "Y coordinate is invalid");
+			assertEquals(3.0, point.getZ(), 0.0, "Z coordinate is invalid");
 
 		} catch (Exception e) {
 			fail("Cannot instantiate 3D point using GeometryFactory.createPoint3D(double, double, double).");
@@ -89,10 +90,10 @@ public class GeometryFactoryPointTest {
 		
 		Point3D test = JeometryFactory.createPoint3D(point);
 		
-		assertNotNull("Null point", test);
-		assertEquals("Invalid X coordinate "+test.getX(), point.getX(), test.getX(), Double.MIN_VALUE);
-		assertEquals("Invalid Y coordinate "+test.getX(), point.getY(), test.getY(), Double.MIN_VALUE);
-		assertEquals("Invalid Y coordinate "+test.getX(), point.getZ(), test.getZ(), Double.MIN_VALUE);
+		assertNotNull(test, "Null point");
+		assertEquals(point.getX(), test.getX(), Double.MIN_VALUE, "Invalid X coordinate "+test.getX());
+		assertEquals(point.getY(), test.getY(), Double.MIN_VALUE, "Invalid Y coordinate "+test.getX());
+		assertEquals(point.getZ(), test.getZ(), Double.MIN_VALUE, "Invalid Y coordinate "+test.getX());
 		
 	}
 	
@@ -105,7 +106,7 @@ public class GeometryFactoryPointTest {
 		
 		try {
 			Point2D point = JeometryFactory.createPoint2D();
-			assertNotNull("Cannot instantiate 2D point using GeometryFactory.createPoint2D().", point);
+			assertNotNull(point, "Cannot instantiate 2D point using GeometryFactory.createPoint2D().");
 		} catch (Exception e) {
 			fail("Cannot instantiate 2D point using GeometryFactory.createPoint2D(): "+e.getMessage());
 		}
@@ -119,10 +120,10 @@ public class GeometryFactoryPointTest {
 		
 		try {
 			Point2D point = JeometryFactory.createPoint2D(1.0d, 2.0d);
-			assertNotNull("Cannot instantiate 2D point using GeometryFactory.createPoint2D(double, double).", point);
+			assertNotNull(point, "Cannot instantiate 2D point using GeometryFactory.createPoint2D(double, double).");
 			
-			assertEquals("X coordinate is invalid", 1.0, point.getX(), 0.0);
-			assertEquals("Y coordinate is invalid", 2.0, point.getY(), 0.0);
+			assertEquals(1.0, point.getX(), 0.0, "X coordinate is invalid");
+			assertEquals(2.0, point.getY(), 0.0, "Y coordinate is invalid");
 			
 		} catch (Exception e) {
 			fail("Cannot instantiate 2D point using GeometryFactory.createPoint2D(double, double): "+e.getMessage());
@@ -140,9 +141,9 @@ public class GeometryFactoryPointTest {
 		
 		Point2D test = JeometryFactory.createPoint2D(point);
 		
-		assertNotNull("Null point", test);
-		assertEquals("Invalid X coordinate "+test.getX(), point.getX(), test.getX(), Double.MIN_VALUE);
-		assertEquals("Invalid Y coordinate "+test.getX(), point.getY(), test.getY(), Double.MIN_VALUE);
+		assertNotNull( test, "Null point");
+		assertEquals(point.getX(), test.getX(), Double.MIN_VALUE, "Invalid X coordinate "+test.getX());
+		assertEquals(point.getY(), test.getY(), Double.MIN_VALUE, "Invalid Y coordinate "+test.getX());
 		
 	}
 	
@@ -154,7 +155,7 @@ public class GeometryFactoryPointTest {
 		
 		try {
 			Point2DContainer container = JeometryFactory.createPoint2DContainer();
-			assertNotNull("Cannot instantiate 2D point container using GeometryFactory.createPoint2DContainer().", container);	
+			assertNotNull(container, "Cannot instantiate 2D point container using GeometryFactory.createPoint2DContainer().");	
 		} catch (Exception e) {
 			fail("Cannot instantiate 2D point container using GeometryFactory.createPoint2DContainer(): "+e.getMessage());
 		}
@@ -168,7 +169,7 @@ public class GeometryFactoryPointTest {
 		
 		try {
 			Point2DContainer container = JeometryFactory.createPoint2DContainer(10);
-			assertNotNull("Cannot instantiate 2D point container using GeometryFactory.createPoint2DContainer(int).", container);	
+			assertNotNull(container, "Cannot instantiate 2D point container using GeometryFactory.createPoint2DContainer(int).");	
 		} catch (Exception e) {
 			fail("Cannot instantiate 2D point container using GeometryFactory.createPoint2DContainer(int): "+e.getMessage());
 		}
@@ -182,7 +183,7 @@ public class GeometryFactoryPointTest {
 		
 		try {
 			Point3DContainer<Point3D> container = JeometryFactory.<Point3D>createPoint3DContainer();
-			assertNotNull("Cannot instantiate 3D point container using GeometryFactory.createPoint3DContainer().", container);	
+			assertNotNull(container, "Cannot instantiate 3D point container using GeometryFactory.createPoint3DContainer().");	
 		} catch (Exception e) {
 			fail("Cannot instantiate 3D point container using GeometryFactory.createPoint3DContainer(): "+e.getMessage());
 		}
@@ -196,7 +197,7 @@ public class GeometryFactoryPointTest {
 		
 		try {
 			Point3DContainer<Point3D> container = JeometryFactory.createPoint3DContainer(10);
-			assertNotNull("Cannot instantiate 3D point container using GeometryFactory.createPoint3DContainer(int).", container);	
+			assertNotNull(container, "Cannot instantiate 3D point container using GeometryFactory.createPoint3DContainer(int).");	
 		} catch (Exception e) {
 			fail("Cannot instantiate 3D point container using GeometryFactory.createPoint3DContainer(int): "+e.getMessage());
 		}

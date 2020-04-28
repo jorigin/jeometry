@@ -1,19 +1,21 @@
-package org.jeometry.factory;
+package org.jeometry.test.factory;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.math.Matrix;
-import org.jeometry.math.MathTestData;
+import org.jeometry.test.math.MathTestData;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.jeometry.math.Quaternion;
 import org.jeometry.math.Vector;
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 /**
- * A test class for {@link JeometryFactory} methods that delegate to a {@link MathBuilder math builder}.<br>
+ * A test class for {@link JeometryFactory}.<br>
  * <br>
  * <b>Usage:</b>
  * <p>
@@ -45,7 +47,7 @@ public class GeometryFactoryMathTest {
 	/**
 	 * Test initialization.
 	 */
-	@BeforeClass
+	@BeforeAll
 	public static void init() {
 		fail("Test class is not initialized. method init() has to be implemented");
 	}
@@ -58,13 +60,13 @@ public class GeometryFactoryMathTest {
 	public void createVectorSizeTest() {
 		try {
 			Vector vector = JeometryFactory.createVector(10);
-			assertNotNull("Cannot instantiate vector using GeometryFactory.createVector(int).", vector);
+			assertNotNull(vector, "Cannot instantiate vector using GeometryFactory.createVector(int).");
 			
-			assertEquals("Invalid class, got "+vector.getClass().getSimpleName()+" but exptected "+vectorClass.getSimpleName(), vectorClass, vector.getClass());
+			assertEquals(vectorClass, vector.getClass(), "Invalid class, got "+vector.getClass().getSimpleName()+" but exptected "+vectorClass.getSimpleName());
 			
-			assertEquals("Invalid class, got "+vector.getClass().getSimpleName()+" but exptected "+vectorClass.getSimpleName(), vectorClass, vector.getClass());
+			assertEquals(vectorClass, vector.getClass(), "Invalid class, got "+vector.getClass().getSimpleName()+" but exptected "+vectorClass.getSimpleName());
 			
-			assertEquals("Invalid vector dimension", 10, vector.getDimension());
+			assertEquals(10, vector.getDimension(), "Invalid vector dimension");
 			
 		} catch (Exception e) {
 			fail("Cannot instantiate vector using GeometryFactory.createVector(int).");
@@ -79,15 +81,15 @@ public class GeometryFactoryMathTest {
 	public void createVectorComponentsTest() {
 		try {
 			Vector vector = JeometryFactory.createVector(MathTestData.V_4_A);
-			assertNotNull("Cannot instantiate vector using GeometryFactory.createVector(double[]).", vector);
-			assertEquals("Invalid class, got "+vector.getClass().getSimpleName()+" but exptected "+vectorClass.getSimpleName(), vectorClass, vector.getClass());
+			assertNotNull(vector, "Cannot instantiate vector using GeometryFactory.createVector(double[]).");
+			assertEquals(vectorClass, vector.getClass(), "Invalid class, got "+vector.getClass().getSimpleName()+" but exptected "+vectorClass.getSimpleName());
 			
-			assertEquals("Invalid vector dimension", MathTestData.V_4_A.length, vector.getDimension());
+			assertEquals(MathTestData.V_4_A.length, vector.getDimension(), "Invalid vector dimension");
 
 			
 			
 			for(int dimension = 0; dimension < vector.getDimension(); dimension++) {
-				assertEquals("Invalid vector component "+dimension, MathTestData.V_4_A[dimension], vector.getVectorComponent(dimension), Double.MIN_VALUE);
+				assertEquals(MathTestData.V_4_A[dimension], vector.getValue(dimension), Double.MIN_VALUE, "Invalid vector component "+dimension);
 			}
 			
 		} catch (Exception e) {
@@ -102,12 +104,12 @@ public class GeometryFactoryMathTest {
 	public void createMatrixSizeTest() {
 		try {
 			Matrix matrix = JeometryFactory.createMatrix(10, 10);
-			assertNotNull("Cannot instantiate matrix using GeometryFactory.createMatrix().", matrix);
+			assertNotNull( matrix, "Cannot instantiate matrix using GeometryFactory.createMatrix().");
 			
-			assertEquals("Invalid class, got "+matrix.getClass().getSimpleName()+" but exptected "+matrixClass.getSimpleName(), matrixClass, matrix.getClass());
+			assertEquals(matrixClass, matrix.getClass(), "Invalid class, got "+matrix.getClass().getSimpleName()+" but exptected "+matrixClass.getSimpleName());
 			
-			assertEquals("Invalid matrix rows number", 10, matrix.getRowsCount());
-			assertEquals("Invalid matrix columns number", 10, matrix.getColumnsCount());
+			assertEquals(10, matrix.getRowsCount(), "Invalid matrix rows number");
+			assertEquals(10, matrix.getColumnsCount(), "Invalid matrix columns number");
 			
 		} catch (Exception e) {
 			fail("Cannot instantiate matrix using GeometryFactory.createMatrix().");
@@ -128,16 +130,16 @@ public class GeometryFactoryMathTest {
 			};
 			
 			Matrix matrix = JeometryFactory.createMatrix(data);
-			assertNotNull("Cannot instantiate matrix using GeometryFactory.createMatrix(double[][]).", matrix);
+			assertNotNull(matrix, "Cannot instantiate matrix using GeometryFactory.createMatrix(double[][]).");
 			
-			assertEquals("Invalid class, got "+matrix.getClass().getSimpleName()+" but exptected "+matrixClass.getSimpleName(), matrixClass, matrix.getClass());
+			assertEquals(matrixClass, matrix.getClass(), "Invalid class, got "+matrix.getClass().getSimpleName()+" but exptected "+matrixClass.getSimpleName());
 			
-			assertEquals("Invalid matrix rows number", 3, matrix.getRowsCount());
-			assertEquals("Invalid matrix columns number", 3, matrix.getColumnsCount());
+			assertEquals(3, matrix.getRowsCount(), "Invalid matrix rows number");
+			assertEquals(3, matrix.getColumnsCount(), "Invalid matrix columns number");
 			
 			for(int row = 0; row < data.length; row++) {
 				for(int col = 0; col < data[0].length; col++) {
-					assertEquals("Invalid matrix value ["+row+"x"+col+"]", data[row][col], matrix.getValue(row, col), 0.0d);
+					assertEquals(data[row][col], matrix.getValue(row, col), 0.0d, "Invalid matrix value ["+row+"x"+col+"]");
 				}
 			}
 			
@@ -163,29 +165,29 @@ public class GeometryFactoryMathTest {
 			};
 			
 			Matrix matrix = JeometryFactory.createMatrix(rows, cols, data, Matrix.ROW_MAJOR);
-			assertNotNull("Cannot instantiate matrix using GeometryFactory.createMatrix(int, int, double[], int).", matrix);
+			assertNotNull(matrix, "Cannot instantiate matrix using GeometryFactory.createMatrix(int, int, double[], int).");
 			
-			assertEquals("Invalid class, got "+matrix.getClass().getSimpleName()+" but exptected "+matrixClass.getSimpleName(), matrixClass, matrix.getClass());
+			assertEquals(matrixClass, matrix.getClass(), "Invalid class, got "+matrix.getClass().getSimpleName()+" but exptected "+matrixClass.getSimpleName());
 
-			assertEquals("Invalid matrix rows number", rows, matrix.getRowsCount());
-			assertEquals("Invalid matrix columns number", cols, matrix.getColumnsCount());
+			assertEquals(rows, matrix.getRowsCount(), "Invalid matrix rows number");
+			assertEquals(cols, matrix.getColumnsCount(), "Invalid matrix columns number");
 			
 			for(int row = 0; row < rows; row++) {
 				for(int col = 0; col < cols; col++) {
-					assertEquals("Invalid matrix value ["+row+"x"+col+"]", data[row*cols+col], matrix.getValue(row, col), 0.0d);
+					assertEquals(data[row*cols+col], matrix.getValue(row, col), 0.0d, "Invalid matrix value ["+row+"x"+col+"]");
 				}
 			}
 			
 			
 			matrix = JeometryFactory.createMatrix(rows, cols, data, Matrix.COLUMN_MAJOR);
-			assertNotNull("Cannot instantiate matrix using GeometryFactory.createMatrix(int, int, double[], int).", matrix);
+			assertNotNull(matrix, "Cannot instantiate matrix using GeometryFactory.createMatrix(int, int, double[], int).");
 			
-			assertEquals("Invalid matrix rows number", rows, matrix.getRowsCount());
-			assertEquals("Invalid matrix columns number", cols, matrix.getColumnsCount());
+			assertEquals(rows, matrix.getRowsCount(), "Invalid matrix rows number");
+			assertEquals(cols, matrix.getColumnsCount(), "Invalid matrix columns number");
 			
 			for(int row = 0; row < rows; row++) {
 				for(int col = 0; col < cols; col++) {
-					assertEquals("Invalid matrix value ["+row+"x"+col+"]", data[col*rows+row], matrix.getValue(row, col), 0.0d);
+					assertEquals(data[col*rows+row], matrix.getValue(row, col), 0.0d, "Invalid matrix value ["+row+"x"+col+"]");
 				}
 			}
 			
@@ -202,9 +204,9 @@ public class GeometryFactoryMathTest {
 		
 		try {
 			Quaternion quaternion = JeometryFactory.createQuaternion();
-			assertNotNull("Cannot instantiate quaternion using GeometryFactory.createQuaternion().", quaternion);
+			assertNotNull(quaternion, "Cannot instantiate quaternion using GeometryFactory.createQuaternion().");
 			
-			assertEquals("Invalid class, got "+quaternion.getClass().getSimpleName()+" but exptected "+quaternionClass.getSimpleName(), quaternionClass, quaternion.getClass());
+			assertEquals(quaternionClass, quaternion.getClass(), "Invalid class, got "+quaternion.getClass().getSimpleName()+" but exptected "+quaternionClass.getSimpleName());
 
 		} catch (Exception e) {
 			fail("Cannot instantiate quaternion using GeometryFactory.createQuaternion().");
@@ -219,14 +221,14 @@ public class GeometryFactoryMathTest {
 		
 		try {
 			Quaternion quaternion = JeometryFactory.createQuaternion(1.0, 2.0, 3.0, 4.0);
-			assertNotNull("Cannot instantiate quaternion using GeometryFactory.createQuaternion().", quaternion);
+			assertNotNull(quaternion, "Cannot instantiate quaternion using GeometryFactory.createQuaternion().");
 			
-			assertEquals("Invalid class, got "+quaternion.getClass().getSimpleName()+" but exptected "+quaternionClass.getSimpleName(), quaternionClass, quaternion.getClass());
+			assertEquals(quaternionClass, quaternion.getClass(), "Invalid class, got "+quaternion.getClass().getSimpleName()+" but exptected "+quaternionClass.getSimpleName());
 			
-			assertEquals("Invalid scalar parameter.", 1.0, quaternion.getScalar(), 0.0d);
-			assertEquals("Invalid i parameter.", 2.0, quaternion.getI(), 0.0d);
-			assertEquals("Invalid j parameter.", 3.0, quaternion.getJ(), 0.0d);
-			assertEquals("Invalid k parameter.", 4.0, quaternion.getK(), 0.0d);
+			assertEquals(1.0, quaternion.getScalar(), 0.0d, "Invalid scalar parameter.");
+			assertEquals(2.0, quaternion.getI(), 0.0d, "Invalid i parameter.");
+			assertEquals(3.0, quaternion.getJ(), 0.0d, "Invalid j parameter.");
+			assertEquals(4.0, quaternion.getK(), 0.0d, "Invalid k parameter.");
 			
 		} catch (Exception e) {
 			fail("Cannot instantiate quaternion using GeometryFactory.createQuaternion(): "+e.getMessage());

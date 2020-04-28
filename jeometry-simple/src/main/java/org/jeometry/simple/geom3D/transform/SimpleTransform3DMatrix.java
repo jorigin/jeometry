@@ -7,7 +7,6 @@ import org.jeometry.geom3D.transform.Transform3D;
 import org.jeometry.geom3D.transform.Transform3DMatrix;
 import org.jeometry.math.Matrix;
 import org.jeometry.math.Vector;
-import org.jeometry.simple.math.SimpleMatrix;
 
 /**
  * A simple implementation of a {@link org.jeometry.geom3D.transform.Transform3D 3D transformation} that relies on a 
@@ -17,17 +16,18 @@ import org.jeometry.simple.math.SimpleMatrix;
  * @since 1.0.0
  *
  */
-public class SimpleTransform3DMatrix extends SimpleMatrix implements Transform3DMatrix{
+public class SimpleTransform3DMatrix implements Transform3DMatrix{
 
+	/**
+	 * The underlying matrix.
+	 */
+	private Matrix matrix = null;
+	
 	/**
 	 * Create a new {@link org.jeometry.geom3D.transform.Transform3D 3D transformation} set to the identity.
 	 */
 	public SimpleTransform3DMatrix() {
-		super(new double[][] {{1, 0, 0, 0},
-			{0, 1, 0, 0},
-			{0, 0, 1, 0},
-			{0, 0, 0, 1}
-		});
+		this.matrix = JeometryFactory.createMatrixEye(4);
 	}
 
 	/**
@@ -36,19 +36,19 @@ public class SimpleTransform3DMatrix extends SimpleMatrix implements Transform3D
 	 * @param matrix the affine 3D transform
 	 */
 	public SimpleTransform3DMatrix(Matrix matrix) {
-		super(4, 4);
+		this.matrix = JeometryFactory.createMatrixEye(4);
 
 		if (matrix != null) {
 			if ((matrix.getRowsCount() != 4) || (matrix.getColumnsCount() != 4)) {
 				throw new IllegalArgumentException("Invalid input matrix size "+matrix.getRowsCount()+"x"+matrix.getColumnsCount()+", expected 4x4.");
 			}
 
-			setValues(matrix);			
+			this.matrix.setValues(matrix);			
 		} else {
-			setValue(0, 0, 1);
-			setValue(1, 1, 1);
-			setValue(2, 2, 1);
-			setValue(3, 3, 1);
+			this.matrix.setValue(0, 0, 1);
+			this.matrix.setValue(1, 1, 1);
+			this.matrix.setValue(2, 2, 1);
+			this.matrix.setValue(3, 3, 1);
 		}
 	}
 
@@ -58,19 +58,19 @@ public class SimpleTransform3DMatrix extends SimpleMatrix implements Transform3D
 	 * @param matrix the affine 3D transform
 	 */
 	public SimpleTransform3DMatrix(double[][] matrix) {
-		super(4, 4);
+		this.matrix = JeometryFactory.createMatrixEye(4);
 
 		if (matrix != null) {
 			if ((matrix.length != 4) || (matrix[0].length != 4)) {
 				throw new IllegalArgumentException("Invalid input matrix size "+matrix.length+"x"+matrix[0].length+", expected 4x4.");
 			}
 
-			setDataArray2D(matrix);
+			this.matrix.setDataArray2D(matrix);
 		} else {
-			setValue(0, 0, 1);
-			setValue(1, 1, 1);
-			setValue(2, 2, 1);
-			setValue(3, 3, 1);
+			this.matrix.setValue(0, 0, 1);
+			this.matrix.setValue(1, 1, 1);
+			this.matrix.setValue(2, 2, 1);
+			this.matrix.setValue(3, 3, 1);
 
 		}
 	}
@@ -98,12 +98,12 @@ public class SimpleTransform3DMatrix extends SimpleMatrix implements Transform3D
 	 * @throws IllegalArgumentException if the rotation matrix is not 3x3 sized, if the translation Vector is not 3 dimensioned
 	 */
 	public SimpleTransform3DMatrix(Matrix rotation, Vector translation, double scale) {
-		super(4, 4);
+		this.matrix = JeometryFactory.createMatrixEye(4);
 
-		setValue(0, 0, 1);
-		setValue(1, 1, 1);
-		setValue(2, 2, 1);
-		setValue(3, 3, 1);
+		this.matrix.setValue(0, 0, 1);
+		this.matrix.setValue(1, 1, 1);
+		this.matrix.setValue(2, 2, 1);
+		this.matrix.setValue(3, 3, 1);
 
 		if (rotation != null) {
 
@@ -111,9 +111,9 @@ public class SimpleTransform3DMatrix extends SimpleMatrix implements Transform3D
 				throw new IllegalArgumentException("Invalid rotation matrix size "+rotation.getRowsCount()+"x"+rotation.getColumnsCount()+", expected 3x3.");
 			}
 
-			setValue(0, 0, scale*rotation.getValue(0, 0)); setValue(0, 1, scale*rotation.getValue(0, 1)); setValue(0, 2, scale*rotation.getValue(0, 2));
-			setValue(1, 0, scale*rotation.getValue(1, 0)); setValue(1, 1, scale*rotation.getValue(1, 1)); setValue(1, 2, scale*rotation.getValue(1, 2));
-			setValue(2, 0, scale*rotation.getValue(2, 0)); setValue(2, 1, scale*rotation.getValue(2, 1)); setValue(2, 2, scale*rotation.getValue(2, 2));
+			this.matrix.setValue(0, 0, scale*rotation.getValue(0, 0)); this.matrix.setValue(0, 1, scale*rotation.getValue(0, 1)); this.matrix.setValue(0, 2, scale*rotation.getValue(0, 2));
+			this.matrix.setValue(1, 0, scale*rotation.getValue(1, 0)); this.matrix.setValue(1, 1, scale*rotation.getValue(1, 1)); this.matrix.setValue(1, 2, scale*rotation.getValue(1, 2));
+			this.matrix.setValue(2, 0, scale*rotation.getValue(2, 0)); this.matrix.setValue(2, 1, scale*rotation.getValue(2, 1)); this.matrix.setValue(2, 2, scale*rotation.getValue(2, 2));
 		}
 
 		if (translation != null) {
@@ -122,9 +122,9 @@ public class SimpleTransform3DMatrix extends SimpleMatrix implements Transform3D
 				throw new IllegalArgumentException("Invalid translation vector dimension "+translation.getDimension()+", expected 3 or 4 for homogeneous.");
 			}
 
-			setValue(0, 3, translation.getVectorComponent(0));
-			setValue(0, 3, translation.getVectorComponent(1));
-			setValue(0, 3, translation.getVectorComponent(2));
+			this.matrix.setValue(0, 3, translation.getValue(0));
+			this.matrix.setValue(0, 3, translation.getValue(1));
+			this.matrix.setValue(0, 3, translation.getValue(2));
 		}
 	}
 
@@ -142,9 +142,9 @@ public class SimpleTransform3DMatrix extends SimpleMatrix implements Transform3D
 
 		if (result != null) {
 			if (point3d != null){
-				result.setValues(getValue(0, 0)*point3d.getX() + getValue(0, 1)*point3d.getY() + getValue(0, 2)*point3d.getZ() + getValue(0, 3), 
-						getValue(1, 0)*point3d.getX() + getValue(1, 1)*point3d.getY() + getValue(1, 2)*point3d.getZ() + getValue(1, 3), 
-						getValue(2, 0)*point3d.getX() + getValue(2, 1)*point3d.getY() + getValue(2, 2)*point3d.getZ() + getValue(2, 3));
+				result.setValues(this.matrix.getValue(0, 0)*point3d.getX() + this.matrix.getValue(0, 1)*point3d.getY() + this.matrix.getValue(0, 2)*point3d.getZ() + this.matrix.getValue(0, 3), 
+						this.matrix.getValue(1, 0)*point3d.getX() + this.matrix.getValue(1, 1)*point3d.getY() + this.matrix.getValue(1, 2)*point3d.getZ() + this.matrix.getValue(1, 3), 
+						this.matrix.getValue(2, 0)*point3d.getX() + this.matrix.getValue(2, 1)*point3d.getY() + this.matrix.getValue(2, 2)*point3d.getZ() + this.matrix.getValue(2, 3));
 			} else {
 				result.setX(Double.NaN);
 				result.setY(Double.NaN);
@@ -183,9 +183,9 @@ public class SimpleTransform3DMatrix extends SimpleMatrix implements Transform3D
 				// F' = [  R' | R'T]
 				//      [0 0 0   1 ]
 				// Where R and T are the original rotation / translation
-				result.setValues(getValue(0, 0)*point3d.getX() + getValue(1, 0)*point3d.getY() + getValue(2, 0)*point3d.getZ() - getValue(0, 0)*getValue(0, 3) - getValue(1, 0)*getValue(1, 3) - getValue(2, 0)*getValue(2, 3), 
-						getValue(0, 1)*point3d.getX() + getValue(1, 1)*point3d.getY() + getValue(2, 1)*point3d.getZ() - getValue(0, 1)*getValue(0, 3) - getValue(1, 1)*getValue(1, 3) - getValue(2, 1)*getValue(2, 3), 
-						getValue(0, 2)*point3d.getX() + getValue(1, 2)*point3d.getY() + getValue(2, 2)*point3d.getZ() - getValue(0, 2)*getValue(0, 3) - getValue(1, 2)*getValue(1, 3) - getValue(2, 2)*getValue(2, 3));
+				result.setValues(this.matrix.getValue(0, 0)*point3d.getX() + this.matrix.getValue(1, 0)*point3d.getY() + this.matrix.getValue(2, 0)*point3d.getZ() - this.matrix.getValue(0, 0)*this.matrix.getValue(0, 3) - this.matrix.getValue(1, 0)*this.matrix.getValue(1, 3) - this.matrix.getValue(2, 0)*this.matrix.getValue(2, 3), 
+						this.matrix.getValue(0, 1)*point3d.getX() + this.matrix.getValue(1, 1)*point3d.getY() + this.matrix.getValue(2, 1)*point3d.getZ() - this.matrix.getValue(0, 1)*this.matrix.getValue(0, 3) - this.matrix.getValue(1, 1)*this.matrix.getValue(1, 3) - this.matrix.getValue(2, 1)*this.matrix.getValue(2, 3), 
+						this.matrix.getValue(0, 2)*point3d.getX() + this.matrix.getValue(1, 2)*point3d.getY() + this.matrix.getValue(2, 2)*point3d.getZ() - this.matrix.getValue(0, 2)*this.matrix.getValue(0, 3) - this.matrix.getValue(1, 2)*this.matrix.getValue(1, 3) - this.matrix.getValue(2, 2)*this.matrix.getValue(2, 3));
 			} else {
 				result.setX(Double.NaN);
 				result.setY(Double.NaN);
@@ -213,10 +213,10 @@ public class SimpleTransform3DMatrix extends SimpleMatrix implements Transform3D
 		if (inverted != null) {
 			if (inverted instanceof Transform3DMatrix) {
 
-				((Transform3DMatrix) inverted).setDataArray2D(new double[][] {
-					{getValue(0, 0), getValue(1, 0), getValue(2, 0), -1.0d*getValue(0, 0)*getValue(0, 3) - getValue(1, 0)*getValue(1, 3) - getValue(2, 0)*getValue(2, 3)},
-					{getValue(0, 1), getValue(1, 1), getValue(2, 1), -1.0d*getValue(0, 1)*getValue(0, 3) - getValue(1, 1)*getValue(1, 3) - getValue(2, 1)*getValue(2, 3)},
-					{getValue(0, 2), getValue(1, 2), getValue(2, 2), -1.0d*getValue(0, 2)*getValue(0, 3) - getValue(1, 2)*getValue(1, 3) - getValue(2, 2)*getValue(2, 3)},
+				((Transform3DMatrix) inverted).getMatrix().setDataArray2D(new double[][] {
+					{this.matrix.getValue(0, 0), this.matrix.getValue(1, 0), this.matrix.getValue(2, 0), -1.0d*this.matrix.getValue(0, 0)*this.matrix.getValue(0, 3) - this.matrix.getValue(1, 0)*this.matrix.getValue(1, 3) - this.matrix.getValue(2, 0)*this.matrix.getValue(2, 3)},
+					{this.matrix.getValue(0, 1), this.matrix.getValue(1, 1), this.matrix.getValue(2, 1), -1.0d*this.matrix.getValue(0, 1)*this.matrix.getValue(0, 3) - this.matrix.getValue(1, 1)*this.matrix.getValue(1, 3) - this.matrix.getValue(2, 1)*this.matrix.getValue(2, 3)},
+					{this.matrix.getValue(0, 2), this.matrix.getValue(1, 2), this.matrix.getValue(2, 2), -1.0d*this.matrix.getValue(0, 2)*this.matrix.getValue(0, 3) - this.matrix.getValue(1, 2)*this.matrix.getValue(1, 3) - this.matrix.getValue(2, 2)*this.matrix.getValue(2, 3)},
 					{0, 0, 0, 1},
 				});
 
@@ -235,7 +235,7 @@ public class SimpleTransform3DMatrix extends SimpleMatrix implements Transform3D
 
 	@Override
 	public Matrix getMatrix() {
-		return this;
+		return this.matrix;
 	}
 
 	@Override
@@ -254,17 +254,7 @@ public class SimpleTransform3DMatrix extends SimpleMatrix implements Transform3D
 
 	@Override
 	public void setMatrix(Matrix matrix) {
-		if (matrix != null) {
-			if ((matrix.getRowsCount() == 4) && (matrix.getColumnsCount() == 4)) {
-				for(int row = 0; row < 4; row++) {
-					for(int col = 0; col < 4; col++) {
-						setValue(row, col, matrix.getValue(row, col));
-					}
-				}
-			} else {
-				throw new IllegalArgumentException("Expected [4x4] matrix but got ["+matrix.getRowsCount()+"x"+matrix.getColumnsCount()+"] one.");
-			}
-		}
+		this.matrix = matrix;
 	}
 
 }

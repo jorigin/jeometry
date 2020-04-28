@@ -248,12 +248,12 @@ public interface Point3D extends Coord3D, SpatialLocalization3D {
    * Compute the product of the vector represented by this point and the scalar given in parameter and return the result as a new point.
    * Let <i>a</i> be a vector and let <i>&lambda;</i> be a scalar, the product, denoted <i>a</i>&nbsp;&times;&nbsp;<i>&lambda;</i>, is a vector such that:<br>
    * $$ a \times \lambda\ =\ (x \times \lambda,\ y \times \lambda,\ z \times \lambda)$$
-   * If this point has to be modified, the {@link #multAffect(double)} method can be used.
+   * If this point has to be modified, the {@link #multiplyAffect(double)} method can be used.
    * @param scalar the scalar to multiply.
    * @return the product of the vector represented by this point and the scalar given in parameter.
-   * @see #mult(double, Point3D)
+   * @see #multiply(double, Point3D)
    */
-  public Point3D mult(double scalar);
+  public Point3D multiply(double scalar);
   
   /**
    * Compute the product of the vector represented by this point and the scalar given in parameter and store it as the given <code>result</code>.
@@ -262,19 +262,19 @@ public interface Point3D extends Coord3D, SpatialLocalization3D {
    * @param scalar the scalar to multiply.
    * @param result the point that represents the resulting vector.
    * @return a reference on the given <code>result</code> (can be useful for chaining operations).
-   * @see #mult(double)
+   * @see #multiply(double)
    */
-  public Point3D mult(double scalar, Point3D result);
+  public Point3D multiply(double scalar, Point3D result);
   
   /**
    * Affect this point with the product of the vector represented by this point and the scalar given in parameter.
    * Let <i>a</i> be a vector and let <i>&lambda;</i> be a scalar, the product, denoted <i>a</i>&nbsp;&times;&nbsp;<i>&lambda;</i>, is a vector such that:<br>
    * $$ a \times \lambda\ =\ (x \times \lambda,\ y \times \lambda,\ z \times \lambda)$$
-   *  This point is modified by this operation. If its is not needed to modify this point, the method {@link #mult(double)} can be used.
+   *  This point is modified by this operation. If its is not needed to modify this point, the method {@link #multiply(double)} can be used.
    * @param scalar the scalar to multiply.
    * @return a reference on this point (can be useful for chaining operations).
    */
-  public Point3D multAffect(double scalar);
+  public Point3D multiplyAffect(double scalar);
   
   /**
    * Compute the division of the vector represented by this point and the scalar given in parameter and return the result as a new point.

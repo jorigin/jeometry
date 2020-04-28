@@ -131,6 +131,118 @@ public interface Matrix {
 	public void setTo(double value);
 
 	/**
+	 * Get a {@link Vector} made of the values of the column at the given <code>index</code>.
+	 * @param index the index of the column (<i>0</i>&nbsp;&#x2264;&nbsp;<code>index</code>&nbsp;&lt;&nbsp;{@link #getColumnsCount()})
+	 * @return a {@link Vector} made of the values of the column at the given <code>index</code>
+	 * @throws IllegalArgumentException if <code>index</code> does not lies within the interval [0,&nbsp;{@link #getColumnsCount()}[
+	 * @see #getColumn(int, Vector)
+	 * @see #getColumn(int, double[])
+	 */
+	public Vector getColumn(int index);
+	
+	/**
+	 * Fill the given {@link Vector} with the values of the column at the given <code>index</code>.
+	 * The vector {@link Vector#getDimension() dimension} has to be equals to the {@link #getRowsCount() rows count} of this matrix.
+	 * @param index the index of the column (<i>0</i>&nbsp;&#x2264;&nbsp;<code>index</code>&nbsp;&lt;&nbsp;{@link #getColumnsCount()})
+	 * @param output the vector to fill
+	 * @return a reference on the <code>output</code> vector
+	 * @throws IllegalArgumentException if <code>index</code> does not lies within the interval [0,&nbsp;{@link #getColumnsCount()}[ or if the vector dimension differs from the matrix {@link #getRowsCount() rows count}
+	 * @see #getColumn(int)
+	 * @see #getColumn(int, double[])
+	 */
+	public Vector getColumn(int index, Vector output);
+	
+	/**
+	 * Fill the given <code>double array</code> with the values of the column at the given <code>index</code>.
+	 * The length of the array has to be equals to the {@link #getRowsCount() rows count} of this matrix.
+	 * @param index the index of the column (<i>0</i>&nbsp;&#x2264;&nbsp;<code>index</code>&nbsp;&lt;&nbsp;{@link #getColumnsCount()})
+	 * @param output the <code>double array</code> to fill
+	 * @return a reference on the <code>output</code> array
+	 * @throws IllegalArgumentException if <code>index</code> does not lies within the interval [0,&nbsp;{@link #getColumnsCount()}[ or if the length of the array differs from the matrix {@link #getRowsCount() rows count}
+	 * @see #getColumn(int)
+	 * @see #getColumn(int, Vector)
+	 */
+	public double[] getColumn(int index , double[] output);
+	
+	/**
+	 * Set the values of the column at the given <code>index</code> with the ones given by the input {@link Vector}.
+	 * The vector {@link Vector#getDimension() dimension} has to be equals to the {@link #getRowsCount() rows count} of this matrix.
+	 * @param index the index of the column (<i>0</i>&nbsp;&#x2264;&nbsp;<code>index</code>&nbsp;&lt;&nbsp;{@link #getColumnsCount()})
+	 * @param input the source vector
+	 * @return a reference on this object (useful for chaining operations)
+	 * @throws IllegalArgumentException if <code>index</code> does not lies within the interval [0,&nbsp;{@link #getColumnsCount()}[ or if the vector dimension differs from the matrix {@link #getRowsCount() rows count}
+	 * @see #setColumn(int, double[])
+	 */
+	public Matrix setColumn(int index, Vector input);
+	
+	/**
+	 * Set the values of the column at the given <code>index</code> with the ones given by the input double array.
+	 * The length of the array has to be equals to the {@link #getRowsCount() rows count} of this matrix.
+	 * @param index the index of the column (<i>0</i>&nbsp;&#x2264;&nbsp;<code>index</code>&nbsp;&lt;&nbsp;{@link #getColumnsCount()})
+	 * @param input the source array
+	 * @return a reference on this object (useful for chaining operations)
+	 * @throws IllegalArgumentException if <code>index</code> does not lies within the interval [0,&nbsp;{@link #getColumnsCount()}[ or if the length of the array differs from the matrix {@link #getRowsCount() rows count}
+	 * @see #setColumn(int, Vector)
+	 */
+	public Matrix setColumn(int index, double[] input);
+	
+	/**
+	 * Get a {@link Vector} made of the values of the row at the given <code>index</code>.
+	 * @param index the index of the row (<i>0</i>&nbsp;&#x2264;&nbsp;<code>index</code>&nbsp;&lt;&nbsp;{@link #getRowsCount()})
+	 * @return a {@link Vector} made of the values of the row at the given <code>index</code>
+	 * @throws IllegalArgumentException if <code>index</code> does not lies within the interval [0,&nbsp;{@link #getRowsCount()}[
+	 * @see #getRow(int, Vector)
+	 * @see #getRow(int, double[])
+	 */
+	public Vector getRow(int index);
+	
+	/**
+	 * Fill the given {@link Vector} with the values of the row at the given <code>index</code>.
+	 * The vector {@link Vector#getDimension() dimension} has to be equals to the {@link #getColumnsCount() columns count} of this matrix.
+	 * @param index the index of the row (<i>0</i>&nbsp;&#x2264;&nbsp;<code>index</code>&nbsp;&lt;&nbsp;{@link #getRowsCount()})
+	 * @param output the vector to fill
+	 * @return a reference on the <code>output</code> vector
+	 * @throws IllegalArgumentException if <code>index</code> does not lies within the interval [0,&nbsp;{@link #getRowsCount()}[ or if the vector dimension differs from the matrix {@link #getColumnsCount() columns count}
+	 * @see #getRow(int)
+	 * @see #getRow(int, double[])
+	 */
+	public Vector getRow(int index, Vector output);
+	
+	/**
+	 * Fill the given <code>double array</code> with the values of the row at the given <code>index</code>.
+	 * The length of the array has to be equals to the {@link #getColumnsCount() columns count} of this matrix.
+	 * @param index the index of the row (<i>0</i>&nbsp;&#x2264;&nbsp;<code>index</code>&nbsp;&lt;&nbsp;{@link #getRowsCount()})
+	 * @param output the array to fill
+	 * @return a reference on the <code>output</code> array
+	 * @throws IllegalArgumentException if <code>index</code> does not lies within the interval [0,&nbsp;{@link #getRowsCount()}[ or if the length of the array differs from the matrix {@link #getColumnsCount() columns count}
+	 * @see #getRow(int)
+	 * @see #getRow(int, Vector)
+	 */
+	public double[] getRow(int index, double[] output);
+	
+	/**
+	 * Set the values of the row at the given <code>index</code> with the ones given by the input {@link Vector}.
+	 * The vector {@link Vector#getDimension() dimension} has to be equals to the {@link #getColumnsCount() columns count} of this matrix.
+	 * @param index the index of the row (<i>0</i>&nbsp;&#x2264;&nbsp;<code>index</code>&nbsp;&lt;&nbsp;{@link #getRowsCount()})
+	 * @param input the source vector
+	 * @return a reference on this object (useful for chaining operations)
+	 * @throws IllegalArgumentException if <code>index</code> does not lies within the interval [0,&nbsp;{@link #getRowsCount()}[ or if the vector dimension differs from the matrix {@link #getColumnsCount() columns count}
+	 * @see #setRow(int, double[])
+	 */
+	public Matrix setRow(int index, Vector input);
+	
+	/**
+	 * Set the values of the row at the given <code>index</code> with the ones given by the input double array.
+	 * The length of the array has to be equals to the {@link #getColumnsCount() columns count} of this matrix.
+	 * @param index the index of the row (<i>0</i>&nbsp;&#x2264;&nbsp;<code>index</code>&nbsp;&lt;&nbsp;{@link #getRowsCount()})
+	 * @param input the source array
+	 * @return a reference on this object (useful for chaining operations)
+	 * @throws IllegalArgumentException if <code>index</code> does not lies within the interval [0,&nbsp;{@link #getRowsCount()}[ or if the length of the array differs from the matrix {@link #getColumnsCount() columns count}
+	 * @see #setRow(int, Vector)
+	 */
+	public Matrix setRow(int index, double[] input);
+	
+	/**
 	 * Extract a sub-matrix from this one according to the given offsets and counts. 
 	 * The extracted matrix is a copy of the original.
 	 * @param rowOffset the index of first row to extract 
@@ -947,6 +1059,83 @@ public interface Matrix {
 	public Matrix concatHorizontal(Matrix right, Matrix result);
 
 	/**
+	 * Construct a new matrix that is made of the horizontal concatenation of the given {@link Vector} to this one.
+	 * Formally, let <i>A</i> a <i>n</i>&times;<i>j</i> matrix defined such that:
+	 * $$
+	 * A\ =\ \begin{bmatrix} 
+	 *        a_{00} &amp; \dots  &amp; a_{0l} &amp; \dots  &amp; a_{0j} \\
+	 *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\
+	 *        a_{i0} &amp; \dots  &amp; a_{il} &amp; \dots  &amp; a_{ij} \\
+	 *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\     
+	 *        a_{n0} &amp; \dots  &amp; a_{nl} &amp; \dots  &amp; a_{nj}
+	 *     \end{bmatrix}
+	 * $$
+	 * and let <i>B</i> a vector of dimension <i>n</i> defined such that:
+	 * $$
+	 * B\ =\ \begin{bmatrix} 
+	 *        b_{0} \\
+	 *        \vdots \\
+	 *        b_{i} \\
+	 *        \vdots \\     
+	 *        b_{n} 
+	 *     \end{bmatrix}
+	 * $$
+	 * The horizontal concatenation <i>C</i><sub>h</sub> of <i>A</i> and <i>B</i> is a <i>n</i>&times;<i>j</i>+<i>k</i> matrix defined such that:
+	 * $$
+	 * C_{h}\ =\ \begin{bmatrix} 
+	 *        a_{00} &amp; \dots  &amp; a_{0l} &amp; \dots  &amp; a_{0j} &amp; b_{0} \\
+	 *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots \\
+	 *        a_{i0} &amp; \dots  &amp; a_{il} &amp; \dots  &amp; a_{ij} &amp; b_{i} \\
+	 *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots \\       
+	 *        a_{n0} &amp; \dots  &amp; a_{nl} &amp; \dots  &amp; a_{nj} &amp; b_{n} 
+	 *     \end{bmatrix}
+	 * $$
+	 * @param right the vector to concatenate on the right
+	 * @return the concatenated matrix
+	 * @throws IllegalArgumentException if the dimension of the input vector is not compatible with the number of lines of this matrix
+	 */
+	public Matrix concatHorizontal(Vector right);
+	
+	/**
+	 * Construct a new matrix that is made of the horizontal concatenation of the given {@link Vector} to this one.
+	 * Formally, let <i>A</i> a <i>n</i>&times;<i>j</i> matrix defined such that:
+	 * $$
+	 * A\ =\ \begin{bmatrix} 
+	 *        a_{00} &amp; \dots  &amp; a_{0l} &amp; \dots  &amp; a_{0j} \\
+	 *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\
+	 *        a_{i0} &amp; \dots  &amp; a_{il} &amp; \dots  &amp; a_{ij} \\
+	 *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\     
+	 *        a_{n0} &amp; \dots  &amp; a_{nl} &amp; \dots  &amp; a_{nj}
+	 *     \end{bmatrix}
+	 * $$
+	 * and let <i>B</i> a vector of dimension <i>n</i> defined such that:
+	 * $$
+	 * B\ =\ \begin{bmatrix} 
+	 *        b_{0}  \\
+	 *        \vdots \\
+	 *        b_{i}  \\
+	 *        \vdots \\     
+	 *        b_{n} 
+	 *     \end{bmatrix}
+	 * $$
+	 * The horizontal concatenation <i>C</i><sub>h</sub> of <i>A</i> and <i>B</i> is a <i>n</i>&times;<i>j</i>+<i>k</i> matrix defined such that:
+	 * $$
+	 * C_{h}\ =\ \begin{bmatrix} 
+	 *        a_{00} &amp; \dots  &amp; a_{0l} &amp; \dots  &amp; a_{0j} &amp; b_{0} \\
+	 *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots \\
+	 *        a_{i0} &amp; \dots  &amp; a_{il} &amp; \dots  &amp; a_{ij} &amp; b_{i} \\
+	 *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots \\       
+	 *        a_{n0} &amp; \dots  &amp; a_{nl} &amp; \dots  &amp; a_{nj} &amp; b_{n} 
+	 *     \end{bmatrix}
+	 * $$
+	 * @param right the vector to concatenate on the right
+	 * @param result the matrix that has to store the result (has to be well fitted)
+	 * @return the concatenated matrix
+	 * @throws IllegalArgumentException if the dimension of the input vector is not compatible with the number of lines of this matrix or if the result matrix is invalid
+	 */
+	public Matrix concatHorizontal(Vector right, Matrix result);
+	
+	/**
 	 * Construct a new matrix that is made of the vertical concatenation of the given matrix to this one.
 	 * Formally, let <i>A</i> a <i>j</i>&times;<i>m</i> matrix defined such that:
 	 * $$
@@ -1032,4 +1221,75 @@ public interface Matrix {
 	 * @throws IllegalArgumentException if the number of columns from the input matrix is not compatible with the number of columns of this matrix or if the result matrix size is not compatible
 	 */
 	public Matrix concatVertical(Matrix bottom, Matrix result);
+	
+	/**
+	 * Construct a new matrix that is made of the vertical concatenation of the given {@link Vector} to this one.
+	 * Formally, let <i>A</i> a <i>j</i>&times;<i>m</i> matrix defined such that:
+	 * $$
+	 * A\ =\ \begin{bmatrix} 
+	 *        a_{00} &amp; \dots  &amp; a_{0l} &amp; \dots  &amp; a_{0m} \\
+	 *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\
+	 *        a_{t0} &amp; \dots  &amp; a_{tl} &amp; \dots  &amp; a_{tm} \\
+	 *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\     
+	 *        a_{j0} &amp; \dots  &amp; a_{jl} &amp; \dots  &amp; a_{jm}
+	 *     \end{bmatrix}
+	 * $$
+	 * and let <i>B</i> a vector of dimension <i>m</i> defined such that:
+	 * $$
+	 * B\ =\ \begin{bmatrix} 
+	 *        b_{0} &amp; \dots  &amp; b_{v} &amp; \dots  &amp; b_{m} 
+	 *     \end{bmatrix}
+	 * $$
+	 * The vertical concatenation <i>C</i><sub>v</sub> of <i>A</i> and <i>B</i> is a <i>j</i>+<i>k</i>&nbsp;&times;&nbsp;<i>m</i> matrix defined such that:
+	 * $$
+	 * A\ =\ \begin{bmatrix} 
+	 *        a_{00} &amp; \dots  &amp; a_{0l} &amp; \dots  &amp; a_{0m} \\
+	 *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\
+	 *        a_{t0} &amp; \dots  &amp; a_{tl} &amp; \dots  &amp; a_{tm} \\
+	 *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\     
+	 *        a_{j0} &amp; \dots  &amp; a_{jl} &amp; \dots  &amp; a_{jm} \\
+	 *        b_{0} &amp; \dots  &amp; b_{v} &amp; \dots  &amp; b_{m} \\
+	 *     \end{bmatrix}
+	 * $$
+	 * @param bottom the vector to concatenate on the bottom of this one
+	 * @return the concatenated matrix (a reference on <code>result</code>)
+	 * @throws IllegalArgumentException if the input vector dimension is not compatible with the number of columns of this matrix
+	 */
+	public Matrix concatVertical(Vector bottom);
+	
+	/**
+	 * Construct a new matrix that is made of the vertical concatenation of the given {@link Vector} to this one.
+	 * Formally, let <i>A</i> a <i>j</i>&times;<i>m</i> matrix defined such that:
+	 * $$
+	 * A\ =\ \begin{bmatrix} 
+	 *        a_{00} &amp; \dots  &amp; a_{0l} &amp; \dots  &amp; a_{0m} \\
+	 *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\
+	 *        a_{t0} &amp; \dots  &amp; a_{tl} &amp; \dots  &amp; a_{tm} \\
+	 *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\     
+	 *        a_{j0} &amp; \dots  &amp; a_{jl} &amp; \dots  &amp; a_{jm}
+	 *     \end{bmatrix}
+	 * $$
+	 * and let <i>B</i> a vector of dimension <i>m</i> defined such that:
+	 * $$
+	 * B\ =\ \begin{bmatrix} 
+	 *        b_{0} &amp; \dots  &amp; b_{v} &amp; \dots  &amp; b_{m} 
+	 *     \end{bmatrix}
+	 * $$
+	 * The vertical concatenation <i>C</i><sub>v</sub> of <i>A</i> and <i>B</i> is a <i>j</i>+<i>k</i>&nbsp;&times;&nbsp;<i>m</i> matrix defined such that:
+	 * $$
+	 * A\ =\ \begin{bmatrix} 
+	 *        a_{00} &amp; \dots  &amp; a_{0l} &amp; \dots  &amp; a_{0m} \\
+	 *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\
+	 *        a_{t0} &amp; \dots  &amp; a_{tl} &amp; \dots  &amp; a_{tm} \\
+	 *        \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots \\     
+	 *        a_{j0} &amp; \dots  &amp; a_{jl} &amp; \dots  &amp; a_{jm} \\
+	 *        b_{0} &amp; \dots  &amp; b_{v} &amp; \dots  &amp; b_{m} \\
+	 *     \end{bmatrix}
+	 * $$
+	 * @param bottom the vector to concatenate on the bottom of this one
+	 * @param result the matrix that has to store the result (has to be well fitted)
+	 * @return the concatenated matrix (a reference on <code>result</code>)
+	 * @throws IllegalArgumentException if the input vector dimension is not compatible with the number of columns of this matrix or if the result matrix is not well fitted
+	 */
+	public Matrix concatVertical(Vector bottom, Matrix result);
 }

@@ -1300,7 +1300,7 @@ public class Geom3D {
                                  factor*triangle.getVertex1().getZ() + u*triangle.getVertex2().getZ() + v*triangle.getVertex3().getZ());
     */
     
-    result = orig.plus(dir.mult(t));
+    result = orig.plus(dir.multiply(t));
     
     return result;
   }
