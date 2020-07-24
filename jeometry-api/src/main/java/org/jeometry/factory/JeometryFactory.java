@@ -435,6 +435,23 @@ public class JeometryFactory {
 	}
 	
 	/**
+	 * Create a new instance of {@link Point2D} with the values obtained from the {@link Vector} given in parameter. 
+	 * The first component of the vector is considered as <i>x</i> value and the second component is considered as <i>y</i> value.
+	 * <br><br>
+	 * If the given <code>vector</code> has more than 2 components, only the first two are considered.
+	 * @param vector the vector to use as values source
+	 * @return a new instance of {@link Point2D} with the values obtained from the vector given in parameter.
+	 * @throws IllegalArgumentException if the given <code>vector</code> is <code>null</code> or has less than 2 components. 
+	 */
+	public static Point2D createPoint2D(Vector vector) {
+		if (pointBuilder != null) {
+			return pointBuilder.createPoint2D(vector);
+		} else {
+			throw new IllegalStateException("No point builder available.");
+		}
+	}
+	
+	/**
 	 * Create a new instance of {@link Point2DContainer}. 
 	 * @return a new instance of {@link Point2DContainer}
 	 * @throws IllegalArgumentException if an instantiation error occurs
@@ -500,6 +517,23 @@ public class JeometryFactory {
 	public static Point3D createPoint3D(Point3D point) {
 		if (pointBuilder != null) {
 			return pointBuilder.createPoint3D(point);
+		} else {
+			throw new IllegalStateException("No point builder available.");
+		}
+	}
+	
+	/**
+	 * Create a new instance of {@link Point3D} with the values obtained from the {@link Vector} given in parameter. 
+	 * The first component of the vector is considered as <i>x</i> value, the second component is considered as <i>y</i> value and the third component is considered as <i>z</i> value.
+	 * <br><br>
+	 * If the given <code>vector</code> has more than 3 components, only the first three are considered.
+	 * @param vector the vector to use as values source
+	 * @return a new instance of {@link Point3D} with the values obtained from the vector given in parameter.
+	 * @throws IllegalArgumentException if the given <code>vector</code> is <code>null</code> or has less than 3 components. 
+	 */
+	public static Point3D createPoint3D(Vector vector) throws IllegalArgumentException{
+		if (pointBuilder != null) {
+			return pointBuilder.createPoint3D(vector);
 		} else {
 			throw new IllegalStateException("No point builder available.");
 		}

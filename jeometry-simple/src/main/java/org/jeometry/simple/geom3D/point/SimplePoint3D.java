@@ -292,6 +292,38 @@ public class SimplePoint3D implements Point3D{
 		return result;
 	}
 
+	@Override
+	public Point3D plusAffect(Point3D point) {
+		setX(getX() + point.getX());
+		setY(getY() + point.getY());
+		setZ(getZ() + point.getZ());
+		return this;
+	}
+
+	@Override
+	public SimplePoint3D plusAffect(double scalar) {
+		setX(getX() + scalar);
+		setY(getY() + scalar);
+		setZ(getZ() + scalar);
+		return this;
+	}
+
+	@Override
+	public Vector plus(double scalar, Vector result) {
+		
+		if (result != null) {
+			if (result.getDimension() != 3) {
+				throw new IllegalArgumentException("Invalid result vector size "+result.getDimension()+", expected 3.");
+			}
+			
+			result.setValue(0, getX()+scalar);
+			result.setValue(1, getY()+scalar);
+			result.setValue(2, getZ()+scalar);
+		}
+		
+		return result;
+	}
+	
 	/**
 	 * Compute the difference between the vector represented by this point and the vector represented by the given one and return it as a new point.
 	 * Let <i>a</i> and <i>b</i> be two vector, their difference, denoted <i>a</i>&nbsp;-&nbsp;<i>b</i>, is a vector such that:<br>
@@ -341,23 +373,7 @@ public class SimplePoint3D implements Point3D{
 		result.setZ(getZ()-scalar);
 		return result;
 	}
-
-	@Override
-	public Point3D plusAffect(Point3D point) {
-		setX(getX() + point.getX());
-		setY(getY() + point.getY());
-		setZ(getZ() + point.getZ());
-		return this;
-	}
-
-	@Override
-	public SimplePoint3D plusAffect(double scalar) {
-		setX(getX() + scalar);
-		setY(getY() + scalar);
-		setZ(getZ() + scalar);
-		return this;
-	}
-
+	
 	@Override
 	public SimplePoint3D minusAffect(Point3D point) {
 		setX(getX() - point.getX());
@@ -685,6 +701,21 @@ public class SimplePoint3D implements Point3D{
 	}
 
 	@Override
+	public Vector minus(double scalar, Vector result) {
+		if (result != null) {
+			if (result.getDimension() != 3) {
+				throw new IllegalArgumentException("Invalid result vector size "+result.getDimension()+", expected 3.");
+			}
+			
+			result.setValue(0, getX()-scalar);
+			result.setValue(1, getY()-scalar);
+			result.setValue(2, getZ()-scalar);
+		}
+		
+		return result;
+	}
+	
+	@Override
 	public Point3D multiply(Vector v) {
 		return (Point3D) multiply(v, JeometryFactory.createPoint3D());
 	}
@@ -755,6 +786,21 @@ public class SimplePoint3D implements Point3D{
 	}
 
 	@Override
+	public Vector divide(double scalar, Vector result) throws IllegalArgumentException {
+		if (result != null) {
+			if (result.getDimension() != 3) {
+				throw new IllegalArgumentException("Invalid result vector size "+result.getDimension()+", expected 3.");
+			}
+			
+			result.setValue(0, getX()/scalar);
+			result.setValue(1, getY()/scalar);
+			result.setValue(2, getZ()/scalar);
+		}
+		
+		return result;
+	}
+	
+	@Override
 	public double dot(Vector v) {
 		
 		if (v != null) {
@@ -773,5 +819,4 @@ public class SimplePoint3D implements Point3D{
 		
 		return Double.NaN;
 	}
-
 }

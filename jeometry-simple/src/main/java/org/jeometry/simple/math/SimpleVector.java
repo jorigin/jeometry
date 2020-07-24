@@ -199,8 +199,7 @@ public class SimpleVector implements Vector {
 
 	@Override
 	public Vector multiply(double scalar) {
-
-		return multiply(scalar, new SimpleVector(getDimension()));
+		return multiply(scalar, JeometryFactory.createVector(getDimension()));
 	}
 
 	@Override
@@ -304,6 +303,31 @@ public class SimpleVector implements Vector {
 	}
 
 	@Override
+	public Vector plus(double scalar) {
+		return plus(scalar, JeometryFactory.createVector(getDimension()));
+	}
+
+	@Override
+	public Vector plus(double scalar, Vector result) {
+		if (result != null) {
+			if (result.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid result vector size "+result.getDimension()+", expected "+getDimension()+".");
+			}
+			
+			for(int dimension = 0; dimension < getDimension(); dimension++) {
+				result.setValue(dimension, getValue(dimension)+scalar);
+			}	
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Vector plusAffect(double scalar) {
+		return plus(scalar, this);
+	}
+	
+	@Override
 	public Vector minus(Vector v) {
 		return minus(v, JeometryFactory.createVector(getDimension()));
 	}
@@ -348,6 +372,31 @@ public class SimpleVector implements Vector {
 		return this;
 	}
 
+	@Override
+	public Vector minus(double scalar) {
+		return minus(scalar, JeometryFactory.createVector(getDimension()));
+	}
+
+	@Override
+	public Vector minus(double scalar, Vector result) {
+		if (result != null) {
+			if (result.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid result vector size "+result.getDimension()+", expected "+getDimension()+".");
+			}
+			
+			for(int dimension = 0; dimension < getDimension(); dimension++) {
+				result.setValue(dimension, getValue(dimension)-scalar);
+			}	
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Vector minusAffect(double scalar) {
+		return minus(scalar, this);
+	}
+	
 	@Override
 	public Vector multiply(Vector v) {
 		return multiply(v, JeometryFactory.createVector(getDimension()));
@@ -438,6 +487,31 @@ public class SimpleVector implements Vector {
 		return this;
 	}
 
+	@Override
+	public Vector divide(double scalar) {
+		return divide(scalar, JeometryFactory.createVector(getDimension()));
+	}
+
+	@Override
+	public Vector divide(double scalar, Vector result) throws IllegalArgumentException {
+		if (result != null) {
+			if (result.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid result vector size "+result.getDimension()+", expected "+getDimension()+".");
+			}
+			
+			for(int dimension = 0; dimension < getDimension(); dimension++) {
+				result.setValue(dimension, getValue(dimension)/scalar);
+			}	
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Vector divideAffect(double scalar) {
+		return divide(scalar, this);
+	}
+	
 	@Override
 	public double dot(Vector v) {
 		

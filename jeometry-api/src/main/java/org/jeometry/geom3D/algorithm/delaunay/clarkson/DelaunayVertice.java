@@ -202,6 +202,11 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 	}
 
 	@Override
+	public Vector plus(double scalar, Vector result) {
+		return point.plus(scalar, result);
+	}
+	
+	@Override
 	public Point3D plus(double scalar, Point3D result) {
 		return point.plus(scalar, result);
 	}
@@ -221,6 +226,11 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 		return point.minus(scalar);
 	}
 
+	@Override
+	public Vector minus(double scalar, Vector result) {
+		return point.minus(scalar, result);
+	}
+	
 	@Override
 	public Point3D minus(double scalar, Point3D result) {
 		return point.minus(scalar, result);
@@ -271,6 +281,11 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 		return point.divide(scalar);
 	}
 
+	@Override
+	public Vector divide(double scalar, Vector result) throws IllegalArgumentException {
+		return point.divide(scalar, result);
+	}
+	
 	@Override
 	public Point3D divide(double scalar, Point3D result) {
 		return point.divide(scalar, result);

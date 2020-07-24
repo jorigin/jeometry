@@ -117,6 +117,44 @@ public interface Vector {
 	public Vector plusAffect(Vector v);
 	
 	/**
+	 * Compute the vector that is the sum, component by component of this vector and the given scalar. 
+	 * More formally, let <i>U</i> be this vector and let <i>s</i> the scalar given in parameter, this method compute the vector <i>W</i> such that:<br>
+	 * <div style="text-align: center;"><i>W</i>&nbsp;=&nbsp;(<i>u</i><sub>0</sub>&nbsp;+&nbsp;<i>s</i>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>i</sub>&nbsp;+&nbsp;<i>s</i>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>n</sub>&nbsp;+&nbsp;<i>s</i>)</div>
+	 * <br>
+	 * where <i>u</i><sub>i</sub> are the values of the <i>i</i><sup>th</sup> component of vector <i>U</i>.
+	 * <br> 
+	 * @param scalar the scalar to add to this vector
+	 * @return the vector that is the sum, component by component of this vector and the given scalar
+	 */
+	public Vector plus(double scalar);
+	
+	/**
+	 * Compute the vector that is the sum, component by component of this vector and the given scalar. 
+	 * More formally, let <i>U</i> be this vector and let <i>s</i> the scalar given in parameter, this method compute the vector <i>W</i> such that:<br>
+	 * <div style="text-align: center;"><i>W</i>&nbsp;=&nbsp;(<i>u</i><sub>0</sub>&nbsp;+&nbsp;<i>s</i>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>i</sub>&nbsp;+&nbsp;<i>s</i>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>n</sub>&nbsp;+&nbsp;<i>s</i>)</div>
+	 * <br>
+	 * where <i>u</i><sub>i</sub> are the values of the <i>i</i><sup>th</sup> component of vector <i>U</i>.
+	 * <br> 
+	 * @param scalar the scalar to add to this vector
+	 * @param result the vector that holds the result
+	 * @return the vector that is the sum, component by component of this vector and the given scalar
+	 * @throws IllegalArgumentException if the result vector dimension does not fit with this one
+	 */
+	public Vector plus(double scalar, Vector result);
+
+	/**
+	 * Affect this vector with the sum, component by component of this vector and the given scalar. 
+	 * More formally, let <i>U</i> be this vector and let <i>s</i> the scalar given in parameter, this method compute the vector <i>W</i> such that:<br>
+	 * <div style="text-align: center;"><i>W</i>&nbsp;=&nbsp;(<i>u</i><sub>0</sub>&nbsp;+&nbsp;<i>s</i>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>i</sub>&nbsp;+&nbsp;<i>s</i>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>n</sub>&nbsp;+&nbsp;<i>s</i>)</div>
+	 * <br>
+	 * where <i>u</i><sub>i</sub> are the values of the <i>i</i><sup>th</sup> component of vector <i>U</i>.
+	 * <br> 
+	 * @param scalar the scalar to add to this vector
+	 * @return a reference on this vector
+	 */
+	public Vector plusAffect(double scalar);	
+	
+	/**
 	 * Compute the vector that is the subtraction, component by component of this vector and the given one. 
 	 * More formally, let <i>U</i> be this vector and let <i>V</i> the vector given in parameter, this method compute the vector <i>W</i> such that:<br>
 	 * <div style="text-align: center;"><i>W</i>&nbsp;=&nbsp;(<i>u</i><sub>0</sub>&nbsp;-&nbsp;<i>v</i><sub>0</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>i</sub>&nbsp;-&nbsp;<i>v</i><sub>i</sub>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>n</sub>&nbsp;-&nbsp;<i>v</i><sub>n</sub>)</div>
@@ -155,6 +193,43 @@ public interface Vector {
 	 * @throws IllegalArgumentException if the input vector dimension does not fit with this one
 	 */
 	public Vector minusAffect(Vector v);
+	
+	/**
+	 * Compute the vector that is the difference, component by component of this vector and the given scalar. 
+	 * More formally, let <i>U</i> be this vector and let <i>s</i> the scalar given in parameter, this method compute the vector <i>W</i> such that:<br>
+	 * <div style="text-align: center;"><i>W</i>&nbsp;=&nbsp;(<i>u</i><sub>0</sub>&nbsp;-&nbsp;<i>s</i>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>i</sub>&nbsp;-&nbsp;<i>s</i>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>n</sub>&nbsp;-&nbsp;<i>s</i>)</div>
+	 * <br>
+	 * where <i>u</i><sub>i</sub> are the values of the <i>i</i><sup>th</sup> component of vector <i>U</i>.
+	 * <br> 
+	 * @param scalar the scalar to add to this vector
+	 * @return the vector that is the difference, component by component of this vector and the given scalar
+	 */
+	public Vector minus(double scalar);
+	
+	/**
+	 * Compute the vector that is the difference, component by component of this vector and the given scalar. 
+	 * More formally, let <i>U</i> be this vector and let <i>s</i> the scalar given in parameter, this method compute the vector <i>W</i> such that:<br>
+	 * <div style="text-align: center;"><i>W</i>&nbsp;=&nbsp;(<i>u</i><sub>0</sub>&nbsp;-&nbsp;<i>s</i>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>i</sub>&nbsp;-&nbsp;<i>s</i>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>n</sub>&nbsp;-&nbsp;<i>s</i>)</div>
+	 * <br>
+	 * where <i>u</i><sub>i</sub> are the values of the <i>i</i><sup>th</sup> component of vector <i>U</i>.
+	 * <br> 
+	 * @param scalar the scalar to add to this vector
+	 * @param result the vector that holds the result
+	 * @return the vector that is the difference, component by component of this vector and the given scalar
+	 */
+	public Vector minus(double scalar, Vector result);
+
+	/**
+	 * Affect this vector with the difference, component by component of this vector and the given scalar. 
+	 * More formally, let <i>U</i> be this vector and let <i>s</i> the scalar given in parameter, this method compute the vector <i>W</i> such that:<br>
+	 * <div style="text-align: center;"><i>W</i>&nbsp;=&nbsp;(<i>u</i><sub>0</sub>&nbsp;-&nbsp;<i>s</i>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>i</sub>&nbsp;-&nbsp;<i>s</i>,&nbsp;&hellip;,&nbsp;<i>u</i><sub>n</sub>&nbsp;-&nbsp;<i>s</i>)</div>
+	 * <br>
+	 * where <i>u</i><sub>i</sub> are the values of the <i>i</i><sup>th</sup> component of vector <i>U</i>.
+	 * <br> 
+	 * @param scalar the scalar to add to this vector
+	 * @return a reference on this vector
+	 */
+	public Vector minusAffect(double scalar);
 	
 	/**
 	 * Extract a vector that contains the part of this vector specified by the parameters.
@@ -316,6 +391,38 @@ public interface Vector {
 	 * @throws IllegalArgumentException if the input vector dimension does not fit with this one
 	 */
 	public Vector divideAffect(Vector v);
+	
+	/**
+	 * Return the vector made of the division of this one by the scalar given in parameter.
+	 * Formally, let <i>V</i>&nbsp;=&nbsp;[<i>v<sub>0</sub></i>,...,<i>v<sub>i</sub></i>,...,<i>v<sub>n</sub></i>] a vector and <i>s</i> a scalar, 
+	 * the multiplication of <i>V</i> by the scalar is the vector <i>V'</i> such that:<br><br>
+	 * <i>V'</i>&nbsp;=&nbsp;[<i>v<sub>0</sub>/s</i>,...,<i>v<sub>i</sub>/s</i>,...,<i>v<sub>n</sub>/s</i>]<br>
+	 * @param scalar the scalar to use as divider.
+	 * @return the vector made of the division of this one by the scalar given in parameter.
+	 */
+	public Vector divide(double scalar);
+
+	/**
+	 * Compute the division of this vector by the scalar given in parameter and store the result in the given vector.
+	 * Formally, let <i>V</i>&nbsp;=&nbsp;[<i>v<sub>0</sub></i>,...,<i>v<sub>i</sub></i>,...,<i>v<sub>n</sub></i>] a vector and <i>s</i> a scalar, 
+	 * the multiplication of <i>V</i> by the scalar is the vector <i>V'</i> such that:<br><br>
+	 * <i>V'</i>&nbsp;=&nbsp;[<i>v<sub>0</sub></i>/s,...,<i>v<sub>i</sub>/s</i>,...,<i>v<sub>n</sub>/s</i>]<br>
+	 * @param scalar the scalar to use as divider
+	 * @param result the vector that has to store the result
+	 * @return the same reference as <code>result</code>.
+	 * @throws IllegalArgumentException if the result vector does not fit for the division.
+	 */
+	public Vector divide(double scalar, Vector result) throws IllegalArgumentException;
+
+	/**
+	 * Affect this vector with the result of its division by the scalar given in parameter.
+	 * Formally, let <i>V</i>&nbsp;=&nbsp;[<i>v<sub>0</sub></i>,...,<i>v<sub>i</sub></i>,...,<i>v<sub>n</sub></i>] a vector and <i>s</i> a scalar, 
+	 * the multiplication of <i>V</i> by the scalar is the vector <i>V'</i> such that:<br><br>
+	 * <i>V'</i>&nbsp;=&nbsp;[<i>v<sub>0</sub>/s</i>,...,<i>v<sub>i</sub>/s</i>,...,<i>v<sub>n</sub>/s</i>]<br>
+	 * @param scalar the scalar to use as divider
+	 * @return a reference to this object
+	 */
+	public Vector divideAffect(double scalar);
 	
 	/**
 	 * Compute the scalar product of this vector and the given one. 

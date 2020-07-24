@@ -6,17 +6,10 @@
 - Views on a Vector / Matrix to focus on a specific part of the object without copying the underlying data
 - Decomposition `compose()` method to recompute input matrix from a decomposition
 - Vector concatenation
-- Vector `Vector plus(double)`
-- Vector `Vector plus(double, Vector)`
-- Vector `Vector plusAffect(double)`
-- Vector `Vector minus(double)`
-- Vector `Vector minus(double, Vector)`
-- Vector `Vector minusAffect(double)`
 - Vector `Vector plusFactor(double, Vector)`
 - Vector `Vector plusFactor(double, Vector, Vector)`
 - Vector `Vector minusFactor(double, Vector)`
 - Vector `Vector minusFactor(double, Vector, Vector)`
-- JeometryFactory `createPoint3D(Vector)`
 - Matrix matrix norms (see (Here)[https://en.wikipedia.org/wiki/Matrix_norm])
 - Test implements Point2DTest
 
@@ -25,6 +18,63 @@
 - Refactor Quaternion `mult` into `product`
 - Refactor make all xxxAffect() methods to return a reference on the object instead of `void` in order to chain processing
 - Refactor make all setValue(s) methods to return a reference on the object for chaining purpose
+
+## [1.0.4](https://github.com/jorigin/jeometry/releases/tag/release-1.0.4)
+### Added
+- PointBuilder `public createPoint3D(Vector)` method
+- PointBuilder `public createPoint2D(Vector)` method
+- JeometryFactory `public static createPoint3D(Vector)` method
+- JeometryFactory `public static createPoint2D(Vector)` method
+- Vector `public Vector plus(double)` method
+- Vector `public Vector plus(double, Vector)` method
+- Vector `public Vector plusAffect(double)` method
+- Vector `public Vector minus(double)` method
+- Vector `public Vector minus(double, Vector)` method
+- Vector `public Vector minusAffect(double)` method
+- Vector `public Vector divide(double)` method
+- Vector `public Vector divide(double, Vector)` method
+- Vector `public Vector divideAffect(double)` method
+- Quaternion `public Quaternion plus(double)` method
+- Quaternion `public Quaternion plusAffect(double)` method
+- Quaternion `public Quaternion minus(double)` method
+- Quaternion `public Quaternion minusAffect(double)` method
+- Quaternion `public Quaternion divide(double)` method
+- Quaternion `public Quaternion divideAffect(double)` method
+- Quaternion `public Quaternion plus(double, Quaternion)` method
+- Quaternion `public Quaternion minus(double, Quaternion)` method
+- Quaternion `public Quaternion divide(double, Quaternion)` method
+- Coor2D `public Coord2D plus(Vector)` method
+- Coor2D `public Coord2D plusAffect(Vector)` method
+- Coor2D `public Coord2D plus(double)` method
+- Coor2D `public Coord2D plusAffect(double)` method
+- Coor2D `public Coord2D minus(Vector)` method
+- Coor2D `public Coord2D minusAffect(Vector)` method
+- Coor2D `public Coord2D minus(double)` method
+- Coor2D `public Coord2D minusAffect(double)` method
+- Coor2D `public Coord2D multiply(double)` method
+- Coor2D `public Coord2D multiplyAffect(double)` method
+- Coor2D `public Coord2D multiply(Vector)` method
+- Coor2D `public Coord2D multiplyAffect(Vector)` method
+- Coor2D `public Coord2D divide(Vector)` method
+- Coor2D `public Coord2D divideAffect(Vector)` method
+- Coor2D `public Coor2D divide(double)` method
+- Coor2D `public Coor2D divide(double, Vector)` method
+- Point2D `public Point2D plus(Vector)` method
+- Point2D `public Point2D plusAffect(Vector)` method
+- Point2D `public Point2D plus(double)` method
+- Point2D `public Point2D plusAffect(double)` method
+- Point2D `public Point2D minus(Vector)` method
+- Point2D `public Point2D minusAffect(Vector)` method
+- Point2D `public Coord2D minus(double)` method
+- Point2D `public Coord2D minusAffect(double)` method
+- Point2D `public Point2D multiply(double)` method
+- Point2D `public Point2D multiplyAffect(double)` method
+- Point2D `public Point2D multiply(Vector)` method
+- Point2D `public Point2D multiplyAffect(Vector)` method
+- Point2D `public Point2D divide(Vector)` method
+- Point2D `public Point2D divideAffect(Vector)` method
+- Point2D `public Point2D divide(double)` method
+- Point2D `public Point2D divide(double, Vector)` method
 
 ## [1.0.3](https://github.com/jorigin/jeometry/releases/tag/release-1.0.3)
 ### Added

@@ -158,6 +158,89 @@ public class VectorTest {
 	}
 
 	/**
+	 * Testing {@link Vector#plus(double)}
+	 */
+	@Test
+	public void plusScalarTest() {
+		
+		double[] aData = MathTestData.V_4_A;
+		double scalar = 0.3651;
+
+		Vector a = JeometryFactory.createVector(aData);
+		
+		assertNotNull(a, "Null a vector");
+		
+		if (vectorClass != null) {
+			assertEquals(vectorClass, a.getClass(), "Unexpected a vector class "+a.getClass().getSimpleName());
+		}
+		
+		Vector result = a.plus(scalar);
+		
+		assertNotNull(result, "Null result vector");
+		
+		for(int i = 0; i < aData.length; i++) {
+			assertEquals(result.getValue(i), aData[i]+scalar, Double.MIN_VALUE, "Invalid result component "+i);
+		}
+	}
+	
+	/**
+	 * Testing {@link Vector#plus(double, Vector)}
+	 */
+	@Test
+	public void plusScalarResultTest() {
+		
+		double[] aData = MathTestData.V_4_A;
+		double scalar = 0.3651;
+
+		Vector a      = JeometryFactory.createVector(aData);
+		Vector result = JeometryFactory.createVector(aData.length);
+		
+		assertNotNull(a, "Null a vector");
+		assertNotNull(result, "Null result vector");
+		
+		if (vectorClass != null) {
+			assertEquals(vectorClass, a.getClass(), "Unexpected a vector class "+a.getClass().getSimpleName());
+			assertEquals(vectorClass, result.getClass(), "Unexpected a vector class "+a.getClass().getSimpleName());
+		}
+		
+		Vector resultRef = a.plus(scalar, result);
+		
+		assertNotNull(resultRef, "Null result vector");
+		assertSame(result, resultRef, "Result and returned reference are not the same.");
+		
+		for(int i = 0; i < aData.length; i++) {
+			assertEquals(result.getValue(i), aData[i]+scalar, Double.MIN_VALUE, "Invalid result component "+i);
+		}
+	}
+	
+	/**
+	 * Testing {@link Vector#plusAffect(double)}
+	 */
+	@Test
+	public void plusScalarAffectTest() {
+		
+		double[] aData = MathTestData.V_4_A;
+		double scalar = 0.3651;
+
+		Vector a      = JeometryFactory.createVector(aData);
+		
+		assertNotNull(a, "Null a vector");
+		
+		if (vectorClass != null) {
+			assertEquals(vectorClass, a.getClass(), "Unexpected a vector class "+a.getClass().getSimpleName());
+		}
+		
+		Vector resultRef = a.plusAffect(scalar);
+		
+		assertNotNull(resultRef, "Null result vector");
+		assertSame(a, resultRef, "Result and returned reference are not the same.");
+		
+		for(int i = 0; i < aData.length; i++) {
+			assertEquals(a.getValue(i), aData[i]+scalar, Double.MIN_VALUE, "Invalid result component "+i);
+		}
+	}
+	
+	/**
 	 * Testing {@link Vector#minus(Vector)}
 	 */
 	@Test
@@ -255,6 +338,89 @@ public class VectorTest {
 		}
 	}
 
+	/**
+	 * Testing {@link Vector#minus(double)}
+	 */
+	@Test
+	public void minusScalarTest() {
+		
+		double[] aData = MathTestData.V_4_A;
+		double scalar = 0.3651;
+
+		Vector a = JeometryFactory.createVector(aData);
+		
+		assertNotNull(a, "Null a vector");
+		
+		if (vectorClass != null) {
+			assertEquals(vectorClass, a.getClass(), "Unexpected a vector class "+a.getClass().getSimpleName());
+		}
+		
+		Vector result = a.minus(scalar);
+		
+		assertNotNull(result, "Null result vector");
+		
+		for(int i = 0; i < aData.length; i++) {
+			assertEquals(result.getValue(i), aData[i]-scalar, Double.MIN_VALUE, "Invalid result component "+i);
+		}
+	}
+	
+	/**
+	 * Testing {@link Vector#minus(double, Vector)}
+	 */
+	@Test
+	public void minusScalarResultTest() {
+		
+		double[] aData = MathTestData.V_4_A;
+		double scalar = 0.3651;
+
+		Vector a      = JeometryFactory.createVector(aData);
+		Vector result = JeometryFactory.createVector(aData.length);
+		
+		assertNotNull(a, "Null a vector");
+		assertNotNull(result, "Null result vector");
+		
+		if (vectorClass != null) {
+			assertEquals(vectorClass, a.getClass(), "Unexpected a vector class "+a.getClass().getSimpleName());
+			assertEquals(vectorClass, result.getClass(), "Unexpected a vector class "+a.getClass().getSimpleName());
+		}
+		
+		Vector resultRef = a.minus(scalar, result);
+		
+		assertNotNull(resultRef, "Null result vector");
+		assertSame(result, resultRef, "Result and returned reference are not the same.");
+		
+		for(int i = 0; i < aData.length; i++) {
+			assertEquals(result.getValue(i), aData[i]-scalar, Double.MIN_VALUE, "Invalid result component "+i);
+		}
+	}
+	
+	/**
+	 * Testing {@link Vector#minusAffect(double)}
+	 */
+	@Test
+	public void minusScalarAffectTest() {
+		
+		double[] aData = MathTestData.V_4_A;
+		double scalar = 0.3651;
+
+		Vector a      = JeometryFactory.createVector(aData);
+		
+		assertNotNull(a, "Null a vector");
+		
+		if (vectorClass != null) {
+			assertEquals(vectorClass, a.getClass(), "Unexpected a vector class "+a.getClass().getSimpleName());
+		}
+		
+		Vector resultRef = a.minusAffect(scalar);
+		
+		assertNotNull(resultRef, "Null result vector");
+		assertSame(a, resultRef, "Result and returned reference are not the same.");
+		
+		for(int i = 0; i < aData.length; i++) {
+			assertEquals(a.getValue(i), aData[i]-scalar, Double.MIN_VALUE, "Invalid result component "+i);
+		}
+	}
+	
 	/**
 	 * Testing {@link Vector#multiply(Vector)}
 	 */
@@ -452,6 +618,89 @@ public class VectorTest {
 	}
 
 	/**
+	 * Testing {@link Vector#divide(double)}
+	 */
+	@Test
+	public void divideScalarTest() {
+		
+		double[] aData = MathTestData.V_4_A;
+		double scalar = 0.3651;
+
+		Vector a = JeometryFactory.createVector(aData);
+		
+		assertNotNull(a, "Null a vector");
+		
+		if (vectorClass != null) {
+			assertEquals(vectorClass, a.getClass(), "Unexpected a vector class "+a.getClass().getSimpleName());
+		}
+		
+		Vector result = a.divide(scalar);
+		
+		assertNotNull(result, "Null result vector");
+		
+		for(int i = 0; i < aData.length; i++) {
+			assertEquals(result.getValue(i), aData[i]/scalar, Double.MIN_VALUE, "Invalid result component "+i);
+		}
+	}
+	
+	/**
+	 * Testing {@link Vector#divide(double, Vector)}
+	 */
+	@Test
+	public void divideScalarResultTest() {
+		
+		double[] aData = MathTestData.V_4_A;
+		double scalar = 0.3651;
+
+		Vector a      = JeometryFactory.createVector(aData);
+		Vector result = JeometryFactory.createVector(aData.length);
+		
+		assertNotNull(a, "Null a vector");
+		assertNotNull(result, "Null result vector");
+		
+		if (vectorClass != null) {
+			assertEquals(vectorClass, a.getClass(), "Unexpected a vector class "+a.getClass().getSimpleName());
+			assertEquals(vectorClass, result.getClass(), "Unexpected a vector class "+a.getClass().getSimpleName());
+		}
+		
+		Vector resultRef = a.divide(scalar, result);
+		
+		assertNotNull(resultRef, "Null result vector");
+		assertSame(result, resultRef, "Result and returned reference are not the same.");
+		
+		for(int i = 0; i < aData.length; i++) {
+			assertEquals(result.getValue(i), aData[i]/scalar, Double.MIN_VALUE, "Invalid result component "+i);
+		}
+	}
+	
+	/**
+	 * Testing {@link Vector#multiplyAffect(double)}
+	 */
+	@Test
+	public void divideScalarAffectTest() {
+		
+		double[] aData = MathTestData.V_4_A;
+		double scalar = 0.3651;
+
+		Vector a      = JeometryFactory.createVector(aData);
+		
+		assertNotNull(a, "Null a vector");
+		
+		if (vectorClass != null) {
+			assertEquals(vectorClass, a.getClass(), "Unexpected a vector class "+a.getClass().getSimpleName());
+		}
+		
+		Vector resultRef = a.divideAffect(scalar);
+		
+		assertNotNull(resultRef, "Null result vector");
+		assertSame(a, resultRef, "Result and returned reference are not the same.");
+		
+		for(int i = 0; i < aData.length; i++) {
+			assertEquals(a.getValue(i), aData[i]/scalar, Double.MIN_VALUE, "Invalid result component "+i);
+		}
+	}
+	
+	/**
 	 * Testing method {@link Vector#dot(Vector)}
 	 */
 	@Test
@@ -584,7 +833,18 @@ public class VectorTest {
 	 */
 	@Test
 	public void setValuesDoubleTest() {
-      // TODO Implements VectorTest.setComponentsSingleDoubleTest()
+
+		Vector v = JeometryFactory.createVector(MathTestData.V_4_A.length);
+		
+		double value = Math.PI;
+		
+		assertNotNull(v, "Null vector.");
+		
+		v.setValues(value);
+		
+		for(int dimension = 0; dimension < v.getDimension(); dimension++) {
+			assertEquals(value, v.getValue(dimension), Double.MIN_VALUE, "Invalid component "+dimension+" value.");
+		}
 	}
 
 	/**
@@ -592,7 +852,41 @@ public class VectorTest {
 	 */
 	@Test
 	public void setValuesMatrixTest() {
-		// TODO Implements VectorTest.setComponentsMatrixTest()
+
+		double[] data = MathTestData.V_4_A;
+		
+		Matrix row    = JeometryFactory.createMatrix(1, data.length, data, Matrix.ROW_MAJOR);
+		Matrix column = JeometryFactory.createMatrix(data.length, 1, data, Matrix.COLUMN_MAJOR);
+		
+		assertNotNull(row, "Null row matrix.");
+		assertEquals(1, row.getRowsCount(), "Invalid row matrix rows count "+row.getRowsCount()+", expected "+1);
+		assertEquals(data.length, row.getColumnsCount(), "Invalid row matrix columns count "+row.getColumnsCount()+", expected "+data.length);
+		
+		assertNotNull(column, "Null column matrix.");
+		assertEquals(data.length, column.getRowsCount(), "Invalid row matrix rows count "+column.getRowsCount()+", expected "+data.length);
+		assertEquals(1, column.getColumnsCount(), "Invalid row matrix columns count "+column.getColumnsCount()+", expected "+1);
+
+		Vector v = JeometryFactory.createVector(data.length);		
+		v.setValues(column);
+		
+		assertNotNull(v, "Null row matrix.");
+		assertEquals(data.length, v.getDimension(), "Invalid vector dimension "+v.getDimension()+", expected "+data.length);
+		
+		for(int dimension = 0; dimension < v.getDimension(); dimension++) {
+			assertEquals(row.getValue(0, dimension), v.getValue(dimension), "Invalid vector dimension "+dimension+" value, expected "+row.getValue(0, dimension));
+			
+		}
+		
+		Vector u = JeometryFactory.createVector(data.length);		
+		u.setValues(row);
+		
+		assertNotNull(u, "Null row matrix.");
+		assertEquals(data.length, v.getDimension(), "Invalid vector dimension "+u.getDimension()+", expected "+data.length);
+		
+		for(int dimension = 0; dimension < u.getDimension(); dimension++) {
+			assertEquals(column.getValue(dimension, 0), u.getValue(dimension), "Invalid vector dimension "+dimension+" value, expected "+column.getValue(dimension, 0));
+			
+		}
 	}
 
 	/**
@@ -751,4 +1045,88 @@ public class VectorTest {
 			assertEquals(MathTestData.V_4_A[dimension]*factor, v.getValue(dimension), Double.MIN_VALUE, "Invalid component "+dimension+" value.");
 		}
 	}
+	
+	/**
+	 * Testing {@link Vector#multiply(double)}
+	 */
+	@Test
+	public void multiplyScalarTest() {
+		
+		double[] aData = MathTestData.V_4_A;
+		double scalar = 0.3651;
+
+		Vector a = JeometryFactory.createVector(aData);
+		
+		assertNotNull(a, "Null a vector");
+		
+		if (vectorClass != null) {
+			assertEquals(vectorClass, a.getClass(), "Unexpected a vector class "+a.getClass().getSimpleName());
+		}
+		
+		Vector result = a.multiply(scalar);
+		
+		assertNotNull(result, "Null result vector");
+		
+		for(int i = 0; i < aData.length; i++) {
+			assertEquals(result.getValue(i), aData[i]*scalar, Double.MIN_VALUE, "Invalid result component "+i);
+		}
+	}
+	
+	/**
+	 * Testing {@link Vector#multiply(double, Vector)}
+	 */
+	@Test
+	public void multiplyScalarResultTest() {
+		
+		double[] aData = MathTestData.V_4_A;
+		double scalar = 0.3651;
+
+		Vector a      = JeometryFactory.createVector(aData);
+		Vector result = JeometryFactory.createVector(aData.length);
+		
+		assertNotNull(a, "Null a vector");
+		assertNotNull(result, "Null result vector");
+		
+		if (vectorClass != null) {
+			assertEquals(vectorClass, a.getClass(), "Unexpected a vector class "+a.getClass().getSimpleName());
+			assertEquals(vectorClass, result.getClass(), "Unexpected a vector class "+a.getClass().getSimpleName());
+		}
+		
+		Vector resultRef = a.multiply(scalar, result);
+		
+		assertNotNull(resultRef, "Null result vector");
+		assertSame(result, resultRef, "Result and returned reference are not the same.");
+		
+		for(int i = 0; i < aData.length; i++) {
+			assertEquals(result.getValue(i), aData[i]*scalar, Double.MIN_VALUE, "Invalid result component "+i);
+		}
+	}
+	
+	/**
+	 * Testing {@link Vector#multiplyAffect(double)}
+	 */
+	@Test
+	public void multiplyScalarAffectTest() {
+		
+		double[] aData = MathTestData.V_4_A;
+		double scalar = 0.3651;
+
+		Vector a      = JeometryFactory.createVector(aData);
+		
+		assertNotNull(a, "Null a vector");
+		
+		if (vectorClass != null) {
+			assertEquals(vectorClass, a.getClass(), "Unexpected a vector class "+a.getClass().getSimpleName());
+		}
+		
+		Vector resultRef = a.multiplyAffect(scalar);
+		
+		assertNotNull(resultRef, "Null result vector");
+		assertSame(a, resultRef, "Result and returned reference are not the same.");
+		
+		for(int i = 0; i < aData.length; i++) {
+			assertEquals(a.getValue(i), aData[i]*scalar, Double.MIN_VALUE, "Invalid result component "+i);
+		}
+	}
+	
 }

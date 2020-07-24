@@ -344,4 +344,70 @@ public interface Quaternion extends Vector{
 	 * @return a reference on this object.
 	 */
 	public Quaternion conjugateQuaternionAffect();
+	
+	/**
+	 * Compute the quaternion that is the sum, component by component of this quaternion and the given scalar.
+	 * <br><br>
+	 * More formally, let <i>q</i>&nbsp;=&nbsp;<i>a</i>&nbsp;+&nbsp;<i>bi</i>&nbsp;+&nbsp;<i>cj</i>&nbsp;+&nbsp;<i>dk</i> be this quaternion and let <i>s</i> the scalar given in parameter, this method compute the quaternion <i>r</i> such that:<br>
+	 * <div style="text-align: center;"><i>r</i>&nbsp;=&nbsp;<i>a+s</i>&nbsp;+&nbsp;<i>(b+s)i</i>&nbsp;+&nbsp;<i>(c+s)j</i>&nbsp;+&nbsp;<i>(d+s)k</i></div>
+	 * <br>
+	 * @param scalar the scalar to add to this quaternion
+	 * @param result the quaternion that holds the result
+	 * @return the quaternion that is the sum, component by component of this quaternion and the given scalar
+	 */
+	public Quaternion plus(double scalar, Quaternion result);
+	
+	/**
+	 * Compute the quaternion that is the difference, component by component of this quaternion and the given scalar.
+	 * <br><br>
+	 * More formally, let <i>q</i>&nbsp;=&nbsp;<i>a</i>&nbsp;+&nbsp;<i>bi</i>&nbsp;+&nbsp;<i>cj</i>&nbsp;+&nbsp;<i>dk</i> be this quaternion and let <i>s</i> the scalar given in parameter, this method compute the quaternion <i>r</i> such that:<br>
+	 * <div style="text-align: center;"><i>r</i>&nbsp;=&nbsp;<i>a-s</i>&nbsp;+&nbsp;<i>(b-s)i</i>&nbsp;+&nbsp;<i>(c-s)j</i>&nbsp;+&nbsp;<i>(d-s)k</i></div>
+	 * <br>
+	 * @param scalar the scalar to subtract to this quaternion
+	 * @param result the quaternion that holds the result
+	 * @return the quaternion that is the difference, component by component of this quaternion and the given scalar
+	 */
+	public Quaternion minus(double scalar, Quaternion result);
+	
+	/**
+	 * Compute the quaternion that is the product, component by component of this quaternion and the given scalar.
+	 * <br><br>
+	 * More formally, let <i>q</i>&nbsp;=&nbsp;<i>a</i>&nbsp;+&nbsp;<i>bi</i>&nbsp;+&nbsp;<i>cj</i>&nbsp;+&nbsp;<i>dk</i> be this quaternion and let <i>s</i> the scalar given in parameter, this method compute the quaternion <i>r</i> such that:<br>
+	 * <div style="text-align: center;"><i>r</i>&nbsp;=&nbsp;<i>a&times;s</i>&nbsp;+&nbsp;<i>(b&times;s)i</i>&nbsp;+&nbsp;<i>(c&times;s)j</i>&nbsp;+&nbsp;<i>(d&times;s)k</i></div>
+	 * <br>
+	 * @param scalar the scalar to multiply to this quaternion
+	 * @param result the quaternion that holds the result
+	 * @return the quaternion that is the product, component by component of this quaternion and the given scalar
+	 */
+	public Quaternion multiply(double scalar, Quaternion result);
+	
+	/**
+	 * Compute the quaternion that is the division, component by component of this quaternion and the given scalar.
+	 * <br><br>
+	 * More formally, let <i>q</i>&nbsp;=&nbsp;<i>a</i>&nbsp;+&nbsp;<i>bi</i>&nbsp;+&nbsp;<i>cj</i>&nbsp;+&nbsp;<i>dk</i> be this quaternion and let <i>s</i> the scalar given in parameter, this method compute the quaternion <i>r</i> such that:<br>
+	 * <div style="text-align: center;"><i>r</i>&nbsp;=&nbsp;<i>a/s</i>&nbsp;+&nbsp;<i>(b/s)i</i>&nbsp;+&nbsp;<i>(c/s)j</i>&nbsp;+&nbsp;<i>(d/s)k</i></div>
+	 * <br>
+	 * @param scalar the scalar to divide to this quaternion
+	 * @param result the quaternion that holds the result
+	 * @return the quaternion that is the division, component by component of this quaternion and the given scalar
+	 */
+	public Quaternion divide(double scalar, Quaternion result);
+	
+	@Override
+	public Quaternion plus(double scalar);
+	
+	@Override
+	public Quaternion plusAffect(double scalar);
+	
+	@Override
+	public Quaternion minus(double scalar);
+	
+	@Override
+	public Quaternion minusAffect(double scalar);
+	
+	@Override
+	public Quaternion divide(double scalar);
+	
+	@Override
+	public Quaternion divideAffect(double scalar);
 }

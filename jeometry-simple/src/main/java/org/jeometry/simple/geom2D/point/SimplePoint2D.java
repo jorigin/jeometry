@@ -48,7 +48,7 @@ public class SimplePoint2D implements Point2D{
 		coordinates[DIMENSION_X] = point.getX();
 		coordinates[DIMENSION_Y] = point.getY();
 	}
-	
+
 	@Override
 	public void setValues(double x, double y) {
 		setX(x);
@@ -60,7 +60,7 @@ public class SimplePoint2D implements Point2D{
 		setX(point.getX());
 		setY(point.getY());
 	}
-	
+
 	@Override
 	public int getDimension() {
 		return 2;
@@ -114,7 +114,7 @@ public class SimplePoint2D implements Point2D{
 	}
 
 	@Override
-	public Vector multiply(double scalar) {
+	public Point2D multiply(double scalar) {
 		return JeometryFactory.createPoint2D(getX()*scalar, getY()*scalar);
 	}
 
@@ -136,7 +136,7 @@ public class SimplePoint2D implements Point2D{
 	}
 
 	@Override
-	public Vector multiplyAffect(double scalar) {
+	public Point2D multiplyAffect(double scalar) {
 		setX(getX()*scalar);
 		setY(getY()*scalar);
 		return this;
@@ -318,7 +318,7 @@ public class SimplePoint2D implements Point2D{
 	}
 
 	@Override
-	public Vector plus(Vector v) {
+	public Point2D plus(Vector v) {
 		return (Point2D)plus(v, JeometryFactory.createPoint2D());
 	}
 
@@ -332,7 +332,7 @@ public class SimplePoint2D implements Point2D{
 
 			if (result != null) {
 
-				if (v.getDimension() != getDimension()) {
+				if (result.getDimension() != getDimension()) {
 					throw new IllegalArgumentException("Invalid result vector dimension "+result.getDimension()+", expected "+getDimension());
 				}
 
@@ -348,8 +348,35 @@ public class SimplePoint2D implements Point2D{
 	}
 
 	@Override
-	public Vector plusAffect(Vector v) {
+	public Point2D plusAffect(Vector v) {
 		return (SimplePoint2D) plus(v, this);
+	}
+
+	@Override
+	public Point2D plus(double scalar) {
+		return (Point2D)plus(scalar, JeometryFactory.createPoint2D());
+	}
+
+	@Override
+	public Vector plus(double scalar, Vector result) {
+
+		if (result != null) {
+
+			if (getDimension() != result.getDimension()) {
+				throw new IllegalArgumentException("Invalid result vector dimension "+result.getDimension()+", expected "+getDimension());
+			}
+
+			for(int dimension = 0; dimension < getDimension(); dimension++) {
+				result.setValue(dimension, getValue(dimension) + scalar);
+			}
+		}
+
+		return result;
+	}
+
+	@Override
+	public Point2D plusAffect(double scalar) {
+		return (SimplePoint2D) plus(scalar, this);
 	}
 
 	@Override
@@ -367,7 +394,7 @@ public class SimplePoint2D implements Point2D{
 
 			if (result != null) {
 
-				if (v.getDimension() != getDimension()) {
+				if (result.getDimension() != getDimension()) {
 					throw new IllegalArgumentException("Invalid result vector dimension "+result.getDimension()+", expected "+getDimension());
 				}
 
@@ -387,6 +414,35 @@ public class SimplePoint2D implements Point2D{
 		return (SimplePoint2D) minus(v, this);
 	}
 
+
+	@Override
+	public Vector minus(double scalar, Vector result) {
+
+
+		if (result != null) {
+
+			if (result.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid result vector dimension "+result.getDimension()+", expected "+getDimension());
+			}
+
+			for(int dimension = 0; dimension < getDimension(); dimension++) {
+				result.setValue(dimension, getValue(dimension) - scalar);
+			}
+		}
+
+		return result;
+	}
+
+	@Override
+	public Point2D minus(double scalar) {
+		return (SimplePoint2D) minus(scalar, JeometryFactory.createPoint2D());
+	}
+
+	@Override
+	public Point2D minusAffect(double scalar) {
+		return (SimplePoint2D) minus(scalar, this);
+	}
+
 	@Override
 	public Point2D multiply(Vector v) {
 		return (Point2D) multiply(v, JeometryFactory.createPoint2D());
@@ -402,7 +458,7 @@ public class SimplePoint2D implements Point2D{
 
 			if (result != null) {
 
-				if (v.getDimension() != getDimension()) {
+				if (result.getDimension() != getDimension()) {
 					throw new IllegalArgumentException("Invalid result vector dimension "+result.getDimension()+", expected "+getDimension());
 				}
 
@@ -437,7 +493,7 @@ public class SimplePoint2D implements Point2D{
 
 			if (result != null) {
 
-				if (v.getDimension() != getDimension()) {
+				if (result.getDimension() != getDimension()) {
 					throw new IllegalArgumentException("Invalid result vector dimension "+result.getDimension()+", expected "+getDimension());
 				}
 
@@ -458,24 +514,50 @@ public class SimplePoint2D implements Point2D{
 	}
 
 	@Override
+	public Vector divide(double scalar, Vector result) throws IllegalArgumentException {
+		if (result instanceof Point2D) {
+			((Point2D)result).setX(getX()/scalar);
+			((Point2D)result).setY(getY()/scalar);
+		} else {
+			if (result.getDimension() >= getDimension()) {
+				for(int dimension = 0; dimension < getDimension(); dimension++) {
+					result.setValue(dimension, getValue(dimension)/scalar);
+				}
+			} else {
+				throw new IllegalArgumentException("Invalid result vector dimension ("+result.getDimension()+"), expected at least "+getDimension());
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public Point2D divide(double scalar) {
+		return (SimplePoint2D) divide(scalar, JeometryFactory.createPoint2D());
+	}
+
+	@Override
+	public Point2D divideAffect(double scalar) {
+		return (SimplePoint2D) divide(scalar, this);
+	}
+
+	@Override
 	public double dot(Vector v) {
-		
+
 		if (v != null) {
 			if (v.getDimension() != getDimension()) {
 				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
 			}
-			
+
 			double d = 0.0d;
-			
+
 			for(int dimension = 0; dimension < getDimension(); dimension++) {
 				d = d + getValue(dimension) * v.getValue(dimension);
 			}
-			
+
 			return d;
 		}
-		
+
 		return Double.NaN;
 	}
-
 
 }

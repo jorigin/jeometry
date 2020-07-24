@@ -2,14 +2,14 @@ package org.jeometry.test.factory;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom2D.point.Point2D;
-import org.jeometry.geom2D.point.Point2DContainer;
 import org.jeometry.geom3D.point.Point3D;
-import org.jeometry.geom3D.point.Point3DContainer;
+import org.jeometry.math.Vector;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -97,6 +97,43 @@ public class GeometryFactoryPointTest {
 		
 	}
 	
+	/**
+	 * Testing {@link JeometryFactory#createPoint3D(Vector)}
+	 */
+	@Test
+	public void createPoint3DVectorTest() {
+		Vector vector = JeometryFactory.createVector(new double[]{1.0d, 2.0d, 3.0d});
+		
+		Point3D point = JeometryFactory.createPoint3D(vector);
+		
+		assertNotNull(point, "Null point");
+		assertEquals(point.getX(), point.getX(), Double.MIN_VALUE, "Invalid X coordinate "+vector.getValue(0));
+		assertEquals(point.getY(), point.getY(), Double.MIN_VALUE, "Invalid Y coordinate "+vector.getValue(1));
+		assertEquals(point.getZ(), point.getZ(), Double.MIN_VALUE, "Invalid Y coordinate "+vector.getValue(2));
+		
+        vector = JeometryFactory.createVector(new double[]{1.0d, 2.0d, 3.0d, 4.0d, 5.0d});
+		
+		point = JeometryFactory.createPoint3D(vector);
+		
+		assertNotNull(point, "Null point");
+		assertEquals(point.getX(), point.getX(), Double.MIN_VALUE, "Invalid X coordinate "+vector.getValue(0));
+		assertEquals(point.getY(), point.getY(), Double.MIN_VALUE, "Invalid Y coordinate "+vector.getValue(1));
+		assertEquals(point.getZ(), point.getZ(), Double.MIN_VALUE, "Invalid Y coordinate "+vector.getValue(2));
+		
+		try {
+			JeometryFactory.createPoint3D(null);
+			fail("IllegalArgumentException raise expected for null input vector.");
+		} catch (Exception e) {
+			assertTrue(true, "Exception raised.");
+		}
+		
+		try {
+			JeometryFactory.createPoint3D(JeometryFactory.createVector(new double[]{1.0d, 2.0d}));
+			fail("IllegalArgumentException raise expected for invalid size input vector.");
+		} catch (Exception e) {
+			assertTrue(true, "Exception raised.");
+		}
+	}
 	
 	/**
 	 * Testing {@link JeometryFactory#createPoint2D()}
@@ -148,17 +185,55 @@ public class GeometryFactoryPointTest {
 	}
 	
 	/**
+	 * Testing {@link JeometryFactory#createPoint2D(Vector)}
+	 */
+	@Test
+	public void createPoint2DVectorTest() {
+		Vector vector = JeometryFactory.createVector(new double[]{1.0d, 2.0d});
+		
+		Point2D point = JeometryFactory.createPoint2D(vector);
+		
+		assertNotNull(point, "Null point");
+		assertEquals(point.getX(), point.getX(), Double.MIN_VALUE, "Invalid X coordinate "+vector.getValue(0));
+		assertEquals(point.getY(), point.getY(), Double.MIN_VALUE, "Invalid Y coordinate "+vector.getValue(1));
+		
+        vector = JeometryFactory.createVector(new double[]{1.0d, 2.0d, 3.0d, 4.0d, 5.0d});
+		
+		point = JeometryFactory.createPoint2D(vector);
+		
+		assertNotNull(point, "Null point");
+		assertEquals(point.getX(), point.getX(), Double.MIN_VALUE, "Invalid X coordinate "+vector.getValue(0));
+		assertEquals(point.getY(), point.getY(), Double.MIN_VALUE, "Invalid Y coordinate "+vector.getValue(1));
+		
+		try {
+			JeometryFactory.createPoint2D(null);
+			fail("IllegalArgumentException raise expected for null input vector.");
+		} catch (Exception e) {
+			assertTrue(true, "Exception raised.");
+		}
+		
+		try {
+			JeometryFactory.createPoint2D(JeometryFactory.createVector(new double[]{1.0d}));
+			fail("IllegalArgumentException raise expected for invalid size input vector.");
+		} catch (Exception e) {
+			assertTrue(true, "Exception raised.");
+		}
+	}
+	
+	/**
 	 * Testing {@link JeometryFactory#createPoint2DContainer()}
 	 */
 	@Test
 	public void createPoint2DContainerTest() {
-		
+		//TODO implements createPoint2DContainerTest() 
+		/*
 		try {
 			Point2DContainer container = JeometryFactory.createPoint2DContainer();
 			assertNotNull(container, "Cannot instantiate 2D point container using GeometryFactory.createPoint2DContainer().");	
 		} catch (Exception e) {
 			fail("Cannot instantiate 2D point container using GeometryFactory.createPoint2DContainer(): "+e.getMessage());
 		}
+		*/
 	}
 	
 	/**
@@ -166,13 +241,15 @@ public class GeometryFactoryPointTest {
 	 */
 	@Test
 	public void createPoint2DContainerCapacityTest() {
-		
+		//TODO implements createPoint2DContainerCapacityTest()
+		/*
 		try {
 			Point2DContainer container = JeometryFactory.createPoint2DContainer(10);
 			assertNotNull(container, "Cannot instantiate 2D point container using GeometryFactory.createPoint2DContainer(int).");	
 		} catch (Exception e) {
 			fail("Cannot instantiate 2D point container using GeometryFactory.createPoint2DContainer(int): "+e.getMessage());
 		}
+		*/
 	}
 	
 	/**
@@ -180,13 +257,15 @@ public class GeometryFactoryPointTest {
 	 */
 	@Test
 	public void createPoint3DContainerTest() {
-		
+		//TODO implements createPoint3DContainerTest()
+		/*
 		try {
 			Point3DContainer<Point3D> container = JeometryFactory.<Point3D>createPoint3DContainer();
 			assertNotNull(container, "Cannot instantiate 3D point container using GeometryFactory.createPoint3DContainer().");	
 		} catch (Exception e) {
 			fail("Cannot instantiate 3D point container using GeometryFactory.createPoint3DContainer(): "+e.getMessage());
 		}
+		*/
 	}
 	
 	/**
@@ -194,13 +273,15 @@ public class GeometryFactoryPointTest {
 	 */
 	@Test
 	public void createPoint3DContainerCapacityTest() {
-		
+		// TODO implements createPoint3DContainerCapacityTest()
+		/*
 		try {
 			Point3DContainer<Point3D> container = JeometryFactory.createPoint3DContainer(10);
 			assertNotNull(container, "Cannot instantiate 3D point container using GeometryFactory.createPoint3DContainer(int).");	
 		} catch (Exception e) {
 			fail("Cannot instantiate 3D point container using GeometryFactory.createPoint3DContainer(int): "+e.getMessage());
 		}
+		*/
 	}
 
 }

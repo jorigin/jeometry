@@ -45,6 +45,20 @@ public class SimplePointBuilder implements PointBuilder {
     	return new SimplePoint2D(point);
     }
 
+	@Override
+	public Point2D createPoint2D(Vector vector) throws IllegalArgumentException {
+		if (vector == null) {
+			throw new IllegalArgumentException("Null input vector.");
+		}
+		
+		if (vector.getDimension() < 2) {
+			throw new IllegalArgumentException("Invalid input vector dimension "+vector.getDimension()+", expected at least 2.");
+		}
+		
+		Point2D point2d = new SimplePoint2D(vector.getValue(0), vector.getValue(1));
+		
+		return point2d;
+	}
 	
 	@Override
 	public Point2DContainer createPoint2DContainer() {
@@ -74,6 +88,21 @@ public class SimplePointBuilder implements PointBuilder {
     }
 	
 	@Override
+	public Point3D createPoint3D(Vector vector) {
+		if (vector == null) {
+			throw new IllegalArgumentException("Null input vector.");
+		}
+		
+		if (vector.getDimension() < 3) {
+			throw new IllegalArgumentException("Invalid input vector dimension "+vector.getDimension()+", expected at least 3.");
+		}
+		
+		Point3D point3d = new SimplePoint3D(vector.getValue(0), vector.getValue(1), vector.getValue(2));
+		
+		return point3d;
+	}
+    
+	@Override
 	public <T extends Point3D> Point3DContainer<T> createPoint3DContainer() {
 		// TODO Auto-generated method stub
 		return null;
@@ -84,5 +113,4 @@ public class SimplePointBuilder implements PointBuilder {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
