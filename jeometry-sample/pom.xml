@@ -103,13 +103,13 @@
     <dependency>
       <groupId>org.jorigin</groupId>
       <artifactId>jeometry-api</artifactId>
-      <version>${jeometry.version}</version>
+      <version>1.0.5-SNAPSHOT</version>
     </dependency>
   
     <dependency>
       <groupId>org.jorigin</groupId>
       <artifactId>jeometry-simple</artifactId>
-      <version>${jeometry.version}</version>
+      <version>1.0.5-SNAPSHOT</version>
     </dependency>
   
     <!--  Common package for basic operations -->
