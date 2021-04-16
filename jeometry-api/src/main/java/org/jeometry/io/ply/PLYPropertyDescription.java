@@ -9,8 +9,15 @@ import org.jeometry.Jeometry;
  * @since 1.0.0
  */
 public class PLYPropertyDescription {
+	
+  /**
+   * The property type. 
+   */
   private int type = PLY.TYPE_UNKNOWN;
 
+  /**
+   * The property name.
+   */
   private String name = null;
 
   @Override

@@ -21,12 +21,24 @@ import org.jeometry.math.Vector;
  */
 public class DelaunayVertice<T extends Point3D> implements Point3D{
 
+	/**
+	 * The linked tetrahedra.
+	 */
 	Collection<DelaunayTetrahedron<T>> tetrahedrons = null;
 
+	/**
+	 * The lined faces.
+	 */
 	Collection<IndexedFace<T>> faces               = null;
 
+	/**
+	 * The underlying point.
+	 */
 	private Point3D point = null;
 
+	/**
+	 * The user properties.
+	 */
 	private Map<String, Object> userProperties   = null;
 
 	/**

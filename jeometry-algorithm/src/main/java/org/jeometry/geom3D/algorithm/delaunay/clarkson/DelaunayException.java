@@ -9,7 +9,9 @@ import org.jeometry.Jeometry;
  */
 public class DelaunayException extends Exception {
 
-
+  /**
+   * The serial version ID 
+   */
   private static final long serialVersionUID = Jeometry.BUILD;
 
   /**

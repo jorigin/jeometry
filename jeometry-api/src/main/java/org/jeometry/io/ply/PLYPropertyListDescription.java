@@ -11,8 +11,14 @@ import org.jeometry.Jeometry;
  */
 public class PLYPropertyListDescription extends PLYPropertyDescription {
 
+  /**
+   * The property count type.
+   */
   private int countType = PLY.TYPE_UNKNOWN;
 
+  /**
+   * The property value type.
+   */
   private int valueType = PLY.TYPE_UNKNOWN;
 
   @Override

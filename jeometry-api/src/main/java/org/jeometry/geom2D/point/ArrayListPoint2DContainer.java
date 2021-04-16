@@ -20,12 +20,34 @@ public class ArrayListPoint2DContainer extends ArrayList<Point2D> implements Clo
    */
   private static final long serialVersionUID = Jeometry.BUILD;
 
+  /**
+   * The x coordinate of the container.
+   */
   private double x    = Double.NaN;
+  
+  /**
+   * The x min coordinate of the container.
+   */
   private double xMin = Double.NaN;
+  
+  /**
+   * The x max coordinate of the container.
+   */
   private double xMax = Double.NaN;
   
+  /**
+   * The y coordinate of the container.
+   */
   private double y    = Double.NaN;
+  
+  /**
+   * The y min coordinate of the container.
+   */
   private double yMin = Double.NaN;
+  
+  /**
+   * The y max coordinate of the container.
+   */
   private double yMax = Double.NaN;
   
   @Override

@@ -1,6 +1,6 @@
 # Change Log
 
-## [TODO]
+## TODO
 ### Add
 - Wrapper to Vector / Matrix in order to use a vector as a matrix and a matrix as a vector without copying data
 - Views on a Vector / Matrix to focus on a specific part of the object without copying the underlying data
@@ -18,6 +18,26 @@
 - Refactor Quaternion `mult` into `product`
 - Refactor make all xxxAffect() methods to return a reference on the object instead of `void` in order to chain processing
 - Refactor make all setValue(s) methods to return a reference on the object for chaining purpose
+
+## [1.0.5](https://github.com/jorigin/jeometry/releases/tag/release-1.0.5)
+### Added
+- Project jeometry-algorithm that contains geometric algorithms implementation
+- Class `org.jeometry.geom3D.algorithm.bounds.org.jeometry.geom3D.algorithm.bounds.AxisAlignedBoundingBox`
+
+### Refactor
+- Javadoc updated
+- Moved package `org.jeometry.geom3D.algorithm` from jeometry-api to jeometry-algorithm project
+- Class `ArrayCoordinatesPoint3DConainer` moved from jeometry-api to jeometry-simple
+- Class `ArrayListPoint3DContainer` moved from jeometry-api to jeometry-simple
+- Class `org.jeometry.geom3D.algorithm.ConvexDecomposition` moved to package `org.jeometry.geom3D.algorithm.decomposition.ConvexDecomposition`
+- Geom3D `public static Box computeAxisAlignedBoundingBox(Collection<? extends Point3D> points)` moved to AxisAlignedBoundingBox.
+- Geom3D `public static Box computeAxisAlignedBoundingBox(Point3DContainer<?> points)` moved to AxisAlignedBoundingBox.
+- Geom3D `public static Box computeAxisAlignedBoundingBox(Mesh<?> polyhedron)` moved to AxisAlignedBoundingBox.
+- Geom3D `public static <T extends Point3D> List<Mesh<T>> computeConvexDecomposition(Mesh<T> polyhedron)` moved to ConvexDecomposition.
+
+### Removed
+- Geom3D `public static double dot(Point3D v1, Point3D v2)`, use Point3D dot method instead.
+- Geom3D `public static Point3D cross(Point3D v1, Point3D v2)`, use Point3D cross method instead.
 
 ## [1.0.4](https://github.com/jorigin/jeometry/releases/tag/release-1.0.4)
 ### Added

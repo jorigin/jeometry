@@ -14,10 +14,19 @@ import org.jeometry.Jeometry;
  */
 public class PLYElementDescription {
 
+  /**
+   * The element name.
+   */
   private String name = null;
 
+  /**
+   * The element count.
+   */
   private int elementCount = -1;
 
+  /**
+   * The properties descriptors.
+   */
   private List<PLYPropertyDescription> propertiyDescriptors = null;
 
   @Override

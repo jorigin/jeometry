@@ -9,11 +9,6 @@ module org.jeometry.api {
 	exports org.jeometry.geom2D;
 	exports org.jeometry.geom2D.point;
 	exports org.jeometry.geom3D;
-	exports org.jeometry.geom3D.algorithm;
-	exports org.jeometry.geom3D.algorithm.bounds;
-	exports org.jeometry.geom3D.algorithm.convexhull.quickhull;
-	exports org.jeometry.geom3D.algorithm.delaunay.clarkson;
-	exports org.jeometry.geom3D.algorithm.fitting;
 	exports org.jeometry.geom3D.mesh;
 	exports org.jeometry.geom3D.mesh.indexed;
 	exports org.jeometry.geom3D.neighbor;

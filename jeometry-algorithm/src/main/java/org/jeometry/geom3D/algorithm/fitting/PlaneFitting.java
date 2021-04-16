@@ -38,6 +38,12 @@ import org.jeometry.math.Vector;
  */
 public class PlaneFitting {
 	
+	/**
+	 * Compute the square distance between the two given vectors.
+	 * @param u the first vector
+	 * @param v the second vector
+	 * @return the square distance between the two vectors
+	 */
 	private static double DistanceSquared(Vector u, Vector v) {
 		
 		return    (v.getValue(0) - u.getValue(0)) * (v.getValue(0) - u.getValue(0))
@@ -45,6 +51,11 @@ public class PlaneFitting {
 				+ (v.getValue(2) - u.getValue(2)) * (v.getValue(2) - u.getValue(2));
 	}
 	
+	/**
+	 * Compute the largest entry from the given matrix.
+	 * @param m the matrix
+	 * @return the largest entry
+	 */
 	private static double FindLargestEntry(Matrix m){
 	    double result=0.0f;
 	    for(int i=0;i<3;i++){
@@ -56,7 +67,14 @@ public class PlaneFitting {
 	    return result;
 	}
 
-	// note: This function will perform badly if the largest eigenvalue is complex
+	/**
+	 * Compute the Eigen vector associated with the largest Eigen value for the given matrix. 
+	 * This function will perform badly if the largest eigenvalue is complex.
+	 * @param m the matrix 
+	 * @param iterationMax the maximum number of iterations to process
+	 * @param limit the numerical limit
+	 * @return the Eigen vector associated with the largest Eigen value for the given matrix
+	 */
 	private static Point3D FindEigenVectorAssociatedWithLargestEigenValue(Matrix m, double iterationMax, double limit){
 	    //pre-condition
 	    double scale=FindLargestEntry(m);

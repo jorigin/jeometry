@@ -1,10 +1,12 @@
-package org.jeometry.geom3D.point;
+package org.jeometry.simple.geom3D.point;
 
 import java.util.Iterator;
 
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.SpatialLocalization3D;
+import org.jeometry.geom3D.point.Point3D;
+import org.jeometry.geom3D.point.Point3DContainer;
 
 /**
  * A Point3D container that is based on an array of coordinates.
@@ -15,27 +17,84 @@ import org.jeometry.geom3D.SpatialLocalization3D;
  */
 public class ArrayCoordinatesPoint3DContainer<T extends Point3D> implements Cloneable, Point3DContainer<T> {
 
+  /**
+   * The data type.
+   * The returned value can be a combination (using logical "or") of:
+   * <ul>
+   * <li>{@link #DATA_IDENTIFIER} if the points stored within the container can provide identifiers.
+   * <li>{@link #DATA_COORDINATE} if the points stored within the container can provide coordinates.
+   * <li>{@link #DATA_COLOR} if the points stored within the container can provide color component (RGBA).
+   * <li>{@link #DATA_NORMAL} if the points stored within the container can provide normal.
+   * </ul> 
+   * Specific data types can be added.
+   */
   private int type               = 0;
 	
+  /**
+   * The size of the point container.
+   */
   private int size               = 0;
 	
+  /**
+   * The states of the points.
+   */
   private int[] states           = null;
 	
+  /**
+   * The identifiers of the points.
+   */
   private int[] identifiers      = null;
   
+  /**
+   * The coordinates.
+   */
   private double[] coordinates = null;
   
-  private double x    = Double.NaN;
-  private double xMin = Double.NaN;
-  private double xMax = Double.NaN;
-  
-  private double y    = Double.NaN;
-  private double yMin = Double.NaN;
-  private double yMax = Double.NaN;
-  
-  private double z    = Double.NaN;
-  private double zMin = Double.NaN;
-  private double zMax = Double.NaN;
+	/**
+	 * The x coordinate of the mesh.
+	 */
+	private double x    = Double.NaN;
+	
+	/**
+	 * The y coordinate of the mesh.
+	 */
+	private double y    = Double.NaN;
+	
+	/**
+	 * The z coordinate of the mesh.
+	 */
+	private double z    = Double.NaN;
+	
+	/**
+	 * The x min coordinate of the mesh.
+	 */
+	private double xmin = Double.NaN;
+	
+	/**
+	 * The y min coordinate of the mesh.
+	 */
+	private double ymin = Double.NaN;
+	
+	/**
+	 * The z min coordinate of the mesh.
+	 */
+	private double zmin = Double.NaN;
+	
+	/**
+	 * The xmax coordinate of the mesh.
+	 */
+	private double xmax = Double.NaN;
+	
+	/**
+	 * The y max coordinate of the mesh.
+	 */
+	private double ymax = Double.NaN;
+	
+	/**
+	 * The z max coordinate of the mesh.
+	 */
+	private double zmax = Double.NaN;
+	
   
   /**
    * Create a new {@link Point3DContainer Point 3D container implementation} that relies on an array of coordinates. 
@@ -62,10 +121,7 @@ public class ArrayCoordinatesPoint3DContainer<T extends Point3D> implements Clon
   
   @Override
   public int size() {
-    if (coordinates != null) {
-      return coordinates.length / 3;
-    }
-    return 0;
+    return size;
   }
  
   @Override
@@ -150,32 +206,32 @@ public class ArrayCoordinatesPoint3DContainer<T extends Point3D> implements Clon
 
   @Override
   public double getXMin() {
-    return xMin;
+    return xmin;
   }
 
   @Override
   public double getYMin() {
-    return yMin;
+    return ymin;
   }
 
   @Override
   public double getZMin() {
-    return zMin;
+    return zmin;
   }
 
   @Override
   public double getXMax() {
-    return xMax;
+    return xmax;
   }
 
   @Override
   public double getYMax() {
-    return yMax;
+    return ymax;
   }
 
   @Override
   public double getZMax() {
-    return zMax;
+    return zmax;
   }
 
   @Override
@@ -191,38 +247,38 @@ public class ArrayCoordinatesPoint3DContainer<T extends Point3D> implements Clon
 	    y = 0.0d;
 	    z = 0.0d;
 	    
-	    xMin = Double.MAX_VALUE;
-	    yMin = Double.MAX_VALUE;
-	    zMin = Double.MAX_VALUE;
+	    xmin = Double.MAX_VALUE;
+	    ymin = Double.MAX_VALUE;
+	    zmin = Double.MAX_VALUE;
 	    
-	    xMax = -Double.MAX_VALUE;
-	    yMax = -Double.MAX_VALUE;
-	    zMax = -Double.MAX_VALUE;
+	    xmax = -Double.MAX_VALUE;
+	    ymax = -Double.MAX_VALUE;
+	    zmax = -Double.MAX_VALUE;
 	    
 	    for(Point3D point3d : this){
 	      
-	      if (point3d.getX() > xMax){
-	        xMax = point3d.getX();
+	      if (point3d.getX() > xmax){
+	        xmax = point3d.getX();
 	      }
 	      
-	      if (point3d.getX() < xMin){
-	        xMin = point3d.getX();
+	      if (point3d.getX() < xmin){
+	        xmin = point3d.getX();
 	      }
 	      
-	      if (point3d.getY() > yMax){
-	        yMax = point3d.getY();
+	      if (point3d.getY() > ymax){
+	        ymax = point3d.getY();
 	      }
 	      
-	      if (point3d.getY() < yMin){
-	        yMin = point3d.getY();
+	      if (point3d.getY() < ymin){
+	        ymin = point3d.getY();
 	      }
 	      
-	      if (point3d.getZ() > zMax){
-	        zMax = point3d.getZ();
+	      if (point3d.getZ() > zmax){
+	        zmax = point3d.getZ();
 	      }
 	      
-	      if (point3d.getZ() < zMin){
-	        zMin = point3d.getZ();
+	      if (point3d.getZ() < zmin){
+	        zmin = point3d.getZ();
 	      }
 	      
 	      x = x + point3d.getX();

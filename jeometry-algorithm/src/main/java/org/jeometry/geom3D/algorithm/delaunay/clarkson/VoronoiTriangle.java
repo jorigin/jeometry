@@ -8,11 +8,19 @@ import org.jeometry.geom3D.point.Point3D;
  */
 public class VoronoiTriangle {
 
-
+ /**
+  * The first vertex.
+  */
   private Point3D vertex1 = null;
 
+  /**
+   * The second vertex.
+   */
   private Point3D vertex2 = null;
   
+  /**
+   * The third vertex.
+   */
   private Point3D vertex3 = null;
   
   /**

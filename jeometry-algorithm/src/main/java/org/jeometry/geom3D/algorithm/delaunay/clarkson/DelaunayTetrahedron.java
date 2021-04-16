@@ -17,12 +17,24 @@ import org.jeometry.geom3D.primitive.indexed.IndexedTetrahedron;
  */
 public class DelaunayTetrahedron<T extends Point3D> implements IndexedTetrahedron<T>{
 
+  /**
+	* The neighbors.
+	*/
   List<DelaunayTetrahedron<T>> neighbors = null;
 
+  /**
+   * The convex faces.
+   */
   private boolean[] convexFaces   = null;
   
+  /**
+   * Is the tetrahedron is infinite.
+   */
   private boolean infinite        = false;
 
+  /**
+   * The underlying tetrahedron.
+   */
   private IndexedTetrahedron<T> tetrahedron = null;
   
   /**

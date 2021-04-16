@@ -109,26 +109,26 @@
 		<dependency>
 			<groupId>org.jorigin</groupId>
 			<artifactId>jeometry-api</artifactId>
-			<version>1.0.5-SNAPSHOT</version>
+			<version>${jeometry.version}</version>
 		</dependency>
 
 		<!-- Common package for basic operations -->
 		<dependency>
 			<groupId>org.jorigin</groupId>
 			<artifactId>jcommon</artifactId>
-			<version>1.0.12</version>
+			<version>${jcommon.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.6.2</version>
+			<version>${junit.version}</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.6.2</version>
+			<version>${junit.version}</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
@@ -152,7 +152,7 @@
 			<!-- Testing -->
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.0.0-M4</version>
+				<version>${maven.plugin.surefire.version}</version>
 			</plugin>
 
 			<!-- Generate sources jar during package phase equivalent to maven sources:jar -->

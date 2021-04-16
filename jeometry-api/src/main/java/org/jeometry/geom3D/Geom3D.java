@@ -7,10 +7,8 @@ import java.util.List;
 
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
-import org.jeometry.geom3D.mesh.Edge;
 import org.jeometry.geom3D.mesh.Face;
 import org.jeometry.geom3D.mesh.Mesh;
-import org.jeometry.geom3D.point.ArrayListPoint3DContainer;
 import org.jeometry.geom3D.point.Point3D;
 import org.jeometry.geom3D.point.Point3DContainer;
 import org.jeometry.geom3D.primitive.Box;
@@ -43,11 +41,11 @@ public class Geom3D {
   public static double EPSILON = 0.00000001d;
   
   /**
-   * Return <code>true</code> if the three points given in parameter are collinear.
+   * Return <code>true</code> if the three points given in parameter are aligned.
    * @param p1 the first point.
    * @param p2 the second point.
    * @param p3 the third point.
-   * @return <code>true</code> if the three points are collinear and <code>false</code> otherwise.
+   * @return <code>true</code> if the three points are aligned and <code>false</code> otherwise.
    */
   public static boolean collinear(Point3D p1, Point3D p2, Point3D p3){
     double x1 = p1.getX();
@@ -589,7 +587,7 @@ public class Geom3D {
       // test the triangle normal
       Point3D triedge1  = tripoints.get(1).minus(tripoints.get(0));
       Point3D triedge2  = tripoints.get(2).minus(tripoints.get(1));
-      Point3D trinormal = cross(triedge1, triedge2);
+      Point3D trinormal = triedge1.cross(triedge2);
       if (!isIntersect(boxpoints, tripoints, trinormal)){ 
         return false;
       }
@@ -601,22 +599,22 @@ public class Geom3D {
       Point3D boxedge2 = JeometryFactory.createPoint3D(0, translatedBoxMax.getY() - translatedBoxMin.getY(), 0);
       Point3D boxedge3 = JeometryFactory.createPoint3D(0, 0, translatedBoxMax.getZ() - translatedBoxMin.getZ());
 
-      if (!isIntersect(boxpoints, tripoints, cross(boxedge1, triedge1))) return false;
-      if (!isIntersect(boxpoints, tripoints, cross(boxedge1, triedge2))) return false;
-      if (!isIntersect(boxpoints, tripoints, cross(boxedge1, triedge3))) return false;
+      if (!isIntersect(boxpoints, tripoints, boxedge1.cross(triedge1))) return false;
+      if (!isIntersect(boxpoints, tripoints, boxedge1.cross(triedge2))) return false;
+      if (!isIntersect(boxpoints, tripoints, boxedge1.cross(triedge3))) return false;
  
-      if (!isIntersect(boxpoints, tripoints, cross(boxedge2, triedge1))) return false;
-      if (!isIntersect(boxpoints, tripoints, cross(boxedge2, triedge2))) return false;
-      if (!isIntersect(boxpoints, tripoints, cross(boxedge2, triedge3))) return false;
+      if (!isIntersect(boxpoints, tripoints, boxedge2.cross(triedge1))) return false;
+      if (!isIntersect(boxpoints, tripoints, boxedge2.cross(triedge2))) return false;
+      if (!isIntersect(boxpoints, tripoints, boxedge2.cross(triedge3))) return false;
    
-      if (!isIntersect(boxpoints, tripoints, cross(boxedge3, triedge1))) return false;
-      if (!isIntersect(boxpoints, tripoints, cross(boxedge3, triedge2))) return false;
-      if (!isIntersect(boxpoints, tripoints, cross(boxedge3, triedge3))) return false;
+      if (!isIntersect(boxpoints, tripoints, boxedge3.cross(triedge1))) return false;
+      if (!isIntersect(boxpoints, tripoints, boxedge3.cross(triedge2))) return false;
+      if (!isIntersect(boxpoints, tripoints, boxedge3.cross(triedge3))) return false;
       
       // Inverted normals
       triedge1  = tripoints.get(2).minus(tripoints.get(0));
       triedge2  = tripoints.get(1).minus(tripoints.get(2));
-      trinormal = cross(triedge1, triedge2);
+      trinormal = triedge1.cross(triedge2);
       if (!isIntersect(boxpoints, tripoints, trinormal)){ 
         return false;
       }
@@ -624,17 +622,17 @@ public class Geom3D {
       // test the 9 edge cross products with inverted normals
       triedge3 = tripoints.get(0).minus(tripoints.get(1));
 
-      if (!isIntersect(boxpoints, tripoints, cross(boxedge1, triedge1))) return false;
-      if (!isIntersect(boxpoints, tripoints, cross(boxedge1, triedge2))) return false;
-      if (!isIntersect(boxpoints, tripoints, cross(boxedge1, triedge3))) return false;
+      if (!isIntersect(boxpoints, tripoints, boxedge1.cross(triedge1))) return false;
+      if (!isIntersect(boxpoints, tripoints, boxedge1.cross(triedge2))) return false;
+      if (!isIntersect(boxpoints, tripoints, boxedge1.cross(triedge3))) return false;
  
-      if (!isIntersect(boxpoints, tripoints, cross(boxedge2, triedge1))) return false;
-      if (!isIntersect(boxpoints, tripoints, cross(boxedge2, triedge2))) return false;
-      if (!isIntersect(boxpoints, tripoints, cross(boxedge2, triedge3))) return false;
+      if (!isIntersect(boxpoints, tripoints, boxedge2.cross(triedge1))) return false;
+      if (!isIntersect(boxpoints, tripoints, boxedge2.cross(triedge2))) return false;
+      if (!isIntersect(boxpoints, tripoints, boxedge2.cross(triedge3))) return false;
    
-      if (!isIntersect(boxpoints, tripoints, cross(boxedge3, triedge1))) return false;
-      if (!isIntersect(boxpoints, tripoints, cross(boxedge3, triedge2))) return false;
-      if (!isIntersect(boxpoints, tripoints, cross(boxedge3, triedge3))) return false;
+      if (!isIntersect(boxpoints, tripoints, boxedge3.cross(triedge1))) return false;
+      if (!isIntersect(boxpoints, tripoints, boxedge3.cross(triedge2))) return false;
+      if (!isIntersect(boxpoints, tripoints, boxedge3.cross(triedge3))) return false;
       
       return true;
     }
@@ -655,205 +653,7 @@ public class Geom3D {
   public static boolean isIntersect(Box box, Point3D point){
     return contains(box, point);
   }
-  
-  /**
-   * Compute a return a set of convex polyhedra which are the convex decomposition
-   * of the polyhedron given in parameter. A convex decomposition is a set of
-   * polyhedron that their disjunction compose the initial polyhedron. The algoritm
-   * used for the computation is given by Wang Fei, LIU Wen-Yu, Li Huain<br>
-   * A Algorithm for Convex Decomposition for polyedral object<br>
-   * <i>Proceeding of the Seventh International conference on computer aided Design
-   * and Computer Graphics</i><br>
-   * International Academic Publishers, August 22-24 2001<br>
-   * @param <T> The type of underlying 3D points
-   * @param polyhedron the polyhedron to decompose
-   * @return the list of convex polyedra composing the initial polyhedron
-   */
-  public static <T extends Point3D> List<Mesh<T>> computeConvexDecomposition(Mesh<T> polyhedron){
-    List<Mesh<T>> convexPolyhedrons = null;
-    List<Edge<T>> concaveEdges = null;
 
-
-    List<? extends Edge<T>> edges = new ArrayList<Edge<T>>(polyhedron.getEdges().size());
-
-    List<? extends Face<T>> faces = new ArrayList<Face<T>>(polyhedron.getFaces().size());
-
-    int faceCpt = 0;
-
-    // table de correspondance arrête / face. Les lignes du tableaux correspondent
-    // aux indices des arrêtes du polyhedre. Les colonnes sont les indices des faces
-    // du polyhedre attaché à l'arrête.
-    int[][] edgeFaces = new int[polyhedron.getEdges().size()][2];
-
-
-    // Recuperation des tableaux des faces et des arrêtes
-    edges = polyhedron.getEdges();
-    faces = polyhedron.getFaces();
-
-
-    // 1 - Calcul des sommets et arêtes concaves
-    //   A) Calcul des faces attach�es à chaque arrêtes.
-    for(int i = 0; i < edges.size(); i++){
-      for(int j = 0; j < faces.size(); j++){
-        faceCpt = 0;
-        for(int k = 0; k < faces.get(j).getEdges().size(); k++) {
-          if (faces.get(j).getEdges().get(k).equals(edges.get(i))){
-            // La jieme face du polyedre est adjacente à l'arrête i.
-            edgeFaces[i][faceCpt] = j;
-            faceCpt++;
-
-            // Si deux faces on été trouvées pour l'arrête, inutile de chercher plus
-            if (faceCpt >= 2){
-              break;
-            }
-          }
-        }
-      }
-    }
-
-    //  B) D�termination de la concavité des arrêtes.
-    //     Une arr�te est concave ssi pour une arr�te (P1,P2) reliant 2 faces
-    //     A et B avec P3 un point de A et P4 un point de B la matrice:
-    //
-    //     [ x1  y1  z1  1 ]
-    //     [ x2  y2  z2  1 ]
-    //     [ x3  y3  z3  1 ]   avec (xi, yi, zi) sont les coordonn�es de Pi
-    //     [ x4  y4  z4  1 ]
-    //
-    //     on a det(M) < 0. Dans le cas contraire l'arrête est convexe.
-    Point3D p1 = null;
-    Point3D p2 = null;
-    Point3D p3 = null;
-    Point3D p4 = null;
-    concaveEdges = new ArrayList<Edge<T>>();
-    double[][] matrice = new double[4][4];
-    double det = 0.0d;
-    for(int i = 0; i < edgeFaces.length; i++){
-      // Recuperation des sommets de l'arrête
-      p1 = edges.get(i).getVertices().get(0);
-      p2 = edges.get(i).getVertices().get(1);
-
-      // Utilisation des barycentres des faces comme référence.
-      p3 = Geom3D.computeBarycenter(faces.get(edgeFaces[i][0]).getVertices());
-      p4 = Geom3D.computeBarycenter(faces.get(edgeFaces[i][1]).getVertices());
-
-      // Remplissage de la matrice 4*4 avant calcul du déterminant
-      matrice[0][0] = p1.getX();
-      matrice[0][1] = p1.getY();
-      matrice[0][2] = p1.getZ();
-      matrice[0][3] = 1;
-      matrice[1][0] = p2.getX();
-      matrice[1][1] = p2.getY();
-      matrice[1][2] = p3.getZ();
-      matrice[1][3] = 1;
-      matrice[2][0] = p3.getX();
-      matrice[2][1] = p3.getY();
-      matrice[2][2] = p3.getZ();
-      matrice[2][3] = 1;
-      matrice[4][0] = p4.getX();
-      matrice[4][1] = p4.getY();
-      matrice[4][2] = p4.getZ();
-      matrice[4][3] = 1;
-
-      det =   matrice[2][0] * matrice[3][1]
-            + matrice[1][0] * matrice[2][1] * matrice[3][2]
-            + matrice[0][0] * matrice[1][1] * matrice[2][2] * matrice[3][3]
-            + matrice[0][1] * matrice[1][2] * matrice[2][3]
-            + matrice[0][2] * matrice[1][3]
-            - matrice[0][1] * matrice[1][0]
-            - matrice[0][2] * matrice[1][1] * matrice[2][0]
-            - matrice[0][3] * matrice[1][2] * matrice[2][1] * matrice[3][0]
-            - matrice[1][3] * matrice[2][2] * matrice[3][1]
-            - matrice[2][3] * matrice[3][2];
-
-      // Si le déterminant est strictement positif, l'arrête est concave
-      if (det > 0){
-        concaveEdges.add(edges.get(i));
-      }
-    }
-
-    // 2 - Selection d'une arrête convexe et sauvegarde des deux sommets qui seront
-    //     arbitrairemenbt le départ et la fin d'une boucle
-    Edge<T> concaveEdge = concaveEdges.get(0);
-    T start = concaveEdge.getVertices().get(0);
-    T end   = concaveEdge.getVertices().get(1);
-
-    // 3 - Recherche d'une boucle dont les points de départ et d'arrivée sont les
-    //    sommets de l'arrête choisie.
-    Point3DContainer<Point3D> loop = new ArrayListPoint3DContainer<Point3D>();
-    while(Geom3D.equals(start, end)){
-
-      //  3.1> Pour le sommet d'une arrête, recupération de tous les points avec
-      //       lesquels le sommet forme une face.
-      Point3DContainer<Point3D> linkedVertices = new ArrayListPoint3DContainer<Point3D>();
-      boolean isVertexInFace = false;
-      for(int j = 0; j < polyhedron.getFaces().size(); j++){
-        // Recherche si la face contient le point d�sir�
-        for(int k = 0; k < faces.get(j).getVertices().size(); k++){
-          if (Geom3D.equals(start, faces.get(j).getVertices().get(k))){
-            isVertexInFace = true;
-          }
-        }
-
-        // Si la face contient bien le sommet, les autres points de la face sont
-        // ajoutés à liste des sommets liés. Un sommet ne peut apparaitre qu'une
-        // seule fois dans la liste.
-        if (isVertexInFace){
-          for(int k = 0; k < faces.get(j).getVertices().size(); k++){
-            linkedVertices.add(faces.get(j).getVertices().get(k));
-          }
-        }
-
-        // Si les sommets liés contiennent un sommet concave (sommet d'une arrête concave)
-        // alors ce sommet devient le premier sommet de la suite de la boucle.
-        for(int lk = 0; lk < linkedVertices.size(); lk++){
-          for(int ce = 0; ce < concaveEdges.size(); ce++){
-            if ((Geom3D.equals(linkedVertices.get(lk), concaveEdges.get(ce).getVertices().get(0)))
-              ||(Geom3D.equals(linkedVertices.get(lk), concaveEdges.get(ce).getVertices().get(1)))){
-              loop.add(linkedVertices.get(lk));
-            }
-          }
-        }
-
-        isVertexInFace = false;
-      }
-    }
-
-    return convexPolyhedrons;
-  }
-
-  /**
-   * Compute the cross product between two vectors represented by the two given points.<br><br>
-   * The result is computed using the formula:<br>
-   * <code>x = v1.getY()*v2.getZ() - v2.getY()*v1.getZ()</code>;<br>
-   * <code>y = v1.getZ()*v2.getX() - v1.getX()*v2.getZ()</code>;<br>
-   * <code>z = v1.getX()*v2.getY() - v1.getY()*v2.getX()</code>;<br>
-   * 
-   * @param v1 the first vector represented by a point.
-   * @param v2 the second vector represented by a point.
-   * @return the cross product of the two vectors.
-   */
-  public static Point3D cross(Point3D v1, Point3D v2){
-    
-    return JeometryFactory.createPoint3D(v1.getY()*v2.getZ() - v2.getY()*v1.getZ(), 
-                               v1.getZ()*v2.getX() - v1.getX()*v2.getZ(), 
-                               v1.getX()*v2.getY() - v1.getY()*v2.getX());
-  }
-
-  /**
-   * Compute the dot product between two vectors by the two given points.<br><br>
-   * The result is computed using the formula:<br>
-   * <code>r = v1.getX()*v2.getX() + v2.getY()*v1.getY() + v2.getZ()*v1.getZ()</code>;<br>
-   * @param v1 the first vector represented by a point
-   * @param v2 the second vector represented by a point.
-   * @return the cross product of the two vectors.
-   */
-  public static double dot(Point3D v1, Point3D v2){
-    return ( v1.getX()*v2.getX() 
-           + v1.getY()*v2.getY() 
-           + v1.getZ()*v2.getZ());
-  }
-  
   /**
    * Test if a the points given in parameter are coplanar.
    * @param p3dm Point3DManagerI the set of points to test
@@ -887,7 +687,7 @@ public class Geom3D {
       // Calcul du vecteur formé par le ieme point et le premier
       vector2 = p3dm.get(i).minus(point);
 
-      vector3 = cross(vector1, vector2);
+      vector3 = vector1.cross(vector2);
 
       norm = vector3.norm();
 
@@ -1003,145 +803,6 @@ public class Geom3D {
 
     return furthest;
   }
-
-
-  /**
-   * Compute the axis aligned bounding box for the points given in parameter. If the point
-   * manager is <code>null</code> or empty, <code>null</code> is returned. 
-   * @param points the points to englobe in the box
-   * @return the axis aligned bounding box
-   */
-  public static Box computeAxisAlignedBoundingBox(Point3DContainer<?> points){
-    
-    Point3D pMax = null;
-    Point3D pMin = null;
-    Point3D pt   = null;
-    
-    Box polyhedron = null;
-    
-    // Une boite englobante n'est retournée que s'il existe des points à englober.
-    if ((points == null) || (points.size() < 3)){
-      polyhedron = null;
-    } else {
-      
-      // On calcule les sommets de la boite englobante
-      pMax = JeometryFactory.createPoint3D(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
-      pMin = JeometryFactory.createPoint3D(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
-   
-      for(int i = 0; i < points.size(); i++){
-        
-        pt = points.get(i);
-        
-        if (pMin.getX() > pt.getX()){
-          pMin.setX(pt.getX());
-        }
-        
-        if (pMin.getY() > pt.getY()){
-          pMin.setY(pt.getY());
-        }
-        
-        if (pMin.getZ() > pt.getZ()){
-          pMin.setZ(pt.getZ());
-        }
-        
-        if (pMax.getX() < pt.getX()){
-          pMax.setX(pt.getX());
-        }
-        
-        if (pMax.getY() < pt.getY()){
-          pMax.setY(pt.getY());
-        }
-        
-        if (pMax.getZ() < pt.getZ()){
-          pMax.setZ(pt.getZ());
-        }
-        
-        pt = null;
-      }
-
-      // Creation d'un boite parallele aux axes.
-      polyhedron = JeometryFactory.createBox(pMin, pMax);
-    }
-    
-    return polyhedron;
-  }
-
-  
-  /**
-   * Compute the axis aligned bounding box for the points given in parameter. If the point
-   * manager is <code>null</code> or empty, <code>null</code> is returned. 
-   * @param points the points to englobe in the box
-   * @return the axis aligned bounding box
-   */
-  public static Box computeAxisAlignedBoundingBox(Collection<? extends Point3D> points){
-    
-    Point3D pMax = null;
-    Point3D pMin = null;
-    Point3D pt   = null;
-    
-    Box polyhedron = null;
-    
-    // Une boite englobante n'est retournée que s'il existe des points à englober.
-    if ((points == null) || (points.size() < 3)){
-      polyhedron = null;
-    } else {
-      
-      // On calcule les sommets de la boite englobante
-      pMax = JeometryFactory.createPoint3D(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
-      pMin = JeometryFactory.createPoint3D(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
-   
-      Iterator<? extends Point3D> iter = points.iterator();
-      while(iter.hasNext()){
-        
-        pt = iter.next();
-        
-        if (pMin.getX() > pt.getX()){
-          pMin.setX(pt.getX());
-        }
-        
-        if (pMin.getY() > pt.getY()){
-          pMin.setY(pt.getY());
-        }
-        
-        if (pMin.getZ() > pt.getZ()){
-          pMin.setZ(pt.getZ());
-        }
-        
-        if (pMax.getX() < pt.getX()){
-          pMax.setX(pt.getX());
-        }
-        
-        if (pMax.getY() < pt.getY()){
-          pMax.setY(pt.getY());
-        }
-        
-        if (pMax.getZ() < pt.getZ()){
-          pMax.setZ(pt.getZ());
-        }
-        
-        pt = null;
-      }
-
-      // Creation d'un boite parallele aux axes.
-      polyhedron = JeometryFactory.createBox(pMin, pMax);
-    }
-    
-    return polyhedron;
-  }
-    
-  /**
-   * Compute an axis oriented bounding box for the polyhedron given in parameter. If the polyhedron
-   * is <code>null</code> or if it contains no vertices, <code>null</code> is returned. 
-   * @param polyhedron the polyhedron to fit in the bounding box
-   * @return the axis aligned bounding box for the polyhedron.
-   */
-  public static Box computeAxisAlignedBoundingBox(Mesh<?> polyhedron){
-    if (polyhedron == null){
-      return null;
-    } else {
-      return computeAxisAlignedBoundingBox(polyhedron.getVertices());
-    }
-  }
   
   /**
    * Compute the euclidean distance between the two given {@link SpatialLocalization3D spatial localization}. 
@@ -1222,10 +883,10 @@ public class Geom3D {
     edge2 = triangle.getVertex3().minus(triangle.getVertex1());
     
     /* begin calculating determinant - also used to calculate U parameter */
-    pvec = cross(dir, edge2);
+    pvec = dir.cross(edge2);
     
     /* if determinant is near zero, ray lies in plane of triangle */
-    det = dot(edge1, pvec);
+    det = edge1.dot(pvec);
     
     /* If the back culling is used */
     if (cullback){
@@ -1238,22 +899,22 @@ public class Geom3D {
       tvec = orig.minus(triangle.getVertex1());
 
       /* calculate U parameter and test bounds */
-      u = dot(tvec, pvec);
+      u = tvec.dot(pvec);
       if ((u < 0.0) || (u > det)){
         return null;
       }
       
       /* prepare to test V parameter */
-      qvec = cross(tvec, edge1);
+      qvec = tvec.cross(edge1);
       
       /* calculate V parameter and test bounds */
-      v = dot(dir, qvec);
+      v = dir.dot(qvec);
       if ((v < 0.0) || ((u + v) > det)){
         return null;
       }
       
       /* calculate t, scale parameters, ray intersects triangle */
-      t = dot(edge2, qvec);
+      t = edge2.dot(qvec);
       
       invDet = 1.0 / det;
       t *= invDet;
@@ -1272,22 +933,22 @@ public class Geom3D {
       tvec = orig.minus(triangle.getVertex1());
       
       /* calculate U parameter and test bounds */
-      u = dot(tvec, pvec) * invDet;
+      u = tvec.dot(pvec) * invDet;
       if ((u < 0.0) || (u > 1.0)){
         return null;
       }
       
       /* prepare to test V parameter */
-      qvec = cross(tvec, edge1);
+      qvec = tvec.cross(edge1);
       
       /* calculate V parameter and test bounds */
-      v = dot(dir, qvec) * invDet;
+      v = dir.dot(qvec) * invDet;
       if ((v < 0.0) || ((u + v) > 1.0)){
         return null;
       }
       
       /* calculate t, ray intersects triangle */
-      t = dot(edge2, qvec) * invDet;
+      t = edge2.dot(qvec) * invDet;
     }
     
     
@@ -1353,7 +1014,7 @@ public class Geom3D {
     
     return max;
   }
-  
+ 
   /**
    * Check if the two given point collections are intersecting following the given axis.
    * @param ref the first point collection considered as reference.

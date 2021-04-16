@@ -16,6 +16,9 @@ import org.jeometry.math.Vector;
  */
 public class SimplePoint3D implements Point3D{
 
+	/**
+	 * The coordinates.
+	 */
 	double[] coordinates;
 
 	@Override

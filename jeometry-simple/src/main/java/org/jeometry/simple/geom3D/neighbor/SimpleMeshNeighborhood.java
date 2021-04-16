@@ -15,8 +15,14 @@ import org.jeometry.geom3D.point.Point3D;
  */
 public class SimpleMeshNeighborhood<T extends Point3D> implements MeshNeighborhood<T>{
 
+  /**
+   * The adjacencies. 
+   */
   AdjacencyMap<T> adjacencies = null;
   
+  /**
+   * The incidencies.
+   */
   IncidenceMap<T> incidences  = null;
   
   @Override

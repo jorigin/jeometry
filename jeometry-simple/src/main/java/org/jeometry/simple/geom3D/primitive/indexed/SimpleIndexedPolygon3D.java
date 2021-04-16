@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.jeometry.Jeometry;
 import org.jeometry.geom3D.mesh.indexed.IndexedEdge;
-import org.jeometry.geom3D.point.ArrayListPoint3DContainer;
 import org.jeometry.geom3D.point.Point3D;
 import org.jeometry.geom3D.point.Point3DContainer;
 import org.jeometry.geom3D.primitive.indexed.IndexedPolygon3D;
+import org.jeometry.simple.geom3D.point.ArrayListPoint3DContainer;
 import org.jeometry.simple.geom3D.primitive.SimplePolygon3D;
 
 /**
@@ -20,14 +20,29 @@ import org.jeometry.simple.geom3D.primitive.SimplePolygon3D;
  */
 public class SimpleIndexedPolygon3D<T extends Point3D> extends SimplePolygon3D<T> implements IndexedPolygon3D<T>{
 
+	/**
+	 * The serial version UID.
+	 */
 	private static final long serialVersionUID = Jeometry.BUILD;
 
+	/**
+	 * The vertices indexes.
+	 */
 	private int[] verticesIndexes = null;
 
+	/**
+	 * The edges indices.
+	 */
 	List<IndexedEdge<T>> edgesIndexed = null;
 
+	/**
+	 * The vertice source.
+	 */
 	Point3DContainer<T> verticesSource = null;
 
+	/**
+	 * Is the indices have to be validated.
+	 */
 	boolean validatedIndexes = false;
 
 	@Override

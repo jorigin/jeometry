@@ -46,23 +46,26 @@
     
     <maven.plugin.compiler.version>3.8.1</maven.plugin.compiler.version>
     <maven.plugin.deploy.version>3.1.1</maven.plugin.deploy.version>
-    <maven.plugin.javadoc.version>3.1.1</maven.plugin.javadoc.version>
+    <maven.plugin.javadoc.version>3.2.0</maven.plugin.javadoc.version>
     <maven.plugin.release.version>3.0.0-M1</maven.plugin.release.version>
     <maven.plugin.nexus.version>1.6.8</maven.plugin.nexus.version>
     <maven.plugin.source.version>3.2.0</maven.plugin.source.version>
     <maven.plugin.scm-provider-gitexe.version>1.11.12</maven.plugin.scm-provider-gitexe.version>
+    <maven.plugin.surefire.version>3.0.0-M4</maven.plugin.surefire.version>
     
-    <jeometry.version>1.0.3-SNAPSHOT</jeometry.version>
+    <jcommon.version>1.0.13</jcommon.version>
+    <jeometry.version>1.0.5-SNAPSHOT</jeometry.version>
     
-    <junit.jupiter.version>5.6.2</junit.jupiter.version>
+    <junit.version>5.7.1</junit.version>
     
   </properties>
   
   <modules>
+    <module>jeometry-algorithm</module>
     <module>jeometry-api</module>
+    <module>jeometry-sample</module>
     <module>jeometry-simple</module>
     <module>jeometry-test</module>
-    <module>jeometry-sample</module>
   </modules>
   
   <distributionManagement>

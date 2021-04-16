@@ -15,6 +15,9 @@ import org.jeometry.Jeometry;
  */
 public class TextureBufferedImage implements Texture{
   
+  /**
+   * The resource image. 
+   */
   BufferedImage ressourceImage = null;
   
   @Override

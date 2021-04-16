@@ -39,10 +39,24 @@ import org.jeometry.math.Vector;
  */
 public class MathBuilderTest {
 
+	/**
+	 * The math builder to use.
+	 */
     protected static MathBuilder mathBuilder = null;
 	
+    /**
+     * The matrix class to use.
+     */
     protected static Class<? extends Matrix> matrixClass         = null;
+    
+    /**
+     * The vector class to use.
+     */
     protected static Class<? extends Vector> vectorClass         = null;
+    
+    /**
+     * The quaternion class to use.
+     */
     protected static Class<? extends Quaternion> quaternionClass = null;
 	
 	/**

@@ -17,6 +17,9 @@ import org.jeometry.math.Vector;
  */
 public class SimplePoint2D implements Point2D{
 
+	/**
+	 * The point coordinates.
+	 */
 	double[] coordinates;
 
 	/**

@@ -32,6 +32,9 @@ import org.junit.jupiter.api.Test;
  * */
 public class GaussEliminationSolverTest {
 	
+	/**
+	 * The solver to use.
+	 */
 	protected static Solver solver = null;
 	
 	/**

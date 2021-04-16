@@ -26,11 +26,19 @@ import org.jeometry.simple.geom3D.primitive.indexed.SimpleIndexedPolygon3D;
  */
 public class SimpleIndexedFace<T extends Point3D> extends SimpleIndexedPolygon3D<T> implements IndexedFace<T>{
 
-
+    /**
+     * The serial version UID.
+     */
 	private static final long serialVersionUID = Jeometry.BUILD;
 
+	/**
+	 * The edges.
+	 */
 	private List<IndexedEdge<T>> edgesIndexed = null;
 
+	/**
+	 * The mesh.
+	 */
 	private IndexedMesh<T> meshIndexed        = null;
 
 

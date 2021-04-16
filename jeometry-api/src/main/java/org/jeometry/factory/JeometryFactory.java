@@ -69,16 +69,31 @@ public class JeometryFactory {
 	 */
 	public static final String JEOMETRY_IMPLEMENTATION_INIT_METHOD = "initJeometryImplementation";
 	
+	/**
+	 * The attached Math builder.
+	 */
 	private static MathBuilder mathBuilder = null;
 
+	/**
+	 * The attached Mesh builder.
+	 */
 	private static MeshBuilder meshBuilder = null;
 
+	/**
+	 * The attached point builder.
+	 */
 	private static PointBuilder pointBuilder = null;
 
+	/**
+	 * The attached transform builder.
+	 */
 	private static TransformBuilder transformBuilder = null;
 	
 	static {init();}
 
+	/**
+	 * Static initialization.
+	 */
 	private  static void init(){
 		
 		boolean initialized = false;

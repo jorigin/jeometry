@@ -13,6 +13,9 @@ import org.jeometry.math.Vector;
  */
 public class SimpleVector implements Vector {
 
+	/**
+	 * The vector components.
+	 */
 	double[] components = null;
 
 	@Override

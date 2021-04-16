@@ -50,12 +50,34 @@ import org.junit.jupiter.api.Test;
  */
 public class GeometryFactoryMeshTest {
 	
+	/**
+	 * The mesh class to use.
+	 */
     protected static Class<?> meshClass         = null;
+    
+	/**
+	 * The face class to use.
+	 */
     protected static Class<?> faceClass         = null;
+    
+	/**
+	 * The edge class to use.
+	 */
     protected static Class<?> edgeClass         = null;
     
+	/**
+	 * The indexed mesh class to use.
+	 */
     protected static Class<?> indexedMeshClass         = null;
+    
+	/**
+	 * The indexed face class to use.
+	 */
     protected static Class<?> indexedFaceClass         = null;
+    
+	/**
+	 * The indexed edge class to use.
+	 */
     protected static Class<?> indexedEdgeClass         = null;
     
 	/**

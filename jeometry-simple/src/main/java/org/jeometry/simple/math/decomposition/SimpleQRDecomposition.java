@@ -19,16 +19,34 @@ import org.jeometry.math.decomposition.QRDecomposition;
  */
 public class SimpleQRDecomposition implements QRDecomposition {
 
+	/**
+	 * The QR matrix.
+	 */
 	private Matrix QR;
 
+	/**
+	 * The Q matrix.
+	 */
 	private Matrix Q = null;
 
+	/**
+	 * The R matrix.
+	 */
 	private Matrix R = null;
 
+	/**
+	 * The H matrix.
+	 */
 	private Matrix H = null;
 
+	/**
+	 * The input rows count.
+	 */
 	private int inputRowsCount;
 
+	/**
+	 * The input columns count.
+	 */
 	private int inputColumnsCount;
 
 	/** Array for internal storage of diagonal of R.

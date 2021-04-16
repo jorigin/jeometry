@@ -11,6 +11,9 @@ import org.jeometry.Jeometry;
  */
 public class TexturePath implements Texture {
   
+  /**
+   * The resource path. 
+   */
   String ressourcePath = null;
   
   @Override

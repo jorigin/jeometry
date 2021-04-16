@@ -26,12 +26,18 @@ import org.jeometry.geom3D.primitive.Triangle;
 public class SimpleTriangle<T extends Point3D> extends SimplePolygon3D<T> implements Triangle<T>{
 
 	/**
-	 * 
+	 * The serial version UID.
 	 */
 	private static final long serialVersionUID = Jeometry.BUILD;
 
+	/**
+	 * The mech.
+	 */
 	private Mesh<T> mesh = null;
 	
+	/**
+	 * The vertices.
+	 */
 	private Point3DContainer<T> vertices = null;
 	
 	/**

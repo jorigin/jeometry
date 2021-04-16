@@ -17,18 +17,49 @@ import org.jeometry.simple.geom3D.mesh.SimpleMesh;
  */
 public class SimpleBox extends SimpleMesh<Point3D> implements Box {
 
+  /**
+   * The serial version UID.
+   */
   private static final long serialVersionUID = Jeometry.BUILD;
   
+  /**
+   * The bottom front left vertex (the minimal point).
+   */
+  private Point3D bfl = null;
   
-  
-  private Point3D bfl = null; // Bottom Front Left vertex (the min point)
+  /**
+   * The bottom front right vertex.
+   */
   private Point3D bfr = null;
+  
+  /**
+   * The bottom rear right vertex.
+   */
   private Point3D brr = null;
+  
+  /**
+   * The bottom rear left vertex.
+   */
   private Point3D brl = null;
   
+  /**
+   * The top front left vertex
+   */
   private Point3D tfl = null;
+  
+  /**
+   * The top front right vertex
+   */
   private Point3D tfr = null;
+  
+  /**
+   * The top rear right vertex
+   */
   private Point3D trr = null; // Top rear left vertex (the max point)
+  
+  /**
+   * The top rear left vertex
+   */
   private Point3D trl = null; 
   
   @Override

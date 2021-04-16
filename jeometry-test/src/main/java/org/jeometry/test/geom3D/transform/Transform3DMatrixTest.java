@@ -40,6 +40,9 @@ import org.junit.jupiter.api.Test;
  */
 public class Transform3DMatrixTest {
 
+	/**
+	 * The numerical precision.
+	 */
 	protected static double EPSILON = 0.000001;
 
 	/**

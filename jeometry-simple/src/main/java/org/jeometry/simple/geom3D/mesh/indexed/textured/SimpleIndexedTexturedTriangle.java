@@ -23,12 +23,24 @@ import org.jeometry.simple.geom3D.primitive.indexed.SimpleIndexedTriangle;
  */
 public class SimpleIndexedTexturedTriangle<T extends Point3D> extends SimpleIndexedTriangle<T> implements Texturable{
 
+	/**
+	 * The serial version UID.
+	 */
 	private static final long serialVersionUID = Jeometry.BUILD;
 
+	/**
+	 * The texture.
+	 */
 	private Texture texture = null;
 
+	/**
+	 * The texture information.
+	 */
 	private int textureInformation = 0;
 	
+	/**
+	 * The texture coordinates.
+	 */
 	private Point2DContainer textureCoords = null;
 	
 	@Override

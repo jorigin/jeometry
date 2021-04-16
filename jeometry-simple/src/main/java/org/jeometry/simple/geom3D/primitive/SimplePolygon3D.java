@@ -18,7 +18,9 @@ import org.jeometry.geom3D.primitive.Polygon3D;
  */
 public class SimplePolygon3D<T extends Point3D> implements Polygon3D<T> {
 
-
+  /**
+   * The serial version UID.
+   */
   private static final long serialVersionUID = Jeometry.BUILD;
   
   /**

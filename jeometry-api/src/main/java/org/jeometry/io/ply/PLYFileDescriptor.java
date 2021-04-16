@@ -12,18 +12,39 @@ import org.jeometry.Jeometry;
  */
 public class PLYFileDescriptor {
   
+  /**
+   * The file format.
+   */
   private int fileFormat = PLY.FILE_FORMAT_ASCII;
 
+  /**
+   * The element descriptors.
+   */
   private Collection<PLYElementDescription> elementDescriptors = null;
 
+  /**
+   * The header line count.
+   */
   private int headerLineCount = 0;
 
+  /**
+   * The vertex count.
+   */
   private int vertexCount = -1;
 
+  /**
+   * The face count.
+   */
   private int faceCount = -1;
 
+  /**
+   * The edges count.
+   */
   private int edgeCount = -1;
 
+  /**
+   * The vertex type.
+   */
   private int vertexType = -1;
 
   /**

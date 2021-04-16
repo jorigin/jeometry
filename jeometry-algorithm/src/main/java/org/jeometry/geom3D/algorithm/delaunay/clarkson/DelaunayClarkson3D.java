@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.jeometry.factory.JeometryFactory;
-import org.jeometry.geom3D.Geom3D;
+import org.jeometry.geom3D.algorithm.bounds.AxisAlignedBoundingBox;
 import org.jeometry.geom3D.point.Point3D;
 import org.jeometry.geom3D.point.Point3DContainer;
 import org.jeometry.geom3D.primitive.Box;
@@ -28,12 +28,24 @@ import org.jeometry.geom3D.primitive.Box;
  */
 public class DelaunayClarkson3D<T extends Point3D> extends DelaunayClarkson{
 
+	/**
+	 * The infinite points.
+	 */
   private Point3D[] ifinitePoints = null;
   
+  /**
+   * The original points count.
+   */
   private int originalPointCount   = -1;
 
+  /**
+   * Is the computation has to filter infinite.
+   */
   private boolean filterInfinite   = false;
   
+  /**
+   * Is the computation has to generate infinite.
+   */
   private boolean generateInfinite = true;
   
   /**
@@ -120,7 +132,7 @@ public class DelaunayClarkson3D<T extends Point3D> extends DelaunayClarkson{
         }
         
         // Adding infinite points (bounding box *10 points)
-        Box box = Geom3D.computeAxisAlignedBoundingBox(points);
+        Box box = AxisAlignedBoundingBox.computeAxisAlignedBoundingBox(points);
         
         double boxXMax = box.getMax().getX()*scale*10;
         double boxYMax = box.getMax().getY()*scale*10;
@@ -314,6 +326,11 @@ public class DelaunayClarkson3D<T extends Point3D> extends DelaunayClarkson{
     return index;
   }
   
+  /**
+   * Check if the given tetrahedron is infinite.
+   * @param indices the indices that form the tetrahedron
+   * @return <code>true</code> if the tetrahedron is infinite and <code>false</code> otherwise
+   */
   private boolean isInfinite(int[] indices){
     
     boolean infinite = false;

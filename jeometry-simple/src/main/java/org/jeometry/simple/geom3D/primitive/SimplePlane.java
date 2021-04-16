@@ -14,10 +14,19 @@ import org.jeometry.geom3D.primitive.Plane;
  */
 public class SimplePlane<T extends Point3D> implements Plane<T>{
 
+	/**
+	 * The normal.
+	 */
 	private T normal;
 	
+	/**
+	 * The origin.
+	 */
 	private T origin;
 	
+	/**
+	 * The D value.
+	 */
 	private double d;
 	
 	@Override

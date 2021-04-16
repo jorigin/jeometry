@@ -8,10 +8,10 @@
 		<version>1.0.5-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>jeometry-simple</artifactId>
+	<artifactId>jeometry-algorithm</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Jeometry Simple implementation</name>
+	<name>Jeometry Generic Algorithms implementation</name>
 	<description>Jeometry, a Mathematic and Geometry library for Java</description>
 	<url>https://github.com/jseinturier/jeometry/</url>
 
@@ -191,7 +191,6 @@
 
 				<!-- Embedding Latex formulas within javadoc using MathJax -->
 				<configuration>
-
 					<additionalJOptions>
 						<additionalJOption>--allow-script-in-comments</additionalJOption>
 					</additionalJOptions>

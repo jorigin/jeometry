@@ -15,9 +15,24 @@ import org.jeometry.math.Vector;
  */
 public class SimpleQuaternion implements Quaternion {
 
+	/**
+	 * The scalar component.
+	 */
 	private double scalar = Double.NaN;
+	
+	/**
+	 * The i component.
+	 */
 	private double i      = Double.NaN;
+	
+	/**
+	 * The j component.
+	 */
 	private double j      = Double.NaN;
+	
+	/**
+	 * The k component.
+	 */
 	private double k      = Double.NaN;
 
 	/**

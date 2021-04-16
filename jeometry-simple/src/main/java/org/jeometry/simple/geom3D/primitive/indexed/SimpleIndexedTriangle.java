@@ -27,12 +27,24 @@ import org.jeometry.simple.geom3D.primitive.SimpleLineSet3D;
  */
 public class SimpleIndexedTriangle<T extends Point3D> implements IndexedTriangle<T> {
 
+	/**
+	 * The serial version UID.
+	 */
 	private static final long serialVersionUID = Jeometry.BUILD;
 
+	/**
+	 * The indices.
+	 */
 	private int[] indices = null;
 	
+	/**
+	 * The mesh.
+	 */
 	private IndexedMesh<T> mesh = null;
 	
+	/**
+	 * Is the indices have to be validated.
+	 */
 	private boolean validatedIndices = false;
 	
 	@Override

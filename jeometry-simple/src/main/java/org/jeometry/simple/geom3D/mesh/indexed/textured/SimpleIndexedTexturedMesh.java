@@ -23,8 +23,14 @@ import org.jeometry.simple.geom3D.mesh.indexed.SimpleIndexedMesh;
  */
 public class SimpleIndexedTexturedMesh<T extends Point3D> extends SimpleIndexedMesh<T> implements TextureManager{
 
+  /**
+   * The serial version UID.
+   */
   private static final long serialVersionUID = Jeometry.BUILD;
 
+  /**
+   * The textures.
+   */
   private List<Texture> textures = null;
   
   @Override

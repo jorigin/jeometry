@@ -20,7 +20,12 @@ public class SimpleGaussEliminationSolver implements Solver {
 	 */
 	public static final double EPSILON = 1e-10;
 
-    // forward elimination
+	/**
+	 * Forward elimination.
+	 * @param augmented the augmented matrix
+	 * @param rows the number of rows
+	 * @param columns the number of columns
+	 */
     private void forwardElimination(Matrix augmented, int rows, int columns) {
         for (int p = 0; p < Math.min(rows, columns); p++) {
 
@@ -45,7 +50,12 @@ public class SimpleGaussEliminationSolver implements Solver {
         }
     }
 
-    // swap row1 and row2
+    /**
+     * Swap row1 and row2.
+     * @param augmented the augmented matrix
+     * @param row1 the first row
+     * @param row2 the second row
+     */
     private void swap(Matrix augmented, int row1, int row2) {
     	
     	double temp;
@@ -58,7 +68,13 @@ public class SimpleGaussEliminationSolver implements Solver {
     	}
     }
 
-    // pivot on a[p][p]
+    /**
+     * Pivot on a[p][p].
+     * @param augmented the augmented matrix
+     * @param p the p index
+     * @param rows the number of rows
+     * @param columns the number of columns
+     */
     private void pivot(Matrix augmented, int p, int rows, int columns) {
         for (int i = p+1; i < rows; i++) {
             double alpha = augmented.getValue(i, p) / augmented.getValue(p, p);

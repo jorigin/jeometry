@@ -23,8 +23,12 @@ import org.jeometry.geom3D.primitive.Line3D;
  */
 public class SimpleEdge<T extends Point3D> implements Edge<T>{
 
+	/**
+	 * The serial version UID.
+	 */
 	private static final long serialVersionUID = Jeometry.BUILD;
 
+	/** The attached mesh **/
 	private Mesh<T> mesh = null;
 
 	/** The origin of the edge */

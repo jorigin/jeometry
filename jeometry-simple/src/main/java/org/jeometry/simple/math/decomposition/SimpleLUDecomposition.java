@@ -22,16 +22,34 @@ public class SimpleLUDecomposition implements LUDecomposition {
 	 */
 	public Matrix LU;
 
+	/**
+	 * The L matrix.
+	 */
 	private Matrix L = null;
 
+	/**
+	 * The U Matrix.
+	 */
 	private Matrix U = null;
 
+	/**
+	 * The P matrix.
+	 */
 	private Matrix P = null;
 
+	/**
+	 * The input rows count.
+	 */
 	private int inputRowsCount;
 	
+	/**
+	 * The input columns count.
+	 */
 	private int inputColumnsCount;
 	
+	/**
+	 * The pivot sign.
+	 */
 	private int pivsign; 
 
 	/**

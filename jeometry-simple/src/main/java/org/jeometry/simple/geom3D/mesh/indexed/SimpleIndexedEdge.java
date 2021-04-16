@@ -23,12 +23,24 @@ import org.jeometry.geom3D.primitive.Polygon3D;
  */
 public class SimpleIndexedEdge<T extends Point3D> implements IndexedEdge<T>{
 
+	/**
+	 * The serial version UID.
+	 */
 	private static final long serialVersionUID = Jeometry.BUILD;
 
+	/**
+	 * The vertices.
+	 */
 	private int[] verticesIndexes = null;
 
+	/**
+	 * Is the indices have to be validated.
+	 */
 	private boolean validatedIndexes = false;
 
+	/**
+	 * The mesh.
+	 */
 	private IndexedMesh<T> mesh = null;
 
 	/**

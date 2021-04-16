@@ -18,6 +18,9 @@ import org.jeometry.geom3D.point.Point3D;
  */
 public class SimpleIndexedIncidenceMap<T extends Point3D> implements IncidenceMap<T> {
 
+  /**
+   * The map.
+   */
   private Map<Point3D, List<IndexedFace<T>>> map = null;
   
   @Override

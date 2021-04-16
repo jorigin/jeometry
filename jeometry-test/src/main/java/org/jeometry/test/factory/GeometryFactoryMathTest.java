@@ -40,8 +40,19 @@ import org.jeometry.math.Vector;
  */
 public class GeometryFactoryMathTest {
 	
+	/**
+	 * The matrix implementation to use.
+	 */
 	protected static Class<? extends Matrix> matrixClass         = null;
+	
+	/**
+	 * The vector implementation to use.
+	 */
 	protected static Class<? extends Vector> vectorClass         = null;
+	
+	/**
+	 * The quaternion implementation to use.
+	 */
 	protected static Class<? extends Quaternion> quaternionClass = null;
 	
 	/**

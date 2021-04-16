@@ -28,26 +28,74 @@ import org.jeometry.simple.geom3D.primitive.indexed.SimpleIndexedTriangle;
  */
 public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTriangleMesh<T> {
 
+	/**
+	 * The serial version UID.
+	 */
 	private static final long serialVersionUID = Jeometry.BUILD;
 
+	/**
+	 * The vertices source.
+	 */
 	private Point3DContainer<T> verticesSource = null;
 	
+	/**
+	 * The edges.
+	 */
 	List<IndexedEdge<T>> edges = null;
 
+	/**
+	 * The faces.
+	 */
 	List<IndexedTriangle<T>> faces = null;
 
+	/**
+	 * Is the indices have to be validated.
+	 */
 	private boolean validatedIndexes = false;
 	
+	/**
+	 * The x coordinate of the mesh.
+	 */
 	private double x    = Double.NaN;
+	
+	/**
+	 * The y coordinate of the mesh.
+	 */
 	private double y    = Double.NaN;
+	
+	/**
+	 * The z coordinate of the mesh.
+	 */
 	private double z    = Double.NaN;
 	
+	/**
+	 * The x min coordinate of the mesh.
+	 */
 	private double xmin = Double.NaN;
+	
+	/**
+	 * The y min coordinate of the mesh.
+	 */
 	private double ymin = Double.NaN;
+	
+	/**
+	 * The z min coordinate of the mesh.
+	 */
 	private double zmin = Double.NaN;
 	
+	/**
+	 * The xmax coordinate of the mesh.
+	 */
 	private double xmax = Double.NaN;
+	
+	/**
+	 * The y max coordinate of the mesh.
+	 */
 	private double ymax = Double.NaN;
+	
+	/**
+	 * The z max coordinate of the mesh.
+	 */
 	private double zmax = Double.NaN;
 	
 	@Override

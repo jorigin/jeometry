@@ -80,86 +80,232 @@ public class PLYReader<T extends Point3D> {
    */
   public static final String FACE_NAME = "FACE";
 
+  /**
+   * The flag that describes points.
+   */
   private static final int GEOM_POINTS = 1;
 
+  /**
+   * The flag that describes polyhedron.
+   */
   private static final int GEOM_POLYHEDRON = 2;
 
+  /**
+   * The flag that describes X index.
+   */
   private static final int X_INDEX = 0;
 
+  /**
+   * The flag that describes Y index.
+   */
   private static final int Y_INDEX = 1;
 
+  /**
+   * The flag that describes Z index.
+   */
   private static final int Z_INDEX = 2;
 
+  /**
+   * The flag that describes R index.
+   */
   private static final int R_INDEX = 3;
 
+  /**
+   * The flag that describes G index.
+   */
   private static final int G_INDEX = 4;
 
+  /**
+   * The flag that describes B index.
+   */
   private static final int B_INDEX = 5;
 
+  /**
+   * The flag that describes A index.
+   */
   private static final int A_INDEX = 6;
 
+  /**
+   * The flag that describes NX index.
+   */
   private static final int NX_INDEX = 7;
 
+  /**
+   * The flag that describes NY index.
+   */
   private static final int NY_INDEX = 8;
 
+  /**
+   * The flag that describes NZ index.
+   */
   private static final int NZ_INDEX = 9;
 
+  /**
+   * The flag that describes vertex list index.
+   */
   private static final int VERTEX_LIST_INDEX = 10;
 
+  /**
+   * The flag that describes texture index.
+   */
   private static final int TEX_INDEX = 11;
 
+  /**
+   * The flag that describes texture coordinates index.
+   */
   private static final int TEX_COORDS_INDEX = 12;
 
 //  private static final int ID_INDEX = 13;
 
+  /**
+   * The flag that describes texture u index.
+   */
   private static final int TEX_U_INDEX = 14;
 
+  /**
+   * The flag that describes texture v index.
+   */
   private static final int TEX_V_INDEX = 15;
 
+  /**
+   * The default points name.
+   */
   private String pointName = "PLY";
 
+  /**
+   * The PLY X property name.
+   */
   private final String plyXPropName = "x";
+  
+  /**
+   * The PLY Y property name.
+   */
   private final String plyYPropName = "y";
+  
+  /**
+   * The PLY Z property name.
+   */
   private final String plyZPropName = "z";
 
+  /**
+   * The PLY color red property name.
+   */
   private final String plyRPropName = "red";
+  
+  /**
+   * The PLY color green property name.
+   */
   private final String plyGPropName = "green";
+  
+  /**
+   * The PLY color blue property name.
+   */
   private final String plyBPropName = "blue";
+  
+  /**
+   * The PLY X property name.
+   */
   private final String plyAPropName = "alpha";
 
+  /**
+   * The PLY normal X property name.
+   */
   private final String plyNxPropName = "nx";
+
+  /**
+   * The PLY normal y property name.
+   */
   private final String plyNyPropName = "ny";
+  
+  /**
+   * The PLY normal z property name.
+   */
   private final String plyNzPropName = "nz";
 
+  /**
+   * The PLY vertex indices property name.
+   */
   private final String plyVertexListPropName = "vertex_indices";
+  
+  /**
+   * The PLY vertex index list property name.
+   */
   private final String plyVertexListPropNameAlt = "vertex_index";
 
+  /**
+   * The PLY texture coordinate property name.
+   */
   private final String plyTexCoordPropName = "texcoord";
+  
+  /**
+   * The PLY texture number property name.
+   */
   private final String plyTexIndexPropName = "texnumber";
 
+  /**
+   * The PLY texture u property name.
+   */
   private final String plyVertexTexCoordUPropName = "texture_u";
+
+  /**
+   * The PLY texture v property name.
+   */
   private final String plyVertexTexCoordVPropName = "texture_v";
 
+  /**
+   * The PLY ID property name.
+   */
   private final String plyIDPropName = "id";
 
+  /**
+   * The PLY reader attached listeners.
+   */
   private Collection<PLYReaderListener> listeners = null;
 
+  /**
+   * The PLY read textures.
+   */
   private List<Texture> textures = null;
 
+  /**
+   * The PLY reader has to read point color.
+   */
   private boolean readPointColor = true;
 
+  /**
+   * Is the PLY reader has to read point normal.
+   */
   private boolean readPointNormal = true;
 
+  /**
+   * Is the PLY reader has to identifies points.
+   */
   private boolean identifyPoints = true;
 
+  /**
+   * The read vertex count.
+   */
   private int vertexCount = -1;
 
+  /**
+   * The read mesh faces.
+   */
   private int faceCurrentIndex = -1;
 
+  /**
+   * The face default name.
+   */
   private final String faceGenericName = "F";
+  
+  /**
+   * The triangle default name.
+   */
   private final String faceTriangleName = "T";
 //  private final String vertexTriangleName = "V";
 
+  /**
+   * The path to the external resources.
+   */
   private String resourcePath = null;
 
   /**
@@ -193,12 +339,24 @@ public class PLYReader<T extends Point3D> {
    */
   private Class<? extends Point2D> point2DClass = null;
 
+  /**
+   * The PLY file format. Can be {@link PLY#FILE_FORMAT_ASCII}, {@link PLY#FILE_FORMAT_BINARY_BE} or {@link PLY#FILE_FORMAT_BINARY_LE}.
+   */
   private int fileFormat = PLY.FILE_FORMAT_ASCII;
 
+  /**
+   * The geometry type.
+   */
   private int geometryType = -1;
 
+  /**
+   * The properties indices.
+   */
   private int[] propertyIndexes = null;
 
+  /**
+   * Is the texture has to be flipped in Y.
+   */
   private boolean flipTextureY = true;
 
   /**
@@ -1241,6 +1399,8 @@ public Object read(Reader reader) throws IOException {
    * Read binary PLY data.
    * @param is the input stream to use
    * @param fileDescriptor the description of the PLY file
+   * @return the read object 
+   * @throws IOException  if an error occurs
    */
   private Object readBinaryData(InputStream is, PLYFileDescriptor fileDescriptor) throws IOException {
 
@@ -1619,6 +1779,9 @@ public Object read(Reader reader) throws IOException {
     return ok;
   }
 
+  /**
+   * Dispatch a read started.
+   */
   protected void dispatchReadStarted() {
     if (listeners != null) {
       Iterator<PLYReaderListener> iter = listeners.iterator();
@@ -1628,6 +1791,9 @@ public Object read(Reader reader) throws IOException {
     }
   }
 
+  /**
+   * Dispatch a read finished.
+   */
   protected void dispatchReadFinished() {
     if (listeners != null) {
       Iterator<PLYReaderListener> iter = listeners.iterator();
@@ -1637,6 +1803,9 @@ public Object read(Reader reader) throws IOException {
     }
   }
 
+  /**
+   * Dispatch a header read started.
+   */
   protected void dispatchReadHeaderStarted() {
     if (listeners != null) {
       Iterator<PLYReaderListener> iter = listeners.iterator();
@@ -1646,6 +1815,9 @@ public Object read(Reader reader) throws IOException {
     }
   }
 
+  /**
+   * Dispatch a read header finished.
+   */
   protected void dispatchReadHeaderFinished() {
     if (listeners != null) {
       Iterator<PLYReaderListener> iter = listeners.iterator();
@@ -1655,6 +1827,10 @@ public Object read(Reader reader) throws IOException {
     }
   }
 
+  /**
+   * Dispatch an element description read.
+   * @param description the element description
+   */
   protected void dispatchReadElementDescription(PLYElementDescription description) {
     if (listeners != null) {
       Iterator<PLYReaderListener> iter = listeners.iterator();
@@ -1664,6 +1840,9 @@ public Object read(Reader reader) throws IOException {
     }
   }
 
+  /**
+   * Dispatch data read started.
+   */
   protected void dispatchReadDataStarted() {
     if (listeners != null) {
       Iterator<PLYReaderListener> iter = listeners.iterator();
@@ -1673,6 +1852,9 @@ public Object read(Reader reader) throws IOException {
     }
   }
 
+  /**
+   * Dispatch a data read finished.
+   */
   protected void dispatchReadDataFinished() {
     if (listeners != null) {
       Iterator<PLYReaderListener> iter = listeners.iterator();
@@ -1682,6 +1864,10 @@ public Object read(Reader reader) throws IOException {
     }
   }
 
+  /**
+   * Dispatch an element read started.
+   * @param description the element description
+   */
   protected void dispatchReadElementsStarted(PLYElementDescription description) {
     if (listeners != null) {
       Iterator<PLYReaderListener> iter = listeners.iterator();
@@ -1691,6 +1877,10 @@ public Object read(Reader reader) throws IOException {
     }
   }
 
+  /**
+   * Dispatch an element read finished.
+   * @param description the element description
+   */
   protected void dispatchReadElementsFinished(PLYElementDescription description) {
     if (listeners != null) {
       Iterator<PLYReaderListener> iter = listeners.iterator();
@@ -1700,6 +1890,10 @@ public Object read(Reader reader) throws IOException {
     }
   }
 
+  /**
+   * Dispatch a vertex read start.
+   * @param vertex the read vertex
+   */
   protected void dispatchReadVertex(Point3D vertex) {
     if (listeners != null) {
       Iterator<PLYReaderListener> iter = listeners.iterator();
@@ -1709,6 +1903,10 @@ public Object read(Reader reader) throws IOException {
     }
   }
 
+  /**
+   * Dispatch a face read start.
+   * @param face the read face
+   */
   protected void dispatchReadFace(Face<T> face) {
 
 	if (listeners != null){ Iterator<PLYReaderListener> iter = listeners.iterator(); 
@@ -1718,6 +1916,11 @@ public Object read(Reader reader) throws IOException {
 	}
   }
 
+  /**
+   * Process the given header descriptions.
+   * @param descriptors the header descriptors
+   * @return the properties indices
+   */
   private int[] processHeader(Collection<PLYElementDescription> descriptors) {
 
     int[] propertiesIndex = null;
@@ -1764,8 +1967,15 @@ public Object read(Reader reader) throws IOException {
     return propertiesIndex;
   }
 
+  /**
+   * Read a point3D.
+   * @param values the values
+   * @param propertyIndexes the properties indices
+   * @return the read point
+   * @throws IOException if an error occurs
+   */
   @SuppressWarnings("unchecked")
-private T readPoint3D(String[] values, int[] propertyIndexes) throws IOException {
+  private T readPoint3D(String[] values, int[] propertyIndexes) throws IOException {
     T pt = null;
 
     if (getPoint3DClass() != null) {
@@ -1844,8 +2054,16 @@ private T readPoint3D(String[] values, int[] propertyIndexes) throws IOException
 
   }
 
+  /**
+   * Read a 3D point.
+   * @param bytes the bytes to read
+   * @param description the description
+   * @param fileDescriptor the file descriptor
+   * @return the read point
+   * @throws IOException if an error occurs
+   */
   @SuppressWarnings("unchecked")
-private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDescriptor fileDescriptor) throws IOException {
+  private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDescriptor fileDescriptor) throws IOException {
 
     T pt = null;
 
@@ -2032,6 +2250,14 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
     return pt;
   }
 
+  /**
+   * Read a 2D point.
+   * @param bytes the bytes to read
+   * @param description the description
+   * @param fileDescriptor the file descriptor
+   * @return the read 2D point
+   * @throws IOException if an error occurs
+   */
   private Point2D readPoint2D(byte[] bytes, PLYElementDescription description, PLYFileDescriptor fileDescriptor) throws IOException {
 
 	    Point2D pt = null;
@@ -2203,6 +2429,13 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
 	    return pt;
 	  }
   
+  /**
+   * Read a face.
+   * @param values the values to read
+   * @param description the description
+   * @return the read face
+   * @throws IOException if an error occurs
+   */
   private Face<T> readFace(String[] values, PLYElementDescription description) throws IOException {
     Face<T> face = null;
 
@@ -2296,6 +2529,14 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
     return face;
   }
 
+  /**
+   * Read a face.
+   * @param is the input stream
+   * @param description the face description
+   * @param fileDescriptor the file descriptor
+   * @return the read face
+   * @throws IOException if an error occurs
+   */
   private Face<T> readFace(InputStream is, PLYElementDescription description, PLYFileDescriptor fileDescriptor) throws IOException {
 
     Face<T> face = null;
@@ -2722,20 +2963,41 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
     return face;
   }
 
+  /**
+   * Check if the given vector is acceptable.
+   * @param point the point to check
+   * @return <code>true</code> if the point is acceptable and <code>false</code> otherwise
+   */
   private boolean accept(Vector point) {
 
     // return Geom3D.contains(box, point);
     return true;
   }
 
+  /**
+   * Read the first <code>char</code> from the given bytes as a <code>int</code>.
+   * @param bytes the bytes to read
+   * @return the first <code>char</code> from the given bytes as a <code>int</code>
+   */
   private int readChar(byte[] bytes) {
     return bytes[0];
   }
 
+  /**
+   * Read the first <code>unsigned char</code> from the given bytes as a <code>int</code>.
+   * @param bytes the bytes to read
+   * @return the first <code>unsigned char</code> from the given bytes as a <code>int</code>
+   */
   private int readUChar(byte[] bytes) {
     return (bytes[0] & 0xFF);
   }
 
+  /**
+   * Read the first <code>short</code> from the given bytes as a <code>int</code>.
+   * @param bytes the bytes to read
+   * @param byteOrder the byte order ({@link PLY#FILE_FORMAT_BINARY_LE Little endian}  or {@link PLY#FILE_FORMAT_BINARY_BE Big endian})
+   * @return the first <code>short</code> from the given bytes as a <code>int</code>
+   */
   private short readShort(byte[] bytes, int byteOrder) {
     // create a byte buffer and wrap the array
     ByteBuffer bb = ByteBuffer.wrap(bytes);
@@ -2752,6 +3014,12 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
     return bb.getShort();
   }
 
+  /**
+   * Read the first <code>int</code> from the given bytes.
+   * @param bytes the bytes to read
+   * @param byteOrder the byte order ({@link PLY#FILE_FORMAT_BINARY_LE Little endian}  or {@link PLY#FILE_FORMAT_BINARY_BE Big endian})
+   * @return the first <code>int</code> from the given bytes
+   */
   private int readInt(byte[] bytes, int byteOrder) {
     // create a byte buffer and wrap the array
     ByteBuffer bb = ByteBuffer.wrap(bytes);
@@ -2768,6 +3036,12 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
     return bb.getInt();
   }
 
+  /**
+   * Read the first <code>float</code> from the given bytes.
+   * @param bytes the bytes to read
+   * @param byteOrder the byte order ({@link PLY#FILE_FORMAT_BINARY_LE Little endian}  or {@link PLY#FILE_FORMAT_BINARY_BE Big endian})
+   * @return the first <code>float</code> from the given bytes
+   */
   private float readFloat(byte[] bytes, int byteOrder) {
 
     // create a byte buffer and wrap the array
@@ -2785,6 +3059,12 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
     return bb.getFloat();
   }
 
+  /**
+   * Read the first <code>double</code> from the given bytes.
+   * @param bytes the bytes to read
+   * @param byteOrder the byte order ({@link PLY#FILE_FORMAT_BINARY_LE Little endian}  or {@link PLY#FILE_FORMAT_BINARY_BE Big endian})
+   * @return the first <code>double</code> from the given bytes
+   */
   private double readDouble(byte[] bytes, int byteOrder) {
     // create a byte buffer and wrap the array
     ByteBuffer bb = ByteBuffer.wrap(bytes);
@@ -2800,38 +3080,13 @@ private T readPoint3D(byte[] bytes, PLYElementDescription description, PLYFileDe
 
     return bb.getDouble();
   }
-/*
-  private String readLine(Reader reader) throws IOException {
 
-    if (reader != null) {
-
-      int readInt = reader.read();
-      char character = 0;
-
-      StringBuffer buffer = new StringBuffer();
-
-      boolean eol = false;
-
-      while ((readInt != -1) && (!eol)) {
-        character = (char) readInt;
-        if (character == '\r') {
-          // eol = true;
-          readInt = reader.read();
-        } else if (character == '\n') {
-          eol = true;
-        } else {
-          buffer.append(character);
-          readInt = reader.read();
-        }
-      }
-
-      return buffer.toString();
-
-    }
-
-    return null;
-  }
-*/
+  /**
+   * Read a line from the given input stream.
+   * @param is the input stream
+   * @return the read line
+   * @throws IOException if an error occurs
+   */
   private String readLine(InputStream is) throws IOException {
 
     if (is != null) {

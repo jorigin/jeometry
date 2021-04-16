@@ -179,7 +179,8 @@ public class QuickHull {
    * computation all points contained in the convex hull of the akl-toussaint points.<br>
    * http://en.wikipedia.org/wiki/Convex_hull#Akl-Toussaint_heuristics<br>
    * S.G Akl and G. T. Toussaint, "A Fast convex hull algorithm", Inform, Proc, Lat, 1978
-   * @param the points used.
+   * @param points the points
+   * @param <T> the point class
    * @return the akl-toussaint points.
    */
   private static <T extends Point3D> Point3DContainer<T> computeAklToussainPoints(Point3DContainer<T> points){
@@ -285,8 +286,10 @@ public class QuickHull {
   /**
    * Delete a visible face from the convex hull.  Adjust the list
    * of visible edges accordingly.
+   * @param convexHull the convex hull
    * @param face a face visible from a vertex to be deleted
    * @param visibleEdges the list of hull edges visible from a vertex
+   * @param <T> the type of the underlying points
    */
   private static <T extends Point3D> void deleteVisibleFace(Mesh<T> convexHull, Face<T> face, List<Edge<T>> visibleEdges){
 	  

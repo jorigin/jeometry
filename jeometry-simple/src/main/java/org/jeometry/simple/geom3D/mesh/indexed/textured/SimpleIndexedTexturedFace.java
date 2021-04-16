@@ -23,13 +23,24 @@ import org.jeometry.geom3D.textured.Texturable;
  */
 public class SimpleIndexedTexturedFace<T extends Point3D> extends SimpleIndexedFace<T> implements Texturable{
 
-
+    /**
+     * The srial version UID.
+     */
 	private static final long serialVersionUID = Jeometry.BUILD;
 
+	/**
+	 * The texture.
+	 */
 	private Texture texture = null;
 
+	/**
+	 * The texture information.
+	 */
 	private int textureInformation = 0;
 	
+	/**
+	 * The texture coordinates.
+	 */
 	private Point2DContainer textureCoords = null;
 
 	@Override

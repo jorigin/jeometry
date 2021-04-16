@@ -41,49 +41,149 @@ public class QuaternionTest extends VectorTest {
 	 */
 	protected static Class<? extends Quaternion> quaternionClass = null;
 	
+	/**
+	 * Reference value.
+	 */
 	double quaternionRefA = Double.NaN;
+	
+	/**
+	 * Reference value.
+	 */
 	double quaternionRefB = Double.NaN;
+	
+	/**
+	 * Reference value.
+	 */
 	double quaternionRefC = Double.NaN;
+	
+	/**
+	 * Reference value.
+	 */
 	double quaternionRefD = Double.NaN;
 	
+	/**
+	 * Reference value.
+	 */
 	double[] quaternionRefComponents = null;
 	
+	/**
+	 * Reference value.
+	 */
 	Quaternion quaternionRef = null;
 	
+	/**
+	 * Reference value.
+	 */
 	double quaternionRefNormSquare = Double.NaN;
 	
+	/**
+	 * Reference value.
+	 */
 	double quaternionRefNorm       = Double.NaN;
 	
+	/**
+	 * Reference value.
+	 */
 	double quaternionTargetA = Double.NaN;
+	
+	/**
+	 * Reference value.
+	 */
 	double quaternionTargetB = Double.NaN;
+	
+	/**
+	 * Reference value.
+	 */
 	double quaternionTargetC = Double.NaN;
+	
+	/**
+	 * Reference value.
+	 */
 	double quaternionTargetD = Double.NaN;
 	
+	/**
+	 * Reference value.
+	 */
 	double[] quaternionTargetComponents = null;
 	
+	/**
+	 * Reference value.
+	 */
 	Quaternion quaternionTarget = null;
 	
-	
+	/**
+	 * Reference value.
+	 */
 	double quaternionMultA = Double.NaN;
+	
+	/**
+	 * Reference value.
+	 */
 	double quaternionMultB = Double.NaN;
+	
+	/**
+	 * Reference value.
+	 */
 	double quaternionMultC = Double.NaN;
+	
+	/**
+	 * Reference value.
+	 */
 	double quaternionMultD = Double.NaN;
 	
+	/**
+	 * Reference value.
+	 */
 	Quaternion quaternionMultResult = null;
 	
+	/**
+	 * Reference value.
+	 */
 	double quaternionRefInvertedA = Double.NaN;
+	
+	/**
+	 * Reference value.
+	 */
 	double quaternionRefInvertedB = Double.NaN;
+	
+	/**
+	 * Reference value.
+	 */
 	double quaternionRefInvertedC = Double.NaN;
+	
+	/**
+	 * Reference value.
+	 */
 	double quaternionRefInvertedD = Double.NaN;
 	
+	/**
+	 * Reference value.
+	 */
 	Quaternion quaternionRefInvertedResult = null;
 	
-	
+	/**
+	 * Reference value.
+	 */
 	double quaternionRefConjugateA = Double.NaN;
+	
+	/**
+	 * Reference value.
+	 */
 	double quaternionRefConjugateB = Double.NaN;
+	
+	/**
+	 * Reference value.
+	 */
 	double quaternionRefConjugateC = Double.NaN;
+	
+	/**
+	 * Reference value.
+	 */
 	double quaternionRefConjugateD = Double.NaN;
 	
+	/**
+	 * Reference value.
+	 */
 	Quaternion quaternionRefConjugateResult = null;
 	
 	/**

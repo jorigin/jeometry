@@ -18,6 +18,9 @@ import org.jeometry.math.decomposition.CholeskyDecomposition;
  */
 public class SimpleCholeskyDecomposition implements CholeskyDecomposition {
 
+	/**
+	 * The U matrix.
+	 */
 	private Matrix u = null;
 
 	/** 

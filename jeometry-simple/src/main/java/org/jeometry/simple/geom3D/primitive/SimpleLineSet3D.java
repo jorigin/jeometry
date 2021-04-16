@@ -19,6 +19,9 @@ import org.jeometry.geom3D.primitive.LineSet3D;
  */
 public class SimpleLineSet3D<T extends Point3D> implements LineSet3D<T>{
   
+  /**
+   * The serial version UID.
+   */
   private static final long serialVersionUID = Jeometry.BUILD;
 
   /** The points of lines composing the line set. The order of the points is very important as it's

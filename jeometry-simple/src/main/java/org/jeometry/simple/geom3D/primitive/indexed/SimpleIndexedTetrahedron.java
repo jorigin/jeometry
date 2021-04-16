@@ -23,10 +23,19 @@ import org.jeometry.simple.geom3D.mesh.indexed.SimpleIndexedMesh;
  */
 public class SimpleIndexedTetrahedron<T extends Point3D> extends SimpleIndexedMesh<T> implements IndexedTetrahedron<T> {
   
+  /**
+   * The serial version UID.
+   */
   private static final long serialVersionUID = Jeometry.BUILD;
 
+  /**
+   * The vertices index.
+   */
   private int[] verticesIndex = null;
   
+  /**
+   * The vertices.
+   */
   private Point3D[] vertices = null;
   
   /**

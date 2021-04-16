@@ -6,11 +6,9 @@ import java.util.logging.Level;
 
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
-import org.jeometry.geom3D.Geom3D;
 import org.jeometry.geom3D.algorithm.convexhull.quickhull.QuickHull;
 import org.jeometry.geom3D.mesh.Face;
 import org.jeometry.geom3D.mesh.Mesh;
-import org.jeometry.geom3D.point.ArrayListPoint3DContainer;
 import org.jeometry.geom3D.point.Point3D;
 import org.jeometry.geom3D.point.Point3DContainer;
 import org.jeometry.math.Matrix;
@@ -188,7 +186,7 @@ public class MinimalEnclosingParallelepipede {
 			//   for(int i=0;i<faces.size();i++){
 
 			distanceMax=-1.0d;
-			antipodals[i] = new ArrayListPoint3DContainer<Point3D>();
+			antipodals[i] = JeometryFactory.createPoint3DContainer();
 
 			currentFace = iter.next();
 
@@ -197,7 +195,7 @@ public class MinimalEnclosingParallelepipede {
 			v2 = currentFace.getVertices().get(2).minus(currentFace.getVertices().get(0));
 
 			// Calcul et sauvegarde de la normale au plan
-			normal = Geom3D.cross(v1, v2);
+			normal = v1.cross(v2);
 			normals[i] = normal;
 
 			// Affectation des 3 premières constantes de l'equation du plan
@@ -254,7 +252,13 @@ public class MinimalEnclosingParallelepipede {
 		return antipodals;
 	}
 
-
+   /**
+     * Compute the minimal enclosing parallelepiped best triplet from the given data. 
+     * @param triplet_solution the triplet solution
+     * @param polyhedron the polyhedron
+     * @param normals the polyhedron normals
+     * @return the minimal enclosing parallelepiped best triplet
+     */
 	private static double minimalEnclosingParallelepiped_bestTriplet(int[] triplet_solution, Mesh<? extends Point3D> polyhedron, Point3D[] normals){
 
 		// Faces du polyhedre récupérées dans un tableau
@@ -367,7 +371,7 @@ public class MinimalEnclosingParallelepipede {
 			{
 				face_2 = candidats_des_facettes[i][j];
 
-				vecteur_temp = Geom3D.cross(normals[i], normals[face_2]);
+				vecteur_temp = normals[i].cross(normals[face_2]);
 
 				produit_temp2=thicknesses[face_2]*thicknesses[face_2]*produit_temp1;
 
@@ -413,6 +417,14 @@ public class MinimalEnclosingParallelepipede {
 		return volume_min;
 	}
 
+	/**
+	 * Compute the minimal enclosing parallelepiped from the given data.
+	 * @param triplet_solution the triplet solution
+	 * @param polyhedron the polyhedron
+	 * @param normals the polyhedron normals
+	 * @param antipodals the polyhedron antipodals
+	 * @return the minimal enclosing parallelepiped from the given data
+	 */
 	private static Mesh<Point3D> minimalEnclosingParallelepiped_computeParallelepiped(int[] triplet_solution, Mesh<?> polyhedron, Point3D[] normals, Point3DContainer<?>[] antipodals){
 
 		// Le polyhedre representant le parallelepipede
@@ -803,6 +815,12 @@ public class MinimalEnclosingParallelepipede {
 		return null;
 	}
 
+	/**
+	 * Compute a test candidate.
+	 * @param vecteurs the points to tesh
+	 * @param normale_facette2 the face normal
+	 * @return a test candidate
+	 */
 	private static boolean minimalEnclosingParallelepiped_tesCandidat(Point3D[] vecteurs,Point3D normale_facette2){
 		double sign = 0.0d;
 		double produit_scalaire = 0.0d;

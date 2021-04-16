@@ -16,10 +16,19 @@ import org.jeometry.math.Vector;
  */
 public class SimpleMatrix implements Matrix {
 
+	/**
+	 * The matrix data.
+	 */
 	private double[][] data = null;
 
+	/**
+	 * The matrix rows count.
+	 */
 	private int rows = 0;
 
+	/**
+	 * The matrix columns count.
+	 */
 	private int cols = 0;
 
 	@Override

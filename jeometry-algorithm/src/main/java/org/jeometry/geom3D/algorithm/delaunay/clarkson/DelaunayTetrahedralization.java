@@ -26,14 +26,29 @@ import org.jeometry.geom3D.primitive.indexed.IndexedTetrahedron;
  */
 public class DelaunayTetrahedralization<T extends Point3D> {
   
+  /**
+   * The points.
+   */
   private Point3DContainer<T> points                             = null;
   
+  /**
+   * The tetrahedra.
+   */
   private List<DelaunayTetrahedron<T>> tetrahedra                                  = null;
   
+  /**
+   * The incident tetrahedra.
+   */
   private HashMap<Point3D, Collection<DelaunayTetrahedron<T>>> incidentTetrahedra = null;
   
+  /**
+   * The indicent faces.
+   */
   private HashMap<Point3D, Collection<IndexedFace<T>>> incidentFaces         = null;
   
+  /**
+   * The neighbors.
+   */
   private HashMap<DelaunayTetrahedron<T>, List<DelaunayTetrahedron<T>>> neighbors     = null;
    
   /**
@@ -386,6 +401,14 @@ public class DelaunayTetrahedralization<T extends Point3D> {
     return circumCenter(c.getVertex(0), c.getVertex(1), c.getVertex(2), c.getVertex(3));
   }
 
+  /**
+   * Compute the circumcenter of the given points.
+   * @param p the first point
+   * @param q the second point
+   * @param r the third point
+   * @param s the fourth point
+   * @return the circumcenter of the given points
+   */
   private Point3D circumCenter (Point3D p, Point3D q, Point3D r, Point3D s) {
 
     
@@ -423,6 +446,8 @@ public class DelaunayTetrahedralization<T extends Point3D> {
   
   /** 
    * Approximate computation of 3x3 determinant
+   * @param m The matrix
+   * @return the determinant
    */
   private double det33( double... m ) {
     double det33 = 0;
