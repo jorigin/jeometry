@@ -133,7 +133,7 @@
     <dependency>
       <groupId>org.jorigin</groupId>
       <artifactId>jcommon</artifactId>
-      <version>1.0.12</version>
+      <version>${jcommon.version}</version>
     </dependency>
   
   </dependencies>
