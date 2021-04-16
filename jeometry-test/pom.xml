@@ -116,7 +116,7 @@
 		<dependency>
 			<groupId>org.jorigin</groupId>
 			<artifactId>jcommon</artifactId>
-			<version>jcommon.version</version>
+			<version>${jcommon.version}</version>
 		</dependency>
 
 		<dependency>
