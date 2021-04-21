@@ -12,7 +12,7 @@ To import the library, add the following parts to the maven project:
 
 <!-- You can update the properties section with Jeometry version -->
 <properties>
-  <jeometry.version>1.0.5</jeometry.version> 
+  <jeometry.version>1.0.6</jeometry.version> 
 </properties>
 
 <!-- The Jeometry API that contains all interfaces -->

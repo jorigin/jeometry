@@ -48,27 +48,32 @@ public class JeometryFactory {
 	/**
 	 * A system property that enables to set the global implementation to use.
 	 * The value of this property is used to locate the initialization class for the given implementation.<br><br>
-     * 
+	 * 
 	 * For example, if the Java application is launched with <code>-D{@value #JEOMETRY_IMPLEMENTATION_PROPERTY}=val</code>, Jeometry will:
 	 * <ul>
-	 * <li>Load the class <code>org.jeometry.<b>val</b>.ImplemenationInit</code> (where <code>val</code> value is lower cased)
+	 * <li>Load the class <code>org.jeometry.<b>val</b>.{@value #JEOMETRY_IMPLEMENTATION_INIT_CLASS}</code> (where <code>val</code> value is lower cased)
 	 * <li>Call the static method <code>void initJeometryImplementation()</code> that have to provide the registering of the builders
 	 * </ul>
 	 * <br>
 	 * By default, Jeometry use the <code>simple</code> implementation that will provide simple implementations of all the API interfaces..
 	 */
 	public static final String JEOMETRY_IMPLEMENTATION_PROPERTY = "org.jeometry.math.implementation";
-	
+
 	/**
 	 * The Initialization class of a Jeometry implementation. 
 	 */
 	public static final String JEOMETRY_IMPLEMENTATION_INIT_CLASS  = "JeometryImplementation";
-	
+
 	/**
 	 * The static initialization method contained within the Jeometry {@link #JEOMETRY_IMPLEMENTATION_INIT_CLASS implementation initialization class}
 	 */
 	public static final String JEOMETRY_IMPLEMENTATION_INIT_METHOD = "initJeometryImplementation";
-	
+
+	/**
+	 * The default implementation that is used.
+	 */
+	public static final String JEOMETRY_DEFAULT_IMPLEMENTATION = "simple";
+
 	/**
 	 * The attached Math builder.
 	 */
@@ -88,69 +93,36 @@ public class JeometryFactory {
 	 * The attached transform builder.
 	 */
 	private static TransformBuilder transformBuilder = null;
-	
+
 	static {init();}
 
 	/**
-	 * Static initialization.
+	 * Load and attach the given <code>implementation</code> to the factory. 
+	 * <br><br>
+	 * In order to be loaded, an implementation has to provide an <code>org.jeometry.&lt;implementation&gt;.JeometryImplementation</code> class 
+	 * that contains a method <code>public static void initJeometryImplementation()</code> that attach the implementation to the factory.<br><br>
+	 * For example, the <code>simple</code> implementation provides a class <code>org.jeometry.simple.JeometryImplementation</code> that contains the method <code>public static void initJeometryImplementation()</code>.
+	 * @param implementation the implementation to use
+	 * @return <code>true</code> if the implementation is successfully loaded and attached and <code>false</code> otherwise.
 	 */
-	private  static void init(){
-		
-		boolean initialized = false;
-		
-		// Check if a specific implementation is set
-		String implementation = System.getProperty(JEOMETRY_IMPLEMENTATION_PROPERTY);
-		
-		if (implementation == null) {
-			implementation = "simple";
-		}
-		
-		// Invoke the initialization methid
-		String initClassName = "org.jeometry."+implementation.toLowerCase()+"."+JEOMETRY_IMPLEMENTATION_INIT_CLASS;
-		Class<?> initClass = null;
-		Method initMethod  = null;
-		
-		try {
-			initClass = Class.forName(initClassName);
-			
-			initMethod = initClass.getMethod(JEOMETRY_IMPLEMENTATION_INIT_METHOD);
-			
-			initMethod.invoke(null);
-			
-			initialized = true;
-			
-			Jeometry.logger.log(Level.CONFIG, "Using "+implementation+" implementation.");			
-		} catch (ClassNotFoundException e) {
-			Jeometry.logger.log(Level.SEVERE, "Cannot find \""+implementation+"\" implementation initialization class "+initClassName+": "+e.getMessage(), e);
-			initMethod = null;
-		} catch (NoSuchMethodException e) {
-			Jeometry.logger.log(Level.SEVERE, "Cannot find \""+implementation+"\" implementation initialization method public static "+JEOMETRY_IMPLEMENTATION_INIT_METHOD+"(): "+e.getMessage(), e);
-		} catch (SecurityException e) {
-			Jeometry.logger.log(Level.SEVERE, "Cannot access \""+implementation+"\" implementation initialization class "+initClassName+": "+e.getMessage(), e);
-		} catch (IllegalAccessException e) {
-			Jeometry.logger.log(Level.SEVERE, "Cannot access \""+implementation+"\" implementation initialization class "+initClassName+": "+e.getMessage(), e);
-		} catch (IllegalArgumentException e) {
-			Jeometry.logger.log(Level.SEVERE, "Cannot execute \""+implementation+"\" implementation initialization method public static "+JEOMETRY_IMPLEMENTATION_INIT_METHOD+"(): "+e.getMessage(), e);
-		} catch (InvocationTargetException e) {
-			Jeometry.logger.log(Level.SEVERE, "Cannot invoke \""+implementation+"\" implementation initialization method public static "+JEOMETRY_IMPLEMENTATION_INIT_METHOD+"(): "+e.getMessage(), e);
-		}
-		
-		if ((!initialized) && (!"SIMPLE".equalsIgnoreCase(implementation))) {
-			Jeometry.logger.log(Level.SEVERE, "Implementation \""+implementation+"\" is not available. Using simple implementation.");
-		
-			initClassName = "org.geometry."+implementation.toLowerCase()+".ImplementationInit";
-			initClass = null;
-			initMethod  = null;
-			
+	public static boolean loadImplementation(String implementation) {
+		boolean loaded = false;
+
+		if (implementation != null) {
+			// Invoke the initialization methid
+			String initClassName = "org.jeometry."+implementation.toLowerCase()+"."+JEOMETRY_IMPLEMENTATION_INIT_CLASS;
+			Class<?> initClass = null;
+			Method initMethod  = null;
+
 			try {
 				initClass = Class.forName(initClassName);
-				
-				initMethod = initClass.getMethod(JEOMETRY_IMPLEMENTATION_INIT_METHOD, new Class<?>[] {null});
-				
-				initMethod.invoke(null, new Object[] {null});
-				
-				initialized = true;
-				
+
+				initMethod = initClass.getMethod(JEOMETRY_IMPLEMENTATION_INIT_METHOD);
+
+				initMethod.invoke(null);
+
+				loaded = true;
+
 				Jeometry.logger.log(Level.CONFIG, "Using "+implementation+" implementation.");			
 			} catch (ClassNotFoundException e) {
 				Jeometry.logger.log(Level.SEVERE, "Cannot find \""+implementation+"\" implementation initialization class "+initClassName+": "+e.getMessage(), e);
@@ -165,14 +137,50 @@ public class JeometryFactory {
 				Jeometry.logger.log(Level.SEVERE, "Cannot execute \""+implementation+"\" implementation initialization method public static "+JEOMETRY_IMPLEMENTATION_INIT_METHOD+"(): "+e.getMessage(), e);
 			} catch (InvocationTargetException e) {
 				Jeometry.logger.log(Level.SEVERE, "Cannot invoke \""+implementation+"\" implementation initialization method public static "+JEOMETRY_IMPLEMENTATION_INIT_METHOD+"(): "+e.getMessage(), e);
-			}
-		    
-			if (!initialized) {
-				Jeometry.logger.log(Level.SEVERE, "Cannot find \""+implementation+"\" implementation, jeometry-simple.jar may not be accessible.");
+			} catch (Throwable t) {
+				Jeometry.logger.log(Level.SEVERE, "Cannot use \""+implementation+"\" implementation: "+t.getMessage(), t);
 			}
 		}
+
+		return loaded;
 	}
-	
+
+
+	/**
+	 * Static initialization.
+	 */
+	private static void init(){
+
+		boolean initialized = false;
+
+		// Check if a specific implementation is set
+		String implementation = System.getProperty(JEOMETRY_IMPLEMENTATION_PROPERTY);
+
+		if (implementation != null) {
+			Jeometry.logger.log(Level.INFO, "Using Jeometry implementation \""+implementation+"\" specified with "+JEOMETRY_IMPLEMENTATION_PROPERTY+" property.");
+
+			initialized = loadImplementation(implementation);
+
+			if (!initialized) {
+				Jeometry.logger.log(Level.SEVERE, "Jeometry implementation \""+implementation+"\" cannot be loaded.");
+				Jeometry.logger.log(Level.INFO, "Using \""+JEOMETRY_DEFAULT_IMPLEMENTATION+"\" implementation as default.");
+
+				initialized = loadImplementation(JEOMETRY_DEFAULT_IMPLEMENTATION);
+			}
+
+		} else {
+			Jeometry.logger.log(Level.INFO, "No Jeometry implementation specified with "+JEOMETRY_IMPLEMENTATION_PROPERTY+" property.");
+			Jeometry.logger.log(Level.INFO, "Using \""+JEOMETRY_DEFAULT_IMPLEMENTATION+"\" implementation as default.");
+
+			initialized = loadImplementation(JEOMETRY_DEFAULT_IMPLEMENTATION);
+		}
+
+		// No implementation is available
+		if (!initialized) {
+			Jeometry.logger.log(Level.SEVERE, "No Jeometry implementation is available, adding jeometry-simple.jar to classpath may solve the problem.");
+		}
+	}
+
 	/**
 	 * Get the {@link MathBuilder math builder} that is used by this factory.
 	 * @return the {@link MathBuilder math builder} that is used by this factory
@@ -208,7 +216,7 @@ public class JeometryFactory {
 	public static void setMeshBuilder(MeshBuilder builder) {
 		meshBuilder = builder;
 	}
-	
+
 	/**
 	 * Get the {@link PointBuilder point builder} that is used by this factory.
 	 * @return the {@link PointBuilder point builder} that is used by this factory
@@ -226,7 +234,7 @@ public class JeometryFactory {
 	public static void setPointBuilder(PointBuilder builder) {
 		pointBuilder = builder;
 	}
-	
+
 	/**
 	 * Get the {@link TransformBuilder transform builder} that is used by this factory.
 	 * @return the {@link TransformBuilder transform builder} that is used by this factory
@@ -245,7 +253,7 @@ public class JeometryFactory {
 		transformBuilder = builder;
 	}
 
-	
+
 	/**
 	 * Create a new {@link Vector} using the underlying {@link #getMathBuilder() math builder}.
 	 * @param size the size of the vector
@@ -286,7 +294,7 @@ public class JeometryFactory {
 			throw new IllegalStateException("No math builder available.");
 		}
 	}
-	
+
 	/**
 	 * Create a new instance of {@link Matrix} using the underlying {@link #getMathBuilder() math builder}.
 	 * @param rows the number of rows of the matrix
@@ -347,7 +355,7 @@ public class JeometryFactory {
 			throw new IllegalStateException("No math builder available.");
 		}
 	}
-	
+
 	/**
 	 * Create a new square {@link Matrix} with the given <code>size</code> and that is initialized to identity using the underlying {@link #getMathBuilder() math builder}.
 	 * @param size the number of rows and columns of the matrix.
@@ -448,7 +456,7 @@ public class JeometryFactory {
 			throw new IllegalStateException("No point builder available.");
 		}
 	}
-	
+
 	/**
 	 * Create a new instance of {@link Point2D} with the values obtained from the {@link Vector} given in parameter. 
 	 * The first component of the vector is considered as <i>x</i> value and the second component is considered as <i>y</i> value.
@@ -465,7 +473,7 @@ public class JeometryFactory {
 			throw new IllegalStateException("No point builder available.");
 		}
 	}
-	
+
 	/**
 	 * Create a new instance of {@link Point2DContainer}. 
 	 * @return a new instance of {@link Point2DContainer}
@@ -522,7 +530,7 @@ public class JeometryFactory {
 			throw new IllegalStateException("No point builder available.");
 		}
 	}
-	
+
 
 	/**
 	 * Create a new instance of {@link Point3D} that is a copy of the point given in parameter. 
@@ -536,7 +544,7 @@ public class JeometryFactory {
 			throw new IllegalStateException("No point builder available.");
 		}
 	}
-	
+
 	/**
 	 * Create a new instance of {@link Point3D} with the values obtained from the {@link Vector} given in parameter. 
 	 * The first component of the vector is considered as <i>x</i> value, the second component is considered as <i>y</i> value and the third component is considered as <i>z</i> value.
@@ -553,7 +561,7 @@ public class JeometryFactory {
 			throw new IllegalStateException("No point builder available.");
 		}
 	}
-	
+
 	/**
 	 * Create a new instance of {@link Point3DContainer}. 
 	 * @param <T> The type of the 3D points
@@ -583,7 +591,7 @@ public class JeometryFactory {
 		}
 	}
 
-	
+
 	/**
 	 * Create a new default empty mesh.
 	 * @param <T> The type of underlying 3D points
@@ -642,7 +650,7 @@ public class JeometryFactory {
 			throw new IllegalStateException("No mesh builder available.");
 		}
 	}
-	
+
 	/**
 	 * Create a new triangle {@link Face} from the given vertices. 
 	 * @param <T> The type of underlying 3D points
@@ -851,7 +859,7 @@ public class JeometryFactory {
 			throw new IllegalStateException("No mesh builder available.");
 		}
 	}
-	
+
 	/**
 	 * Create an {@link IndexedFace indexed face} made of the vertices designed by the given indices.
 	 * The returned object is also an instance of {@link Texturable} interface.
@@ -963,7 +971,7 @@ public class JeometryFactory {
 			throw new IllegalStateException("No mesh builder available.");
 		}
 	}
-	
+
 	/**
 	 * Create a new {@link MeshNeighborhood mesh neighborhood}.
 	 * @param <T> The type of underlying 3D points
@@ -1024,22 +1032,22 @@ public class JeometryFactory {
 		// TODO implements createBox(T min, T max)
 		return null;
 	}
-	
-   /**
-    * Create a new {@link IndexedTetrahedron indexed tetrahedron}.
-    * @param <T> the type of the vertices
-    * @param base1 the index within the source of the first vertex of the tetrahedron base
-    * @param base2 the index within the source of the first vertex of the tetrahedron base
-    * @param base3 the index within the source of the first vertex of the tetrahedron base
-    * @param top the index within the source of the tetrahedron top
-    * @param source the indexed mesh vertices source
-    * @return an indexed {@link IndexedTetrahedron indexed tetrahedron}
-    */
+
+	/**
+	 * Create a new {@link IndexedTetrahedron indexed tetrahedron}.
+	 * @param <T> the type of the vertices
+	 * @param base1 the index within the source of the first vertex of the tetrahedron base
+	 * @param base2 the index within the source of the first vertex of the tetrahedron base
+	 * @param base3 the index within the source of the first vertex of the tetrahedron base
+	 * @param top the index within the source of the tetrahedron top
+	 * @param source the indexed mesh vertices source
+	 * @return an indexed {@link IndexedTetrahedron indexed tetrahedron}
+	 */
 	public static <T extends Point3D> IndexedTetrahedron<T> createIndexedTetrahedron(int base1, int base2, int base3, int top, Point3DContainer<T> source) {
 		// TODO implements createBox(T min, T max)
 		return null;
 	}
-	
+
 	/**
 	 * Create a {@link Solver matrix solver} using a default method.
 	 * @return the created solver
@@ -1051,7 +1059,7 @@ public class JeometryFactory {
 			throw new IllegalStateException("No math builder available.");
 		}
 	}
-	
+
 	/**
 	 * Create a new {@link LUDecomposition LU decomposition} from the given matrix.
 	 * @param matrix the matrix to decompose
@@ -1064,7 +1072,7 @@ public class JeometryFactory {
 			throw new IllegalStateException("No math builder available.");
 		}
 	}
-	
+
 	/**
 	 * Create a new {@link EigenDecomposition Eigen decomposition} from the given matrix.
 	 * @param matrix the matrix to decompose
@@ -1077,7 +1085,7 @@ public class JeometryFactory {
 			throw new IllegalStateException("No math builder available.");
 		}
 	}
-	
+
 	/**
 	 * Create a new {@link SVDDecomposition Singular Values (SVD) decomposition} from the given matrix.
 	 * @param matrix the matrix to decompose
@@ -1090,7 +1098,7 @@ public class JeometryFactory {
 			throw new IllegalStateException("No math builder available.");
 		}
 	}
-		
+
 	/**
 	 * Create a new {@link QRDecomposition QR decomposition} from the given matrix.
 	 * @param matrix the matrix to decompose
@@ -1103,7 +1111,7 @@ public class JeometryFactory {
 			throw new IllegalStateException("No math builder available.");
 		}
 	}
-	
+
 	/**
 	 * Create a new {@link CholeskyDecomposition Cholesky decomposition} from the given matrix.
 	 * @param matrix the matrix to decompose
@@ -1116,7 +1124,7 @@ public class JeometryFactory {
 			throw new IllegalStateException("No math builder available.");
 		}
 	}
-	
+
 	/**
 	 * Create a new {@link Transform3DMatrix} that represents the identity transform.
 	 * @return a new {@link Transform3DMatrix} that represents the identity transform
@@ -1188,7 +1196,7 @@ public class JeometryFactory {
 			throw new IllegalStateException("No transform builder available.");
 		}
 	}
-	
+
 	/**
 	 * Create a new {@link Transform3DMatrix} that relies on the 4x4 given matrix. <br><br>
 	 * The 4x4 matrix represents a 3D affine transform defined such that:
@@ -1217,7 +1225,7 @@ public class JeometryFactory {
 			throw new IllegalStateException("No transform builder available.");
 		}
 	}
-	
+
 	/**
 	 * Create a new {@link Transform3DQuaternion} that represents the identity transform.
 	 * @return a new {@link Transform3DQuaternion} that represents the identity transform

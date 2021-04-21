@@ -159,13 +159,6 @@
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>${maven.plugin.surefire.version}</version>
-				<dependencies>
-                  <dependency>
-                    <groupId>org.junit.jupiter</groupId>
-                    <artifactId>junit-jupiter-engine</artifactId>
-                    <version>${junit.version}</version>
-                  </dependency>
-                </dependencies>
 			</plugin>
 
 			<!-- Generate sources jar during package phase equivalent to maven sources:jar -->

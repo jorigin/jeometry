@@ -18,6 +18,14 @@
 - Refactor Quaternion `mult` into `product`
 - Refactor make all xxxAffect() methods to return a reference on the object instead of `void` in order to chain processing
 - Refactor make all setValue(s) methods to return a reference on the object for chaining purpose
+- Enable JeometryFactory to handle multiples implementation
+
+## [1.0.6](https://github.com/jorigin/jeometry/releases/tag/release-1.0.6)
+### Added
+- JeometryFactory `public static boolean loadImplementation(String)` method
+### Change
+- JeometryFactory initialization try to instanciate specific implementation and switch to default on (simple) if not found 
+### Removed
 
 ## [1.0.5](https://github.com/jorigin/jeometry/releases/tag/release-1.0.5)
 ### Added
