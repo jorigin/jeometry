@@ -55,7 +55,7 @@ public class SimpleIndexedEdge<T extends Point3D> implements IndexedEdge<T>{
 	 * @param vertex2Index the index of the second extremity of the edge.
 	 */
 	public SimpleIndexedEdge(int vertex1Index, int vertex2Index) {
-	  verticesIndexes = new int[]{vertex1Index, vertex2Index};
+	  this.verticesIndexes = new int[]{vertex1Index, vertex2Index};
 	}
 	
 	/**
@@ -65,19 +65,19 @@ public class SimpleIndexedEdge<T extends Point3D> implements IndexedEdge<T>{
 	 * @param mesh the mesh that holds this edge.
 	 */
 	public SimpleIndexedEdge(int vertex1Index, int vertex2Index, IndexedMesh<T> mesh){
-		verticesIndexes = new int[]{vertex1Index, vertex2Index};
+		this.verticesIndexes = new int[]{vertex1Index, vertex2Index};
 		this.mesh = mesh;
 	}
 
 	@Override
 	public int[] getVerticesIndexes() {
-		return verticesIndexes;
+		return this.verticesIndexes;
 	}
 
 	@Override
 	public Point3DContainer<T> getVerticesSource() {
-		if (mesh != null) {
-		  return mesh.getVerticesSource();
+		if (this.mesh != null) {
+		  return this.mesh.getVerticesSource();
 		} else {
 		  return null;
 		}
@@ -90,21 +90,21 @@ public class SimpleIndexedEdge<T extends Point3D> implements IndexedEdge<T>{
 
 	@Override
 	public boolean validateIndexes() {
-		if (   (verticesIndexes != null)&&(verticesIndexes.length == 2)&&(getVerticesSource() != null)
-				&&(verticesIndexes[0]>-1)&&(verticesIndexes[1]>-1)
-				&&(verticesIndexes[0]<getVerticesSource().size())&&(verticesIndexes[1]<getVerticesSource().size())){
+		if (   (this.verticesIndexes != null)&&(this.verticesIndexes.length == 2)&&(getVerticesSource() != null)
+				&&(this.verticesIndexes[0]>-1)&&(this.verticesIndexes[1]>-1)
+				&&(this.verticesIndexes[0]<getVerticesSource().size())&&(this.verticesIndexes[1]<getVerticesSource().size())){
 
-			validatedIndexes = true;
+			this.validatedIndexes = true;
 		} else {
-			validatedIndexes = false;
+			this.validatedIndexes = false;
 		}
 
-		return validatedIndexes;
+		return this.validatedIndexes;
 	}
 
 	@Override
 	public boolean isValidatedIndexes() {
-		return validatedIndexes;
+		return this.validatedIndexes;
 	}
 
 	@Override
@@ -116,25 +116,25 @@ public class SimpleIndexedEdge<T extends Point3D> implements IndexedEdge<T>{
 	@Override
 	public Point3DContainer<T> getVertices() {
 		Point3DContainer<T> points = JeometryFactory.createPoint3DContainer();
-		points.add(getVerticesSource().get(verticesIndexes[0]));
-		points.add(getVerticesSource().get(verticesIndexes[1]));
+		points.add(getVerticesSource().get(this.verticesIndexes[0]));
+		points.add(getVerticesSource().get(this.verticesIndexes[1]));
 
 		return points;
 	}
 
 	@Override
 	public T getEnd1() {
-		return getVerticesSource().get(verticesIndexes[0]);
+		return getVerticesSource().get(this.verticesIndexes[0]);
 	}
 
 	@Override
 	public T getEnd2() {
-		return getVerticesSource().get(verticesIndexes[1]);
+		return getVerticesSource().get(this.verticesIndexes[1]);
 	}
 
 	@Override
 	public IndexedMesh<T> getMesh() {
-		return mesh;
+		return this.mesh;
 	}
 
 	@Override

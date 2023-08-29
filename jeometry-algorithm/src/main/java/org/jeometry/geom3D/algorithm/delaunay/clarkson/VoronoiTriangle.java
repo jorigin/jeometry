@@ -40,7 +40,7 @@ public class VoronoiTriangle {
    * @return the first vertex of the voronoi triangle.
    */
   public Point3D getVertex1() {
-    return vertex1;
+    return this.vertex1;
   }
   
   /**
@@ -48,7 +48,7 @@ public class VoronoiTriangle {
    * @return the second vertex of the voronoi triangle.
    */
   public Point3D getVertex2() {
-    return vertex2;
+    return this.vertex2;
   }
 
   /**
@@ -56,7 +56,7 @@ public class VoronoiTriangle {
    * @return the the third vertex of the voronoi triangle.
    */
   public Point3D getVertex3() {
-    return vertex3;
+    return this.vertex3;
   }
 
 }

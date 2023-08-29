@@ -49,17 +49,17 @@ public class SimpleIndexedPolygon3D<T extends Point3D> extends SimplePolygon3D<T
 	public String toString() {
 		String str = getClass().getSimpleName()+" ";
 
-		if (verticesIndexes != null){
-			str +="["+verticesIndexes[0];
-			for(int i = 1; i < verticesIndexes.length; i++){
-				str += ", "+verticesIndexes[i];
+		if (this.verticesIndexes != null){
+			str +="["+this.verticesIndexes[0];
+			for(int i = 1; i < this.verticesIndexes.length; i++){
+				str += ", "+this.verticesIndexes[i];
 			}
 			str += "]";
 		} else {
 			str +="[]";
 		}
 
-		if (validatedIndexes){
+		if (this.validatedIndexes){
 			str += " - "+super.toString();
 		}
 
@@ -68,18 +68,18 @@ public class SimpleIndexedPolygon3D<T extends Point3D> extends SimplePolygon3D<T
 
 	@Override
 	public int[] getVerticesIndexes() {
-		return verticesIndexes;
+		return this.verticesIndexes;
 	}
 
 	@Override
 	public void setVerticesIndexes(int[] indices) {
-		verticesIndexes = indices;
-		validatedIndexes = false;
+		this.verticesIndexes = indices;
+		this.validatedIndexes = false;
 	}
 
 	@Override
 	public List<IndexedEdge<T>> getEdgesIndexed() {
-		return edgesIndexed;
+		return this.edgesIndexed;
 	}
 
 	@Override
@@ -91,7 +91,7 @@ public class SimpleIndexedPolygon3D<T extends Point3D> extends SimplePolygon3D<T
 
 	@Override
 	public Point3DContainer<T> getVerticesSource() {
-		return verticesSource;
+		return this.verticesSource;
 	}
 
 	@Override
@@ -101,13 +101,13 @@ public class SimpleIndexedPolygon3D<T extends Point3D> extends SimplePolygon3D<T
 
 	@Override
 	public boolean isValidatedIndexes() {
-		return validatedIndexes;
+		return this.validatedIndexes;
 	}
 
 	@Override
 	public boolean validateIndexes() {
 
-		validatedIndexes = false;
+		this.validatedIndexes = false;
 
 		if ((getVerticesIndexes() != null)&&(getVerticesSource() != null)){
 
@@ -117,18 +117,18 @@ public class SimpleIndexedPolygon3D<T extends Point3D> extends SimplePolygon3D<T
 				if ((getVerticesIndexes()[i] > -1)&&(getVerticesIndexes()[i] < getVerticesSource().size())){
 					vertices.add(getVerticesSource().get(getVerticesIndexes()[i]));
 				} else {
-					validatedIndexes = false;
+					this.validatedIndexes = false;
 				}
 			}
 
 			super.setVertices(vertices);
-			validatedIndexes = true;
+			this.validatedIndexes = true;
 
 		} else {
-			validatedIndexes = false;
+			this.validatedIndexes = false;
 		}
 
-		return validatedIndexes;
+		return this.validatedIndexes;
 	}
 
 	@Override
@@ -158,7 +158,7 @@ public class SimpleIndexedPolygon3D<T extends Point3D> extends SimplePolygon3D<T
 	 */
 	public SimpleIndexedPolygon3D(int[] indices){
 		super();
-		verticesIndexes = indices;
+		this.verticesIndexes = indices;
 	}
 
 	/**
@@ -169,9 +169,9 @@ public class SimpleIndexedPolygon3D<T extends Point3D> extends SimplePolygon3D<T
 		super();
 		
 		if (indices != null) {
-		  verticesIndexes = indices.stream().mapToInt(i->i).toArray();
+		  this.verticesIndexes = indices.stream().mapToInt(i->i).toArray();
 		} else {
-		  verticesIndexes = null;
+		  this.verticesIndexes = null;
 		}
 	}
 	
@@ -184,7 +184,7 @@ public class SimpleIndexedPolygon3D<T extends Point3D> extends SimplePolygon3D<T
 	public SimpleIndexedPolygon3D(int[] indices, Point3DContainer<T> verticesSource){
 		super();
 		setVerticesSource(verticesSource);
-		verticesIndexes = indices;
+		this.verticesIndexes = indices;
 		validateIndexes();
 	}
 
@@ -199,9 +199,9 @@ public class SimpleIndexedPolygon3D<T extends Point3D> extends SimplePolygon3D<T
 		setVerticesSource(verticesSource);
 		
 		if (indices != null) {
-		  verticesIndexes = indices.stream().mapToInt(i->i).toArray();
+		  this.verticesIndexes = indices.stream().mapToInt(i->i).toArray();
 		} else {
-		  verticesIndexes = null;
+		  this.verticesIndexes = null;
 		}
 		
 		validateIndexes();

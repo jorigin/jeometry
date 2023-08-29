@@ -26,22 +26,22 @@ public class SimpleIndexedAdjencyMap<T extends Point3D> implements AdjacencyMap<
 
 	@Override
 	public List<IndexedFace<T>> getAdjacencies(IndexedFace<T> face) {
-		return map.get(face);
+		return this.map.get(face);
 	}
 
 	@Override
 	public void setAdjacencies(IndexedFace<T> face, List<IndexedFace<T>> adjacencies) {
-		map.put(face, adjacencies);
+		this.map.put(face, adjacencies);
 	}
 
 	@Override
 	public boolean addAdjacent(IndexedFace<T> face, IndexedFace<T> adjacent) {
 
-		List<IndexedFace<T>> l = map.get(face);
+		List<IndexedFace<T>> l = this.map.get(face);
 
 		if (l == null){
 			l = new ArrayList<IndexedFace<T>>();
-			map.put(face, l);
+			this.map.put(face, l);
 		}
 
 		return l.add(adjacent);
@@ -49,7 +49,7 @@ public class SimpleIndexedAdjencyMap<T extends Point3D> implements AdjacencyMap<
 
 	@Override
 	public boolean removeAdjacent(IndexedFace<T> face, IndexedFace<T> adjacent) {
-		List<IndexedFace<T>> l = map.get(face);
+		List<IndexedFace<T>> l = this.map.get(face);
 
 		if (l != null){
 			return l.remove(adjacent);
@@ -62,6 +62,6 @@ public class SimpleIndexedAdjencyMap<T extends Point3D> implements AdjacencyMap<
 	 * Create a new empty adjacency map.
 	 */
 	public SimpleIndexedAdjencyMap(){
-		map = new HashMap<IndexedFace<T>,List<IndexedFace<T>>>();
+		this.map = new HashMap<IndexedFace<T>,List<IndexedFace<T>>>();
 	}
 }

@@ -77,52 +77,52 @@ public class ArrayListPoint3DContainer<T extends Point3D> implements Cloneable, 
 
 	@Override
 	public int getDataType() {
-		return type;
+		return this.type;
 	}
 
 	@Override
 	public double getX() {
-		return x;
+		return this.x;
 	}
 
 	@Override
 	public double getY() {
-		return y;
+		return this.y;
 	}
 
 	@Override
 	public double getZ() {
-		return z;
+		return this.z;
 	}
 
 	@Override
 	public double getXMin() {
-		return xmin;
+		return this.xmin;
 	}
 
 	@Override
 	public double getYMin() {
-		return ymin;
+		return this.ymin;
 	}
 
 	@Override
 	public double getZMin() {
-		return zmin;
+		return this.zmin;
 	}
 
 	@Override
 	public double getXMax() {
-		return xmax;
+		return this.xmax;
 	}
 
 	@Override
 	public double getYMax() {
-		return ymax;
+		return this.ymax;
 	}
 
 	@Override
 	public double getZMax() {
-		return zmax;
+		return this.zmax;
 	}
 
 	@Override
@@ -135,112 +135,112 @@ public class ArrayListPoint3DContainer<T extends Point3D> implements Cloneable, 
 	@Override
 	public void updateLocalization(){
 
-		x = 0.0d;
-		y = 0.0d;
-		z = 0.0d;
+		this.x = 0.0d;
+		this.y = 0.0d;
+		this.z = 0.0d;
 
-		xmin = Double.MAX_VALUE;
-		ymin = Double.MAX_VALUE;
-		zmin = Double.MAX_VALUE;
+		this.xmin = Double.MAX_VALUE;
+		this.ymin = Double.MAX_VALUE;
+		this.zmin = Double.MAX_VALUE;
 
-		xmax = -Double.MAX_VALUE;
-		ymax = -Double.MAX_VALUE;
-		zmax = -Double.MAX_VALUE;
+		this.xmax = -Double.MAX_VALUE;
+		this.ymax = -Double.MAX_VALUE;
+		this.zmax = -Double.MAX_VALUE;
 
 		for(Point3D point3d : this){
 
-			if (point3d.getX() > xmax){
-				xmax = point3d.getX();
+			if (point3d.getX() > this.xmax){
+				this.xmax = point3d.getX();
 			}
 
-			if (point3d.getX() < xmin){
-				xmin = point3d.getX();
+			if (point3d.getX() < this.xmin){
+				this.xmin = point3d.getX();
 			}
 
-			if (point3d.getY() > ymax){
-				ymax = point3d.getY();
+			if (point3d.getY() > this.ymax){
+				this.ymax = point3d.getY();
 			}
 
-			if (point3d.getY() < ymin){
-				ymin = point3d.getY();
+			if (point3d.getY() < this.ymin){
+				this.ymin = point3d.getY();
 			}
 
-			if (point3d.getZ() > zmax){
-				zmax = point3d.getZ();
+			if (point3d.getZ() > this.zmax){
+				this.zmax = point3d.getZ();
 			}
 
-			if (point3d.getZ() < zmin){
-				zmin = point3d.getZ();
+			if (point3d.getZ() < this.zmin){
+				this.zmin = point3d.getZ();
 			}
 
-			x = x + point3d.getX();
-			y = y + point3d.getY();
-			z = z + point3d.getZ();
+			this.x = this.x + point3d.getX();
+			this.y = this.y + point3d.getY();
+			this.z = this.z + point3d.getZ();
 		}
 
-		x = x / size();
-		y = y / size();
-		z = z / size();
+		this.x = this.x / size();
+		this.y = this.y / size();
+		this.z = this.z / size();
 	}
 
 	@Override
 	public int size() {
-		return data.size();
+		return this.data.size();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		return data.isEmpty();
+		return this.data.isEmpty();
 	}
 
 	@Override
 	public boolean contains(Point3D point) {
-		return data.contains(point);
+		return this.data.contains(point);
 	}
 
 	@Override
 	public Iterator<T> iterator() {
-		return data.iterator();
+		return this.data.iterator();
 	}
 
 	@Override
 	public boolean add(T point) {
-		return data.add(point);
+		return this.data.add(point);
 	}
 
 	@Override
 	public boolean remove(Point3D point) {
-		return data.remove(point);
+		return this.data.remove(point);
 	}
 
 	@Override
 	public void clear() {
-		data.clear();
+		this.data.clear();
 	}
 
 	@Override
 	public T get(int index) {
-		return data.get(index);
+		return this.data.get(index);
 	}
 
 	@Override
 	public Point3D set(int index, T point) {
-		return data.set(index, point);
+		return this.data.set(index, point);
 	}
 
 	@Override
 	public T remove(int index) {
-		return data.remove(index);
+		return this.data.remove(index);
 	}
 
 	@Override
 	public int indexOf(Point3D point) {
-		return data.indexOf(point);
+		return this.data.indexOf(point);
 	}
 
 	@Override
 	public int lastIndexOf(Point3D point) {
-		return data.lastIndexOf(point);
+		return this.data.lastIndexOf(point);
 	}
 
 	/**
@@ -249,7 +249,7 @@ public class ArrayListPoint3DContainer<T extends Point3D> implements Cloneable, 
 	 * @see #ArrayListPoint3DContainer(int)
 	 */
 	public ArrayListPoint3DContainer(){
-		data = new ArrayList<T>();
+		this.data = new ArrayList<T>();
 	}
 
 	/**
@@ -259,7 +259,7 @@ public class ArrayListPoint3DContainer<T extends Point3D> implements Cloneable, 
 	 * @param size the initial capacity of the point container.
 	 */
 	public ArrayListPoint3DContainer(int size){
-		data = new ArrayList<T>(size);
+		this.data = new ArrayList<T>(size);
 	}
 
 }

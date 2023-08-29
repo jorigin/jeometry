@@ -39,7 +39,7 @@ public class SimpleMesh<T extends Point3D> implements Mesh<T> {
 	 */
 	public SimpleMesh(){
 		//  vertices = new Point3DManager();
-		faces = new ArrayList<Face<T>>();
+		this.faces = new ArrayList<Face<T>>();
 	}
 
 	/**
@@ -67,8 +67,8 @@ public class SimpleMesh<T extends Point3D> implements Mesh<T> {
 		List<? extends Edge<T>> faceEdge = null;
 
 		// Parcours des faces et récupération des arrêtes.
-		for(int i = 0; i < faces.size(); i++){
-			face = faces.get(i);
+		for(int i = 0; i < this.faces.size(); i++){
+			face = this.faces.get(i);
 
 			// Les arrêtes de la face courante sont ajoutées à l'ensemble des arêtes.
 			// Comme edges est un HashSet, il n'insère une arrête e1 que s'il n'existe pas
@@ -94,12 +94,12 @@ public class SimpleMesh<T extends Point3D> implements Mesh<T> {
 
 	@Override
 	public List<Face<T>> getFaces() {
-		return faces;
+		return this.faces;
 	}
 
 	@Override
 	public Point3DContainer<T> getVertices() {
-		return vertices;
+		return this.vertices;
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public class SimpleMesh<T extends Point3D> implements Mesh<T> {
 		// Le polyhedre devient le propriétaire de la face
 		face.setMesh(this);
 
-		boolean ok = faces.add(face);
+		boolean ok = this.faces.add(face);
 
 		if (ok){
 
@@ -125,7 +125,7 @@ public class SimpleMesh<T extends Point3D> implements Mesh<T> {
 
 			if (v != null){
 				for(T p : v){
-					vertices.add(p);
+					this.vertices.add(p);
 				}
 			}
 		}
@@ -135,7 +135,7 @@ public class SimpleMesh<T extends Point3D> implements Mesh<T> {
 
 	@Override
 	public boolean removeFace(Face<?> face){
-		return faces.remove(face);
+		return this.faces.remove(face);
 	}
 
 	@Override

@@ -30,7 +30,7 @@ public class SimplePoint3D implements Point3D{
 	public double getValue(int dimension) {
 
 		if ((dimension >= 0)&&(dimension < 4)){
-			return coordinates[dimension];
+			return this.coordinates[dimension];
 		} else {
 			throw new IllegalArgumentException(getClass().getSimpleName()+": invalid dimension "+dimension);
 		}
@@ -41,7 +41,7 @@ public class SimplePoint3D implements Point3D{
 	@Override
 	public void setValue(int dimension, double value) {
 		if ((dimension >= 0)&&(dimension < 4)){
-			coordinates[dimension] = value;
+			this.coordinates[dimension] = value;
 		} else {
 			throw new IllegalArgumentException(getClass().getSimpleName()+": invalid dimension "+dimension);
 		}
@@ -49,42 +49,42 @@ public class SimplePoint3D implements Point3D{
 
 	@Override
 	public double getX() {
-		return coordinates[DIMENSION_X];
+		return this.coordinates[DIMENSION_X];
 	}
 
 	@Override
 	public void setX(double x) {
-		coordinates[DIMENSION_X] = x;
+		this.coordinates[DIMENSION_X] = x;
 	}
 
 	@Override
 	public double getY() {
-		return coordinates[DIMENSION_Y];
+		return this.coordinates[DIMENSION_Y];
 	}
 
 	@Override
 	public void setY(double y) {
-		coordinates[DIMENSION_Y] = y;
+		this.coordinates[DIMENSION_Y] = y;
 	}
 
 	@Override
 	public double getZ() {
-		return coordinates[DIMENSION_Z];
+		return this.coordinates[DIMENSION_Z];
 	}
 
 	@Override
 	public void setZ(double z) {
-		coordinates[DIMENSION_Z] = z;
+		this.coordinates[DIMENSION_Z] = z;
 	}
 
 	@Override
 	public double getH() {
-		return coordinates[DIMENSION_H];
+		return this.coordinates[DIMENSION_H];
 	}
 
 	@Override
 	public void setH(double h) {
-		coordinates[DIMENSION_H] = h;
+		this.coordinates[DIMENSION_H] = h;
 	}
 
 	@Override
@@ -453,7 +453,7 @@ public class SimplePoint3D implements Point3D{
 	 * @see #SimplePoint3D(double, double, double)
 	 */
 	public SimplePoint3D(){
-		coordinates = new double[3];
+		this.coordinates = new double[3];
 		setX(Double.NaN);
 		setY(Double.NaN);
 		setZ(Double.NaN);
@@ -468,7 +468,7 @@ public class SimplePoint3D implements Point3D{
 	 * @see #SimplePoint3D()
 	 */
 	public SimplePoint3D(double x, double y, double z){
-		coordinates = new double[3];
+		this.coordinates = new double[3];
 		setX(x);
 		setY(y);
 		setZ(z);
@@ -481,7 +481,7 @@ public class SimplePoint3D implements Point3D{
 	 * @see #SimplePoint3D()
 	 */
 	public SimplePoint3D(Point3D point){
-		coordinates = new double[3];
+		this.coordinates = new double[3];
 		setX(point.getX());
 		setY(point.getY());
 		setZ(point.getZ());

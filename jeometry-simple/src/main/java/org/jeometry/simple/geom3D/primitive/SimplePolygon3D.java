@@ -59,13 +59,13 @@ public class SimplePolygon3D<T extends Point3D> implements Polygon3D<T> {
 	LineSet3D<T> edges = new SimpleLineSet3D<T>();
 
     // S'il n'y a pas au moins 2 points, il n'y a pas d'arrête
-    if (points.size() < 2) {
+    if (this.points.size() < 2) {
       return null;
     }
     
     // Les points sont lié deux à deux jusqu'a l'avant dernier
-    for (int i = 0; i < points.size(); i++) {
-      edges.plot(points.get(i));
+    for (int i = 0; i < this.points.size(); i++) {
+      edges.plot(this.points.get(i));
     }
 
     return edges;
@@ -160,15 +160,15 @@ public class SimplePolygon3D<T extends Point3D> implements Polygon3D<T> {
   public String toString() {
     String str = getClass().getSimpleName()+" ";
     Point3D pt = null;
-    if ((points == null) || (points.size() < 1)) {
+    if ((this.points == null) || (this.points.size() < 1)) {
       str = "[ No vertex ]";
     } else {
-      str = "Polygon3D (" + points.size() + " points) [";
-      for (int i = 0; i < points.size() - 1; i++) {
-        pt = points.get(i);
+      str = "Polygon3D (" + this.points.size() + " points) [";
+      for (int i = 0; i < this.points.size() - 1; i++) {
+        pt = this.points.get(i);
         str += " (" + pt.getX() + ", " + pt.getY() + ", " + pt.getZ() + "),";
       }
-      pt = points.get(points.size() - 1);
+      pt = this.points.get(this.points.size() - 1);
       str += " (" + pt.getX() + ", " + pt.getY() + ", " + pt.getZ() + ") ]";
     }
     return str;

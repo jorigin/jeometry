@@ -386,7 +386,7 @@ public class PLYReader<T extends Point3D> {
    * @see #setCharset(String)
    */
   public String getCharset() {
-    return charset;
+    return this.charset;
   }
 
   /**
@@ -409,7 +409,7 @@ public class PLYReader<T extends Point3D> {
    * @see #setEol(String)
    */
   public String getEol() {
-    return eol;
+    return this.eol;
   }
 
   /**
@@ -432,7 +432,7 @@ public class PLYReader<T extends Point3D> {
    * @see #setPoint3DClass(Class)
    */
   public Class<? extends Point3D> getPoint3DClass() {
-    return pointClass;
+    return this.pointClass;
   }
   
   /**
@@ -454,7 +454,7 @@ public class PLYReader<T extends Point3D> {
    * @see #setPoint2DClass(Class)
    */
   public Class<? extends Point2D> getPoint2DClass() {
-    return point2DClass;
+    return this.point2DClass;
   }
 
   /**
@@ -473,7 +473,7 @@ public class PLYReader<T extends Point3D> {
    * @see #setReadPointColor(boolean)
    */
   public boolean isReadPointColor() {
-    return readPointColor;
+    return this.readPointColor;
   }
 
   /**
@@ -491,7 +491,7 @@ public class PLYReader<T extends Point3D> {
    * @see #setReadPointNormal(boolean)
    */
   public boolean isReadPointNormal() {
-    return readPointNormal;
+    return this.readPointNormal;
   }
 
   /**
@@ -513,7 +513,7 @@ public class PLYReader<T extends Point3D> {
    * @see #setIdentifyPoints(boolean)
    */
   public boolean isIdentifyPoints() {
-    return identifyPoints;
+    return this.identifyPoints;
   }
 
   /**
@@ -537,7 +537,7 @@ public class PLYReader<T extends Point3D> {
    * @see #setFlipTextureY(boolean)
    */
   public boolean isFlipTextureY() {
-    return flipTextureY;
+    return this.flipTextureY;
   }
 
   /**
@@ -593,8 +593,8 @@ public Object read(Reader reader) throws IOException {
 
     int edgeCount = -1;
 
-    textures = null;
-    faceCurrentIndex = 0;
+    this.textures = null;
+    this.faceCurrentIndex = 0;
 
     boolean isTriangleMesh = true;
 
@@ -638,11 +638,11 @@ public Object read(Reader reader) throws IOException {
       if (line != null) {
         lineNumber++;
         if (line.startsWith("format ascii 1.0")) {
-          fileFormat = PLY.FILE_FORMAT_ASCII;
+          this.fileFormat = PLY.FILE_FORMAT_ASCII;
         } else if (line.startsWith("format binary_little_endian")) {
-          fileFormat = PLY.FILE_FORMAT_BINARY_LE;
+          this.fileFormat = PLY.FILE_FORMAT_BINARY_LE;
         } else if (line.startsWith("format binary_big_endian")) {
-          fileFormat = PLY.FILE_FORMAT_BINARY_BE;
+          this.fileFormat = PLY.FILE_FORMAT_BINARY_BE;
         } else {
           throw new IOException("Cannot read PLY data: unknown format \"" + line + "\" at line " + lineNumber);
         }
@@ -661,7 +661,7 @@ public Object read(Reader reader) throws IOException {
         line = line.trim();
         lineNumber++;
 
-        splittedLine = line.split(fieldSeparator);
+        splittedLine = line.split(this.fieldSeparator);
 
         // Read line is not a comment
         if (!line.startsWith("comment")) {
@@ -681,7 +681,7 @@ public Object read(Reader reader) throws IOException {
                 faceCount = elementDescription.getElementCount();
               } else if ((VERTEX_NAME.equalsIgnoreCase(elementDescription.getName())) && (!vertexElementOk)) {
                 vertexElementOk = true;
-                vertexCount = elementDescription.getElementCount();
+                this.vertexCount = elementDescription.getElementCount();
               } else if ((EDGE_NAME.equalsIgnoreCase(elementDescription.getName())) && (!vertexElementOk)) {
                 edgeElementOk = true;
                 edgeCount = elementDescription.getElementCount();
@@ -716,9 +716,9 @@ public Object read(Reader reader) throws IOException {
             }
 
             if (vertexElementOk && !((faceElementOk && (faceCount > 0)) || (edgeElementOk && (edgeCount > 0)))) {
-              geometryType = GEOM_POINTS;
+              this.geometryType = GEOM_POINTS;
             } else if (vertexElementOk && ((faceElementOk && (faceCount > 0)) || (edgeElementOk && (edgeCount > 0)))) {
-              geometryType = GEOM_POLYHEDRON;
+              this.geometryType = GEOM_POLYHEDRON;
             }
 
             headerFinished = true;
@@ -733,10 +733,10 @@ public Object read(Reader reader) throws IOException {
             if ("TextureFile".equalsIgnoreCase(splittedLine[1])) {
               String resource = splittedLine[2];
 
-              if (textures == null) {
-                textures = new ArrayList<Texture>();
+              if (this.textures == null) {
+                this.textures = new ArrayList<Texture>();
               }
-              textures.add(new TexturePath(PathUtil.getFileName(resource), textures.size(), resource));
+              this.textures.add(new TexturePath(PathUtil.getFileName(resource), this.textures.size(), resource));
             }
           }
         }
@@ -749,7 +749,7 @@ public Object read(Reader reader) throws IOException {
       }
 
       // Post process header (remove empty elements, ...)
-      propertyIndexes = processHeader(elementDescriptions);
+      this.propertyIndexes = processHeader(elementDescriptions);
 
       dispatchReadHeaderFinished();
 
@@ -777,14 +777,14 @@ public Object read(Reader reader) throws IOException {
             	
               if (getPoint3DClass() != null) {
                 if (Point3D.class.isAssignableFrom(getPoint3DClass())) {
-                  points = JeometryFactory.createPoint3DContainer(vertexCount);
+                  points = JeometryFactory.createPoint3DContainer(this.vertexCount);
                 } else if (Point2D.class.isAssignableFrom(getPoint3DClass())) {
                   Jeometry.logger.log(Level.WARNING, "2D point container read from PLY is not yet implemented.");
                   System.err.println("2D point container read from PLY is not yet implemented.");
                   return null;
                 }
               } else {
-                points = JeometryFactory.createPoint3DContainer(vertexCount);
+                points = JeometryFactory.createPoint3DContainer(this.vertexCount);
               }
               
               ret = points;
@@ -793,10 +793,10 @@ public Object read(Reader reader) throws IOException {
                 line = line.trim();
                 lineNumber++;
 
-                splittedLine = line.split(fieldSeparator);
+                splittedLine = line.split(this.fieldSeparator);
 
                 try {
-                  point = readPoint3D(splittedLine, propertyIndexes);
+                  point = readPoint3D(splittedLine, this.propertyIndexes);
 
                   if (accept(point)) {
 
@@ -809,7 +809,7 @@ public Object read(Reader reader) throws IOException {
                       }
                       
                       if (point instanceof Named) {
-                    	  ((Named)point).setName(pointName);
+                    	  ((Named)point).setName(this.pointName);
                       }
                     }
 
@@ -835,7 +835,7 @@ public Object read(Reader reader) throws IOException {
                 line = line.trim();
                 lineNumber++;
 
-                splittedLine = line.split(fieldSeparator);
+                splittedLine = line.split(this.fieldSeparator);
 
                 if (faces == null) {
                   faces = new ArrayList<Face<T>>();
@@ -852,7 +852,7 @@ public Object read(Reader reader) throws IOException {
                     }
                     
                     if (face instanceof Named) {
-                    	((Named)face).setName(faceTriangleName);
+                    	((Named)face).setName(this.faceTriangleName);
                     }
 
                   } else {
@@ -914,18 +914,18 @@ public Object read(Reader reader) throws IOException {
 
     endTime = System.currentTimeMillis();
 
-    if (geometryType == GEOM_POINTS) {
+    if (this.geometryType == GEOM_POINTS) {
       logger.log(Level.INFO, "PLY points file read in " + (endTime - startTime) / 1000.0f + "s");
       return ret;
-    } else if (geometryType == GEOM_POLYHEDRON) {
+    } else if (this.geometryType == GEOM_POLYHEDRON) {
       if (isTriangleMesh) {
         mesh = JeometryFactory.createIndexedTriangleMesh((Point3DContainer<T>)ret);
         
         ((IndexedTriangleMesh<T>) mesh).setVerticesSource((Point3DContainer<T>)ret);
         
-        if (textures != null) {
+        if (this.textures != null) {
         	if (mesh instanceof TextureManager) {
-        		((TextureManager) mesh).setTextures(textures);
+        		((TextureManager) mesh).setTextures(this.textures);
         	}
         }
       } else {
@@ -977,12 +977,12 @@ public Object read(Reader reader) throws IOException {
 
         is.mark(65536);
 
-        faceCurrentIndex = 0;
+        this.faceCurrentIndex = 0;
 
         PLYFileDescriptor fileDescriptor = readHeader(is);
         if (fileDescriptor.getFileFormat() == PLY.FILE_FORMAT_ASCII) {
           is.reset();
-          r = new InputStreamReader(is, charset);
+          r = new InputStreamReader(is, this.charset);
           return read(r);
         } else {
           return readBinaryData(is, fileDescriptor);
@@ -1067,7 +1067,7 @@ public Object read(Reader reader) throws IOException {
         InputStream is = null;
         is = IOStreamUtil.getBufferedInputStream(uri);
 
-        resourcePath = PathUtil.URIToPath(uri);
+        this.resourcePath = PathUtil.URIToPath(uri);
         return read(is);
       }
     } else {
@@ -1135,30 +1135,25 @@ public Object read(Reader reader) throws IOException {
         }
 
       } else {
-        FileInputStream fis = new FileInputStream(file);
-        BufferedInputStream bis = new BufferedInputStream(fis);
-        try {
-          resourcePath = PathUtil.URIToPath(file.getPath());
+        
+        try (FileInputStream fis = new FileInputStream(file);
+             BufferedInputStream bis = new BufferedInputStream(fis);) {
+          this.resourcePath = PathUtil.URIToPath(file.getPath());
           Object object = read(bis);
-          resourcePath = null;
+          this.resourcePath = null;
           return object;
         } catch (UnsupportedEncodingException e) {
-          resourcePath = null;
+          this.resourcePath = null;
           throw new IOException("Problem during read from file " + file.getPath() + ":" + e.getMessage(), e);
         } catch (IOException e) {
-          resourcePath = null;
+          this.resourcePath = null;
           throw e;
         } finally {
-          resourcePath = null;
-          try {
-            fis.close();
-          } catch (IOException e) {
-            fis = null;
-          }
+          this.resourcePath = null;
         }
       }
     } else {
-      resourcePath = null;
+      this.resourcePath = null;
       logger.log(Level.WARNING, "Cannot read PLY data from file " + file);
       throw new IOException("Cannot read PLY data from null file");
     }
@@ -1171,12 +1166,12 @@ public Object read(Reader reader) throws IOException {
    */
   public void addPLYReaderListener(PLYReaderListener listener) {
     if (listener != null) {
-      if (listeners == null) {
-        listeners = new HashSet<PLYReaderListener>();
-        listeners.add(listener);
+      if (this.listeners == null) {
+        this.listeners = new HashSet<PLYReaderListener>();
+        this.listeners.add(listener);
       } else {
-        if (!listeners.contains(listener)) {
-          listeners.add(listener);
+        if (!this.listeners.contains(listener)) {
+          this.listeners.add(listener);
         }
       }
     }
@@ -1217,8 +1212,8 @@ public Object read(Reader reader) throws IOException {
       boolean vertexYOk = false;
       boolean vertexZOk = false;
 
-      textures = null;
-      faceCurrentIndex = 0;
+      this.textures = null;
+      this.faceCurrentIndex = 0;
 
       int faceCount = 0;
 
@@ -1266,7 +1261,7 @@ public Object read(Reader reader) throws IOException {
         line = line.trim();
         lineNumber++;
 
-        splittedLine = line.split(fieldSeparator);
+        splittedLine = line.split(this.fieldSeparator);
 
         // Read line is not a comment
         if (!line.startsWith("comment")) {
@@ -1287,8 +1282,8 @@ public Object read(Reader reader) throws IOException {
                 fileDescriptor.setFaceCount(faceCount);
               } else if ((VERTEX_NAME.equalsIgnoreCase(elementDescription.getName())) && (!vertexElementOk)) {
                 vertexElementOk = true;
-                vertexCount = elementDescription.getElementCount();
-                fileDescriptor.setVertexCount(vertexCount);
+                this.vertexCount = elementDescription.getElementCount();
+                fileDescriptor.setVertexCount(this.vertexCount);
               } else if ((EDGE_NAME.equalsIgnoreCase(elementDescription.getName())) && (!vertexElementOk)) {
                 edgeElementOk = true;
                 edgeCount = elementDescription.getElementCount();
@@ -1311,11 +1306,11 @@ public Object read(Reader reader) throws IOException {
                 elementDescription.addPropertyDescriptor(propertyDescriptor);
 
                 if (VERTEX_NAME.equalsIgnoreCase(elementDescription.getName())) {
-                  if (plyXPropName.equalsIgnoreCase(propertyDescriptor.getName())) {
+                  if (this.plyXPropName.equalsIgnoreCase(propertyDescriptor.getName())) {
                     vertexXOk = true;
-                  } else if (plyYPropName.equalsIgnoreCase(propertyDescriptor.getName())) {
+                  } else if (this.plyYPropName.equalsIgnoreCase(propertyDescriptor.getName())) {
                     vertexYOk = true;
-                  } else if (plyZPropName.equalsIgnoreCase(propertyDescriptor.getName())) {
+                  } else if (this.plyZPropName.equalsIgnoreCase(propertyDescriptor.getName())) {
                     vertexZOk = true;
                   }
                 }
@@ -1335,9 +1330,9 @@ public Object read(Reader reader) throws IOException {
             }
 
             if (vertexElementOk && !((faceElementOk && (faceCount > 0)) || (edgeElementOk && (edgeCount > 0)))) {
-              geometryType = GEOM_POINTS;
+              this.geometryType = GEOM_POINTS;
             } else if (vertexElementOk && ((faceElementOk && (faceCount > 0)) || (edgeElementOk && (edgeCount > 0)))) {
-              geometryType = GEOM_POLYHEDRON;
+              this.geometryType = GEOM_POLYHEDRON;
             }
 
             headerFinished = true;
@@ -1352,19 +1347,19 @@ public Object read(Reader reader) throws IOException {
             if ("TextureFile".equalsIgnoreCase(splittedLine[1])) {
               String resource = splittedLine[2];
 
-              if (textures == null) {
-                textures = new ArrayList<Texture>();
+              if (this.textures == null) {
+                this.textures = new ArrayList<Texture>();
               }
 
-              if (!PathUtil.isAbsolutePath(resource) && (resourcePath == null)) {
+              if (!PathUtil.isAbsolutePath(resource) && (this.resourcePath == null)) {
                 logger.log(Level.WARNING, "Cannot determine absolute location of texture " + resource);
               } else {
-                String str = PathUtil.URIToPath(PathUtil.getDirectory(resourcePath));
+                String str = PathUtil.URIToPath(PathUtil.getDirectory(this.resourcePath));
                 str = PathUtil.URIToPath(str + File.separator + resource);
                 resource = str;
               }
 
-              textures.add(new TexturePath(PathUtil.getFileName(resource), textures.size(), resource));
+              this.textures.add(new TexturePath(PathUtil.getFileName(resource), this.textures.size(), resource));
             }
           }
         }
@@ -1387,7 +1382,7 @@ public Object read(Reader reader) throws IOException {
       fileDescriptor.setElementDescriptors(elementDescriptions);
 
       // Post process header (remove empty elements, ...)
-      propertyIndexes = processHeader(elementDescriptions);
+      this.propertyIndexes = processHeader(elementDescriptions);
 
       dispatchReadHeaderFinished();
     }
@@ -1528,7 +1523,7 @@ public Object read(Reader reader) throws IOException {
                     	}
                     	  
                     	if (point3d instanceof Named) {
-                    		((Named)point3d).setName(pointName);
+                    		((Named)point3d).setName(this.pointName);
                     	}
 
                       }
@@ -1545,7 +1540,7 @@ public Object read(Reader reader) throws IOException {
                         	}
                         	  
                         	if (point2d instanceof Named) {
-                        		((Named)point2d).setName(pointName);
+                        		((Named)point2d).setName(this.pointName);
                         	}
 
                           }
@@ -1618,7 +1613,7 @@ public Object read(Reader reader) throws IOException {
       throw new IOException("Cannot read PLY binary data from null input stream.");
     }
 
-    if (geometryType == GEOM_POINTS) {
+    if (this.geometryType == GEOM_POINTS) {
     	
       if (fileDescriptor.getVertexType() == PLY.VERTEX_TYPE_3D) {
           logger.log(Level.FINE, "PLY 3D points file read in " + (endTime - startTime) / 1000.0f + "s");
@@ -1634,18 +1629,18 @@ public Object read(Reader reader) throws IOException {
           return null;
       }
 
-    } else if (geometryType == GEOM_POLYHEDRON) {
+    } else if (this.geometryType == GEOM_POLYHEDRON) {
 
       if (fileDescriptor.getVertexType() == PLY.VERTEX_TYPE_3D) {
        
         if (isTriangleMesh) {
           mesh = JeometryFactory.createIndexedTriangleMesh(points3D);
           
-          if (textures != null) {
+          if (this.textures != null) {
         	  if (mesh instanceof TextureManager) {
-            	  ((TextureManager) mesh).setTextures(textures);
+            	  ((TextureManager) mesh).setTextures(this.textures);
               } else {
-            	  logger.log(Level.WARNING, "PLY file contains "+textures.size()+" but output mesh implementation does not support it.");
+            	  logger.log(Level.WARNING, "PLY file contains "+this.textures.size()+" but output mesh implementation does not support it.");
               }
           }
           
@@ -1688,8 +1683,8 @@ public Object read(Reader reader) throws IOException {
    * @see #addPLYReaderListener(PLYReaderListener)
    */
   public void removePLYReaderListener(PLYReaderListener listener) {
-    if ((listener != null) && (listeners != null)) {
-      listeners.remove(listener);
+    if ((listener != null) && (this.listeners != null)) {
+      this.listeners.remove(listener);
     }
   }
 
@@ -1730,7 +1725,7 @@ public Object read(Reader reader) throws IOException {
     if (stream != null) {
       Reader r = null;
       try {
-        r = new InputStreamReader(stream, charset);
+        r = new InputStreamReader(stream, this.charset);
         return checkValidity(r);
       } catch (Exception e) {
         throw new IOException("Error reading file : " + e.getMessage(), e);
@@ -1783,8 +1778,8 @@ public Object read(Reader reader) throws IOException {
    * Dispatch a read started.
    */
   protected void dispatchReadStarted() {
-    if (listeners != null) {
-      Iterator<PLYReaderListener> iter = listeners.iterator();
+    if (this.listeners != null) {
+      Iterator<PLYReaderListener> iter = this.listeners.iterator();
       while (iter.hasNext()) {
         iter.next().readStarted();
       }
@@ -1795,8 +1790,8 @@ public Object read(Reader reader) throws IOException {
    * Dispatch a read finished.
    */
   protected void dispatchReadFinished() {
-    if (listeners != null) {
-      Iterator<PLYReaderListener> iter = listeners.iterator();
+    if (this.listeners != null) {
+      Iterator<PLYReaderListener> iter = this.listeners.iterator();
       while (iter.hasNext()) {
         iter.next().readFinished();
       }
@@ -1807,8 +1802,8 @@ public Object read(Reader reader) throws IOException {
    * Dispatch a header read started.
    */
   protected void dispatchReadHeaderStarted() {
-    if (listeners != null) {
-      Iterator<PLYReaderListener> iter = listeners.iterator();
+    if (this.listeners != null) {
+      Iterator<PLYReaderListener> iter = this.listeners.iterator();
       while (iter.hasNext()) {
         iter.next().readHeaderStarted();
       }
@@ -1819,8 +1814,8 @@ public Object read(Reader reader) throws IOException {
    * Dispatch a read header finished.
    */
   protected void dispatchReadHeaderFinished() {
-    if (listeners != null) {
-      Iterator<PLYReaderListener> iter = listeners.iterator();
+    if (this.listeners != null) {
+      Iterator<PLYReaderListener> iter = this.listeners.iterator();
       while (iter.hasNext()) {
         iter.next().readHeaderFinished();
       }
@@ -1832,8 +1827,8 @@ public Object read(Reader reader) throws IOException {
    * @param description the element description
    */
   protected void dispatchReadElementDescription(PLYElementDescription description) {
-    if (listeners != null) {
-      Iterator<PLYReaderListener> iter = listeners.iterator();
+    if (this.listeners != null) {
+      Iterator<PLYReaderListener> iter = this.listeners.iterator();
       while (iter.hasNext()) {
         iter.next().readElementDescription(description);
       }
@@ -1844,8 +1839,8 @@ public Object read(Reader reader) throws IOException {
    * Dispatch data read started.
    */
   protected void dispatchReadDataStarted() {
-    if (listeners != null) {
-      Iterator<PLYReaderListener> iter = listeners.iterator();
+    if (this.listeners != null) {
+      Iterator<PLYReaderListener> iter = this.listeners.iterator();
       while (iter.hasNext()) {
         iter.next().readDataStarted();
       }
@@ -1856,8 +1851,8 @@ public Object read(Reader reader) throws IOException {
    * Dispatch a data read finished.
    */
   protected void dispatchReadDataFinished() {
-    if (listeners != null) {
-      Iterator<PLYReaderListener> iter = listeners.iterator();
+    if (this.listeners != null) {
+      Iterator<PLYReaderListener> iter = this.listeners.iterator();
       while (iter.hasNext()) {
         iter.next().readDataFinished();
       }
@@ -1869,8 +1864,8 @@ public Object read(Reader reader) throws IOException {
    * @param description the element description
    */
   protected void dispatchReadElementsStarted(PLYElementDescription description) {
-    if (listeners != null) {
-      Iterator<PLYReaderListener> iter = listeners.iterator();
+    if (this.listeners != null) {
+      Iterator<PLYReaderListener> iter = this.listeners.iterator();
       while (iter.hasNext()) {
         iter.next().readElementsStarted(description);
       }
@@ -1882,8 +1877,8 @@ public Object read(Reader reader) throws IOException {
    * @param description the element description
    */
   protected void dispatchReadElementsFinished(PLYElementDescription description) {
-    if (listeners != null) {
-      Iterator<PLYReaderListener> iter = listeners.iterator();
+    if (this.listeners != null) {
+      Iterator<PLYReaderListener> iter = this.listeners.iterator();
       while (iter.hasNext()) {
         iter.next().readElementsFinished(description);
       }
@@ -1895,8 +1890,8 @@ public Object read(Reader reader) throws IOException {
    * @param vertex the read vertex
    */
   protected void dispatchReadVertex(Point3D vertex) {
-    if (listeners != null) {
-      Iterator<PLYReaderListener> iter = listeners.iterator();
+    if (this.listeners != null) {
+      Iterator<PLYReaderListener> iter = this.listeners.iterator();
       while (iter.hasNext()) {
         iter.next().readVertex(vertex);
       }
@@ -1909,7 +1904,7 @@ public Object read(Reader reader) throws IOException {
    */
   protected void dispatchReadFace(Face<T> face) {
 
-	if (listeners != null){ Iterator<PLYReaderListener> iter = listeners.iterator(); 
+	if (this.listeners != null){ Iterator<PLYReaderListener> iter = this.listeners.iterator(); 
 	  while(iter.hasNext()){ 
 		  iter.next().readFace(face);
 	  } 
@@ -1935,27 +1930,27 @@ public Object read(Reader reader) throws IOException {
         descriptor = iter.next();
 
         if (VERTEX_NAME.equalsIgnoreCase(descriptor.getName())) {
-          propertiesIndex[X_INDEX] = descriptor.getPropertyIndex(plyXPropName);
-          propertiesIndex[Y_INDEX] = descriptor.getPropertyIndex(plyYPropName);
-          propertiesIndex[Z_INDEX] = descriptor.getPropertyIndex(plyZPropName);
+          propertiesIndex[X_INDEX] = descriptor.getPropertyIndex(this.plyXPropName);
+          propertiesIndex[Y_INDEX] = descriptor.getPropertyIndex(this.plyYPropName);
+          propertiesIndex[Z_INDEX] = descriptor.getPropertyIndex(this.plyZPropName);
 
-          propertiesIndex[R_INDEX] = descriptor.getPropertyIndexContains(plyRPropName);
-          propertiesIndex[G_INDEX] = descriptor.getPropertyIndexContains(plyGPropName);
-          propertiesIndex[B_INDEX] = descriptor.getPropertyIndexContains(plyBPropName);
-          propertiesIndex[A_INDEX] = descriptor.getPropertyIndexContains(plyAPropName);
+          propertiesIndex[R_INDEX] = descriptor.getPropertyIndexContains(this.plyRPropName);
+          propertiesIndex[G_INDEX] = descriptor.getPropertyIndexContains(this.plyGPropName);
+          propertiesIndex[B_INDEX] = descriptor.getPropertyIndexContains(this.plyBPropName);
+          propertiesIndex[A_INDEX] = descriptor.getPropertyIndexContains(this.plyAPropName);
 
-          propertiesIndex[NX_INDEX] = descriptor.getPropertyIndex(plyNxPropName);
-          propertiesIndex[NY_INDEX] = descriptor.getPropertyIndex(plyNyPropName);
-          propertiesIndex[NZ_INDEX] = descriptor.getPropertyIndex(plyNzPropName);
+          propertiesIndex[NX_INDEX] = descriptor.getPropertyIndex(this.plyNxPropName);
+          propertiesIndex[NY_INDEX] = descriptor.getPropertyIndex(this.plyNyPropName);
+          propertiesIndex[NZ_INDEX] = descriptor.getPropertyIndex(this.plyNzPropName);
 
-          propertiesIndex[TEX_U_INDEX] = descriptor.getPropertyIndex(plyVertexTexCoordUPropName);
-          propertiesIndex[TEX_V_INDEX] = descriptor.getPropertyIndex(plyVertexTexCoordVPropName);
+          propertiesIndex[TEX_U_INDEX] = descriptor.getPropertyIndex(this.plyVertexTexCoordUPropName);
+          propertiesIndex[TEX_V_INDEX] = descriptor.getPropertyIndex(this.plyVertexTexCoordVPropName);
         } else if (FACE_NAME.equals(descriptor.getName())) {
 
-          propertiesIndex[VERTEX_LIST_INDEX] = descriptor.getPropertyIndex(plyVertexListPropName);
+          propertiesIndex[VERTEX_LIST_INDEX] = descriptor.getPropertyIndex(this.plyVertexListPropName);
 
-          propertiesIndex[TEX_INDEX] = descriptor.getPropertyIndex(plyTexIndexPropName);
-          propertiesIndex[TEX_COORDS_INDEX] = descriptor.getPropertyIndex(plyTexCoordPropName);
+          propertiesIndex[TEX_INDEX] = descriptor.getPropertyIndex(this.plyTexIndexPropName);
+          propertiesIndex[TEX_COORDS_INDEX] = descriptor.getPropertyIndex(this.plyTexCoordPropName);
         }
 
         if (descriptor.getElementCount() < 1) {
@@ -2147,33 +2142,33 @@ public Object read(Reader reader) throws IOException {
         
       }
 
-      if (plyXPropName.equalsIgnoreCase(property.getName())) {
+      if (this.plyXPropName.equalsIgnoreCase(property.getName())) {
         if (value instanceof Number) {
           pt.setX(((Number) value).doubleValue());
         } else {
-          Jeometry.logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + plyXPropName + " component");
+          Jeometry.logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + this.plyXPropName + " component");
         }
-      } else if (plyYPropName.equalsIgnoreCase(property.getName())) {
+      } else if (this.plyYPropName.equalsIgnoreCase(property.getName())) {
         if (value instanceof Number) {
           pt.setY(((Number) value).doubleValue());
         } else {
-          Jeometry.logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + plyYPropName + " component");
+          Jeometry.logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + this.plyYPropName + " component");
         }
-      } else if (plyZPropName.equalsIgnoreCase(property.getName()) && (pt instanceof Point3D)) {
+      } else if (this.plyZPropName.equalsIgnoreCase(property.getName()) && (pt instanceof Point3D)) {
         if (value instanceof Number) {
           pt.setZ(((Number) value).doubleValue());
         } else {
-          Jeometry.logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + plyZPropName + " component");
+          Jeometry.logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + this.plyZPropName + " component");
         }
-      } else if (plyRPropName.equalsIgnoreCase(property.getName())) {
+      } else if (this.plyRPropName.equalsIgnoreCase(property.getName())) {
         rgbR = (int) value;
-      } else if (plyGPropName.equalsIgnoreCase(property.getName())) {
+      } else if (this.plyGPropName.equalsIgnoreCase(property.getName())) {
         rgbG = (int) value;
-      } else if (plyBPropName.equalsIgnoreCase(property.getName())) {
+      } else if (this.plyBPropName.equalsIgnoreCase(property.getName())) {
         rgbB = (int) value;
-      } else if (plyAPropName.equalsIgnoreCase(property.getName())) {
+      } else if (this.plyAPropName.equalsIgnoreCase(property.getName())) {
         rgbA = (int) value;
-      } else if (plyNxPropName.equalsIgnoreCase(property.getName())) {
+      } else if (this.plyNxPropName.equalsIgnoreCase(property.getName())) {
         if (normal == null) {
           normal = JeometryFactory.createPoint3D();
         }
@@ -2181,9 +2176,9 @@ public Object read(Reader reader) throws IOException {
         if (value instanceof Number) {
           normal.setX(((Number) value).doubleValue());
         } else {
-          logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + plyNxPropName + " component");
+          logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + this.plyNxPropName + " component");
         }
-      } else if (plyNyPropName.equalsIgnoreCase(property.getName())) {
+      } else if (this.plyNyPropName.equalsIgnoreCase(property.getName())) {
         if (normal == null) {
           normal = JeometryFactory.createPoint3D();
         }
@@ -2191,9 +2186,9 @@ public Object read(Reader reader) throws IOException {
         if (value instanceof Number) {
           normal.setY(((Number) value).doubleValue());
         } else {
-          logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + plyNyPropName + " component");
+          logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + this.plyNyPropName + " component");
         }
-      } else if (plyNzPropName.equalsIgnoreCase(property.getName())) {
+      } else if (this.plyNzPropName.equalsIgnoreCase(property.getName())) {
         if (normal == null) {
           normal = JeometryFactory.createPoint3D();
         }
@@ -2201,9 +2196,9 @@ public Object read(Reader reader) throws IOException {
         if (value instanceof Number) {
           normal.setZ(((Number) value).doubleValue());
         } else {
-          logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + plyNzPropName + " component");
+          logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + this.plyNzPropName + " component");
         }
-      } else if (plyIDPropName.equalsIgnoreCase(property.getName())) {
+      } else if (this.plyIDPropName.equalsIgnoreCase(property.getName())) {
 
     	if (pt instanceof Identified) {
     		((Identified)pt).setIdentification((int) value);
@@ -2211,13 +2206,13 @@ public Object read(Reader reader) throws IOException {
     		((HandleUserProperties)pt).setUserProperty("PLY_" + property.getName(), value);
     	}
 
-      } else if (plyVertexTexCoordUPropName.equalsIgnoreCase(property.getName())) {
+      } else if (this.plyVertexTexCoordUPropName.equalsIgnoreCase(property.getName())) {
     	  if (pt instanceof Identified) {
       		((Identified)pt).setIdentification((int) value);
       	} else if (pt instanceof HandleUserProperties) {
       		((HandleUserProperties)pt).setUserProperty("PLY_" + property.getName(), value);
       	}
-      } else if (plyVertexTexCoordVPropName.equalsIgnoreCase(property.getName())) {
+      } else if (this.plyVertexTexCoordVPropName.equalsIgnoreCase(property.getName())) {
     	  if (pt instanceof Identified) {
       		((Identified)pt).setIdentification((int) value);
       	} else if (pt instanceof HandleUserProperties) {
@@ -2334,27 +2329,27 @@ public Object read(Reader reader) throws IOException {
 	    	}  
 	      }
 
-	      if (plyXPropName.equalsIgnoreCase(property.getName())) {
+	      if (this.plyXPropName.equalsIgnoreCase(property.getName())) {
 	        if (value instanceof Number) {
 	          pt.setX(((Number) value).doubleValue());
 	        } else {
-	          Jeometry.logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + plyXPropName + " component");
+	          Jeometry.logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + this.plyXPropName + " component");
 	        }
-	      } else if (plyYPropName.equalsIgnoreCase(property.getName())) {
+	      } else if (this.plyYPropName.equalsIgnoreCase(property.getName())) {
 	        if (value instanceof Number) {
 	          pt.setY(((Number) value).doubleValue());
 	        } else {
-	          Jeometry.logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + plyYPropName + " component");
+	          Jeometry.logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + this.plyYPropName + " component");
 	        }
-	      } else if (plyRPropName.equalsIgnoreCase(property.getName())) {
+	      } else if (this.plyRPropName.equalsIgnoreCase(property.getName())) {
 	        rgbR = (int) value;
-	      } else if (plyGPropName.equalsIgnoreCase(property.getName())) {
+	      } else if (this.plyGPropName.equalsIgnoreCase(property.getName())) {
 	        rgbG = (int) value;
-	      } else if (plyBPropName.equalsIgnoreCase(property.getName())) {
+	      } else if (this.plyBPropName.equalsIgnoreCase(property.getName())) {
 	        rgbB = (int) value;
-	      } else if (plyAPropName.equalsIgnoreCase(property.getName())) {
+	      } else if (this.plyAPropName.equalsIgnoreCase(property.getName())) {
 	        rgbA = (int) value;
-	      } else if (plyNxPropName.equalsIgnoreCase(property.getName())) {
+	      } else if (this.plyNxPropName.equalsIgnoreCase(property.getName())) {
 	        if (normal == null) {
 	          normal = JeometryFactory.createPoint3D();
 	        }
@@ -2362,9 +2357,9 @@ public Object read(Reader reader) throws IOException {
 	        if (value instanceof Number) {
 	          normal.setX(((Number) value).doubleValue());
 	        } else {
-	          logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + plyNxPropName + " component");
+	          logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + this.plyNxPropName + " component");
 	        }
-	      } else if (plyNyPropName.equalsIgnoreCase(property.getName())) {
+	      } else if (this.plyNyPropName.equalsIgnoreCase(property.getName())) {
 	        if (normal == null) {
 	          normal = JeometryFactory.createPoint3D();
 	        }
@@ -2372,9 +2367,9 @@ public Object read(Reader reader) throws IOException {
 	        if (value instanceof Number) {
 	          normal.setY(((Number) value).doubleValue());
 	        } else {
-	          logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + plyNyPropName + " component");
+	          logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + this.plyNyPropName + " component");
 	        }
-	      } else if (plyNzPropName.equalsIgnoreCase(property.getName())) {
+	      } else if (this.plyNzPropName.equalsIgnoreCase(property.getName())) {
 	        if (normal == null) {
 	          normal = JeometryFactory.createPoint3D();
 	        }
@@ -2382,21 +2377,21 @@ public Object read(Reader reader) throws IOException {
 	        if (value instanceof Number) {
 	          normal.setZ(((Number) value).doubleValue());
 	        } else {
-	          logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + plyNzPropName + " component");
+	          logger.log(Level.WARNING, "Ignoring unknown numerical type " + value.getClass() + " for " + this.plyNzPropName + " component");
 	        }
-	      } else if (plyIDPropName.equalsIgnoreCase(property.getName())) {
+	      } else if (this.plyIDPropName.equalsIgnoreCase(property.getName())) {
 	    	  if (pt instanceof Identified) {
 	      		((Identified)pt).setIdentification((int) value);
 	      	} else if (pt instanceof HandleUserProperties) {
 	      		((HandleUserProperties)pt).setUserProperty("PLY_" + property.getName(), value);
 	      	}
-	      } else if (plyVertexTexCoordUPropName.equalsIgnoreCase(property.getName())) {
+	      } else if (this.plyVertexTexCoordUPropName.equalsIgnoreCase(property.getName())) {
 	    	  if (pt instanceof Identified) {
 	      		((Identified)pt).setIdentification((int) value);
 	      	} else if (pt instanceof HandleUserProperties) {
 	      		((HandleUserProperties)pt).setUserProperty("PLY_" + property.getName(), value);
 	      	}
-	      } else if (plyVertexTexCoordVPropName.equalsIgnoreCase(property.getName())) {
+	      } else if (this.plyVertexTexCoordVPropName.equalsIgnoreCase(property.getName())) {
 	    	  if (pt instanceof Identified) {
 	      		((Identified)pt).setIdentification((int) value);
 	      	} else if (pt instanceof HandleUserProperties) {
@@ -2455,7 +2450,7 @@ public Object read(Reader reader) throws IOException {
         property = propIter.next();
 
         // Reading vertex list property
-        if ((plyVertexListPropName.equalsIgnoreCase(property.getName())) || (plyVertexListPropNameAlt.equalsIgnoreCase(property.getName()))) {
+        if ((this.plyVertexListPropName.equalsIgnoreCase(property.getName())) || (this.plyVertexListPropNameAlt.equalsIgnoreCase(property.getName()))) {
 
           try {
             indexes = new int[Integer.parseInt(values[currentValueIndex])];
@@ -2470,7 +2465,7 @@ public Object read(Reader reader) throws IOException {
           }
 
           // Reading a texture coordinates
-        } else if (plyTexCoordPropName.equalsIgnoreCase(property.getName())) {
+        } else if (this.plyTexCoordPropName.equalsIgnoreCase(property.getName())) {
           int textCoordCount = Integer.parseInt(values[currentValueIndex]);
           textCoords = JeometryFactory.createPoint2DContainer(textCoordCount);
           currentValueIndex++;
@@ -2487,7 +2482,7 @@ public Object read(Reader reader) throws IOException {
           }
 
           // Reading a texture index
-        } else if (plyTexIndexPropName.equalsIgnoreCase(property.getName())) {
+        } else if (this.plyTexIndexPropName.equalsIgnoreCase(property.getName())) {
           try {
             textureIndex = Integer.parseInt(values[currentValueIndex]);
             currentValueIndex++;
@@ -2517,8 +2512,8 @@ public Object read(Reader reader) throws IOException {
           ((Texturable) face).setTextureCoodinates(textCoords);
         }
 
-        if ((textureIndex > -1) && (textures != null) && (textureIndex < textures.size())) {
-          ((Texturable) face).setTexture(textures.get(textureIndex));
+        if ((textureIndex > -1) && (this.textures != null) && (textureIndex < this.textures.size())) {
+          ((Texturable) face).setTexture(this.textures.get(textureIndex));
         }
       }
 
@@ -2572,7 +2567,7 @@ public Object read(Reader reader) throws IOException {
             property = propertyIterator.next();
 
             // Reading face vertex indexes
-            if (plyVertexListPropName.equals(property.getName()) || (plyVertexListPropNameAlt.equalsIgnoreCase(property.getName()))) {
+            if (this.plyVertexListPropName.equals(property.getName()) || (this.plyVertexListPropNameAlt.equalsIgnoreCase(property.getName()))) {
 
               // Read vertex count for the given face
               if (PLY.TYPE_CHAR == ((PLYPropertyListDescription) property).getCountType()) {
@@ -2710,7 +2705,7 @@ public Object read(Reader reader) throws IOException {
               }
 
               // Reading face texture indexes list
-            } else if (plyTexCoordPropName.equals(property.getName())) {
+            } else if (this.plyTexCoordPropName.equals(property.getName())) {
 
               // Read texture coordinates count for the given face
               if (PLY.TYPE_CHAR == ((PLYPropertyListDescription) property).getCountType()) {
@@ -2892,15 +2887,15 @@ public Object read(Reader reader) throws IOException {
               if (face != null) {
             	  
             	  if ((face instanceof Identified)) {
-            		  ((Identified)face).setIdentification(faceCurrentIndex);
+            		  ((Identified)face).setIdentification(this.faceCurrentIndex);
             	  }
             	  
             	  if ((face instanceof Named)) {
-            		  ((Named)face).setName(faceTriangleName);
+            		  ((Named)face).setName(this.faceTriangleName);
             	  }
               }
               
-              faceCurrentIndex++;
+              this.faceCurrentIndex++;
             } else {
               if (textureCoordinates != null) {
                 face = JeometryFactory.createTexturedIndexedMeshFace(facesIndices);
@@ -2908,15 +2903,15 @@ public Object read(Reader reader) throws IOException {
                 if (face != null) {
               	  
               	  if ((face instanceof Identified)) {
-              		  ((Identified)face).setIdentification(faceCurrentIndex);
+              		  ((Identified)face).setIdentification(this.faceCurrentIndex);
               	  }
               	  
               	  if ((face instanceof Named)) {
-              		  ((Named)face).setName(faceGenericName);
+              		  ((Named)face).setName(this.faceGenericName);
               	  }
                 }
                 
-                faceCurrentIndex++;
+                this.faceCurrentIndex++;
 
               } else {
                 face = JeometryFactory.createIndexedMeshFace(facesIndices);
@@ -2924,15 +2919,15 @@ public Object read(Reader reader) throws IOException {
                 if (face != null) {
               	  
               	  if ((face instanceof Identified)) {
-              		  ((Identified)face).setIdentification(faceCurrentIndex);
+              		  ((Identified)face).setIdentification(this.faceCurrentIndex);
               	  }
               	  
               	  if ((face instanceof Named)) {
-              		  ((Named)face).setName(faceGenericName);
+              		  ((Named)face).setName(this.faceGenericName);
               	  }
                 }
                 
-                faceCurrentIndex++;
+                this.faceCurrentIndex++;
               }
             }
           } else {
@@ -2943,8 +2938,8 @@ public Object read(Reader reader) throws IOException {
           if ((face != null) && (face instanceof Texturable) && (textureCoordinates != null)) {
             if (textureCoordinates != null) {
               ((Texturable) face).setTextureCoodinates(textureCoordinates);
-              if ((textures != null) && (textures.size() > 0)) {
-                ((Texturable) face).setTexture(textures.get(textureIndex));
+              if ((this.textures != null) && (this.textures.size() > 0)) {
+                ((Texturable) face).setTexture(this.textures.get(textureIndex));
               }
             }
           }
@@ -3124,7 +3119,7 @@ public Object read(Reader reader) throws IOException {
    * @see #setDefaultPointName(String)
    */
   public String getDefaultPointName() {
-	  return pointName;
+	  return this.pointName;
   }
   
   /**
@@ -3133,7 +3128,7 @@ public Object read(Reader reader) throws IOException {
    * @see #getDefaultPointName()
    */
   public void setDefaultPointName(String name) {
-	  pointName = name;
+	  this.pointName = name;
   }
   
   /**

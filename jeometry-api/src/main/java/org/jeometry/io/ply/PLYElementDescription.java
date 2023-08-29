@@ -33,9 +33,9 @@ public class PLYElementDescription {
   public String toString() {
     String eol = System.getProperty("line.separator");
     String str = "element " + getName() + " " + getElementCount();
-    if (propertiyDescriptors != null) {
-      for (int i = 0; i < propertiyDescriptors.size(); i++) {
-        str += eol + propertiyDescriptors.get(i);
+    if (this.propertiyDescriptors != null) {
+      for (int i = 0; i < this.propertiyDescriptors.size(); i++) {
+        str += eol + this.propertiyDescriptors.get(i);
       }
     }
 
@@ -51,7 +51,7 @@ public class PLYElementDescription {
     this.name = name;
     this.elementCount = elementCount;
 
-    propertiyDescriptors = new ArrayList<PLYPropertyDescription>();
+    this.propertiyDescriptors = new ArrayList<PLYPropertyDescription>();
   }
 
   /**
@@ -60,7 +60,7 @@ public class PLYElementDescription {
    * @see #setName(String)
    */
   public String getName() {
-    return name;
+    return this.name;
   }
 
   /**
@@ -78,7 +78,7 @@ public class PLYElementDescription {
    * @see #setElementCount(int)
    */
   public int getElementCount() {
-    return elementCount;
+    return this.elementCount;
   }
 
   /**
@@ -96,7 +96,7 @@ public class PLYElementDescription {
    * @see #setPropertyDescriptors(List)
    */
   public List<PLYPropertyDescription> getPropertyDescriptors() {
-    return propertiyDescriptors;
+    return this.propertiyDescriptors;
   }
 
   /**
@@ -115,7 +115,7 @@ public class PLYElementDescription {
    * @see #removePropertyDescriptor(PLYPropertyDescription)
    */
   public boolean addPropertyDescriptor(PLYPropertyDescription propertiyDescriptor) {
-    return propertiyDescriptors.add(propertiyDescriptor);
+    return this.propertiyDescriptors.add(propertiyDescriptor);
   }
 
   /**
@@ -125,7 +125,7 @@ public class PLYElementDescription {
    * @see #addPropertyDescriptor(PLYPropertyDescription)
    */
   public boolean removePropertyDescriptor(PLYPropertyDescription propertiyDescriptor) {
-    return propertiyDescriptors.remove(propertiyDescriptor);
+    return this.propertiyDescriptors.remove(propertiyDescriptor);
   }
   
   /**
@@ -134,7 +134,7 @@ public class PLYElementDescription {
    * @return the  PLY element property descriptor that is present at <code>index</code>.
    */
   public PLYPropertyDescription getPropertyDescriptor(int index) {
-    return propertiyDescriptors.get(index);
+    return this.propertiyDescriptors.get(index);
   }
 
   /**
@@ -145,7 +145,7 @@ public class PLYElementDescription {
   public int getPropertyIndex(String name) {
     int index = -1;
 
-    Iterator<PLYPropertyDescription> iter = propertiyDescriptors.iterator();
+    Iterator<PLYPropertyDescription> iter = this.propertiyDescriptors.iterator();
     int cpt = 0;
     while ((index == -1) && (iter.hasNext())) {
       if (name.equals(iter.next().getName())) {
@@ -165,7 +165,7 @@ public class PLYElementDescription {
   public int getPropertyIndexContains(String value) {
     int index = -1;
 
-    Iterator<PLYPropertyDescription> iter = propertiyDescriptors.iterator();
+    Iterator<PLYPropertyDescription> iter = this.propertiyDescriptors.iterator();
     int cpt = 0;
     while ((index == -1) && (iter.hasNext())) {
       if (iter.next().getName().contains(value)) {

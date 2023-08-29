@@ -52,32 +52,32 @@ public class ArrayListPoint2DContainer extends ArrayList<Point2D> implements Clo
   
   @Override
   public double getX() {
-    return x;
+    return this.x;
   }
 
   @Override
   public double getY() {
-    return y;
+    return this.y;
   }
 
   @Override
   public double getXMin() {
-    return xMin;
+    return this.xMin;
   }
 
   @Override
   public double getYMin() {
-    return yMin;
+    return this.yMin;
   }
 
   @Override
   public double getXMax() {
-    return xMax;
+    return this.xMax;
   }
 
   @Override
   public double getYMax() {
-    return yMax;
+    return this.yMax;
   }
 
   @Override
@@ -88,40 +88,40 @@ public class ArrayListPoint2DContainer extends ArrayList<Point2D> implements Clo
 
   @Override
   public void updateLocalization() {
-    x = 0.0d;
-    y = 0.0d;
+    this.x = 0.0d;
+    this.y = 0.0d;
     
-    xMin = Double.MAX_VALUE;
-    yMin = Double.MAX_VALUE;
+    this.xMin = Double.MAX_VALUE;
+    this.yMin = Double.MAX_VALUE;
     
-    xMax = -Double.MAX_VALUE;
-    yMax = -Double.MAX_VALUE;
+    this.xMax = -Double.MAX_VALUE;
+    this.yMax = -Double.MAX_VALUE;
     
     for(Point2D point : this){
       
-      if (point.getX() > xMax){
-        xMax = point.getX();
+      if (point.getX() > this.xMax){
+        this.xMax = point.getX();
       }
       
-      if (point.getX() < xMin){
-        xMin = point.getX();
+      if (point.getX() < this.xMin){
+        this.xMin = point.getX();
       }
       
-      if (point.getY() > yMax){
-        yMax = point.getY();
+      if (point.getY() > this.yMax){
+        this.yMax = point.getY();
       }
       
-      if (point.getY() < yMin){
-        yMin = point.getY();
+      if (point.getY() < this.yMin){
+        this.yMin = point.getY();
       }
       
       
-      x = x + point.getX();
-      y = y + point.getY();
+      this.x = this.x + point.getX();
+      this.y = this.y + point.getY();
     }
     
-    x = x / size();
-    y = y / size();
+    this.x = this.x / size();
+    this.y = this.y / size();
   }
 
   /**

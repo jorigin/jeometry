@@ -25,21 +25,21 @@ public class SimpleIndexedIncidenceMap<T extends Point3D> implements IncidenceMa
   
   @Override
   public List<IndexedFace<T>> getIncidences(Point3D vertex) {
-    return map.get(vertex);
+    return this.map.get(vertex);
   }
 
   @Override
   public void setIncidences(T vertex, List<IndexedFace<T>> incidences) {
-    map.put(vertex, incidences);
+    this.map.put(vertex, incidences);
   }
 
   @Override
   public boolean addIncident(T vertex, IndexedFace<T> incident) {
-    List<IndexedFace<T>> l = map.get(vertex);
+    List<IndexedFace<T>> l = this.map.get(vertex);
     
     if (l == null){
       l = new ArrayList<IndexedFace<T>>();
-      map.put(vertex, l);
+      this.map.put(vertex, l);
     }
     
     return l.add(incident);
@@ -47,7 +47,7 @@ public class SimpleIndexedIncidenceMap<T extends Point3D> implements IncidenceMa
 
   @Override
   public boolean removeIncident(T vertex, IndexedFace<T> incident) {
-    List<IndexedFace<T>> l = map.get(vertex);
+    List<IndexedFace<T>> l = this.map.get(vertex);
     
     if (l != null){
       return l.remove(incident);

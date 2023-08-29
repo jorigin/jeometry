@@ -34,7 +34,7 @@ public class SimpleTexturedMesh<T extends Point3D> extends SimpleMesh<T> impleme
   
   @Override
   public List<Texture> getTextures() {
-    return textures;
+    return this.textures;
   }
 
   @Override

@@ -26,9 +26,9 @@ public class SimplePoint2D implements Point2D{
 	 * Create a new empty {@link Point2D}. with its coordinates initialized to <code>Double.Nan</code>
 	 */
 	public SimplePoint2D() {
-		coordinates = new double[2];
-		coordinates[DIMENSION_X] = Double.NaN;
-		coordinates[DIMENSION_Y] = Double.NaN;
+		this.coordinates = new double[2];
+		this.coordinates[DIMENSION_X] = Double.NaN;
+		this.coordinates[DIMENSION_Y] = Double.NaN;
 	}
 
 	/**
@@ -37,9 +37,9 @@ public class SimplePoint2D implements Point2D{
 	 * @param y the y coordinate of the point.
 	 */
 	public SimplePoint2D(double x, double y) {
-		coordinates = new double[2];
-		coordinates[DIMENSION_X] = x;
-		coordinates[DIMENSION_Y] = y;
+		this.coordinates = new double[2];
+		this.coordinates[DIMENSION_X] = x;
+		this.coordinates[DIMENSION_Y] = y;
 	}
 
 	/**
@@ -47,9 +47,9 @@ public class SimplePoint2D implements Point2D{
 	 * @param point the point to copy
 	 */
 	public SimplePoint2D(Point2D point) {
-		coordinates = new double[2];
-		coordinates[DIMENSION_X] = point.getX();
-		coordinates[DIMENSION_Y] = point.getY();
+		this.coordinates = new double[2];
+		this.coordinates[DIMENSION_X] = point.getX();
+		this.coordinates[DIMENSION_Y] = point.getY();
 	}
 
 	@Override
@@ -71,12 +71,12 @@ public class SimplePoint2D implements Point2D{
 
 	@Override
 	public double getValue(int dimension) {
-		return coordinates[dimension];
+		return this.coordinates[dimension];
 	}
 
 	@Override
 	public void setValue(int dimension, double value) {
-		coordinates[dimension] = value;
+		this.coordinates[dimension] = value;
 	}
 
 	@Override
@@ -92,8 +92,8 @@ public class SimplePoint2D implements Point2D{
 	@Override
 	public void normalize() {
 		double norm = norm();
-		coordinates[DIMENSION_X] = coordinates[DIMENSION_X] / norm;
-		coordinates[DIMENSION_Y] = coordinates[DIMENSION_Y] / norm;
+		this.coordinates[DIMENSION_X] = this.coordinates[DIMENSION_X] / norm;
+		this.coordinates[DIMENSION_Y] = this.coordinates[DIMENSION_Y] / norm;
 	}
 
 	@Override
@@ -147,22 +147,22 @@ public class SimplePoint2D implements Point2D{
 
 	@Override
 	public double getX() {
-		return coordinates[DIMENSION_X];
+		return this.coordinates[DIMENSION_X];
 	}
 
 	@Override
 	public void setX(double x) {
-		coordinates[DIMENSION_X] = x;
+		this.coordinates[DIMENSION_X] = x;
 	}
 
 	@Override
 	public double getY() {
-		return coordinates[DIMENSION_Y];
+		return this.coordinates[DIMENSION_Y];
 	}
 
 	@Override
 	public void setY(double y) {
-		coordinates[DIMENSION_Y] = y;
+		this.coordinates[DIMENSION_Y] = y;
 	}
 
 	@Override

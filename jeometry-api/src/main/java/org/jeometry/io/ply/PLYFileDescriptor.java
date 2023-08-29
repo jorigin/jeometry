@@ -83,7 +83,7 @@ public class PLYFileDescriptor {
    * @see #setElementDescriptors(Collection)
    */
   public Collection<PLYElementDescription> getElementDescriptors() {
-    return elementDescriptors;
+    return this.elementDescriptors;
   }
 
   /**
@@ -101,7 +101,7 @@ public class PLYFileDescriptor {
    * @see #setHeaderLineCount(int)
    */
   public int getHeaderLineCount() {
-    return headerLineCount;
+    return this.headerLineCount;
   }
 
   /**
@@ -119,7 +119,7 @@ public class PLYFileDescriptor {
    * @see #setVertexCount(int)
    */
   public int getVertexCount() {
-    return vertexCount;
+    return this.vertexCount;
   }
 
   /**
@@ -137,7 +137,7 @@ public class PLYFileDescriptor {
    * @see #setFaceCount(int)
    */
   public int getFaceCount() {
-    return faceCount;
+    return this.faceCount;
   }
 
   /**
@@ -155,7 +155,7 @@ public class PLYFileDescriptor {
    * @see #setEdgeCount(int)
    */
   public int getEdgeCount() {
-    return edgeCount;
+    return this.edgeCount;
   }
 
   /**
@@ -178,7 +178,7 @@ public class PLYFileDescriptor {
    * @see #setVertexType(int)
    */
   public int getVertexType() {
-    return vertexType;
+    return this.vertexType;
   }
 
   /**

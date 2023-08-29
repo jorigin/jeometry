@@ -18,13 +18,13 @@ public class TexturePath implements Texture {
   
   @Override
   public Object getResource() {
-    return ressourcePath;
+    return this.ressourcePath;
   }
 
   @Override
   public void setResource(Object resource) {
     if (resource instanceof String){
-      ressourcePath = (String) resource;
+      this.ressourcePath = (String) resource;
     }
   }
   
@@ -33,7 +33,7 @@ public class TexturePath implements Texture {
    * @return the path that describe the attached resource.
    */
   public String getResourcePath(){
-    return ressourcePath;
+    return this.ressourcePath;
   }
   
   /**

@@ -22,13 +22,13 @@ public class TextureBufferedImage implements Texture{
   
   @Override
   public Object getResource() {
-    return ressourceImage;
+    return this.ressourceImage;
   }
 
   @Override
   public void setResource(Object resource) {
     if (resource instanceof BufferedImage){
-      ressourceImage = (BufferedImage) resource;
+      this.ressourceImage = (BufferedImage) resource;
     }
   }
   
@@ -37,7 +37,7 @@ public class TextureBufferedImage implements Texture{
    * @return the {@link BufferedImage Buffered image} that is used as resource.
    */
   public BufferedImage getResourceImage(){
-    return ressourceImage;
+    return this.ressourceImage;
   }
   
   /**

@@ -107,8 +107,8 @@ public class SimpleEdge<T extends Point3D> implements Edge<T>{
 	 */
 	public Point3DContainer<T> getVertices(){
 		Point3DContainer<T> p3dm = JeometryFactory.<T>createPoint3DContainer(2);
-		p3dm.add(end1);
-		p3dm.add(end2);
+		p3dm.add(this.end1);
+		p3dm.add(this.end2);
 		return p3dm;
 	}
 
@@ -119,8 +119,8 @@ public class SimpleEdge<T extends Point3D> implements Edge<T>{
 	@Override
 	public List<Face<T>> getFaces(){
 		List<Face<T>> faces = new ArrayList<Face<T>>(2);
-		faces.add(face1);
-		faces.add(face2);
+		faces.add(this.face1);
+		faces.add(this.face2);
 		return faces;
 	}
 
@@ -198,15 +198,15 @@ public class SimpleEdge<T extends Point3D> implements Edge<T>{
 	 */
 	public Point3D[] getVerticesArray(){
 		Point3D p3da[] = new Point3D[2];
-		p3da[0] = end1;
-		p3da[1] = end2;
+		p3da[0] = this.end1;
+		p3da[1] = this.end2;
 		return p3da;
 	}
 
 
 	@Override
 	public Mesh<T> getMesh() {
-		return mesh;
+		return this.mesh;
 	}
 
 	@Override

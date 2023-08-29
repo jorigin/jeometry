@@ -199,48 +199,48 @@ public class QuaternionTest extends VectorTest {
 	 */
 	@BeforeEach
 	public void init() {
-		quaternionRefA =  2.12469239d;
-		quaternionRefB = -1.76893983d;
-		quaternionRefC = 98.12472855d;
-		quaternionRefD = -2.11445671d;
+		this.quaternionRefA =  2.12469239d;
+		this.quaternionRefB = -1.76893983d;
+		this.quaternionRefC = 98.12472855d;
+		this.quaternionRefD = -2.11445671d;
 		
-		quaternionRefComponents = new double[] {quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD};
+		this.quaternionRefComponents = new double[] {this.quaternionRefA, this.quaternionRefB, this.quaternionRefC, this.quaternionRefD};
 		
-		quaternionRef = JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+		this.quaternionRef = JeometryFactory.createQuaternion(this.quaternionRefA, this.quaternionRefB, this.quaternionRefC, this.quaternionRefD);
 		
-		quaternionRefNormSquare = quaternionRefA*quaternionRefA + quaternionRefB*quaternionRefB + quaternionRefC*quaternionRefC + quaternionRefD*quaternionRefD;
-		quaternionRefNorm       = Math.sqrt(quaternionRefNormSquare);
+		this.quaternionRefNormSquare = this.quaternionRefA*this.quaternionRefA + this.quaternionRefB*this.quaternionRefB + this.quaternionRefC*this.quaternionRefC + this.quaternionRefD*this.quaternionRefD;
+		this.quaternionRefNorm       = Math.sqrt(this.quaternionRefNormSquare);
 		
-		quaternionTargetA =  36.58797462d;
-		quaternionTargetB =   0.00768983d;
-		quaternionTargetC = -44.12672855d;
-		quaternionTargetD =   8.25697125d;
+		this.quaternionTargetA =  36.58797462d;
+		this.quaternionTargetB =   0.00768983d;
+		this.quaternionTargetC = -44.12672855d;
+		this.quaternionTargetD =   8.25697125d;
 		
-		quaternionTargetComponents = new double[] {quaternionTargetA, quaternionTargetB, quaternionTargetC, quaternionTargetD};
+		this.quaternionTargetComponents = new double[] {this.quaternionTargetA, this.quaternionTargetB, this.quaternionTargetC, this.quaternionTargetD};
 		
-		quaternionTarget =  JeometryFactory.createQuaternion(quaternionTargetA, quaternionTargetB, quaternionTargetC, quaternionTargetD);
+		this.quaternionTarget =  JeometryFactory.createQuaternion(this.quaternionTargetA, this.quaternionTargetB, this.quaternionTargetC, this.quaternionTargetD);
 		
-		quaternionMultA = quaternionRefA * quaternionTargetA - quaternionRefB * quaternionTargetB - quaternionRefC * quaternionTargetC - quaternionRefD * quaternionTargetD;
-		quaternionMultB = quaternionRefA * quaternionTargetB + quaternionRefB * quaternionTargetA + quaternionRefC * quaternionTargetD - quaternionRefD * quaternionTargetC;
-		quaternionMultC = quaternionRefA * quaternionTargetC - quaternionRefB * quaternionTargetD + quaternionRefC * quaternionTargetA + quaternionRefD * quaternionTargetB;
-		quaternionMultD = quaternionRefA * quaternionTargetD + quaternionRefB * quaternionTargetC - quaternionRefC * quaternionTargetB + quaternionRefD * quaternionTargetA;
+		this.quaternionMultA = this.quaternionRefA * this.quaternionTargetA - this.quaternionRefB * this.quaternionTargetB - this.quaternionRefC * this.quaternionTargetC - this.quaternionRefD * this.quaternionTargetD;
+		this.quaternionMultB = this.quaternionRefA * this.quaternionTargetB + this.quaternionRefB * this.quaternionTargetA + this.quaternionRefC * this.quaternionTargetD - this.quaternionRefD * this.quaternionTargetC;
+		this.quaternionMultC = this.quaternionRefA * this.quaternionTargetC - this.quaternionRefB * this.quaternionTargetD + this.quaternionRefC * this.quaternionTargetA + this.quaternionRefD * this.quaternionTargetB;
+		this.quaternionMultD = this.quaternionRefA * this.quaternionTargetD + this.quaternionRefB * this.quaternionTargetC - this.quaternionRefC * this.quaternionTargetB + this.quaternionRefD * this.quaternionTargetA;
 
-		quaternionMultResult =  JeometryFactory.createQuaternion(quaternionMultA, quaternionMultB, quaternionMultC, quaternionMultD);	
+		this.quaternionMultResult =  JeometryFactory.createQuaternion(this.quaternionMultA, this.quaternionMultB, this.quaternionMultC, this.quaternionMultD);	
 		
 		
-		quaternionRefInvertedA = quaternionRefA / quaternionRefNormSquare;
-		quaternionRefInvertedB = -1.0d * quaternionRefB / quaternionRefNormSquare;
-		quaternionRefInvertedC = -1.0d * quaternionRefC / quaternionRefNormSquare;
-		quaternionRefInvertedD = -1.0d * quaternionRefD / quaternionRefNormSquare;
+		this.quaternionRefInvertedA = this.quaternionRefA / this.quaternionRefNormSquare;
+		this.quaternionRefInvertedB = -1.0d * this.quaternionRefB / this.quaternionRefNormSquare;
+		this.quaternionRefInvertedC = -1.0d * this.quaternionRefC / this.quaternionRefNormSquare;
+		this.quaternionRefInvertedD = -1.0d * this.quaternionRefD / this.quaternionRefNormSquare;
 		
-		quaternionRefInvertedResult =  JeometryFactory.createQuaternion(quaternionRefInvertedA, quaternionRefInvertedB, quaternionRefInvertedC, quaternionRefInvertedD);	
+		this.quaternionRefInvertedResult =  JeometryFactory.createQuaternion(this.quaternionRefInvertedA, this.quaternionRefInvertedB, this.quaternionRefInvertedC, this.quaternionRefInvertedD);	
 		
-		quaternionRefConjugateA = quaternionRefA;
-		quaternionRefConjugateB = -1.0d*quaternionRefB;
-		quaternionRefConjugateC = -1.0d*quaternionRefC;
-		quaternionRefConjugateD = -1.0d*quaternionRefD;
+		this.quaternionRefConjugateA = this.quaternionRefA;
+		this.quaternionRefConjugateB = -1.0d*this.quaternionRefB;
+		this.quaternionRefConjugateC = -1.0d*this.quaternionRefC;
+		this.quaternionRefConjugateD = -1.0d*this.quaternionRefD;
 		
-		quaternionRefConjugateResult =  JeometryFactory.createQuaternion(quaternionRefConjugateA, quaternionRefConjugateB, quaternionRefConjugateC, quaternionRefConjugateD);	
+		this.quaternionRefConjugateResult =  JeometryFactory.createQuaternion(this.quaternionRefConjugateA, this.quaternionRefConjugateB, this.quaternionRefConjugateC, this.quaternionRefConjugateD);	
 	}
 	
 	/**
@@ -270,17 +270,17 @@ public class QuaternionTest extends VectorTest {
 	public void constructorParametersTest() {
 		Quaternion q = null;
 		try {
-			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(this.quaternionRefA, this.quaternionRefB, this.quaternionRefC, this.quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
 		}
 		
 		assertNotNull(q, "Created quaternion is null");
-		assertEquals(quaternionRefA, q.getScalar(), 0.0d, "Invalid scalar (a) value.");
-		assertEquals(quaternionRefB, q.getI(), 0.0d, "Invalid i (b) value.");
-		assertEquals(quaternionRefC, q.getJ(), 0.0d, "Invalid j (c) value.");
-		assertEquals(quaternionRefD, q.getK(), 0.0d, "Invalid k (d) value.");
+		assertEquals(this.quaternionRefA, q.getScalar(), 0.0d, "Invalid scalar (a) value.");
+		assertEquals(this.quaternionRefB, q.getI(), 0.0d, "Invalid i (b) value.");
+		assertEquals(this.quaternionRefC, q.getJ(), 0.0d, "Invalid j (c) value.");
+		assertEquals(this.quaternionRefD, q.getK(), 0.0d, "Invalid k (d) value.");
 	}
 	
 	
@@ -297,12 +297,12 @@ public class QuaternionTest extends VectorTest {
 			e.printStackTrace(System.err);
 		}
 		
-		q.setComponents(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+		q.setComponents(this.quaternionRefA, this.quaternionRefB, this.quaternionRefC, this.quaternionRefD);
 		
-		assertEquals(quaternionRefA, q.getScalar(), 0.0d, "Invalid scalar value");
-		assertEquals(quaternionRefB, q.getI(), 0.0d, "Invalid i value");
-		assertEquals(quaternionRefC, q.getJ(), 0.0d, "Invalid j value");
-		assertEquals(quaternionRefD, q.getK(), 0.0d, "Invalid k value");
+		assertEquals(this.quaternionRefA, q.getScalar(), 0.0d, "Invalid scalar value");
+		assertEquals(this.quaternionRefB, q.getI(), 0.0d, "Invalid i value");
+		assertEquals(this.quaternionRefC, q.getJ(), 0.0d, "Invalid j value");
+		assertEquals(this.quaternionRefD, q.getK(), 0.0d, "Invalid k value");
 	}
 	
 	/**
@@ -312,7 +312,7 @@ public class QuaternionTest extends VectorTest {
 	public void getVectorComponentsTest() {
 		Quaternion q = null;
 		try {
-			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(this.quaternionRefA, this.quaternionRefB, this.quaternionRefC, this.quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -338,7 +338,7 @@ public class QuaternionTest extends VectorTest {
 	public void getVectorComponentsResultTest() {
 		Quaternion q = null;
 		try {
-			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(this.quaternionRefA, this.quaternionRefB, this.quaternionRefC, this.quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -368,13 +368,13 @@ public class QuaternionTest extends VectorTest {
 	public void accessorScalarTest() {
 		Quaternion q = null;
 		try {
-			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(this.quaternionRefA, this.quaternionRefB, this.quaternionRefC, this.quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
 		}
 		
-		assertEquals(quaternionRefA, q.getScalar(), 0.0d, "Invalid scalar parameter");
+		assertEquals(this.quaternionRefA, q.getScalar(), 0.0d, "Invalid scalar parameter");
 		
 		q.setScalar(9999999);
 		
@@ -388,13 +388,13 @@ public class QuaternionTest extends VectorTest {
 	public void accessorITest() {
 		Quaternion q = null;
 		try {
-			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(this.quaternionRefA, this.quaternionRefB, this.quaternionRefC, this.quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
 		}
 		
-		assertEquals(quaternionRefB, q.getI(), 0.0d, "Invalid i parameter");
+		assertEquals(this.quaternionRefB, q.getI(), 0.0d, "Invalid i parameter");
 		
 		q.setI(9999999);
 		
@@ -408,13 +408,13 @@ public class QuaternionTest extends VectorTest {
 	public void accessorJTest() {
 		Quaternion q = null;
 		try {
-			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(this.quaternionRefA, this.quaternionRefB, this.quaternionRefC, this.quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
 		}
 		
-		assertEquals(quaternionRefC, q.getJ(), 0.0d, "Invalid j parameter");
+		assertEquals(this.quaternionRefC, q.getJ(), 0.0d, "Invalid j parameter");
 		
 		q.setJ(9999999);
 		
@@ -428,13 +428,13 @@ public class QuaternionTest extends VectorTest {
 	public void accessorKTest() {
 		Quaternion q = null;
 		try {
-			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(this.quaternionRefA, this.quaternionRefB, this.quaternionRefC, this.quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
 		}
 		
-		assertEquals(quaternionRefD, q.getK(), 0.0d, "Invalid k parameter");
+		assertEquals(this.quaternionRefD, q.getK(), 0.0d, "Invalid k parameter");
 		
 		q.setK(9999999);
 		
@@ -449,7 +449,7 @@ public class QuaternionTest extends VectorTest {
 	public void normSquareTest() {
 		Quaternion q = null;
 		try {
-			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(this.quaternionRefA, this.quaternionRefB, this.quaternionRefC, this.quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -458,7 +458,7 @@ public class QuaternionTest extends VectorTest {
 		assertNotNull(q, "Created quaternion is null");
 		
 		if (q != null) {
-			assertEquals(quaternionRefNormSquare, q.normSquare(), 0.0d, "Invalid norm square value.");
+			assertEquals(this.quaternionRefNormSquare, q.normSquare(), 0.0d, "Invalid norm square value.");
 		}
 	}
 	
@@ -469,7 +469,7 @@ public class QuaternionTest extends VectorTest {
 	public void normTest() {
 		Quaternion q = null;
 		try {
-			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(this.quaternionRefA, this.quaternionRefB, this.quaternionRefC, this.quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -478,7 +478,7 @@ public class QuaternionTest extends VectorTest {
 		assertNotNull(q, "Created quaternion is null");
 		
 		if (q != null) {
-			assertEquals(quaternionRefNorm, q.norm(), 0.0d, "Invalid norm square value.");
+			assertEquals(this.quaternionRefNorm, q.norm(), 0.0d, "Invalid norm square value.");
 		}
 	}
 	
@@ -489,7 +489,7 @@ public class QuaternionTest extends VectorTest {
 	public void multTest() {
 		Quaternion q = null;
 		try {
-			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(this.quaternionRefA, this.quaternionRefB, this.quaternionRefC, this.quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -501,7 +501,7 @@ public class QuaternionTest extends VectorTest {
 			
 			Quaternion result = null;
 			try {
-				result = q.mult(quaternionTarget);
+				result = q.mult(this.quaternionTarget);
 			} catch (Exception e) {
 				System.err.println(e.getMessage());
 				e.printStackTrace(System.err);
@@ -510,10 +510,10 @@ public class QuaternionTest extends VectorTest {
 			assertNotNull(result, "Resulting quaternion is null");
 			
 			if (result != null) {
-				assertEquals(quaternionMultA, result.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
-				assertEquals(quaternionMultB, result.getI(), 0.0d, "Invalid i base (b) parameter.");
-				assertEquals(quaternionMultC, result.getJ(), 0.0d, "Invalid j base (c) parameter.");
-				assertEquals(quaternionMultD, result.getK(), 0.0d, "Invalid k base (d) parameter.");
+				assertEquals(this.quaternionMultA, result.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
+				assertEquals(this.quaternionMultB, result.getI(), 0.0d, "Invalid i base (b) parameter.");
+				assertEquals(this.quaternionMultC, result.getJ(), 0.0d, "Invalid j base (c) parameter.");
+				assertEquals(this.quaternionMultD, result.getK(), 0.0d, "Invalid k base (d) parameter.");
 			}
 			
 			
@@ -527,7 +527,7 @@ public class QuaternionTest extends VectorTest {
 	public void multResultTest() {
 		Quaternion q = null;
 		try {
-			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(this.quaternionRefA, this.quaternionRefB, this.quaternionRefC, this.quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -549,7 +549,7 @@ public class QuaternionTest extends VectorTest {
 			Quaternion resultRef = null;
 			
 			try {
-				resultRef = q.mult(quaternionTarget, result);
+				resultRef = q.mult(this.quaternionTarget, result);
 			} catch (Exception e) {
 				System.err.println(e.getMessage());
 				e.printStackTrace(System.err);
@@ -561,10 +561,10 @@ public class QuaternionTest extends VectorTest {
 			assertSame(result, resultRef, "Result references differs.");
 			
 			if (result != null) {
-				assertEquals(quaternionMultA, result.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
-				assertEquals(quaternionMultB, result.getI(), 0.0d, "Invalid i base (b) parameter.");
-				assertEquals(quaternionMultC, result.getJ(), 0.0d, "Invalid j base (c) parameter.");
-				assertEquals(quaternionMultD, result.getK(), 0.0d, "Invalid k base (d) parameter.");
+				assertEquals(this.quaternionMultA, result.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
+				assertEquals(this.quaternionMultB, result.getI(), 0.0d, "Invalid i base (b) parameter.");
+				assertEquals(this.quaternionMultC, result.getJ(), 0.0d, "Invalid j base (c) parameter.");
+				assertEquals(this.quaternionMultD, result.getK(), 0.0d, "Invalid k base (d) parameter.");
 			}
 		}
 	}
@@ -577,7 +577,7 @@ public class QuaternionTest extends VectorTest {
 	public void multAffectTest() {
 		Quaternion q = null;
 		try {
-			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(this.quaternionRefA, this.quaternionRefB, this.quaternionRefC, this.quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -589,7 +589,7 @@ public class QuaternionTest extends VectorTest {
 			
 			Quaternion result = null;
 			try {
-				result = q.multAffect(quaternionTarget);
+				result = q.multAffect(this.quaternionTarget);
 			} catch (Exception e) {
 				System.err.println(e.getMessage());
 				e.printStackTrace(System.err);
@@ -599,10 +599,10 @@ public class QuaternionTest extends VectorTest {
 			assertSame(result, q, "Resulting quaternion reference is invalid.");
 			
 			if (result != null) {
-				assertEquals(quaternionMultA, result.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
-				assertEquals(quaternionMultB, result.getI(), 0.0d, "Invalid i base (b) parameter.");
-				assertEquals(quaternionMultC, result.getJ(), 0.0d, "Invalid j base (c) parameter.");
-				assertEquals(quaternionMultD, result.getK(), 0.0d, "Invalid k base (d) parameter.");
+				assertEquals(this.quaternionMultA, result.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
+				assertEquals(this.quaternionMultB, result.getI(), 0.0d, "Invalid i base (b) parameter.");
+				assertEquals(this.quaternionMultC, result.getJ(), 0.0d, "Invalid j base (c) parameter.");
+				assertEquals(this.quaternionMultD, result.getK(), 0.0d, "Invalid k base (d) parameter.");
 			}
 		}
 	}
@@ -614,7 +614,7 @@ public class QuaternionTest extends VectorTest {
 	public void invertQuaternionTest() {
 		Quaternion q = null;
 		try {
-			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(this.quaternionRefA, this.quaternionRefB, this.quaternionRefC, this.quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -636,10 +636,10 @@ public class QuaternionTest extends VectorTest {
 			assertNotNull(result, "Resulting quaternion is null");
 			
 			if (result != null) {
-				assertEquals(quaternionRefInvertedA, result.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
-				assertEquals(quaternionRefInvertedB, result.getI(), 0.0d, "Invalid i base (b) parameter.");
-				assertEquals(quaternionRefInvertedC, result.getJ(), 0.0d, "Invalid j base (c) parameter.");
-				assertEquals(quaternionRefInvertedD, result.getK(), 0.0d, "Invalid k base (d) parameter.");
+				assertEquals(this.quaternionRefInvertedA, result.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
+				assertEquals(this.quaternionRefInvertedB, result.getI(), 0.0d, "Invalid i base (b) parameter.");
+				assertEquals(this.quaternionRefInvertedC, result.getJ(), 0.0d, "Invalid j base (c) parameter.");
+				assertEquals(this.quaternionRefInvertedD, result.getK(), 0.0d, "Invalid k base (d) parameter.");
 			}
 		}
 	}
@@ -651,7 +651,7 @@ public class QuaternionTest extends VectorTest {
 	public void invertResultTest() {
 		Quaternion q = null;
 		try {
-			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(this.quaternionRefA, this.quaternionRefB, this.quaternionRefC, this.quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -684,10 +684,10 @@ public class QuaternionTest extends VectorTest {
 			assertSame(result, resultRef, "Result references differs.");
 			
 			if (result != null) {
-				assertEquals(quaternionRefInvertedA, result.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
-				assertEquals(quaternionRefInvertedB, result.getI(), 0.0d, "Invalid i base (b) parameter.");
-				assertEquals(quaternionRefInvertedC, result.getJ(), 0.0d, "Invalid j base (c) parameter.");
-				assertEquals(quaternionRefInvertedD, result.getK(), 0.0d, "Invalid k base (d) parameter.");
+				assertEquals(this.quaternionRefInvertedA, result.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
+				assertEquals(this.quaternionRefInvertedB, result.getI(), 0.0d, "Invalid i base (b) parameter.");
+				assertEquals(this.quaternionRefInvertedC, result.getJ(), 0.0d, "Invalid j base (c) parameter.");
+				assertEquals(this.quaternionRefInvertedD, result.getK(), 0.0d, "Invalid k base (d) parameter.");
 			}
 		}
 	}
@@ -699,7 +699,7 @@ public class QuaternionTest extends VectorTest {
 	public void invertAffectTest() {
 		Quaternion q = null;
 		try {
-			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(this.quaternionRefA, this.quaternionRefB, this.quaternionRefC, this.quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -722,10 +722,10 @@ public class QuaternionTest extends VectorTest {
 			assertSame(q, resultRef, "Result references differs.");
 			
 			if (resultRef != null) {
-				assertEquals(quaternionRefInvertedA, resultRef.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
-				assertEquals(quaternionRefInvertedB, resultRef.getI(), 0.0d, "Invalid i base (b) parameter.");
-				assertEquals(quaternionRefInvertedC, resultRef.getJ(), 0.0d, "Invalid j base (c) parameter.");
-				assertEquals(quaternionRefInvertedD, resultRef.getK(), 0.0d, "Invalid k base (d) parameter.");
+				assertEquals(this.quaternionRefInvertedA, resultRef.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
+				assertEquals(this.quaternionRefInvertedB, resultRef.getI(), 0.0d, "Invalid i base (b) parameter.");
+				assertEquals(this.quaternionRefInvertedC, resultRef.getJ(), 0.0d, "Invalid j base (c) parameter.");
+				assertEquals(this.quaternionRefInvertedD, resultRef.getK(), 0.0d, "Invalid k base (d) parameter.");
 			}
 		}
 	}
@@ -737,7 +737,7 @@ public class QuaternionTest extends VectorTest {
 	public void conjugateQuaternionTest() {
 		Quaternion q = null;
 		try {
-			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(this.quaternionRefA, this.quaternionRefB, this.quaternionRefC, this.quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -759,10 +759,10 @@ public class QuaternionTest extends VectorTest {
 			assertNotNull(result, "Resulting quaternion is null");
 			
 			if (result != null) {
-				assertEquals(quaternionRefConjugateA, result.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
-				assertEquals(quaternionRefConjugateB, result.getI(), 0.0d, "Invalid i base (b) parameter.");
-				assertEquals(quaternionRefConjugateC, result.getJ(), 0.0d, "Invalid j base (c) parameter.");
-				assertEquals(quaternionRefConjugateD, result.getK(), 0.0d, "Invalid k base (d) parameter.");
+				assertEquals(this.quaternionRefConjugateA, result.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
+				assertEquals(this.quaternionRefConjugateB, result.getI(), 0.0d, "Invalid i base (b) parameter.");
+				assertEquals(this.quaternionRefConjugateC, result.getJ(), 0.0d, "Invalid j base (c) parameter.");
+				assertEquals(this.quaternionRefConjugateD, result.getK(), 0.0d, "Invalid k base (d) parameter.");
 			}
 		}
 	}
@@ -774,7 +774,7 @@ public class QuaternionTest extends VectorTest {
 	public void conjugateResultTest() {
 		Quaternion q = null;
 		try {
-			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(this.quaternionRefA, this.quaternionRefB, this.quaternionRefC, this.quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -807,10 +807,10 @@ public class QuaternionTest extends VectorTest {
 			assertSame(result, resultRef, "Result references differs.");
 			
 			if (result != null) {
-				assertEquals(quaternionRefConjugateA, result.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
-				assertEquals(quaternionRefConjugateB, result.getI(), 0.0d, "Invalid i base (b) parameter.");
-				assertEquals(quaternionRefConjugateC, result.getJ(), 0.0d, "Invalid j base (c) parameter.");
-				assertEquals(quaternionRefConjugateD, result.getK(), 0.0d, "Invalid k base (d) parameter.");
+				assertEquals(this.quaternionRefConjugateA, result.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
+				assertEquals(this.quaternionRefConjugateB, result.getI(), 0.0d, "Invalid i base (b) parameter.");
+				assertEquals(this.quaternionRefConjugateC, result.getJ(), 0.0d, "Invalid j base (c) parameter.");
+				assertEquals(this.quaternionRefConjugateD, result.getK(), 0.0d, "Invalid k base (d) parameter.");
 			}
 		}
 	}
@@ -822,7 +822,7 @@ public class QuaternionTest extends VectorTest {
 	public void conjugateAffectTest() {
 		Quaternion q = null;
 		try {
-			q =  JeometryFactory.createQuaternion(quaternionRefA, quaternionRefB, quaternionRefC, quaternionRefD);
+			q =  JeometryFactory.createQuaternion(this.quaternionRefA, this.quaternionRefB, this.quaternionRefC, this.quaternionRefD);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace(System.err);
@@ -845,10 +845,10 @@ public class QuaternionTest extends VectorTest {
 			assertSame(q, resultRef, "Result references differs.");
 			
 			if (resultRef != null) {
-				assertEquals(quaternionRefConjugateA, resultRef.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
-				assertEquals(quaternionRefConjugateB, resultRef.getI(), 0.0d, "Invalid i base (b) parameter.");
-				assertEquals(quaternionRefConjugateC, resultRef.getJ(), 0.0d, "Invalid j base (c) parameter.");
-				assertEquals(quaternionRefConjugateD, resultRef.getK(), 0.0d, "Invalid k base (d) parameter.");
+				assertEquals(this.quaternionRefConjugateA, resultRef.getScalar(), 0.0d, "Invalid scalar (a) parameter.");
+				assertEquals(this.quaternionRefConjugateB, resultRef.getI(), 0.0d, "Invalid i base (b) parameter.");
+				assertEquals(this.quaternionRefConjugateC, resultRef.getJ(), 0.0d, "Invalid j base (c) parameter.");
+				assertEquals(this.quaternionRefConjugateD, resultRef.getK(), 0.0d, "Invalid k base (d) parameter.");
 			}
 		}
 	}

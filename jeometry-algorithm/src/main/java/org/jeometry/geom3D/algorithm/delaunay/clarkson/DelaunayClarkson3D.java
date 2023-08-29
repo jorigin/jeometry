@@ -58,7 +58,7 @@ public class DelaunayClarkson3D<T extends Point3D> extends DelaunayClarkson{
    * @see #isFilterInfinite()
    */
   public boolean isGenerateInfinite() {
-    return generateInfinite;
+    return this.generateInfinite;
   }
 
   /**
@@ -80,7 +80,7 @@ public class DelaunayClarkson3D<T extends Point3D> extends DelaunayClarkson{
    * @see #setFilterInfinite(boolean)
    */
   public boolean isFilterInfinite() {
-    return filterInfinite;
+    return this.filterInfinite;
   }
 
   /**
@@ -109,7 +109,7 @@ public class DelaunayClarkson3D<T extends Point3D> extends DelaunayClarkson{
   public DelaunayTetrahedralization<T> compute(Point3DContainer<T> points, float scale) throws DelaunayException{
     if ((points != null)&&(points.size() > 3)){
       
-      originalPointCount = points.size();
+      this.originalPointCount = points.size();
       
       Map<Integer, DelaunayTetrahedron<T>> map = new LinkedHashMap<Integer, DelaunayTetrahedron<T>>();
       
@@ -141,16 +141,16 @@ public class DelaunayClarkson3D<T extends Point3D> extends DelaunayClarkson{
         double boxYMin = box.getMin().getY()*scale*10;
         double boxZMin = box.getMin().getZ()*scale*10;
         
-        ifinitePoints = new Point3D[8];
+        this.ifinitePoints = new Point3D[8];
         
-        ifinitePoints[0] = JeometryFactory.createPoint3D(boxXMin, boxYMin, boxZMin);
-        ifinitePoints[1] = JeometryFactory.createPoint3D(boxXMin, boxYMin, boxZMax);
-        ifinitePoints[2] = JeometryFactory.createPoint3D(boxXMin, boxYMax, boxZMin);
-        ifinitePoints[3] = JeometryFactory.createPoint3D(boxXMin, boxYMax, boxZMax);
-        ifinitePoints[4] = JeometryFactory.createPoint3D(boxXMax, boxYMin, boxZMin);
-        ifinitePoints[5] = JeometryFactory.createPoint3D(boxXMax, boxYMin, boxZMax);
-        ifinitePoints[6] = JeometryFactory.createPoint3D(boxXMax, boxYMax, boxZMin);
-        ifinitePoints[7] = JeometryFactory.createPoint3D(boxXMax, boxYMax, boxZMax);
+        this.ifinitePoints[0] = JeometryFactory.createPoint3D(boxXMin, boxYMin, boxZMin);
+        this.ifinitePoints[1] = JeometryFactory.createPoint3D(boxXMin, boxYMin, boxZMax);
+        this.ifinitePoints[2] = JeometryFactory.createPoint3D(boxXMin, boxYMax, boxZMin);
+        this.ifinitePoints[3] = JeometryFactory.createPoint3D(boxXMin, boxYMax, boxZMax);
+        this.ifinitePoints[4] = JeometryFactory.createPoint3D(boxXMax, boxYMin, boxZMin);
+        this.ifinitePoints[5] = JeometryFactory.createPoint3D(boxXMax, boxYMin, boxZMax);
+        this.ifinitePoints[6] = JeometryFactory.createPoint3D(boxXMax, boxYMax, boxZMin);
+        this.ifinitePoints[7] = JeometryFactory.createPoint3D(boxXMax, boxYMax, boxZMax);
         
         samples[0][points.size()]   = boxXMin;
         samples[1][points.size()]   = boxYMin;
@@ -336,10 +336,10 @@ public class DelaunayClarkson3D<T extends Point3D> extends DelaunayClarkson{
     boolean infinite = false;
     
     if (indices != null){
-      infinite =    (indices[0] >= originalPointCount)
-                 || (indices[1] >= originalPointCount)
-                 || (indices[2] >= originalPointCount)
-                 || (indices[3] >= originalPointCount);
+      infinite =    (indices[0] >= this.originalPointCount)
+                 || (indices[1] >= this.originalPointCount)
+                 || (indices[2] >= this.originalPointCount)
+                 || (indices[3] >= this.originalPointCount);
     } else {
       infinite = false;
     }

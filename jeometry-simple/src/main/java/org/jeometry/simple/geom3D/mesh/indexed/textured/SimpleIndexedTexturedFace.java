@@ -45,7 +45,7 @@ public class SimpleIndexedTexturedFace<T extends Point3D> extends SimpleIndexedF
 
 	@Override
 	public Texture getTexture() {
-		return texture;
+		return this.texture;
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class SimpleIndexedTexturedFace<T extends Point3D> extends SimpleIndexedF
 
 	@Override
 	public Point2DContainer getTextureCoodinates() {
-		return textureCoords;
+		return this.textureCoords;
 	}
 
 	@Override
@@ -108,42 +108,42 @@ public class SimpleIndexedTexturedFace<T extends Point3D> extends SimpleIndexedF
 
 	@Override
 	public int getTextureCoordinatesNature() {
-      return textureInformation & Texturable.COORDINATE_MASK;
+      return this.textureInformation & Texturable.COORDINATE_MASK;
 	}
 
 	@Override
 	public void setTextureCoordinatesNature(int nature) {
-		textureInformation = textureInformation &  (nature | Texturable.ORIGIN_MASK | Texturable.AXIS_MASK);
+		this.textureInformation = this.textureInformation &  (nature | Texturable.ORIGIN_MASK | Texturable.AXIS_MASK);
 	}
 
 	@Override
 	public int getTextureCoordinatesOrigin() {
-		return textureInformation & Texturable.ORIGIN_MASK;
+		return this.textureInformation & Texturable.ORIGIN_MASK;
 	}
 
 	@Override
 	public void setTextureCoordinatesOrigin(int origin) {
-		textureInformation = textureInformation &  (origin | Texturable.COORDINATE_MASK | Texturable.AXIS_MASK);
+		this.textureInformation = this.textureInformation &  (origin | Texturable.COORDINATE_MASK | Texturable.AXIS_MASK);
 	}
 
 	@Override
 	public int getTextureCoordinatesAxisXDirection() {
-		return textureInformation & Texturable.AXIS_X_MASK;
+		return this.textureInformation & Texturable.AXIS_X_MASK;
 	}
 
 	@Override
 	public void setTextureCoordinatesAxisXDirection(int direction) {
-		textureInformation = textureInformation &  (direction | Texturable.COORDINATE_MASK | Texturable.ORIGIN_MASK);
+		this.textureInformation = this.textureInformation &  (direction | Texturable.COORDINATE_MASK | Texturable.ORIGIN_MASK);
 	}
 
 	@Override
 	public int getTextureCoordinatesAxisYDirection() {
-		return textureInformation & Texturable.AXIS_Y_MASK;
+		return this.textureInformation & Texturable.AXIS_Y_MASK;
 	}
 
 	@Override
 	public void setTextureCoordinatesAxisYDirection(int direction) {
-		textureInformation = textureInformation &  (direction | Texturable.COORDINATE_MASK | Texturable.ORIGIN_MASK);
+		this.textureInformation = this.textureInformation &  (direction | Texturable.COORDINATE_MASK | Texturable.ORIGIN_MASK);
 	}
 
 }

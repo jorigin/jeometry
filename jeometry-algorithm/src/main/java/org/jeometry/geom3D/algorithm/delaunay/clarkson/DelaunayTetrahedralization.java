@@ -58,7 +58,7 @@ public class DelaunayTetrahedralization<T extends Point3D> {
    */
   public DelaunayTetrahedralization(Point3DContainer<T> points, int tetrahedraCount){
     this.points = points;
-    tetrahedra = new ArrayList<DelaunayTetrahedron<T>>(tetrahedraCount);
+    this.tetrahedra = new ArrayList<DelaunayTetrahedron<T>>(tetrahedraCount);
   }
   
   /**
@@ -66,7 +66,7 @@ public class DelaunayTetrahedralization<T extends Point3D> {
    * @return the tetrahedra that compose this Delaunay tetrahedralization.
    */
   public List<DelaunayTetrahedron<T>> getTetrahedra(){
-    return tetrahedra;
+    return this.tetrahedra;
   }
   
   /**
@@ -74,7 +74,7 @@ public class DelaunayTetrahedralization<T extends Point3D> {
    * @return the points (vertices) that compose the tetrahedralized space.
    */
   public Point3DContainer<T> getPoints(){
-    return points;
+    return this.points;
   }
   
   /**
@@ -84,13 +84,13 @@ public class DelaunayTetrahedralization<T extends Point3D> {
    */
   public DelaunayTetrahedron<T> addTetrahedron(int[] vertexIndices){
     
-    if (tetrahedra == null){
-      tetrahedra = new LinkedList<DelaunayTetrahedron<T>>();
+    if (this.tetrahedra == null){
+      this.tetrahedra = new LinkedList<DelaunayTetrahedron<T>>();
     }
     
-    DelaunayTetrahedron<T> tetrahedron = new DelaunayTetrahedron<T>(vertexIndices[0], vertexIndices[1], vertexIndices[2], vertexIndices[3], true, points);
+    DelaunayTetrahedron<T> tetrahedron = new DelaunayTetrahedron<T>(vertexIndices[0], vertexIndices[1], vertexIndices[2], vertexIndices[3], true, this.points);
    
-    boolean success = tetrahedra.add(tetrahedron);
+    boolean success = this.tetrahedra.add(tetrahedron);
     
     if (success){
       return tetrahedron;
@@ -106,11 +106,11 @@ public class DelaunayTetrahedralization<T extends Point3D> {
    */
   public DelaunayTetrahedron<T> addTetrahedron(DelaunayTetrahedron<T> tetrahedron){
     
-    if (tetrahedra == null){
-      tetrahedra = new LinkedList<DelaunayTetrahedron<T>>();
+    if (this.tetrahedra == null){
+      this.tetrahedra = new LinkedList<DelaunayTetrahedron<T>>();
     }
    
-    boolean success = tetrahedra.add(tetrahedron);
+    boolean success = this.tetrahedra.add(tetrahedron);
     
     if (success){
       tetrahedron.setVerticesSource(getPoints());
@@ -129,7 +129,7 @@ public class DelaunayTetrahedralization<T extends Point3D> {
    * the given point is not a vertex of the tetrahedralization.
    */
   public Collection<DelaunayTetrahedron<T>> getIncidentTetrahedra(Point3D point){
-    return incidentTetrahedra.get(point);
+    return this.incidentTetrahedra.get(point);
   }
   
   /**
@@ -202,15 +202,15 @@ public class DelaunayTetrahedralization<T extends Point3D> {
    * @return <code>true</code> if the tetrahedron is successfully marked as incident of the point and <code>false</code> otherwise.
    */
   public boolean addIndicentTetrahedron(Point3D point, DelaunayTetrahedron<T> tetrahedron){
-    if (incidentTetrahedra == null){
-      incidentTetrahedra = new HashMap<Point3D, Collection<DelaunayTetrahedron<T>>>();
+    if (this.incidentTetrahedra == null){
+      this.incidentTetrahedra = new HashMap<Point3D, Collection<DelaunayTetrahedron<T>>>();
     }
     
-    if (incidentTetrahedra.get(point) == null){
-      incidentTetrahedra.put(point, new LinkedList<DelaunayTetrahedron<T>>());
+    if (this.incidentTetrahedra.get(point) == null){
+      this.incidentTetrahedra.put(point, new LinkedList<DelaunayTetrahedron<T>>());
     }
     
-    return incidentTetrahedra.get(point).add(tetrahedron);
+    return this.incidentTetrahedra.get(point).add(tetrahedron);
   }
   
   /**
@@ -221,7 +221,7 @@ public class DelaunayTetrahedralization<T extends Point3D> {
   public void setIncidentTetrahera(Point3D point, int[] incidentTetrahedraIndices){
     for(int i = 0; i < incidentTetrahedraIndices.length; i++){
       if (incidentTetrahedraIndices[i] > -1){
-        addIndicentTetrahedron(point, tetrahedra.get(incidentTetrahedraIndices[i]));
+        addIndicentTetrahedron(point, this.tetrahedra.get(incidentTetrahedraIndices[i]));
       } else {
         addIndicentTetrahedron(point, (DelaunayTetrahedron<T>)null);
       }
@@ -235,8 +235,8 @@ public class DelaunayTetrahedralization<T extends Point3D> {
    */
   public Collection<IndexedFace<T>> getIncidentFaces(Point3D point){
 	  
-	if (incidentFaces != null) {
-		return incidentFaces.get(point);
+	if (this.incidentFaces != null) {
+		return this.incidentFaces.get(point);
 	} else {
 		return null;
 	}
@@ -249,15 +249,15 @@ public class DelaunayTetrahedralization<T extends Point3D> {
    * @return <code>true</code> if the face is successfully added as an incident of the point and <code>false</code> otherwise.
    */
   public boolean addIndicentTetrahedron(Point3D point, IndexedFace<T> face){
-    if (incidentFaces == null){
-      incidentFaces = new HashMap<Point3D, Collection<IndexedFace<T>>>();
+    if (this.incidentFaces == null){
+      this.incidentFaces = new HashMap<Point3D, Collection<IndexedFace<T>>>();
     }
     
-    if (incidentFaces.get(point) == null){
-      incidentFaces.put(point, new LinkedList<IndexedFace<T>>());
+    if (this.incidentFaces.get(point) == null){
+      this.incidentFaces.put(point, new LinkedList<IndexedFace<T>>());
     }
     
-    return incidentFaces.get(point).add(face);
+    return this.incidentFaces.get(point).add(face);
   }
   
   /**
@@ -267,7 +267,7 @@ public class DelaunayTetrahedralization<T extends Point3D> {
    * @see #setNeighbors(DelaunayTetrahedron, List)
    */
   public List<DelaunayTetrahedron<T>> getNeighbors(DelaunayTetrahedron<T> tetrahedron){
-    return neighbors.get(tetrahedron);
+    return this.neighbors.get(tetrahedron);
   }
   
   /**
@@ -308,7 +308,7 @@ public class DelaunayTetrahedralization<T extends Point3D> {
     int index    = 0;
     
     str += "Tetrahedra: ";
-    Iterator<? extends IndexedTetrahedron<T>> tetrahedronIter = tetrahedra.iterator();
+    Iterator<? extends IndexedTetrahedron<T>> tetrahedronIter = this.tetrahedra.iterator();
     IndexedTetrahedron<T> tetrahedron = null;
     while(tetrahedronIter.hasNext()){
       tetrahedron = tetrahedronIter.next();
@@ -318,17 +318,17 @@ public class DelaunayTetrahedralization<T extends Point3D> {
     str += "";
 
     str += "Vertex incidences: "+System.getProperty("line.separator");
-    Iterator<? extends Point3D> pointIter = points.iterator();
+    Iterator<? extends Point3D> pointIter = this.points.iterator();
     Point3D point = null;
     Collection<? extends IndexedTetrahedron<T>> indidentTetrahedra = null;
     while(pointIter.hasNext()){
       point = pointIter.next();
-      str += "    "+points.indexOf(point)+": "+point+System.getProperty("line.separator");;
+      str += "    "+this.points.indexOf(point)+": "+point+System.getProperty("line.separator");;
       indidentTetrahedra = getIncidentTetrahedra(point);
       tetrahedronIter = indidentTetrahedra.iterator();
       while(tetrahedronIter.hasNext()){
         tetrahedron = tetrahedronIter.next();
-        str += "      "+tetrahedra.indexOf(tetrahedron)+": "+tetrahedron;
+        str += "      "+this.tetrahedra.indexOf(tetrahedron)+": "+tetrahedron;
       }
       
     }

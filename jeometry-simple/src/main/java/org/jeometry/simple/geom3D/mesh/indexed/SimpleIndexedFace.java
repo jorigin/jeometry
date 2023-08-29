@@ -44,8 +44,8 @@ public class SimpleIndexedFace<T extends Point3D> extends SimpleIndexedPolygon3D
 
 	@Override
 	public Point3DContainer<T> getVerticesSource() {
-		if (meshIndexed != null) {
-			return meshIndexed.getVerticesSource();
+		if (this.meshIndexed != null) {
+			return this.meshIndexed.getVerticesSource();
 		} else {
 			return null;
 		}
@@ -64,7 +64,7 @@ public class SimpleIndexedFace<T extends Point3D> extends SimpleIndexedPolygon3D
 	
 	@Override
 	public List<IndexedEdge<T>> getEdgesIndexed() {
-		return edgesIndexed;
+		return this.edgesIndexed;
 	}
 
 	@Override
@@ -81,16 +81,16 @@ public class SimpleIndexedFace<T extends Point3D> extends SimpleIndexedPolygon3D
 
 	@Override
 	public IndexedMesh<T> getMesh(){
-		return meshIndexed;
+		return this.meshIndexed;
 	}
 
 	@Override
 	public void setMesh(IndexedMesh<T> mesh) {
-		meshIndexed = mesh;
+		this.meshIndexed = mesh;
 
 		if (getVerticesSource() != null){
-			if (edgesIndexed != null){
-				Iterator<IndexedEdge<T>> edgeIter = edgesIndexed.iterator();
+			if (this.edgesIndexed != null){
+				Iterator<IndexedEdge<T>> edgeIter = this.edgesIndexed.iterator();
 				while(edgeIter.hasNext()){
 					edgeIter.next().setVerticesSource(getVerticesSource());
 				}
@@ -147,9 +147,9 @@ public class SimpleIndexedFace<T extends Point3D> extends SimpleIndexedPolygon3D
 
 			if (indices.size() > 0){
 
-				edgesIndexed    = new ArrayList<IndexedEdge<T>>(indices.size());
+				this.edgesIndexed    = new ArrayList<IndexedEdge<T>>(indices.size());
 				for(int i = 0; i < indices.size(); i++){
-					edgesIndexed.add(new SimpleIndexedEdge<T>(indices.get(i), indices.get((i+1)%indices.size()), mesh));
+					this.edgesIndexed.add(new SimpleIndexedEdge<T>(indices.get(i), indices.get((i+1)%indices.size()), mesh));
 				}     
 			}
 
@@ -173,9 +173,9 @@ public class SimpleIndexedFace<T extends Point3D> extends SimpleIndexedPolygon3D
 
 			if (indices.length > 0) {
 
-				edgesIndexed    = new ArrayList<IndexedEdge<T>>(indices.length);
+				this.edgesIndexed    = new ArrayList<IndexedEdge<T>>(indices.length);
 				for(int i = 0; i < indices.length; i++){
-					edgesIndexed.add(new SimpleIndexedEdge<T>(indices[i], indices[(i+1)%indices.length], mesh));
+					this.edgesIndexed.add(new SimpleIndexedEdge<T>(indices[i], indices[(i+1)%indices.length], mesh));
 				}     
 			}
 

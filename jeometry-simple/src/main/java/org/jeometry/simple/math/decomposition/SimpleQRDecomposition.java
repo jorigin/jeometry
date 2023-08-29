@@ -60,89 +60,89 @@ public class SimpleQRDecomposition implements QRDecomposition {
 	 */
 	public SimpleQRDecomposition(Matrix matrix) {
 		// Initialize.
-		QR = JeometryFactory.createMatrix(matrix);
+		this.QR = JeometryFactory.createMatrix(matrix);
 
-		inputRowsCount = matrix.getRowsCount();
-		inputColumnsCount = matrix.getColumnsCount();
+		this.inputRowsCount = matrix.getRowsCount();
+		this.inputColumnsCount = matrix.getColumnsCount();
 
-		Rdiag = new double[inputColumnsCount];
+		this.Rdiag = new double[this.inputColumnsCount];
 
 		// Main loop.
-		for (int k = 0; k < inputColumnsCount; k++) {
+		for (int k = 0; k < this.inputColumnsCount; k++) {
 			// Compute 2-norm of k-th column without under/overflow.
 			double nrm = 0;
-			for (int i = k; i < inputRowsCount; i++) {
-				nrm = hypot(nrm,QR.getValue(i, k));
+			for (int i = k; i < this.inputRowsCount; i++) {
+				nrm = hypot(nrm,this.QR.getValue(i, k));
 			}
 
 			if (nrm != 0.0) {
 				// Form k-th Householder vector.
-				if (QR.getValue(k, k) < 0) {
+				if (this.QR.getValue(k, k) < 0) {
 					nrm = -nrm;
 				}
-				for (int i = k; i < inputRowsCount; i++) {
-					QR.setValue(i, k,  QR.getValue(i, k) / nrm);
+				for (int i = k; i < this.inputRowsCount; i++) {
+					this.QR.setValue(i, k,  this.QR.getValue(i, k) / nrm);
 				}
-				QR.setValue(k, k,  QR.getValue(k, k) + 1.0d);
+				this.QR.setValue(k, k,  this.QR.getValue(k, k) + 1.0d);
 
 				// Apply transformation to remaining columns.
-				for (int j = k+1; j < inputColumnsCount; j++) {
+				for (int j = k+1; j < this.inputColumnsCount; j++) {
 					double s = 0.0; 
-					for (int i = k; i < inputRowsCount; i++) {
-						s += QR.getValue(i, k)*QR.getValue(i, j);
+					for (int i = k; i < this.inputRowsCount; i++) {
+						s += this.QR.getValue(i, k)*this.QR.getValue(i, j);
 					}
-					s = -s/QR.getValue(k, k);
-					for (int i = k; i < inputRowsCount; i++) {
-						QR.setValue(i, j,  QR.getValue(i, j) + s*QR.getValue(i, k));
+					s = -s/this.QR.getValue(k, k);
+					for (int i = k; i < this.inputRowsCount; i++) {
+						this.QR.setValue(i, j,  this.QR.getValue(i, j) + s*this.QR.getValue(i, k));
 					}
 				}
 			}
-			Rdiag[k] = -nrm;
+			this.Rdiag[k] = -nrm;
 		}
 
 		// Create R matrix
-		R = JeometryFactory.createMatrix(inputColumnsCount,inputColumnsCount);
-		for (int i = 0; i < inputColumnsCount; i++) {
-			for (int j = 0; j < inputColumnsCount; j++) {
+		this.R = JeometryFactory.createMatrix(this.inputColumnsCount,this.inputColumnsCount);
+		for (int i = 0; i < this.inputColumnsCount; i++) {
+			for (int j = 0; j < this.inputColumnsCount; j++) {
 				if (i < j) {
-					R.setValue(i, j, QR.getValue(i, j));
+					this.R.setValue(i, j, this.QR.getValue(i, j));
 				} else if (i == j) {
-					R.setValue(i, j, Rdiag[i]);
+					this.R.setValue(i, j, this.Rdiag[i]);
 				} else {
-					R.setValue(i, j, 0.0);
+					this.R.setValue(i, j, 0.0);
 				}
 			}
 		}
 
 		// Create Q matrix
-		Q = JeometryFactory.createMatrix(inputRowsCount,inputColumnsCount);
-		for (int k = inputColumnsCount-1; k >= 0; k--) {
-			for (int i = 0; i < inputRowsCount; i++) {
-				Q.setValue(i, k, 0.0);
+		this.Q = JeometryFactory.createMatrix(this.inputRowsCount,this.inputColumnsCount);
+		for (int k = this.inputColumnsCount-1; k >= 0; k--) {
+			for (int i = 0; i < this.inputRowsCount; i++) {
+				this.Q.setValue(i, k, 0.0);
 			}
-			Q.setValue(k, k, 1.0);
-			for (int j = k; j < inputColumnsCount; j++) {
-				if (QR.getValue(k, k) != 0) {
+			this.Q.setValue(k, k, 1.0);
+			for (int j = k; j < this.inputColumnsCount; j++) {
+				if (this.QR.getValue(k, k) != 0) {
 					double s = 0.0;
-					for (int i = k; i < inputRowsCount; i++) {
-						s += QR.getValue(i, k)*Q.getValue(i, j);
+					for (int i = k; i < this.inputRowsCount; i++) {
+						s += this.QR.getValue(i, k)*this.Q.getValue(i, j);
 					}
-					s = -s/QR.getValue(k, k);
-					for (int i = k; i < inputRowsCount; i++) {
-						Q.setValue(i, j,  Q.getValue(i, j) + s*QR.getValue(i, k));
+					s = -s/this.QR.getValue(k, k);
+					for (int i = k; i < this.inputRowsCount; i++) {
+						this.Q.setValue(i, j,  this.Q.getValue(i, j) + s*this.QR.getValue(i, k));
 					}
 				}
 			}
 		}
 
 		// Create H matrix
-		H = JeometryFactory.createMatrix(inputRowsCount,inputColumnsCount);
-		for (int i = 0; i < inputRowsCount; i++) {
-			for (int j = 0; j < inputColumnsCount; j++) {
+		this.H = JeometryFactory.createMatrix(this.inputRowsCount,this.inputColumnsCount);
+		for (int i = 0; i < this.inputRowsCount; i++) {
+			for (int j = 0; j < this.inputColumnsCount; j++) {
 				if (i >= j) {
-					H.setValue(i, j, QR.getValue(i, j));
+					this.H.setValue(i, j, this.QR.getValue(i, j));
 				} else {
-					H.setValue(i, j, 0.0);
+					this.H.setValue(i, j, 0.0);
 				}
 			}
 		}
@@ -158,12 +158,12 @@ public class SimpleQRDecomposition implements QRDecomposition {
 
 	@Override
 	public Matrix getQ() {
-		return Q;
+		return this.Q;
 	}
 
 	@Override
 	public Matrix getR() {
-		return R;
+		return this.R;
 	}
 
 	/**
@@ -183,7 +183,7 @@ public class SimpleQRDecomposition implements QRDecomposition {
 	 */
 	@Override
 	public Matrix solve(Matrix b) {
-		return solve(b, JeometryFactory.createMatrix(inputColumnsCount, 1));
+		return solve(b, JeometryFactory.createMatrix(this.inputColumnsCount, 1));
 	}
 
 	/**
@@ -208,16 +208,16 @@ public class SimpleQRDecomposition implements QRDecomposition {
 			throw new IllegalArgumentException("Constant matrix is null");
 		}
 
-		if (b.getRowsCount() != inputRowsCount) {
-			throw new IllegalArgumentException("Invalid constant matrix rows count "+b.getRowsCount()+", expected "+inputRowsCount);
+		if (b.getRowsCount() != this.inputRowsCount) {
+			throw new IllegalArgumentException("Invalid constant matrix rows count "+b.getRowsCount()+", expected "+this.inputRowsCount);
 		}
 
 		if (x == null) {
 			throw new IllegalArgumentException("Result matrix is null");
 		}
 
-		if (x.getRowsCount() != inputColumnsCount) {
-			throw new IllegalArgumentException("Invalid result matrix rows count "+x.getRowsCount()+", expected "+inputColumnsCount);
+		if (x.getRowsCount() != this.inputColumnsCount) {
+			throw new IllegalArgumentException("Invalid result matrix rows count "+x.getRowsCount()+", expected "+this.inputColumnsCount);
 		}
 
 		if (!this.isFullRank()) {
@@ -230,32 +230,32 @@ public class SimpleQRDecomposition implements QRDecomposition {
 		Matrix xTmp = JeometryFactory.createMatrix(b);
 
 		// Compute Y = transpose(Q)*B
-		for (int k = 0; k < inputColumnsCount; k++) {
+		for (int k = 0; k < this.inputColumnsCount; k++) {
 			for (int j = 0; j < nx; j++) {
 				double s = 0.0; 
-				for (int i = k; i < inputRowsCount; i++) {
-					s += QR.getValue(i, k)*xTmp.getValue(i, j);
+				for (int i = k; i < this.inputRowsCount; i++) {
+					s += this.QR.getValue(i, k)*xTmp.getValue(i, j);
 				}
-				s = -s/QR.getValue(k, k);
-				for (int i = k; i < inputRowsCount; i++) {
-					xTmp.setValue(i, j, xTmp.getValue(i, j) + s*QR.getValue(i, k));
+				s = -s/this.QR.getValue(k, k);
+				for (int i = k; i < this.inputRowsCount; i++) {
+					xTmp.setValue(i, j, xTmp.getValue(i, j) + s*this.QR.getValue(i, k));
 				}
 			}
 		}
 
 		// Solve R*X = Y;
-		for (int k = inputColumnsCount-1; k >= 0; k--) {
+		for (int k = this.inputColumnsCount-1; k >= 0; k--) {
 			for (int j = 0; j < nx; j++) {
-				xTmp.setValue(k, j,  xTmp.getValue(k, j) / Rdiag[k]);
+				xTmp.setValue(k, j,  xTmp.getValue(k, j) / this.Rdiag[k]);
 			}
 			for (int i = 0; i < k; i++) {
 				for (int j = 0; j < nx; j++) {
-					xTmp.setValue(i, j,  xTmp.getValue(i, j) - xTmp.getValue(k, j)*QR.getValue(i, k));
+					xTmp.setValue(i, j,  xTmp.getValue(i, j) - xTmp.getValue(k, j)*this.QR.getValue(i, k));
 				}
 			}
 		}
 
-		x.setValues(xTmp.extract(0, 0, inputColumnsCount, 1));
+		x.setValues(xTmp.extract(0, 0, this.inputColumnsCount, 1));
 
 		return x;
 	}
@@ -277,7 +277,7 @@ public class SimpleQRDecomposition implements QRDecomposition {
 	 */
 	@Override
 	public Vector solve(Vector b) {
-		return solve(b, JeometryFactory.createVector(inputColumnsCount));
+		return solve(b, JeometryFactory.createVector(this.inputColumnsCount));
 	}
 
 	@Override
@@ -286,16 +286,16 @@ public class SimpleQRDecomposition implements QRDecomposition {
 			throw new IllegalArgumentException("Constant matrix is null");
 		}
 
-		if (b.getDimension() != inputRowsCount) {
-			throw new IllegalArgumentException("Invalid constant matrix rows count "+b.getDimension()+", expected "+inputRowsCount);
+		if (b.getDimension() != this.inputRowsCount) {
+			throw new IllegalArgumentException("Invalid constant matrix rows count "+b.getDimension()+", expected "+this.inputRowsCount);
 		}
 
 		if (x == null) {
 			throw new IllegalArgumentException("Result matrix is null");
 		}
 
-		if (x.getDimension() != inputColumnsCount) {
-			throw new IllegalArgumentException("Invalid result matrix rows count "+x.getDimension()+", expected "+inputColumnsCount);
+		if (x.getDimension() != this.inputColumnsCount) {
+			throw new IllegalArgumentException("Invalid result matrix rows count "+x.getDimension()+", expected "+this.inputColumnsCount);
 		}
 
 		if (!this.isFullRank()) {
@@ -307,28 +307,28 @@ public class SimpleQRDecomposition implements QRDecomposition {
 		xTmp.setValues(b);
 
 		// Compute Y = transpose(Q)*B
-		for (int k = 0; k < inputColumnsCount; k++) {
+		for (int k = 0; k < this.inputColumnsCount; k++) {
 			double s = 0.0; 
-			for (int i = k; i < inputRowsCount; i++) {
-				s += QR.getValue(i, k)*xTmp.getValue(i);
+			for (int i = k; i < this.inputRowsCount; i++) {
+				s += this.QR.getValue(i, k)*xTmp.getValue(i);
 			}
-			s = -s/QR.getValue(k, k);
-			for (int i = k; i < inputRowsCount; i++) {
-				xTmp.setValue(i, xTmp.getValue(i) + s*QR.getValue(i, k));
+			s = -s/this.QR.getValue(k, k);
+			for (int i = k; i < this.inputRowsCount; i++) {
+				xTmp.setValue(i, xTmp.getValue(i) + s*this.QR.getValue(i, k));
 			}
 		}
 
 		// Solve R*X = Y;
-		for (int k = inputColumnsCount-1; k >= 0; k--) {
+		for (int k = this.inputColumnsCount-1; k >= 0; k--) {
 
-			xTmp.setValue(k,  xTmp.getValue(k) / Rdiag[k]);
+			xTmp.setValue(k,  xTmp.getValue(k) / this.Rdiag[k]);
 
 			for (int i = 0; i < k; i++) {
-				xTmp.setValue(i,  xTmp.getValue(i) - xTmp.getValue(k)*QR.getValue(i, k));
+				xTmp.setValue(i,  xTmp.getValue(i) - xTmp.getValue(k)*this.QR.getValue(i, k));
 			}
 		}
 
-		x.setValues(xTmp.extract(0, inputColumnsCount));
+		x.setValues(xTmp.extract(0, this.inputColumnsCount));
 		
 		return x;
 	}
@@ -337,15 +337,15 @@ public class SimpleQRDecomposition implements QRDecomposition {
 	 * @return the Householder vectors
 	 */
 	public Matrix getH () {
-		return H;
+		return this.H;
 	}
 
 	/** Get if the matrix full rank.
 	 * @return <code>true</code> if <i>R</i>, and hence the decomposed matrix, has full rank
 	 */
 	public boolean isFullRank () {
-		for (int j = 0; j < inputColumnsCount; j++) {
-			if (Rdiag[j] == 0)
+		for (int j = 0; j < this.inputColumnsCount; j++) {
+			if (this.Rdiag[j] == 0)
 				return false;
 		}
 		return true;

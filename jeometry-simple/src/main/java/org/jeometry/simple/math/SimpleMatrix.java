@@ -33,35 +33,35 @@ public class SimpleMatrix implements Matrix {
 
 	@Override
 	public double[] getDataArray(int ordering) {
-		return getDataArray(ordering, new double[rows*cols]);
+		return getDataArray(ordering, new double[this.rows*this.cols]);
 	}
 
 	@Override
 	public double[] getDataArray(int ordering, double[] output) throws IllegalArgumentException {
 
 		if (output != null) {
-			if (output.length >= rows * cols) {
+			if (output.length >= this.rows * this.cols) {
 				if (ordering == Matrix.ROW_MAJOR) {
 
 					int index = 0;
-					for(int row = 0; row < rows; row++) {
-						for(int col = 0; col < cols; col++) {
-							output[index] = data[row][col];
+					for(int row = 0; row < this.rows; row++) {
+						for(int col = 0; col < this.cols; col++) {
+							output[index] = this.data[row][col];
 							index = index + 1;
 						}
 					}
 
 				} else if (ordering == Matrix.COLUMN_MAJOR) {
 					int index = 0;
-					for(int col = 0; col < cols; col++) {
-						for(int row = 0; row < rows; row++) {
-							output[index] = data[row][col];
+					for(int col = 0; col < this.cols; col++) {
+						for(int row = 0; row < this.rows; row++) {
+							output[index] = this.data[row][col];
 							index = index + 1;
 						}
 					}
 				}
 			} else {
-				throw new IllegalArgumentException("Invalid output size ("+output.length+") as it must be superior to "+(rows*cols));
+				throw new IllegalArgumentException("Invalid output size ("+output.length+") as it must be superior to "+(this.rows*this.cols));
 			}
 
 
@@ -73,46 +73,46 @@ public class SimpleMatrix implements Matrix {
 	@Override
 	public void setDataArray(int ordering, double[] data) throws IllegalArgumentException {
 		if (data != null) {
-			if (data.length >= (rows*cols)) {
+			if (data.length >= (this.rows*this.cols)) {
 				if (ordering == Matrix.ROW_MAJOR) {
 
-					for(int row = 0; row < rows; row++) {
-						for(int col = 0; col < cols; col++) {
-							this.data[row][col] = data[row*cols+col];
+					for(int row = 0; row < this.rows; row++) {
+						for(int col = 0; col < this.cols; col++) {
+							this.data[row][col] = data[row*this.cols+col];
 						}
 					}
 
 				} else if (ordering == Matrix.COLUMN_MAJOR) {
-					for(int col = 0; col < cols; col++) {
-						for(int row = 0; row < rows; row++) {
-							this.data[row][col] = data[col*rows+row];
+					for(int col = 0; col < this.cols; col++) {
+						for(int row = 0; row < this.rows; row++) {
+							this.data[row][col] = data[col*this.rows+row];
 						}
 					}
 				}
 			} else {
-				throw new IllegalArgumentException("Invalid input size ("+data.length+") as it must be superior to "+(rows*cols));
+				throw new IllegalArgumentException("Invalid input size ("+data.length+") as it must be superior to "+(this.rows*this.cols));
 			}
 		} else {
-			this.data = new double[rows][cols];
+			this.data = new double[this.rows][this.cols];
 		}
 	}
 
 	@Override
 	public double[][] getDataArray2D() {
-		return getDataArray2D(new double[rows][cols]);
+		return getDataArray2D(new double[this.rows][this.cols]);
 	}
 
 	@Override
 	public double[][] getDataArray2D(double[][] output) {
 		if ((output != null) && (output.length > 0)){
-			if ((output.length >= rows) && (output[0].length >= cols)) {
-				for(int row = 0; row < rows; row++) {
-					for(int col = 0; col < cols; col++) {
-						output[row][col] = data[row][col];
+			if ((output.length >= this.rows) && (output[0].length >= this.cols)) {
+				for(int row = 0; row < this.rows; row++) {
+					for(int col = 0; col < this.cols; col++) {
+						output[row][col] = this.data[row][col];
 					}
 				}
 			} else {
-				throw new IllegalArgumentException("Invalid output size ["+output.length+"x"+output[0].length+"] as it must be superior to ["+rows+"x"+cols+"]");
+				throw new IllegalArgumentException("Invalid output size ["+output.length+"x"+output[0].length+"] as it must be superior to ["+this.rows+"x"+this.cols+"]");
 			}
 		}
 		return output;
@@ -122,44 +122,44 @@ public class SimpleMatrix implements Matrix {
 	public void setDataArray2D(double[][] data) throws IllegalArgumentException {
 		if ((data != null) && (data.length > 0)) {
 
-			for(int row = 0; row < rows; row++) {
-				for(int col = 0; col < cols; col++) {
+			for(int row = 0; row < this.rows; row++) {
+				for(int col = 0; col < this.cols; col++) {
 					this.data[row][col] = data[row][col];
 				}
 			}
 
 		} else {
-			throw new IllegalArgumentException("Invalid input size ["+data.length+"x"+data[0].length+"] as it must be superior to ["+rows+"x"+cols+"]");
+			throw new IllegalArgumentException("Invalid input size ["+data.length+"x"+data[0].length+"] as it must be superior to ["+this.rows+"x"+this.cols+"]");
 		}
 	}
 
 	@Override
 	public double getValue(int row, int col) throws IllegalArgumentException {
-		if (row < rows) {
+		if (row < this.rows) {
 
-			if (col < cols) {
-				return data[row][col];
+			if (col < this.cols) {
+				return this.data[row][col];
 			} else {
-				throw new IllegalArgumentException("Invalid column index "+col+" as it must be positive and inferior to "+cols);
+				throw new IllegalArgumentException("Invalid column index "+col+" as it must be positive and inferior to "+this.cols);
 			}
 
 		} else {
-			throw new IllegalArgumentException("Invalid row index "+row+" as it must be positive and inferior to "+rows);
+			throw new IllegalArgumentException("Invalid row index "+row+" as it must be positive and inferior to "+this.rows);
 		}
 	}
 
 	@Override
 	public void setValue(int row, int col, double value) throws IllegalArgumentException {
-		if (row < rows) {
+		if (row < this.rows) {
 
-			if (col < cols) {
-				data[row][col] = value;
+			if (col < this.cols) {
+				this.data[row][col] = value;
 			} else {
-				throw new IllegalArgumentException("Invalid column index "+col+" as it must be positive and inferior to "+cols);
+				throw new IllegalArgumentException("Invalid column index "+col+" as it must be positive and inferior to "+this.cols);
 			}
 
 		} else {
-			throw new IllegalArgumentException("Invalid row index "+row+" as it must be positive and inferior to "+rows);
+			throw new IllegalArgumentException("Invalid row index "+row+" as it must be positive and inferior to "+this.rows);
 		}
 	}
 
@@ -174,8 +174,8 @@ public class SimpleMatrix implements Matrix {
 			throw new IllegalArgumentException("Input ["+matrix.getRowsCount()+"x"+matrix.getColumnsCount()+"] matrix has incorrect size.");
 		}
 
-		for(int row = 0; row < rows; row++) {
-			for(int col = 0; col < cols; col++) {
+		for(int row = 0; row < this.rows; row++) {
+			for(int col = 0; col < this.cols; col++) {
 				setValue(row, col, matrix.getValue(row, col));
 			}
 		}
@@ -183,9 +183,9 @@ public class SimpleMatrix implements Matrix {
 
 	@Override
 	public void setTo(double value) {
-		for(int row = 0; row < rows; row++) {
-			for(int col = 0; col < cols; col++) {
-				data[row][col] = value;
+		for(int row = 0; row < this.rows; row++) {
+			for(int col = 0; col < this.cols; col++) {
+				this.data[row][col] = value;
 			}
 		}
 	}
@@ -389,24 +389,24 @@ public class SimpleMatrix implements Matrix {
 
 	@Override
 	public int getRowsCount() {
-		return rows;
+		return this.rows;
 	}
 
 	@Override
 	public int getColumnsCount() {
-		return cols;
+		return this.cols;
 	}
 
 	@Override
 	public Dimension getDimension() {
-		return new Dimension(rows, cols);
+		return new Dimension(this.rows, this.cols);
 	}
 
 	@Override
 	public double determinant() {
 
-		if (rows == cols) {
-			return determinant(data, rows);
+		if (this.rows == this.cols) {
+			return determinant(this.data, this.rows);
 		} else {
 			return Double.NaN;
 		}
@@ -468,7 +468,7 @@ public class SimpleMatrix implements Matrix {
 			if ((result.getRowsCount() == getColumnsCount()) && (result.getColumnsCount() == getRowsCount())) {
 				for(int row = 0; row < getRowsCount(); row++) {
 					for(int col = 0; col < getColumnsCount(); col++) {
-						result.setValue(col, row, data[row][col]);
+						result.setValue(col, row, this.data[row][col]);
 					}
 				}
 			} else {
@@ -484,11 +484,11 @@ public class SimpleMatrix implements Matrix {
 
 		for(int row = 0; row < getRowsCount(); row++) {
 			for(int col = 0; col < getColumnsCount(); col++) {
-				transpose[col][row] = data[row][col];		
+				transpose[col][row] = this.data[row][col];		
 			}
 		}
 
-		data = transpose;
+		this.data = transpose;
 
 		return this;
 	}
@@ -563,7 +563,7 @@ public class SimpleMatrix implements Matrix {
 					}
 				}
 
-				data = result;
+				this.data = result;
 			} else {
 				new IllegalArgumentException("Invalid matrices size ["+getRowsCount()+"x"+getColumnsCount()+"] and ["+b.getRowsCount()+"x"+b.getColumnsCount()+"]");
 			}
@@ -981,7 +981,7 @@ public class SimpleMatrix implements Matrix {
 	public SimpleMatrix(int rows, int cols) {
 		this.rows = rows;
 		this.cols = cols;
-		data = new double[rows][cols];
+		this.data = new double[rows][cols];
 	}
 
 	/**
@@ -991,13 +991,13 @@ public class SimpleMatrix implements Matrix {
 	 */
 	public SimpleMatrix(double[][] data) {
 		if ((data != null) && (data.length > 0)){
-			rows = data.length;
-			cols = data[0].length;
+			this.rows = data.length;
+			this.cols = data[0].length;
 
-			this.data = new double[rows][cols];
+			this.data = new double[this.rows][this.cols];
 
-			for(int row = 0; row < rows; row++) {
-				for(int col = 0; col < cols; col++) {
+			for(int row = 0; row < this.rows; row++) {
+				for(int col = 0; col < this.cols; col++) {
 					this.data[row][col] = data[row][col];
 				}
 			}
@@ -1030,13 +1030,13 @@ public class SimpleMatrix implements Matrix {
 	 */
 	public SimpleMatrix(Matrix matrix) {
 		if ((matrix != null) && (matrix.getRowsCount() > 0) && (matrix.getColumnsCount() > 0)){
-			rows = matrix.getRowsCount();
-			cols = matrix.getColumnsCount();
+			this.rows = matrix.getRowsCount();
+			this.cols = matrix.getColumnsCount();
 
-			this.data = new double[rows][cols];
+			this.data = new double[this.rows][this.cols];
 
-			for(int row = 0; row < rows; row++) {
-				for(int col = 0; col < cols; col++) {
+			for(int row = 0; row < this.rows; row++) {
+				for(int col = 0; col < this.cols; col++) {
 					this.data[row][col] = matrix.getValue(row, col);
 				}
 			}

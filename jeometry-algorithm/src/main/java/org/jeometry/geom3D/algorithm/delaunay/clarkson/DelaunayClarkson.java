@@ -267,10 +267,10 @@ public class DelaunayClarkson {
   
   /** Internal private variable. */ private int   ns;                            // static: make_facets
   /** Internal private variable. */ private int   ns_bn;
-  /** Internal private variable. */ private int[] st = new int[ss+MAXDIM+1];    // static: search
-  /** Internal private variable. */ private int[] st_bn = new int[ss+MAXDIM+1];
-  /** Internal private variable. */ private int[] st2 = new int[ss2+MAXDIM+1];    // static: visit_triang
-  /** Internal private variable. */ private int[] st2_bn = new int[ss2+MAXDIM+1];
+  /** Internal private variable. */ private int[] st = new int[this.ss+MAXDIM+1];    // static: search
+  /** Internal private variable. */ private int[] st_bn = new int[this.ss+MAXDIM+1];
+  /** Internal private variable. */ private int[] st2 = new int[this.ss2+MAXDIM+1];    // static: visit_triang
+  /** Internal private variable. */ private int[] st2_bn = new int[this.ss2+MAXDIM+1];
 
   
   /**
@@ -280,7 +280,7 @@ public class DelaunayClarkson {
    * @return the samples to process with Delaunay computation. Samples can be 2D, 3D or higher dimension points. 
    */
   public double[][] getSamples() {
-    return samples;
+    return this.samples;
   }
 
   /**
@@ -303,7 +303,7 @@ public class DelaunayClarkson {
    * @see #getSamples()
    */
   public int[][] getSimplexes() {
-    return simplexes;
+    return this.simplexes;
   }
 
   /**
@@ -314,7 +314,7 @@ public class DelaunayClarkson {
    * @see #getSimplexes()
    */
   public int[][] getVertices() {
-    return vertices;
+    return this.vertices;
   }
 
   /**
@@ -322,7 +322,7 @@ public class DelaunayClarkson {
    * @return the neighborhood of the delaunay simplexes. 
    */
   public int[][] getNeighbors() {
-    return neighbors;
+    return this.neighbors;
   }
   
 /**
@@ -330,28 +330,28 @@ public class DelaunayClarkson {
  * @return the new block basis.
  */
   private int new_block_basis_s() {
-    bbt_next[nbb] = new int[Nobj];
-    bbt_next_bn[nbb] = new int[Nobj];
-    bbt_ref_count[nbb] = new int[Nobj];
-    bbt_lscale[nbb] = new int[Nobj];
-    bbt_sqa[nbb] = new double[Nobj];
-    bbt_sqb[nbb] = new double[Nobj];
-    bbt_vecs[nbb] = new double[2*rdim][];
-    for (int i=0; i<2*rdim; i++) bbt_vecs[nbb][i] = new double[Nobj];
+    this.bbt_next[this.nbb] = new int[Nobj];
+    this.bbt_next_bn[this.nbb] = new int[Nobj];
+    this.bbt_ref_count[this.nbb] = new int[Nobj];
+    this.bbt_lscale[this.nbb] = new int[Nobj];
+    this.bbt_sqa[this.nbb] = new double[Nobj];
+    this.bbt_sqb[this.nbb] = new double[Nobj];
+    this.bbt_vecs[this.nbb] = new double[2*this.rdim][];
+    for (int i=0; i<2*this.rdim; i++) this.bbt_vecs[this.nbb][i] = new double[Nobj];
     for (int i=0; i<Nobj; i++) {
-      bbt_next[nbb][i] = i+1;
-      bbt_next_bn[nbb][i] = nbb;
-      bbt_ref_count[nbb][i] = 0;
-      bbt_lscale[nbb][i] = 0;
-      bbt_sqa[nbb][i] = 0;
-      bbt_sqb[nbb][i] = 0;
-      for (int j=0; j<2*rdim; j++) bbt_vecs[nbb][j][i] = 0;
+      this.bbt_next[this.nbb][i] = i+1;
+      this.bbt_next_bn[this.nbb][i] = this.nbb;
+      this.bbt_ref_count[this.nbb][i] = 0;
+      this.bbt_lscale[this.nbb][i] = 0;
+      this.bbt_sqa[this.nbb][i] = 0;
+      this.bbt_sqb[this.nbb][i] = 0;
+      for (int j=0; j<2*this.rdim; j++) this.bbt_vecs[this.nbb][j][i] = 0;
     }
-    bbt_next[nbb][Nobj-1] = NOVAL;
-    basis_s_list = 0;
-    basis_s_list_bn = nbb;
-    nbb++;
-    return basis_s_list;
+    this.bbt_next[this.nbb][Nobj-1] = NOVAL;
+    this.basis_s_list = 0;
+    this.basis_s_list_bn = this.nbb;
+    this.nbb++;
+    return this.basis_s_list;
   }
 
   /**
@@ -369,97 +369,97 @@ public class DelaunayClarkson {
            Sb = 0;
     double scale;
 
-    bbt_sqa[v_bn][v] = 0;
-    for (int i=0; i<rdim; i++) {
-      bbt_sqa[v_bn][v] += bbt_vecs[v_bn][i][v] * bbt_vecs[v_bn][i][v];
+    this.bbt_sqa[v_bn][v] = 0;
+    for (int i=0; i<this.rdim; i++) {
+      this.bbt_sqa[v_bn][v] += this.bbt_vecs[v_bn][i][v] * this.bbt_vecs[v_bn][i][v];
     }
-    bbt_sqb[v_bn][v] = bbt_sqa[v_bn][v];
+    this.bbt_sqb[v_bn][v] = this.bbt_sqa[v_bn][v];
     if (k <= 1) {
-      for (int i=0; i<rdim; i++) {
-        bbt_vecs[v_bn][i][v] = bbt_vecs[v_bn][rdim+i][v];
+      for (int i=0; i<this.rdim; i++) {
+        this.bbt_vecs[v_bn][i][v] = this.bbt_vecs[v_bn][this.rdim+i][v];
       }
       return 1;
     }
     for (int j=0; j<250; j++) {
-      int    xx = rdim;
+      int    xx = this.rdim;
       double labound;
 
-      for (int i=0; i<rdim; i++) {
-        bbt_vecs[v_bn][i][v] = bbt_vecs[v_bn][rdim+i][v];
+      for (int i=0; i<this.rdim; i++) {
+        this.bbt_vecs[v_bn][i][v] = this.bbt_vecs[v_bn][this.rdim+i][v];
       }
       for (int i=k-1; i>0; i--) {
-        q = sbt_neigh_basis[s_bn][i][s];
-        q_bn = sbt_neigh_basis_bn[s_bn][i][s];
+        q = this.sbt_neigh_basis[s_bn][i][s];
+        q_bn = this.sbt_neigh_basis_bn[s_bn][i][s];
         dd = 0;
-        for (int l=0; l<rdim; l++) {
-          dd -= bbt_vecs[q_bn][l][q] * bbt_vecs[v_bn][l][v];
+        for (int l=0; l<this.rdim; l++) {
+          dd -= this.bbt_vecs[q_bn][l][q] * this.bbt_vecs[v_bn][l][v];
         }
-        dd /= bbt_sqb[q_bn][q];
-        for (int l=0; l<rdim; l++) {
-          bbt_vecs[v_bn][l][v] += dd * bbt_vecs[q_bn][rdim+l][q];
+        dd /= this.bbt_sqb[q_bn][q];
+        for (int l=0; l<this.rdim; l++) {
+          this.bbt_vecs[v_bn][l][v] += dd * this.bbt_vecs[q_bn][this.rdim+l][q];
         }
       }
-      bbt_sqb[v_bn][v] = 0;
-      for (int i=0; i<rdim; i++) {
-        bbt_sqb[v_bn][v] += bbt_vecs[v_bn][i][v] * bbt_vecs[v_bn][i][v];
+      this.bbt_sqb[v_bn][v] = 0;
+      for (int i=0; i<this.rdim; i++) {
+        this.bbt_sqb[v_bn][v] += this.bbt_vecs[v_bn][i][v] * this.bbt_vecs[v_bn][i][v];
       }
-      bbt_sqa[v_bn][v] = 0;
-      for (int i=0; i<rdim; i++) {
-        bbt_sqa[v_bn][v] += bbt_vecs[v_bn][rdim+i][v]
-                          * bbt_vecs[v_bn][rdim+i][v];
+      this.bbt_sqa[v_bn][v] = 0;
+      for (int i=0; i<this.rdim; i++) {
+        this.bbt_sqa[v_bn][v] += this.bbt_vecs[v_bn][this.rdim+i][v]
+                          * this.bbt_vecs[v_bn][this.rdim+i][v];
       }
 
-      if (2*bbt_sqb[v_bn][v] >= bbt_sqa[v_bn][v]) return 1;
+      if (2*this.bbt_sqb[v_bn][v] >= this.bbt_sqa[v_bn][v]) return 1;
 
       // scale up vector
       if (j < 10) {
-        labound = Math.floor(Math.log(bbt_sqa[v_bn][v])/ln2) / 2;
-        max_scale = exact_bits-labound-0.66*(k-2)-1;
-        if (max_scale < 1) max_scale = 1;
+        labound = Math.floor(Math.log(this.bbt_sqa[v_bn][v])/ln2) / 2;
+        this.max_scale = this.exact_bits-labound-0.66*(k-2)-1;
+        if (this.max_scale < 1) this.max_scale = 1;
 
         if (j == 0) {
 
-          ldetbound = 0;
+          this.ldetbound = 0;
           Sb = 0;
           for (int l=k-1; l>0; l--) {
-            q = sbt_neigh_basis[s_bn][l][s];
-            q_bn = sbt_neigh_basis_bn[s_bn][l][s];
-            Sb += bbt_sqb[q_bn][q];
-            ldetbound += Math.floor(Math.log(bbt_sqb[q_bn][q])/ln2) / 2 + 1;
-            ldetbound -= bbt_lscale[q_bn][q];
+            q = this.sbt_neigh_basis[s_bn][l][s];
+            q_bn = this.sbt_neigh_basis_bn[s_bn][l][s];
+            Sb += this.bbt_sqb[q_bn][q];
+            this.ldetbound += Math.floor(Math.log(this.bbt_sqb[q_bn][q])/ln2) / 2 + 1;
+            this.ldetbound -= this.bbt_lscale[q_bn][q];
           }
         }
       }
-      if (ldetbound - bbt_lscale[v_bn][v]
-        + Math.floor(Math.log(bbt_sqb[v_bn][v])/ln2) / 2 + 1 < 0) {
+      if (this.ldetbound - this.bbt_lscale[v_bn][v]
+        + Math.floor(Math.log(this.bbt_sqb[v_bn][v])/ln2) / 2 + 1 < 0) {
         scale = 0;
       }
       else {
-        lscale = (int) (Math.log(2*Sb/(bbt_sqb[v_bn][v]
-                                     + bbt_sqa[v_bn][v]*b_err_min))/ln2) / 2;
-        if (lscale > max_scale) lscale = (int) max_scale;
-        else if (lscale < 0) lscale = 0;
-        bbt_lscale[v_bn][v] += lscale;
-        scale = (lscale < 20) ? 1 << lscale : Math.pow(2, lscale);
+        this.lscale = (int) (Math.log(2*Sb/(this.bbt_sqb[v_bn][v]
+                                     + this.bbt_sqa[v_bn][v]*this.b_err_min))/ln2) / 2;
+        if (this.lscale > this.max_scale) this.lscale = (int) this.max_scale;
+        else if (this.lscale < 0) this.lscale = 0;
+        this.bbt_lscale[v_bn][v] += this.lscale;
+        scale = (this.lscale < 20) ? 1 << this.lscale : Math.pow(2, this.lscale);
       }
 
-      while (xx < 2*rdim) bbt_vecs[v_bn][xx++][v] *= scale;
+      while (xx < 2*this.rdim) this.bbt_vecs[v_bn][xx++][v] *= scale;
 
       for (int i=k-1; i>0; i--) {
-        q = sbt_neigh_basis[s_bn][i][s];
-        q_bn = sbt_neigh_basis_bn[s_bn][i][s];
+        q = this.sbt_neigh_basis[s_bn][i][s];
+        q_bn = this.sbt_neigh_basis_bn[s_bn][i][s];
         dd = 0;
-        for (int l=0; l<rdim; l++) {
-          dd -= bbt_vecs[q_bn][l][q] * bbt_vecs[v_bn][rdim+l][v];
+        for (int l=0; l<this.rdim; l++) {
+          dd -= this.bbt_vecs[q_bn][l][q] * this.bbt_vecs[v_bn][this.rdim+l][v];
         }
-        dd /= bbt_sqb[q_bn][q];
+        dd /= this.bbt_sqb[q_bn][q];
         dd = Math.floor(dd+0.5);
-        for (int l=0; l<rdim; l++) {
-          bbt_vecs[v_bn][rdim+l][v] += dd * bbt_vecs[q_bn][rdim+l][q];
+        for (int l=0; l<this.rdim; l++) {
+          this.bbt_vecs[v_bn][this.rdim+l][v] += dd * this.bbt_vecs[q_bn][this.rdim+l][q];
         }
       }
     }
-    if (failcount++ < 10) System.out.println("reduce_inner failed!");
+    if (this.failcount++ < 10) System.out.println("reduce_inner failed!");
     return 0;
   }
 
@@ -475,44 +475,44 @@ public class DelaunayClarkson {
    */
   private int reduce(int[] v, int[] v_bn, int rp, int s, int s_bn, int k) {
     if (v[0] == NOVAL) {
-      v[0] = basis_s_list != NOVAL ? basis_s_list : new_block_basis_s();
-      v_bn[0] = basis_s_list_bn;
-      basis_s_list = bbt_next[v_bn[0]][v[0]];
-      basis_s_list_bn = bbt_next_bn[v_bn[0]][v[0]];
-      bbt_ref_count[v_bn[0]][v[0]] = 1;
+      v[0] = this.basis_s_list != NOVAL ? this.basis_s_list : new_block_basis_s();
+      v_bn[0] = this.basis_s_list_bn;
+      this.basis_s_list = this.bbt_next[v_bn[0]][v[0]];
+      this.basis_s_list_bn = this.bbt_next_bn[v_bn[0]][v[0]];
+      this.bbt_ref_count[v_bn[0]][v[0]] = 1;
     }
-    else bbt_lscale[v_bn[0]][v[0]] = 0;
+    else this.bbt_lscale[v_bn[0]][v[0]] = 0;
     if (rp == INFINITY) {
-      bbt_next[v_bn[0]][v[0]] = bbt_next[ib_bn][ib];
-      bbt_next_bn[v_bn[0]][v[0]] = bbt_next_bn[ib_bn][ib];
-      bbt_ref_count[v_bn[0]][v[0]] = bbt_ref_count[ib_bn][ib];
-      bbt_lscale[v_bn[0]][v[0]] = bbt_lscale[ib_bn][ib];
-      bbt_sqa[v_bn[0]][v[0]] = bbt_sqa[ib_bn][ib];
-      bbt_sqb[v_bn[0]][v[0]] = bbt_sqb[ib_bn][ib];
-      for (int i=0; i<2*rdim; i++) {
-        bbt_vecs[v_bn[0]][i][v[0]] = bbt_vecs[ib_bn][i][ib];
+      this.bbt_next[v_bn[0]][v[0]] = this.bbt_next[this.ib_bn][this.ib];
+      this.bbt_next_bn[v_bn[0]][v[0]] = this.bbt_next_bn[this.ib_bn][this.ib];
+      this.bbt_ref_count[v_bn[0]][v[0]] = this.bbt_ref_count[this.ib_bn][this.ib];
+      this.bbt_lscale[v_bn[0]][v[0]] = this.bbt_lscale[this.ib_bn][this.ib];
+      this.bbt_sqa[v_bn[0]][v[0]] = this.bbt_sqa[this.ib_bn][this.ib];
+      this.bbt_sqb[v_bn[0]][v[0]] = this.bbt_sqb[this.ib_bn][this.ib];
+      for (int i=0; i<2*this.rdim; i++) {
+        this.bbt_vecs[v_bn[0]][i][v[0]] = this.bbt_vecs[this.ib_bn][i][this.ib];
       }
     }
     else {
       double sum = 0;
-      int sbt_nv = sbt_neigh_vert[s_bn][0][s];
+      int sbt_nv = this.sbt_neigh_vert[s_bn][0][s];
       if (sbt_nv == INFINITY) {
-        for (int i=0; i<dim; i++) {
-          bbt_vecs[v_bn[0]][i+rdim][v[0]] = bbt_vecs[v_bn[0]][i][v[0]]
-            = site_blocks[i][rp];
+        for (int i=0; i<this.dim; i++) {
+          this.bbt_vecs[v_bn[0]][i+this.rdim][v[0]] = this.bbt_vecs[v_bn[0]][i][v[0]]
+            = this.site_blocks[i][rp];
         }
       }
       else {
-        for (int i=0; i<dim; i++) {
-          bbt_vecs[v_bn[0]][i+rdim][v[0]] = bbt_vecs[v_bn[0]][i][v[0]]
-            = site_blocks[i][rp] - site_blocks[i][sbt_nv];
+        for (int i=0; i<this.dim; i++) {
+          this.bbt_vecs[v_bn[0]][i+this.rdim][v[0]] = this.bbt_vecs[v_bn[0]][i][v[0]]
+            = this.site_blocks[i][rp] - this.site_blocks[i][sbt_nv];
         }
       }
-      for (int i=0; i<dim; i++) {
-        sum += bbt_vecs[v_bn[0]][i][v[0]] * bbt_vecs[v_bn[0]][i][v[0]];
+      for (int i=0; i<this.dim; i++) {
+        sum += this.bbt_vecs[v_bn[0]][i][v[0]] * this.bbt_vecs[v_bn[0]][i][v[0]];
       }
-      bbt_vecs[v_bn[0]][2*rdim-1][v[0]] = sum;
-      bbt_vecs[v_bn[0]][rdim-1][v[0]] = sum;
+      this.bbt_vecs[v_bn[0]][2*this.rdim-1][v[0]] = sum;
+      this.bbt_vecs[v_bn[0]][this.rdim-1][v[0]] = sum;
     }
     return reduce_inner(v[0], v_bn[0], s, s_bn, k);
   }
@@ -528,69 +528,69 @@ public class DelaunayClarkson {
     int[] curt = new int[1];
     int[] curt_bn = new int[1];
 
-    if (sbt_neigh_vert[s_bn][0][s] == INFINITY && cdim > 1) {
+    if (this.sbt_neigh_vert[s_bn][0][s] == INFINITY && this.cdim > 1) {
       int t_vert, t_simp, t_simp_bn, t_basis, t_basis_bn;
-      t_vert = sbt_neigh_vert[s_bn][0][s];
-      t_simp = sbt_neigh_simp[s_bn][0][s];
-      t_simp_bn = sbt_neigh_simp_bn[s_bn][0][s];
-      t_basis = sbt_neigh_basis[s_bn][0][s];
-      t_basis_bn = sbt_neigh_basis_bn[s_bn][0][s];
-      sbt_neigh_vert[s_bn][0][s] = sbt_neigh_vert[s_bn][k][s];
-      sbt_neigh_simp[s_bn][0][s] = sbt_neigh_simp[s_bn][k][s];
-      sbt_neigh_simp_bn[s_bn][0][s] = sbt_neigh_simp_bn[s_bn][k][s];
-      sbt_neigh_basis[s_bn][0][s] = sbt_neigh_basis[s_bn][k][s];
-      sbt_neigh_basis_bn[s_bn][0][s] = sbt_neigh_basis_bn[s_bn][k][s];
-      sbt_neigh_vert[s_bn][k][s] = t_vert;
-      sbt_neigh_simp[s_bn][k][s] = t_simp;
-      sbt_neigh_simp_bn[s_bn][k][s] = t_simp_bn;
-      sbt_neigh_basis[s_bn][k][s] = t_basis;
-      sbt_neigh_basis_bn[s_bn][k][s] = t_basis_bn;
+      t_vert = this.sbt_neigh_vert[s_bn][0][s];
+      t_simp = this.sbt_neigh_simp[s_bn][0][s];
+      t_simp_bn = this.sbt_neigh_simp_bn[s_bn][0][s];
+      t_basis = this.sbt_neigh_basis[s_bn][0][s];
+      t_basis_bn = this.sbt_neigh_basis_bn[s_bn][0][s];
+      this.sbt_neigh_vert[s_bn][0][s] = this.sbt_neigh_vert[s_bn][k][s];
+      this.sbt_neigh_simp[s_bn][0][s] = this.sbt_neigh_simp[s_bn][k][s];
+      this.sbt_neigh_simp_bn[s_bn][0][s] = this.sbt_neigh_simp_bn[s_bn][k][s];
+      this.sbt_neigh_basis[s_bn][0][s] = this.sbt_neigh_basis[s_bn][k][s];
+      this.sbt_neigh_basis_bn[s_bn][0][s] = this.sbt_neigh_basis_bn[s_bn][k][s];
+      this.sbt_neigh_vert[s_bn][k][s] = t_vert;
+      this.sbt_neigh_simp[s_bn][k][s] = t_simp;
+      this.sbt_neigh_simp_bn[s_bn][k][s] = t_simp_bn;
+      this.sbt_neigh_basis[s_bn][k][s] = t_basis;
+      this.sbt_neigh_basis_bn[s_bn][k][s] = t_basis_bn;
 
-      q = sbt_neigh_basis[s_bn][0][s];
-      q_bn = sbt_neigh_basis_bn[s_bn][0][s];
-      if ((q != NOVAL) && --bbt_ref_count[q_bn][q] == 0) {
-        bbt_next[q_bn][q] = basis_s_list;
-        bbt_next_bn[q_bn][q] = basis_s_list_bn;
-        bbt_ref_count[q_bn][q] = 0;
-        bbt_lscale[q_bn][q] = 0;
-        bbt_sqa[q_bn][q] = 0;
-        bbt_sqb[q_bn][q] = 0;
-        for (int j=0; j<2*rdim; j++) bbt_vecs[q_bn][j][q] = 0;
-        basis_s_list = q;
-        basis_s_list_bn = q_bn;
+      q = this.sbt_neigh_basis[s_bn][0][s];
+      q_bn = this.sbt_neigh_basis_bn[s_bn][0][s];
+      if ((q != NOVAL) && --this.bbt_ref_count[q_bn][q] == 0) {
+        this.bbt_next[q_bn][q] = this.basis_s_list;
+        this.bbt_next_bn[q_bn][q] = this.basis_s_list_bn;
+        this.bbt_ref_count[q_bn][q] = 0;
+        this.bbt_lscale[q_bn][q] = 0;
+        this.bbt_sqa[q_bn][q] = 0;
+        this.bbt_sqb[q_bn][q] = 0;
+        for (int j=0; j<2*this.rdim; j++) this.bbt_vecs[q_bn][j][q] = 0;
+        this.basis_s_list = q;
+        this.basis_s_list_bn = q_bn;
       }
 
-      sbt_neigh_basis[s_bn][0][s] = ttbp;
-      sbt_neigh_basis_bn[s_bn][0][s] = ttbp_bn;
-      bbt_ref_count[ttbp_bn][ttbp]++;
+      this.sbt_neigh_basis[s_bn][0][s] = this.ttbp;
+      this.sbt_neigh_basis_bn[s_bn][0][s] = this.ttbp_bn;
+      this.bbt_ref_count[this.ttbp_bn][this.ttbp]++;
     }
     else {
-      if (sbt_neigh_basis[s_bn][0][s] == NOVAL) {
-        sbt_neigh_basis[s_bn][0][s] = ttbp;
-        sbt_neigh_basis_bn[s_bn][0][s] = ttbp_bn;
-        bbt_ref_count[ttbp_bn][ttbp]++;
-      } else while (k < cdim && sbt_neigh_basis[s_bn][k][s] != NOVAL) k++;
+      if (this.sbt_neigh_basis[s_bn][0][s] == NOVAL) {
+        this.sbt_neigh_basis[s_bn][0][s] = this.ttbp;
+        this.sbt_neigh_basis_bn[s_bn][0][s] = this.ttbp_bn;
+        this.bbt_ref_count[this.ttbp_bn][this.ttbp]++;
+      } else while (k < this.cdim && this.sbt_neigh_basis[s_bn][k][s] != NOVAL) k++;
     }
-    while (k < cdim) {
-      q = sbt_neigh_basis[s_bn][k][s];
-      q_bn = sbt_neigh_basis_bn[s_bn][k][s];
-      if (q != NOVAL && --bbt_ref_count[q_bn][q] == 0) {
-        bbt_next[q_bn][q] = basis_s_list;
-        bbt_next_bn[q_bn][q] = basis_s_list_bn;
-        bbt_ref_count[q_bn][q] = 0;
-        bbt_lscale[q_bn][q] = 0;
-        bbt_sqa[q_bn][q] = 0;
-        bbt_sqb[q_bn][q] = 0;
-        for (int j=0; j<2*rdim; j++) bbt_vecs[q_bn][j][q] = 0;
-        basis_s_list = q;
-        basis_s_list_bn = q_bn;
+    while (k < this.cdim) {
+      q = this.sbt_neigh_basis[s_bn][k][s];
+      q_bn = this.sbt_neigh_basis_bn[s_bn][k][s];
+      if (q != NOVAL && --this.bbt_ref_count[q_bn][q] == 0) {
+        this.bbt_next[q_bn][q] = this.basis_s_list;
+        this.bbt_next_bn[q_bn][q] = this.basis_s_list_bn;
+        this.bbt_ref_count[q_bn][q] = 0;
+        this.bbt_lscale[q_bn][q] = 0;
+        this.bbt_sqa[q_bn][q] = 0;
+        this.bbt_sqb[q_bn][q] = 0;
+        for (int j=0; j<2*this.rdim; j++) this.bbt_vecs[q_bn][j][q] = 0;
+        this.basis_s_list = q;
+        this.basis_s_list_bn = q_bn;
       }
-      sbt_neigh_basis[s_bn][k][s] = NOVAL;
-      curt[0] = sbt_neigh_basis[s_bn][k][s];
-      curt_bn[0] = sbt_neigh_basis_bn[s_bn][k][s];
-      reduce(curt, curt_bn, sbt_neigh_vert[s_bn][k][s], s, s_bn, k);
-      sbt_neigh_basis[s_bn][k][s] = curt[0];
-      sbt_neigh_basis_bn[s_bn][k][s] = curt_bn[0];
+      this.sbt_neigh_basis[s_bn][k][s] = NOVAL;
+      curt[0] = this.sbt_neigh_basis[s_bn][k][s];
+      curt_bn[0] = this.sbt_neigh_basis_bn[s_bn][k][s];
+      reduce(curt, curt_bn, this.sbt_neigh_vert[s_bn][k][s], s, s_bn, k);
+      this.sbt_neigh_basis[s_bn][k][s] = curt[0];
+      this.sbt_neigh_basis_bn[s_bn][k][s] = curt_bn[0];
       k++;
     }
   }
@@ -608,144 +608,144 @@ public class DelaunayClarkson {
     int[]   curt = new int[1];
     int[]   curt_bn = new int[1];
 
-    if (b == NOVAL) {
-      b = (basis_s_list != NOVAL) ? basis_s_list : new_block_basis_s();
-      b_bn = basis_s_list_bn;
-      basis_s_list = bbt_next[b_bn][b];
-      basis_s_list_bn = bbt_next_bn[b_bn][b];
+    if (this.b == NOVAL) {
+      this.b = (this.basis_s_list != NOVAL) ? this.basis_s_list : new_block_basis_s();
+      this.b_bn = this.basis_s_list_bn;
+      this.basis_s_list = this.bbt_next[this.b_bn][this.b];
+      this.basis_s_list_bn = this.bbt_next_bn[this.b_bn][this.b];
     }
-    else bbt_lscale[b_bn][b] = 0;
-    if (cdim==0) return 0;
-    if (sbt_normal[s_bn][s] == NOVAL) {
+    else this.bbt_lscale[this.b_bn][this.b] = 0;
+    if (this.cdim==0) return 0;
+    if (this.sbt_normal[s_bn][s] == NOVAL) {
       get_basis_sede(s, s_bn);
-      if (rdim==3 && cdim==3) {
-        sbt_normal[s_bn][s] = basis_s_list != NOVAL ? basis_s_list
+      if (this.rdim==3 && this.cdim==3) {
+        this.sbt_normal[s_bn][s] = this.basis_s_list != NOVAL ? this.basis_s_list
                                                     : new_block_basis_s();
-        sbt_normal_bn[s_bn][s] = basis_s_list_bn;
-        q = sbt_normal[s_bn][s];
-        q_bn = sbt_normal_bn[s_bn][s];
-        basis_s_list = bbt_next[q_bn][q];
-        basis_s_list_bn = bbt_next_bn[q_bn][q];
-        q1 = sbt_neigh_basis[s_bn][1][s];
-        q1_bn = sbt_neigh_basis_bn[s_bn][1][s];
-        q2 = sbt_neigh_basis[s_bn][2][s];
-        q2_bn = sbt_neigh_basis_bn[s_bn][2][s];
-        bbt_ref_count[q_bn][q] = 1;
-        bbt_vecs[q_bn][0][q] = bbt_vecs[q1_bn][1][q1]
-                  *bbt_vecs[q2_bn][2][q2]
-             - bbt_vecs[q1_bn][2][q1]
-                  *bbt_vecs[q2_bn][1][q2];
-        bbt_vecs[q_bn][1][q] = bbt_vecs[q1_bn][2][q1]
-                  *bbt_vecs[q2_bn][0][q2]
-             - bbt_vecs[q1_bn][0][q1]
-                  *bbt_vecs[q2_bn][2][q2];
-        bbt_vecs[q_bn][2][q] = bbt_vecs[q1_bn][0][q1]
-                  *bbt_vecs[q2_bn][1][q2]
-             - bbt_vecs[q1_bn][1][q1]
-                  *bbt_vecs[q2_bn][0][q2];
-        bbt_sqb[q_bn][q] = 0;
-        for (int i=0; i<rdim; i++) bbt_sqb[q_bn][q] += bbt_vecs[q_bn][i][q]
-                                                     * bbt_vecs[q_bn][i][q];
-        for (int i=cdim+1; i>0; i--) {
-          int m = (i > 1) ? sbt_neigh_vert[ch_root_bn][i-2][ch_root]
+        this.sbt_normal_bn[s_bn][s] = this.basis_s_list_bn;
+        q = this.sbt_normal[s_bn][s];
+        q_bn = this.sbt_normal_bn[s_bn][s];
+        this.basis_s_list = this.bbt_next[q_bn][q];
+        this.basis_s_list_bn = this.bbt_next_bn[q_bn][q];
+        q1 = this.sbt_neigh_basis[s_bn][1][s];
+        q1_bn = this.sbt_neigh_basis_bn[s_bn][1][s];
+        q2 = this.sbt_neigh_basis[s_bn][2][s];
+        q2_bn = this.sbt_neigh_basis_bn[s_bn][2][s];
+        this.bbt_ref_count[q_bn][q] = 1;
+        this.bbt_vecs[q_bn][0][q] = this.bbt_vecs[q1_bn][1][q1]
+                  *this.bbt_vecs[q2_bn][2][q2]
+             - this.bbt_vecs[q1_bn][2][q1]
+                  *this.bbt_vecs[q2_bn][1][q2];
+        this.bbt_vecs[q_bn][1][q] = this.bbt_vecs[q1_bn][2][q1]
+                  *this.bbt_vecs[q2_bn][0][q2]
+             - this.bbt_vecs[q1_bn][0][q1]
+                  *this.bbt_vecs[q2_bn][2][q2];
+        this.bbt_vecs[q_bn][2][q] = this.bbt_vecs[q1_bn][0][q1]
+                  *this.bbt_vecs[q2_bn][1][q2]
+             - this.bbt_vecs[q1_bn][1][q1]
+                  *this.bbt_vecs[q2_bn][0][q2];
+        this.bbt_sqb[q_bn][q] = 0;
+        for (int i=0; i<this.rdim; i++) this.bbt_sqb[q_bn][q] += this.bbt_vecs[q_bn][i][q]
+                                                     * this.bbt_vecs[q_bn][i][q];
+        for (int i=this.cdim+1; i>0; i--) {
+          int m = (i > 1) ? this.sbt_neigh_vert[this.ch_root_bn][i-2][this.ch_root]
                           : INFINITY;
           int j;
-          for (j=0; j<cdim && m != sbt_neigh_vert[s_bn][j][s]; j++);
-          if (j < cdim) continue;
+          for (j=0; j<this.cdim && m != this.sbt_neigh_vert[s_bn][j][s]; j++);
+          if (j < this.cdim) continue;
           if (m == INFINITY) {
-            if (bbt_vecs[q_bn][2][q] > -b_err_min) continue;
+            if (this.bbt_vecs[q_bn][2][q] > -this.b_err_min) continue;
           }
           else {
             if (sees(m, s, s_bn) == 0) {
               continue;
             }
           }
-          bbt_vecs[q_bn][0][q] = -bbt_vecs[q_bn][0][q];
-          bbt_vecs[q_bn][1][q] = -bbt_vecs[q_bn][1][q];
-          bbt_vecs[q_bn][2][q] = -bbt_vecs[q_bn][2][q];
+          this.bbt_vecs[q_bn][0][q] = -this.bbt_vecs[q_bn][0][q];
+          this.bbt_vecs[q_bn][1][q] = -this.bbt_vecs[q_bn][1][q];
+          this.bbt_vecs[q_bn][2][q] = -this.bbt_vecs[q_bn][2][q];
           break;
         }
       }
       else {
-        for (int i=cdim+1; i>0; i--) {
-          int m = (i > 1) ? sbt_neigh_vert[ch_root_bn][i-2][ch_root]
+        for (int i=this.cdim+1; i>0; i--) {
+          int m = (i > 1) ? this.sbt_neigh_vert[this.ch_root_bn][i-2][this.ch_root]
                           : INFINITY;
           int j;
-          for (j=0; j<cdim && m != sbt_neigh_vert[s_bn][j][s]; j++);
-          if (j < cdim) continue;
-          curt[0] = sbt_normal[s_bn][s];
-          curt_bn[0] = sbt_normal_bn[s_bn][s];
-          reduce(curt, curt_bn, m, s, s_bn, cdim);
-          q = sbt_normal[s_bn][s] = curt[0];
-          q_bn = sbt_normal_bn[s_bn][s] = curt_bn[0];
-          if (bbt_sqb[q_bn][q] != 0) break;
+          for (j=0; j<this.cdim && m != this.sbt_neigh_vert[s_bn][j][s]; j++);
+          if (j < this.cdim) continue;
+          curt[0] = this.sbt_normal[s_bn][s];
+          curt_bn[0] = this.sbt_normal_bn[s_bn][s];
+          reduce(curt, curt_bn, m, s, s_bn, this.cdim);
+          q = this.sbt_normal[s_bn][s] = curt[0];
+          q_bn = this.sbt_normal_bn[s_bn][s] = curt_bn[0];
+          if (this.bbt_sqb[q_bn][q] != 0) break;
         }
       }
 
-      for (int i=0; i<cdim; i++) {
-        q = sbt_neigh_basis[s_bn][i][s];
-        q_bn = sbt_neigh_basis_bn[s_bn][i][s];
-        if (q != NOVAL && --bbt_ref_count[q_bn][q] == 0) {
-          bbt_next[q_bn][q] = basis_s_list;
-          bbt_next_bn[q_bn][q] = basis_s_list_bn;
-          bbt_ref_count[q_bn][q] = 0;
-          bbt_lscale[q_bn][q] = 0;
-          bbt_sqa[q_bn][q] = 0;
-          bbt_sqb[q_bn][q] = 0;
-          for (int l=0; l<2*rdim; l++) bbt_vecs[q_bn][l][q] = 0;
-          basis_s_list = q;
-          basis_s_list_bn = q_bn;
+      for (int i=0; i<this.cdim; i++) {
+        q = this.sbt_neigh_basis[s_bn][i][s];
+        q_bn = this.sbt_neigh_basis_bn[s_bn][i][s];
+        if (q != NOVAL && --this.bbt_ref_count[q_bn][q] == 0) {
+          this.bbt_next[q_bn][q] = this.basis_s_list;
+          this.bbt_next_bn[q_bn][q] = this.basis_s_list_bn;
+          this.bbt_ref_count[q_bn][q] = 0;
+          this.bbt_lscale[q_bn][q] = 0;
+          this.bbt_sqa[q_bn][q] = 0;
+          this.bbt_sqb[q_bn][q] = 0;
+          for (int l=0; l<2*this.rdim; l++) this.bbt_vecs[q_bn][l][q] = 0;
+          this.basis_s_list = q;
+          this.basis_s_list_bn = q_bn;
         }
-        sbt_neigh_basis[s_bn][i][s] = NOVAL;
+        this.sbt_neigh_basis[s_bn][i][s] = NOVAL;
       }
     }
     if (rp == INFINITY) {
-      bbt_next[b_bn][b] = bbt_next[ib_bn][ib];
-      bbt_next_bn[b_bn][b] = bbt_next_bn[ib_bn][ib];
-      bbt_ref_count[b_bn][b] = bbt_ref_count[ib_bn][ib];
-      bbt_lscale[b_bn][b] = bbt_lscale[ib_bn][ib];
-      bbt_sqa[b_bn][b] = bbt_sqa[ib_bn][ib];
-      bbt_sqb[b_bn][b] = bbt_sqb[ib_bn][ib];
-      for (int i=0; i<2*rdim; i++) {
-        bbt_vecs[b_bn][i][b] = bbt_vecs[ib_bn][i][ib];
+      this.bbt_next[this.b_bn][this.b] = this.bbt_next[this.ib_bn][this.ib];
+      this.bbt_next_bn[this.b_bn][this.b] = this.bbt_next_bn[this.ib_bn][this.ib];
+      this.bbt_ref_count[this.b_bn][this.b] = this.bbt_ref_count[this.ib_bn][this.ib];
+      this.bbt_lscale[this.b_bn][this.b] = this.bbt_lscale[this.ib_bn][this.ib];
+      this.bbt_sqa[this.b_bn][this.b] = this.bbt_sqa[this.ib_bn][this.ib];
+      this.bbt_sqb[this.b_bn][this.b] = this.bbt_sqb[this.ib_bn][this.ib];
+      for (int i=0; i<2*this.rdim; i++) {
+        this.bbt_vecs[this.b_bn][i][this.b] = this.bbt_vecs[this.ib_bn][i][this.ib];
       }
     }
     else {
       double sum = 0;
-      int sbt_nv = sbt_neigh_vert[s_bn][0][s];
+      int sbt_nv = this.sbt_neigh_vert[s_bn][0][s];
       if (sbt_nv == INFINITY) {
-        for (int l=0; l<dim; l++) {
-          bbt_vecs[b_bn][l+rdim][b] = bbt_vecs[b_bn][l][b]
-            = site_blocks[l][rp];
+        for (int l=0; l<this.dim; l++) {
+          this.bbt_vecs[this.b_bn][l+this.rdim][this.b] = this.bbt_vecs[this.b_bn][l][this.b]
+            = this.site_blocks[l][rp];
         }
       }
       else {
-        for (int l=0; l<dim; l++) {
-          bbt_vecs[b_bn][l+rdim][b] = bbt_vecs[b_bn][l][b]
-            = site_blocks[l][rp] - site_blocks[l][sbt_nv];
+        for (int l=0; l<this.dim; l++) {
+          this.bbt_vecs[this.b_bn][l+this.rdim][this.b] = this.bbt_vecs[this.b_bn][l][this.b]
+            = this.site_blocks[l][rp] - this.site_blocks[l][sbt_nv];
         }
       }
-      for (int l=0; l<dim; l++) {
-        sum += bbt_vecs[b_bn][l][b] * bbt_vecs[b_bn][l][b];
+      for (int l=0; l<this.dim; l++) {
+        sum += this.bbt_vecs[this.b_bn][l][this.b] * this.bbt_vecs[this.b_bn][l][this.b];
       }
-      bbt_vecs[b_bn][2*rdim-1][b] = bbt_vecs[b_bn][rdim-1][b] = sum;
+      this.bbt_vecs[this.b_bn][2*this.rdim-1][this.b] = this.bbt_vecs[this.b_bn][this.rdim-1][this.b] = sum;
     }
-    q = sbt_normal[s_bn][s];
-    q_bn = sbt_normal_bn[s_bn][s];
+    q = this.sbt_normal[s_bn][s];
+    q_bn = this.sbt_normal_bn[s_bn][s];
     for (int i=0; i<3; i++) {
       double sum = 0;
       dd = 0;
-      for (int l=0; l<rdim; l++) {
-        dd += bbt_vecs[b_bn][l][b] * bbt_vecs[q_bn][l][q];
+      for (int l=0; l<this.rdim; l++) {
+        dd += this.bbt_vecs[this.b_bn][l][this.b] * this.bbt_vecs[q_bn][l][q];
       }
       if (dd == 0.0) return 0;
-      for (int l=0; l<rdim; l++) {
-        sum += bbt_vecs[b_bn][l][b] * bbt_vecs[b_bn][l][b];
+      for (int l=0; l<this.rdim; l++) {
+        sum += this.bbt_vecs[this.b_bn][l][this.b] * this.bbt_vecs[this.b_bn][l][this.b];
       }
-      dds = dd*dd/bbt_sqb[q_bn][q]/sum;
-      if (dds > b_err_min_sq) return (dd < 0 ? 1 : 0);
+      dds = dd*dd/this.bbt_sqb[q_bn][q]/sum;
+      if (dds > this.b_err_min_sq) return (dd < 0 ? 1 : 0);
       get_basis_sede(s, s_bn);
-      reduce_inner(b, b_bn, s, s_bn, cdim);
+      reduce_inner(this.b, this.b_bn, s, s_bn, this.cdim);
     }
     return 0;
   }
@@ -755,50 +755,50 @@ public class DelaunayClarkson {
    * @return a new block of simplex
    */
   private int new_block_simplex() {
-    sbt_next[nsb] = new int[Nobj];
-    sbt_next_bn[nsb] = new int[Nobj];
-    sbt_visit[nsb] = new long[Nobj];
-    sbt_mark[nsb] = new short[Nobj];
-    sbt_normal[nsb] = new int[Nobj];
-    sbt_normal_bn[nsb] = new int[Nobj];
-    sbt_peak_vert[nsb] = new int[Nobj];
-    sbt_peak_simp[nsb] = new int[Nobj];
-    sbt_peak_simp_bn[nsb] = new int[Nobj];
-    sbt_peak_basis[nsb] = new int[Nobj];
-    sbt_peak_basis_bn[nsb] = new int[Nobj];
-    sbt_neigh_vert[nsb] = new int[rdim][];
-    sbt_neigh_simp[nsb] = new int[rdim][];
-    sbt_neigh_simp_bn[nsb] = new int[rdim][];
-    sbt_neigh_basis[nsb] = new int[rdim][];
-    sbt_neigh_basis_bn[nsb] = new int[rdim][];
-    for (int i=0; i<rdim; i++) {
-      sbt_neigh_vert[nsb][i] = new int[Nobj];
-      sbt_neigh_simp[nsb][i] = new int[Nobj];
-      sbt_neigh_simp_bn[nsb][i] = new int[Nobj];
-      sbt_neigh_basis[nsb][i] = new int[Nobj];
-      sbt_neigh_basis_bn[nsb][i] = new int[Nobj];
+    this.sbt_next[this.nsb] = new int[Nobj];
+    this.sbt_next_bn[this.nsb] = new int[Nobj];
+    this.sbt_visit[this.nsb] = new long[Nobj];
+    this.sbt_mark[this.nsb] = new short[Nobj];
+    this.sbt_normal[this.nsb] = new int[Nobj];
+    this.sbt_normal_bn[this.nsb] = new int[Nobj];
+    this.sbt_peak_vert[this.nsb] = new int[Nobj];
+    this.sbt_peak_simp[this.nsb] = new int[Nobj];
+    this.sbt_peak_simp_bn[this.nsb] = new int[Nobj];
+    this.sbt_peak_basis[this.nsb] = new int[Nobj];
+    this.sbt_peak_basis_bn[this.nsb] = new int[Nobj];
+    this.sbt_neigh_vert[this.nsb] = new int[this.rdim][];
+    this.sbt_neigh_simp[this.nsb] = new int[this.rdim][];
+    this.sbt_neigh_simp_bn[this.nsb] = new int[this.rdim][];
+    this.sbt_neigh_basis[this.nsb] = new int[this.rdim][];
+    this.sbt_neigh_basis_bn[this.nsb] = new int[this.rdim][];
+    for (int i=0; i<this.rdim; i++) {
+      this.sbt_neigh_vert[this.nsb][i] = new int[Nobj];
+      this.sbt_neigh_simp[this.nsb][i] = new int[Nobj];
+      this.sbt_neigh_simp_bn[this.nsb][i] = new int[Nobj];
+      this.sbt_neigh_basis[this.nsb][i] = new int[Nobj];
+      this.sbt_neigh_basis_bn[this.nsb][i] = new int[Nobj];
     }
     for (int i=0; i<Nobj; i++) {
-      sbt_next[nsb][i] = i+1;
-      sbt_next_bn[nsb][i] = nsb;
-      sbt_visit[nsb][i] = 0;
-      sbt_mark[nsb][i] = 0;
-      sbt_normal[nsb][i] = NOVAL;
-      sbt_peak_vert[nsb][i] = NOVAL;
-      sbt_peak_simp[nsb][i] = NOVAL;
-      sbt_peak_basis[nsb][i] = NOVAL;
-      for (int j=0; j<rdim; j++) {
-        sbt_neigh_vert[nsb][j][i] = NOVAL;
-        sbt_neigh_simp[nsb][j][i] = NOVAL;
-        sbt_neigh_basis[nsb][j][i] = NOVAL;
+      this.sbt_next[this.nsb][i] = i+1;
+      this.sbt_next_bn[this.nsb][i] = this.nsb;
+      this.sbt_visit[this.nsb][i] = 0;
+      this.sbt_mark[this.nsb][i] = 0;
+      this.sbt_normal[this.nsb][i] = NOVAL;
+      this.sbt_peak_vert[this.nsb][i] = NOVAL;
+      this.sbt_peak_simp[this.nsb][i] = NOVAL;
+      this.sbt_peak_basis[this.nsb][i] = NOVAL;
+      for (int j=0; j<this.rdim; j++) {
+        this.sbt_neigh_vert[this.nsb][j][i] = NOVAL;
+        this.sbt_neigh_simp[this.nsb][j][i] = NOVAL;
+        this.sbt_neigh_basis[this.nsb][j][i] = NOVAL;
       }
     }
-    sbt_next[nsb][Nobj-1] = NOVAL;
-    simplex_list = 0;
-    simplex_list_bn = nsb;
+    this.sbt_next[this.nsb][Nobj-1] = NOVAL;
+    this.simplex_list = 0;
+    this.simplex_list_bn = this.nsb;
 
-    nsb++;
-    return simplex_list;
+    this.nsb++;
+    return this.simplex_list;
   }
 
   /**
@@ -819,30 +819,30 @@ public class DelaunayClarkson {
     int t_bn;
     int tms = 0;
 
-    vnum--;
+    this.vnum--;
     if (s != NOVAL) {
-      st2[tms] = s;
-      st2_bn[tms] = s_bn;
+      this.st2[tms] = s;
+      this.st2_bn[tms] = s_bn;
       tms++;
     }
     while (tms != 0) {
-      if (tms > ss2) {
+      if (tms > this.ss2) {
         // JAVA: efficiency issue: how much is this stack hammered?
-        ss2 += ss2;
-        int[] newst2 = new int[ss2+MAXDIM+1];
-        int[] newst2_bn = new int[ss2+MAXDIM+1];
-        System.arraycopy(st2, 0, newst2, 0, st2.length);
-        System.arraycopy(st2_bn, 0, newst2_bn, 0, st2_bn.length);
-        st2 = newst2;
-        st2_bn = newst2_bn;
+        this.ss2 += this.ss2;
+        int[] newst2 = new int[this.ss2+MAXDIM+1];
+        int[] newst2_bn = new int[this.ss2+MAXDIM+1];
+        System.arraycopy(this.st2, 0, newst2, 0, this.st2.length);
+        System.arraycopy(this.st2_bn, 0, newst2_bn, 0, this.st2_bn.length);
+        this.st2 = newst2;
+        this.st2_bn = newst2_bn;
       }
       tms--;
-      t = st2[tms];
-      t_bn = st2_bn[tms];
-      if (t == NOVAL || sbt_visit[t_bn][t] == vnum) continue;
-      sbt_visit[t_bn][t] = vnum;
+      t = this.st2[tms];
+      t_bn = this.st2_bn[tms];
+      if (t == NOVAL || this.sbt_visit[t_bn][t] == this.vnum) continue;
+      this.sbt_visit[t_bn][t] = this.vnum;
       if (whichfunc == 1) {
-        if (sbt_peak_vert[t_bn][t] == NOVAL) {
+        if (this.sbt_peak_vert[t_bn][t] == NOVAL) {
           v = t;
           v_bn = t_bn;
         }
@@ -857,31 +857,31 @@ public class DelaunayClarkson {
         }
       }
       else {
-        int[] vfp = new int[cdim];
+        int[] vfp = new int[this.cdim];
 
         if (t != NOVAL) {
-          for (int j=0; j<cdim; j++) vfp[j] = sbt_neigh_vert[t_bn][j][t];
-          for (int j=0; j<cdim; j++) {
-            a3s[j][nts] = (vfp[j] == INFINITY) ? -1 : vfp[j];
+          for (int j=0; j<this.cdim; j++) vfp[j] = this.sbt_neigh_vert[t_bn][j][t];
+          for (int j=0; j<this.cdim; j++) {
+            this.a3s[j][this.nts] = (vfp[j] == INFINITY) ? -1 : vfp[j];
           }
-          nts++;
-          if (nts > a3size) {
+          this.nts++;
+          if (this.nts > this.a3size) {
             // JAVA: efficiency issue, hammering an array
-            a3size += a3size;
-            int[][] newa3s = new int[rdim][a3size+MAXDIM+1];
-            for (int i=0; i<rdim; i++) {
-              System.arraycopy(a3s[i], 0, newa3s[i], 0, a3s[i].length);
+            this.a3size += this.a3size;
+            int[][] newa3s = new int[this.rdim][this.a3size+MAXDIM+1];
+            for (int i=0; i<this.rdim; i++) {
+              System.arraycopy(this.a3s[i], 0, newa3s[i], 0, this.a3s[i].length);
             }
-            a3s = newa3s;
+            this.a3s = newa3s;
           }
         }
       }
-      for (int i=0; i<cdim; i++) {
-        int j = sbt_neigh_simp[t_bn][i][t];
-        int j_bn = sbt_neigh_simp_bn[t_bn][i][t];
-        if ((j != NOVAL) && sbt_visit[j_bn][j] != vnum) {
-          st2[tms] = j;
-          st2_bn[tms] = j_bn;
+      for (int i=0; i<this.cdim; i++) {
+        int j = this.sbt_neigh_simp[t_bn][i][t];
+        int j_bn = this.sbt_neigh_simp_bn[t_bn][i][t];
+        if ((j != NOVAL) && this.sbt_visit[j_bn][j] != this.vnum) {
+          this.st2[tms] = j;
+          this.st2_bn[tms] = j_bn;
           tms++;
         }
       }
@@ -903,48 +903,48 @@ public class DelaunayClarkson {
     int xfi;
 
     if (s == NOVAL) return;
-    for (int i=0; (sbt_neigh_vert[s_bn][i][s] != p) && (i<cdim); i++);
-    if (sbt_visit[s_bn][s] == pnum) return;
-    sbt_visit[s_bn][s] = pnum;
-    ccj = sbt_peak_simp[s_bn][s];
-    ccj_bn = sbt_peak_simp_bn[s_bn][s];
-    for (xfi=0; (sbt_neigh_simp[ccj_bn][xfi][ccj] != s
-              || sbt_neigh_simp_bn[ccj_bn][xfi][ccj] != s_bn)
-                     && (xfi<cdim); xfi++);
-    for (int i=0; i<cdim; i++) {
+    for (int i=0; (this.sbt_neigh_vert[s_bn][i][s] != this.p) && (i<this.cdim); i++);
+    if (this.sbt_visit[s_bn][s] == this.pnum) return;
+    this.sbt_visit[s_bn][s] = this.pnum;
+    ccj = this.sbt_peak_simp[s_bn][s];
+    ccj_bn = this.sbt_peak_simp_bn[s_bn][s];
+    for (xfi=0; (this.sbt_neigh_simp[ccj_bn][xfi][ccj] != s
+              || this.sbt_neigh_simp_bn[ccj_bn][xfi][ccj] != s_bn)
+                     && (xfi<this.cdim); xfi++);
+    for (int i=0; i<this.cdim; i++) {
       int l;
-      if (p == sbt_neigh_vert[s_bn][i][s]) continue;
-      sb = sbt_peak_simp[s_bn][s];
-      sb_bn = sbt_peak_simp_bn[s_bn][s];
-      sf = sbt_neigh_simp[s_bn][i][s];
-      sf_bn = sbt_neigh_simp_bn[s_bn][i][s];
-      xf = sbt_neigh_vert[ccj_bn][xfi][ccj];
-      if (sbt_peak_vert[sf_bn][sf] == NOVAL) {  // are we done already?
-        for (l=0; (sbt_neigh_vert[ccj_bn][l][ccj]
-                != sbt_neigh_vert[s_bn][i][s]) && (l<cdim); l++);
-        sf = sbt_neigh_simp[ccj_bn][l][ccj];
-        sf_bn = sbt_neigh_simp_bn[ccj_bn][l][ccj];
-        if (sbt_peak_vert[sf_bn][sf] != NOVAL) continue;
+      if (this.p == this.sbt_neigh_vert[s_bn][i][s]) continue;
+      sb = this.sbt_peak_simp[s_bn][s];
+      sb_bn = this.sbt_peak_simp_bn[s_bn][s];
+      sf = this.sbt_neigh_simp[s_bn][i][s];
+      sf_bn = this.sbt_neigh_simp_bn[s_bn][i][s];
+      xf = this.sbt_neigh_vert[ccj_bn][xfi][ccj];
+      if (this.sbt_peak_vert[sf_bn][sf] == NOVAL) {  // are we done already?
+        for (l=0; (this.sbt_neigh_vert[ccj_bn][l][ccj]
+                != this.sbt_neigh_vert[s_bn][i][s]) && (l<this.cdim); l++);
+        sf = this.sbt_neigh_simp[ccj_bn][l][ccj];
+        sf_bn = this.sbt_neigh_simp_bn[ccj_bn][l][ccj];
+        if (this.sbt_peak_vert[sf_bn][sf] != NOVAL) continue;
       } else do {
         xb = xf;
-        for (l=0; (sbt_neigh_simp[sf_bn][l][sf] != sb
-                || sbt_neigh_simp_bn[sf_bn][l][sf] != sb_bn)
-                && l<cdim; l++);
-        xf = sbt_neigh_vert[sf_bn][l][sf];
+        for (l=0; (this.sbt_neigh_simp[sf_bn][l][sf] != sb
+                || this.sbt_neigh_simp_bn[sf_bn][l][sf] != sb_bn)
+                && l<this.cdim; l++);
+        xf = this.sbt_neigh_vert[sf_bn][l][sf];
         sb = sf;
         sb_bn = sf_bn;
-        for (l=0; (sbt_neigh_vert[sb_bn][l][sb] != xb) && (l<cdim); l++);
-        tf = sbt_neigh_simp[sf_bn][l][sf];
-        tf_bn = sbt_neigh_simp_bn[sf_bn][l][sf];
+        for (l=0; (this.sbt_neigh_vert[sb_bn][l][sb] != xb) && (l<this.cdim); l++);
+        tf = this.sbt_neigh_simp[sf_bn][l][sf];
+        tf_bn = this.sbt_neigh_simp_bn[sf_bn][l][sf];
         sf = tf;
         sf_bn = tf_bn;
-      } while (sbt_peak_vert[sf_bn][sf] != NOVAL);
+      } while (this.sbt_peak_vert[sf_bn][sf] != NOVAL);
 
-      sbt_neigh_simp[s_bn][i][s] = sf;
-      sbt_neigh_simp_bn[s_bn][i][s] = sf_bn;
-      for (l=0; (sbt_neigh_vert[sf_bn][l][sf] != xf) && (l<cdim); l++);
-      sbt_neigh_simp[sf_bn][l][sf] = s;
-      sbt_neigh_simp_bn[sf_bn][l][sf] = s_bn;
+      this.sbt_neigh_simp[s_bn][i][s] = sf;
+      this.sbt_neigh_simp_bn[s_bn][i][s] = sf_bn;
+      for (l=0; (this.sbt_neigh_vert[sf_bn][l][sf] != xf) && (l<this.cdim); l++);
+      this.sbt_neigh_simp[sf_bn][l][sf] = s;
+      this.sbt_neigh_simp_bn[sf_bn][l][sf] = s_bn;
 
       connect(sf, sf_bn);
     }
@@ -967,80 +967,80 @@ public class DelaunayClarkson {
       ret[0] = NOVAL;
       return;
     }
-    sbt_peak_vert[seen_bn][seen] = p;
+    this.sbt_peak_vert[seen_bn][seen] = this.p;
 
-    for (int i=0; i<cdim; i++) {
-      n = sbt_neigh_simp[seen_bn][i][seen];
-      n_bn = sbt_neigh_simp_bn[seen_bn][i][seen];
+    for (int i=0; i<this.cdim; i++) {
+      n = this.sbt_neigh_simp[seen_bn][i][seen];
+      n_bn = this.sbt_neigh_simp_bn[seen_bn][i][seen];
 
-      if (pnum != sbt_visit[n_bn][n]) {
-        sbt_visit[n_bn][n] = pnum;
-        if (sees(p, n, n_bn) != 0) make_facets(n, n_bn, voidp, voidp_bn);
+      if (this.pnum != this.sbt_visit[n_bn][n]) {
+        this.sbt_visit[n_bn][n] = this.pnum;
+        if (sees(this.p, n, n_bn) != 0) make_facets(n, n_bn, this.voidp, this.voidp_bn);
       }
-      if (sbt_peak_vert[n_bn][n] != NOVAL) continue;
+      if (this.sbt_peak_vert[n_bn][n] != NOVAL) continue;
 
-      ns = (simplex_list != NOVAL) ? simplex_list : new_block_simplex();
-      ns_bn = simplex_list_bn;
-      simplex_list = sbt_next[ns_bn][ns];
-      simplex_list_bn = sbt_next_bn[ns_bn][ns];
-      sbt_next[ns_bn][ns] = sbt_next[seen_bn][seen];
-      sbt_next_bn[ns_bn][ns] = sbt_next_bn[seen_bn][seen];
-      sbt_visit[ns_bn][ns] = sbt_visit[seen_bn][seen];
-      sbt_mark[ns_bn][ns] = sbt_mark[seen_bn][seen];
-      sbt_normal[ns_bn][ns] = sbt_normal[seen_bn][seen];
-      sbt_normal_bn[ns_bn][ns] = sbt_normal_bn[seen_bn][seen];
-      sbt_peak_vert[ns_bn][ns] = sbt_peak_vert[seen_bn][seen];
-      sbt_peak_simp[ns_bn][ns] = sbt_peak_simp[seen_bn][seen];
-      sbt_peak_simp_bn[ns_bn][ns] = sbt_peak_simp_bn[seen_bn][seen];
-      sbt_peak_basis[ns_bn][ns] = sbt_peak_basis[seen_bn][seen];
-      sbt_peak_basis_bn[ns_bn][ns] = sbt_peak_basis_bn[seen_bn][seen];
-      for (j=0; j<rdim; j++) {
-        sbt_neigh_vert[ns_bn][j][ns] = sbt_neigh_vert[seen_bn][j][seen];
-        sbt_neigh_simp[ns_bn][j][ns] = sbt_neigh_simp[seen_bn][j][seen];
-        sbt_neigh_simp_bn[ns_bn][j][ns]
-                       = sbt_neigh_simp_bn[seen_bn][j][seen];
-        sbt_neigh_basis[ns_bn][j][ns] = sbt_neigh_basis[seen_bn][j][seen];
-        sbt_neigh_basis_bn[ns_bn][j][ns]
-                        = sbt_neigh_basis_bn[seen_bn][j][seen];
-      }
-
-      for (j=0; j<cdim; j++) {
-        q = sbt_neigh_basis[seen_bn][j][seen];
-        q_bn = sbt_neigh_basis_bn[seen_bn][j][seen];
-        if (q != NOVAL) bbt_ref_count[q_bn][q]++;
+      this.ns = (this.simplex_list != NOVAL) ? this.simplex_list : new_block_simplex();
+      this.ns_bn = this.simplex_list_bn;
+      this.simplex_list = this.sbt_next[this.ns_bn][this.ns];
+      this.simplex_list_bn = this.sbt_next_bn[this.ns_bn][this.ns];
+      this.sbt_next[this.ns_bn][this.ns] = this.sbt_next[seen_bn][seen];
+      this.sbt_next_bn[this.ns_bn][this.ns] = this.sbt_next_bn[seen_bn][seen];
+      this.sbt_visit[this.ns_bn][this.ns] = this.sbt_visit[seen_bn][seen];
+      this.sbt_mark[this.ns_bn][this.ns] = this.sbt_mark[seen_bn][seen];
+      this.sbt_normal[this.ns_bn][this.ns] = this.sbt_normal[seen_bn][seen];
+      this.sbt_normal_bn[this.ns_bn][this.ns] = this.sbt_normal_bn[seen_bn][seen];
+      this.sbt_peak_vert[this.ns_bn][this.ns] = this.sbt_peak_vert[seen_bn][seen];
+      this.sbt_peak_simp[this.ns_bn][this.ns] = this.sbt_peak_simp[seen_bn][seen];
+      this.sbt_peak_simp_bn[this.ns_bn][this.ns] = this.sbt_peak_simp_bn[seen_bn][seen];
+      this.sbt_peak_basis[this.ns_bn][this.ns] = this.sbt_peak_basis[seen_bn][seen];
+      this.sbt_peak_basis_bn[this.ns_bn][this.ns] = this.sbt_peak_basis_bn[seen_bn][seen];
+      for (j=0; j<this.rdim; j++) {
+        this.sbt_neigh_vert[this.ns_bn][j][this.ns] = this.sbt_neigh_vert[seen_bn][j][seen];
+        this.sbt_neigh_simp[this.ns_bn][j][this.ns] = this.sbt_neigh_simp[seen_bn][j][seen];
+        this.sbt_neigh_simp_bn[this.ns_bn][j][this.ns]
+                       = this.sbt_neigh_simp_bn[seen_bn][j][seen];
+        this.sbt_neigh_basis[this.ns_bn][j][this.ns] = this.sbt_neigh_basis[seen_bn][j][seen];
+        this.sbt_neigh_basis_bn[this.ns_bn][j][this.ns]
+                        = this.sbt_neigh_basis_bn[seen_bn][j][seen];
       }
 
-      sbt_visit[ns_bn][ns] = 0;
-      sbt_peak_vert[ns_bn][ns] = NOVAL;
-      sbt_normal[ns_bn][ns] = NOVAL;
-      sbt_peak_simp[ns_bn][ns] = seen;
-      sbt_peak_simp_bn[ns_bn][ns] = seen_bn;
-
-      q = sbt_neigh_basis[ns_bn][i][ns];
-      q_bn = sbt_neigh_basis_bn[ns_bn][i][ns];
-      if (q != NOVAL && --bbt_ref_count[q_bn][q] == 0) {
-        bbt_next[q_bn][q] = basis_s_list;
-        bbt_next_bn[q_bn][q] = basis_s_list_bn;
-        bbt_ref_count[q_bn][q] = 0;
-        bbt_lscale[q_bn][q] = 0;
-        bbt_sqa[q_bn][q] = 0;
-        bbt_sqb[q_bn][q] = 0;
-        for (int l=0; l<2*rdim; l++) bbt_vecs[q_bn][l][q] = 0;
-        basis_s_list = q;
-        basis_s_list_bn = q_bn;
+      for (j=0; j<this.cdim; j++) {
+        q = this.sbt_neigh_basis[seen_bn][j][seen];
+        q_bn = this.sbt_neigh_basis_bn[seen_bn][j][seen];
+        if (q != NOVAL) this.bbt_ref_count[q_bn][q]++;
       }
-      sbt_neigh_basis[ns_bn][i][ns] = NOVAL;
 
-      sbt_neigh_vert[ns_bn][i][ns] = p;
-      for (j=0; (sbt_neigh_simp[n_bn][j][n] != seen
-                  || sbt_neigh_simp_bn[n_bn][j][n] != seen_bn)
-                  && j<cdim; j++);
-      sbt_neigh_simp[seen_bn][i][seen] = sbt_neigh_simp[n_bn][j][n] = ns;
-      sbt_neigh_simp_bn[seen_bn][i][seen] = ns_bn;
-      sbt_neigh_simp_bn[n_bn][j][n] = ns_bn;
+      this.sbt_visit[this.ns_bn][this.ns] = 0;
+      this.sbt_peak_vert[this.ns_bn][this.ns] = NOVAL;
+      this.sbt_normal[this.ns_bn][this.ns] = NOVAL;
+      this.sbt_peak_simp[this.ns_bn][this.ns] = seen;
+      this.sbt_peak_simp_bn[this.ns_bn][this.ns] = seen_bn;
+
+      q = this.sbt_neigh_basis[this.ns_bn][i][this.ns];
+      q_bn = this.sbt_neigh_basis_bn[this.ns_bn][i][this.ns];
+      if (q != NOVAL && --this.bbt_ref_count[q_bn][q] == 0) {
+        this.bbt_next[q_bn][q] = this.basis_s_list;
+        this.bbt_next_bn[q_bn][q] = this.basis_s_list_bn;
+        this.bbt_ref_count[q_bn][q] = 0;
+        this.bbt_lscale[q_bn][q] = 0;
+        this.bbt_sqa[q_bn][q] = 0;
+        this.bbt_sqb[q_bn][q] = 0;
+        for (int l=0; l<2*this.rdim; l++) this.bbt_vecs[q_bn][l][q] = 0;
+        this.basis_s_list = q;
+        this.basis_s_list_bn = q_bn;
+      }
+      this.sbt_neigh_basis[this.ns_bn][i][this.ns] = NOVAL;
+
+      this.sbt_neigh_vert[this.ns_bn][i][this.ns] = this.p;
+      for (j=0; (this.sbt_neigh_simp[n_bn][j][n] != seen
+                  || this.sbt_neigh_simp_bn[n_bn][j][n] != seen_bn)
+                  && j<this.cdim; j++);
+      this.sbt_neigh_simp[seen_bn][i][seen] = this.sbt_neigh_simp[n_bn][j][n] = this.ns;
+      this.sbt_neigh_simp_bn[seen_bn][i][seen] = this.ns_bn;
+      this.sbt_neigh_simp_bn[n_bn][j][n] = this.ns_bn;
     }
-    ret[0] = ns;
-    ret_bn[0] = ns_bn;
+    ret[0] = this.ns;
+    ret_bn[0] = this.ns_bn;
   }
 
   /**
@@ -1054,10 +1054,10 @@ public class DelaunayClarkson {
     int q, q_bn;
     int ns, ns_bn;
 
-    if (sbt_visit[s_bn][s] == pnum) {
-      if (sbt_peak_vert[s_bn][s] != NOVAL) {
-        ret[0] = sbt_neigh_simp[s_bn][cdim-1][s];
-        ret_bn[0] = sbt_neigh_simp_bn[s_bn][cdim-1][s];
+    if (this.sbt_visit[s_bn][s] == this.pnum) {
+      if (this.sbt_peak_vert[s_bn][s] != NOVAL) {
+        ret[0] = this.sbt_neigh_simp[s_bn][this.cdim-1][s];
+        ret_bn[0] = this.sbt_neigh_simp_bn[s_bn][this.cdim-1][s];
       }
       else {
         ret[0] = s;
@@ -1065,99 +1065,99 @@ public class DelaunayClarkson {
       }
       return;
     }
-    sbt_visit[s_bn][s] = pnum;
-    sbt_neigh_vert[s_bn][cdim-1][s] = p;
-    q = sbt_normal[s_bn][s];
-    q_bn = sbt_normal_bn[s_bn][s];
-    if (q != NOVAL && --bbt_ref_count[q_bn][q] == 0) {
-      bbt_next[q_bn][q] = basis_s_list;
-      bbt_next_bn[q_bn][q] = basis_s_list_bn;
-      bbt_ref_count[q_bn][q] = 0;
-      bbt_lscale[q_bn][q] = 0;
-      bbt_sqa[q_bn][q] = 0;
-      bbt_sqb[q_bn][q] = 0;
-      for (int j=0; j<2*rdim; j++) bbt_vecs[q_bn][j][q] = 0;
-      basis_s_list = q;
-      basis_s_list_bn = q_bn;
+    this.sbt_visit[s_bn][s] = this.pnum;
+    this.sbt_neigh_vert[s_bn][this.cdim-1][s] = this.p;
+    q = this.sbt_normal[s_bn][s];
+    q_bn = this.sbt_normal_bn[s_bn][s];
+    if (q != NOVAL && --this.bbt_ref_count[q_bn][q] == 0) {
+      this.bbt_next[q_bn][q] = this.basis_s_list;
+      this.bbt_next_bn[q_bn][q] = this.basis_s_list_bn;
+      this.bbt_ref_count[q_bn][q] = 0;
+      this.bbt_lscale[q_bn][q] = 0;
+      this.bbt_sqa[q_bn][q] = 0;
+      this.bbt_sqb[q_bn][q] = 0;
+      for (int j=0; j<2*this.rdim; j++) this.bbt_vecs[q_bn][j][q] = 0;
+      this.basis_s_list = q;
+      this.basis_s_list_bn = q_bn;
     }
-    sbt_normal[s_bn][s] = NOVAL;
+    this.sbt_normal[s_bn][s] = NOVAL;
 
-    q = sbt_neigh_basis[s_bn][0][s];
-    q_bn = sbt_neigh_basis_bn[s_bn][0][s];
-    if (q != NOVAL && --bbt_ref_count[q_bn][q] == 0) {
-      bbt_next[q_bn][q] = basis_s_list;
-      bbt_ref_count[q_bn][q] = 0;
-      bbt_lscale[q_bn][q] = 0;
-      bbt_sqa[q_bn][q] = 0;
-      bbt_sqb[q_bn][q] = 0;
-      for (int j=0; j<2*rdim; j++) bbt_vecs[q_bn][j][q] = 0;
+    q = this.sbt_neigh_basis[s_bn][0][s];
+    q_bn = this.sbt_neigh_basis_bn[s_bn][0][s];
+    if (q != NOVAL && --this.bbt_ref_count[q_bn][q] == 0) {
+      this.bbt_next[q_bn][q] = this.basis_s_list;
+      this.bbt_ref_count[q_bn][q] = 0;
+      this.bbt_lscale[q_bn][q] = 0;
+      this.bbt_sqa[q_bn][q] = 0;
+      this.bbt_sqb[q_bn][q] = 0;
+      for (int j=0; j<2*this.rdim; j++) this.bbt_vecs[q_bn][j][q] = 0;
 
-      basis_s_list = q;
-      basis_s_list_bn = q_bn;
+      this.basis_s_list = q;
+      this.basis_s_list_bn = q_bn;
     }
-    sbt_neigh_basis[s_bn][0][s] = NOVAL;
+    this.sbt_neigh_basis[s_bn][0][s] = NOVAL;
 
-    if (sbt_peak_vert[s_bn][s] == NOVAL) {
+    if (this.sbt_peak_vert[s_bn][s] == NOVAL) {
       int[] esretp = new int[1];
       int[] esretp_bn = new int[1];
-      extend_simplices(sbt_peak_simp[s_bn][s],
-                       sbt_peak_simp_bn[s_bn][s], esretp, esretp_bn);
-      sbt_neigh_simp[s_bn][cdim-1][s] = esretp[0];
-      sbt_neigh_simp_bn[s_bn][cdim-1][s] = esretp_bn[0];
+      extend_simplices(this.sbt_peak_simp[s_bn][s],
+                       this.sbt_peak_simp_bn[s_bn][s], esretp, esretp_bn);
+      this.sbt_neigh_simp[s_bn][this.cdim-1][s] = esretp[0];
+      this.sbt_neigh_simp_bn[s_bn][this.cdim-1][s] = esretp_bn[0];
       ret[0] = s;
       ret_bn[0] = s_bn;
       return;
     }
     else {
-      ns = (simplex_list != NOVAL) ? simplex_list : new_block_simplex();
-      ns_bn = simplex_list_bn;
-      simplex_list = sbt_next[ns_bn][ns];
-      simplex_list_bn = sbt_next_bn[ns_bn][ns];
-      sbt_next[ns_bn][ns] = sbt_next[s_bn][s];
-      sbt_next_bn[ns_bn][ns] = sbt_next_bn[s_bn][s];
-      sbt_visit[ns_bn][ns] = sbt_visit[s_bn][s];
-      sbt_mark[ns_bn][ns] = sbt_mark[s_bn][s];
-      sbt_normal[ns_bn][ns] = sbt_normal[s_bn][s];
-      sbt_normal_bn[ns_bn][ns] = sbt_normal_bn[s_bn][s];
-      sbt_peak_vert[ns_bn][ns] = sbt_peak_vert[s_bn][s];
-      sbt_peak_simp[ns_bn][ns] = sbt_peak_simp[s_bn][s];
-      sbt_peak_simp_bn[ns_bn][ns] = sbt_peak_simp_bn[s_bn][s];
-      sbt_peak_basis[ns_bn][ns] = sbt_peak_basis[s_bn][s];
-      sbt_peak_basis_bn[ns_bn][ns] = sbt_peak_basis_bn[s_bn][s];
-      for (int j=0; j<rdim; j++) {
-        sbt_neigh_vert[ns_bn][j][ns] = sbt_neigh_vert[s_bn][j][s];
-        sbt_neigh_simp[ns_bn][j][ns] = sbt_neigh_simp[s_bn][j][s];
-        sbt_neigh_simp_bn[ns_bn][j][ns] = sbt_neigh_simp_bn[s_bn][j][s];
-        sbt_neigh_basis[ns_bn][j][ns] = sbt_neigh_basis[s_bn][j][s];
-        sbt_neigh_basis_bn[ns_bn][j][ns] = sbt_neigh_basis_bn[s_bn][j][s];
+      ns = (this.simplex_list != NOVAL) ? this.simplex_list : new_block_simplex();
+      ns_bn = this.simplex_list_bn;
+      this.simplex_list = this.sbt_next[ns_bn][ns];
+      this.simplex_list_bn = this.sbt_next_bn[ns_bn][ns];
+      this.sbt_next[ns_bn][ns] = this.sbt_next[s_bn][s];
+      this.sbt_next_bn[ns_bn][ns] = this.sbt_next_bn[s_bn][s];
+      this.sbt_visit[ns_bn][ns] = this.sbt_visit[s_bn][s];
+      this.sbt_mark[ns_bn][ns] = this.sbt_mark[s_bn][s];
+      this.sbt_normal[ns_bn][ns] = this.sbt_normal[s_bn][s];
+      this.sbt_normal_bn[ns_bn][ns] = this.sbt_normal_bn[s_bn][s];
+      this.sbt_peak_vert[ns_bn][ns] = this.sbt_peak_vert[s_bn][s];
+      this.sbt_peak_simp[ns_bn][ns] = this.sbt_peak_simp[s_bn][s];
+      this.sbt_peak_simp_bn[ns_bn][ns] = this.sbt_peak_simp_bn[s_bn][s];
+      this.sbt_peak_basis[ns_bn][ns] = this.sbt_peak_basis[s_bn][s];
+      this.sbt_peak_basis_bn[ns_bn][ns] = this.sbt_peak_basis_bn[s_bn][s];
+      for (int j=0; j<this.rdim; j++) {
+        this.sbt_neigh_vert[ns_bn][j][ns] = this.sbt_neigh_vert[s_bn][j][s];
+        this.sbt_neigh_simp[ns_bn][j][ns] = this.sbt_neigh_simp[s_bn][j][s];
+        this.sbt_neigh_simp_bn[ns_bn][j][ns] = this.sbt_neigh_simp_bn[s_bn][j][s];
+        this.sbt_neigh_basis[ns_bn][j][ns] = this.sbt_neigh_basis[s_bn][j][s];
+        this.sbt_neigh_basis_bn[ns_bn][j][ns] = this.sbt_neigh_basis_bn[s_bn][j][s];
       }
 
-      for (int j=0; j<cdim; j++) {
-        q = sbt_neigh_basis[s_bn][j][s];
-        q_bn = sbt_neigh_basis_bn[s_bn][j][s];
-        if (q != NOVAL) bbt_ref_count[q_bn][q]++;
+      for (int j=0; j<this.cdim; j++) {
+        q = this.sbt_neigh_basis[s_bn][j][s];
+        q_bn = this.sbt_neigh_basis_bn[s_bn][j][s];
+        if (q != NOVAL) this.bbt_ref_count[q_bn][q]++;
       }
 
-      sbt_neigh_simp[s_bn][cdim-1][s] = ns;
-      sbt_neigh_simp_bn[s_bn][cdim-1][s] = ns_bn;
-      sbt_peak_vert[ns_bn][ns] = NOVAL;
-      sbt_peak_simp[ns_bn][ns] = s;
-      sbt_peak_simp_bn[ns_bn][ns] = s_bn;
-      sbt_neigh_vert[ns_bn][cdim-1][ns] = sbt_peak_vert[s_bn][s];
-      sbt_neigh_simp[ns_bn][cdim-1][ns] = sbt_peak_simp[s_bn][s];
-      sbt_neigh_simp_bn[ns_bn][cdim-1][ns] = sbt_peak_simp_bn[s_bn][s];
-      sbt_neigh_basis[ns_bn][cdim-1][ns] = sbt_peak_basis[s_bn][s];
-      sbt_neigh_basis_bn[ns_bn][cdim-1][ns] = sbt_peak_basis_bn[s_bn][s];
-      q = sbt_peak_basis[s_bn][s];
-      q_bn = sbt_peak_basis_bn[s_bn][s];
-      if (q != NOVAL) bbt_ref_count[q_bn][q]++;
-      for (int i=0; i<cdim; i++) {
+      this.sbt_neigh_simp[s_bn][this.cdim-1][s] = ns;
+      this.sbt_neigh_simp_bn[s_bn][this.cdim-1][s] = ns_bn;
+      this.sbt_peak_vert[ns_bn][ns] = NOVAL;
+      this.sbt_peak_simp[ns_bn][ns] = s;
+      this.sbt_peak_simp_bn[ns_bn][ns] = s_bn;
+      this.sbt_neigh_vert[ns_bn][this.cdim-1][ns] = this.sbt_peak_vert[s_bn][s];
+      this.sbt_neigh_simp[ns_bn][this.cdim-1][ns] = this.sbt_peak_simp[s_bn][s];
+      this.sbt_neigh_simp_bn[ns_bn][this.cdim-1][ns] = this.sbt_peak_simp_bn[s_bn][s];
+      this.sbt_neigh_basis[ns_bn][this.cdim-1][ns] = this.sbt_peak_basis[s_bn][s];
+      this.sbt_neigh_basis_bn[ns_bn][this.cdim-1][ns] = this.sbt_peak_basis_bn[s_bn][s];
+      q = this.sbt_peak_basis[s_bn][s];
+      q_bn = this.sbt_peak_basis_bn[s_bn][s];
+      if (q != NOVAL) this.bbt_ref_count[q_bn][q]++;
+      for (int i=0; i<this.cdim; i++) {
         int[] esretp = new int[1];
         int[] esretp_bn = new int[1];
-        extend_simplices(sbt_neigh_simp[ns_bn][i][ns],
-                         sbt_neigh_simp_bn[ns_bn][i][ns], esretp, esretp_bn);
-        sbt_neigh_simp[ns_bn][i][ns] = esretp[0];
-        sbt_neigh_simp_bn[ns_bn][i][ns] = esretp_bn[0];
+        extend_simplices(this.sbt_neigh_simp[ns_bn][i][ns],
+                         this.sbt_neigh_simp_bn[ns_bn][i][ns], esretp, esretp_bn);
+        this.sbt_neigh_simp[ns_bn][i][ns] = esretp[0];
+        this.sbt_neigh_simp_bn[ns_bn][i][ns] = esretp_bn[0];
       }
     }
     ret[0] = ns;
@@ -1176,42 +1176,42 @@ public class DelaunayClarkson {
     int s, s_bn;
     int tms = 0;
 
-    st[tms] = sbt_peak_simp[root_bn][root];
-    st_bn[tms] = sbt_peak_simp_bn[root_bn][root];
+    this.st[tms] = this.sbt_peak_simp[root_bn][root];
+    this.st_bn[tms] = this.sbt_peak_simp_bn[root_bn][root];
     tms++;
-    sbt_visit[root_bn][root] = pnum;
-    if (sees(p, root, root_bn) == 0) {
-      for (int i=0; i<cdim; i++) {
-        st[tms] = sbt_neigh_simp[root_bn][i][root];
-        st_bn[tms] = sbt_neigh_simp_bn[root_bn][i][root];
+    this.sbt_visit[root_bn][root] = this.pnum;
+    if (sees(this.p, root, root_bn) == 0) {
+      for (int i=0; i<this.cdim; i++) {
+        this.st[tms] = this.sbt_neigh_simp[root_bn][i][root];
+        this.st_bn[tms] = this.sbt_neigh_simp_bn[root_bn][i][root];
         tms++;
       }
     }
     while (tms != 0) {
-      if (tms > ss) {
+      if (tms > this.ss) {
         // JAVA: efficiency issue: how much is this stack hammered?
-        ss += ss;
-        int[] newst = new int[ss+MAXDIM+1];
-        int[] newst_bn = new int[ss+MAXDIM+1];
-        System.arraycopy(st, 0, newst, 0, st.length);
-        System.arraycopy(st_bn, 0, newst_bn, 0, st_bn.length);
-        st = newst;
-        st_bn = newst_bn;
+        this.ss += this.ss;
+        int[] newst = new int[this.ss+MAXDIM+1];
+        int[] newst_bn = new int[this.ss+MAXDIM+1];
+        System.arraycopy(this.st, 0, newst, 0, this.st.length);
+        System.arraycopy(this.st_bn, 0, newst_bn, 0, this.st_bn.length);
+        this.st = newst;
+        this.st_bn = newst_bn;
       }
       tms--;
-      s = st[tms];
-      s_bn = st_bn[tms];
-      if (sbt_visit[s_bn][s] == pnum) continue;
-      sbt_visit[s_bn][s] = pnum;
-      if (sees(p, s, s_bn) == 0) continue;
-      if (sbt_peak_vert[s_bn][s] == NOVAL) {
+      s = this.st[tms];
+      s_bn = this.st_bn[tms];
+      if (this.sbt_visit[s_bn][s] == this.pnum) continue;
+      this.sbt_visit[s_bn][s] = this.pnum;
+      if (sees(this.p, s, s_bn) == 0) continue;
+      if (this.sbt_peak_vert[s_bn][s] == NOVAL) {
         ret[0] = s;
         ret_bn[0] = s_bn;
         return;
       }
-      for (int i=0; i<cdim; i++) {
-        st[tms] = sbt_neigh_simp[s_bn][i][s];
-        st_bn[tms] = sbt_neigh_simp_bn[s_bn][i][s];
+      for (int i=0; i<this.cdim; i++) {
+        this.st[tms] = this.sbt_neigh_simp[s_bn][i][s];
+        this.st_bn[tms] = this.sbt_neigh_simp_bn[s_bn][i][s];
         tms++;
       }
     }
@@ -1235,11 +1235,11 @@ public class DelaunayClarkson {
    * @throws DelaunayException if an error occurs.
    */
   public void compute(double[][] samples, float scale) throws DelaunayException {
-    simplexes = null;
-    vertices = null;
-    neighbors = null;
-    Edges = null;
-    NumEdges = 0;
+    this.simplexes = null;
+    this.vertices = null;
+    this.neighbors = null;
+    this.Edges = null;
+    this.NumEdges = 0;
 
     int s, s_bn, q, q_bn;
     int root, root_bn;
@@ -1256,147 +1256,147 @@ public class DelaunayClarkson {
     this.samples = samples;
     
     // Start of main hull triangulation algorithm
-    dim = samples.length;
+    this.dim = samples.length;
     nrs = samples[0].length;
-    for (int i=1; i<dim; i++) nrs = Math.min(nrs, samples[i].length);
+    for (int i=1; i<this.dim; i++) nrs = Math.min(nrs, samples[i].length);
 
-    if (nrs <= dim) throw new DelaunayException("DelaunayClarkson: "
+    if (nrs <= this.dim) throw new DelaunayException("DelaunayClarkson: "
                                           +"not enough samples");
-    if (dim > MAXDIM) throw new DelaunayException("DelaunayClarkson: "
+    if (this.dim > MAXDIM) throw new DelaunayException("DelaunayClarkson: "
                                +"dimension bound MAXDIM exceeded");
 
     // copy samples
-    site_blocks = new double[dim][nrs];
-    for (int j=0; j<dim; j++) {
-      System.arraycopy(samples[j], 0, site_blocks[j], 0, nrs);
+    this.site_blocks = new double[this.dim][nrs];
+    for (int j=0; j<this.dim; j++) {
+      System.arraycopy(samples[j], 0, this.site_blocks[j], 0, nrs);
     }
 
     // WLH 29 Jan 98 - scale samples values to avoid integer convertion loss of precision
-    for (int j=0; j<dim; j++) {
+    for (int j=0; j<this.dim; j++) {
       for (int kk=0; kk<nrs; kk++) {
-        site_blocks[j][kk] = scale * samples[j][kk];
+        this.site_blocks[j][kk] = scale * samples[j][kk];
       }
     }
 
 
-    exact_bits = (int) (DBL_MANT_DIG*Math.log(FLT_RADIX)/ln2);
-    b_err_min = DBL_EPSILON*MAXDIM*(1<<MAXDIM)*MAXDIM*3.01;
-    b_err_min_sq = b_err_min * b_err_min;
+    this.exact_bits = (int) (DBL_MANT_DIG*Math.log(FLT_RADIX)/ln2);
+    this.b_err_min = DBL_EPSILON*MAXDIM*(1<<MAXDIM)*MAXDIM*3.01;
+    this.b_err_min_sq = this.b_err_min * this.b_err_min;
 
-    cdim = 0;
-    rdim = dim+1;
-    if (rdim > MAXDIM) throw new DelaunayException(
-              "dimension bound MAXDIM exceeded; rdim="+rdim+"; dim="+dim);
+    this.cdim = 0;
+    this.rdim = this.dim+1;
+    if (this.rdim > MAXDIM) throw new DelaunayException(
+              "dimension bound MAXDIM exceeded; rdim="+this.rdim+"; dim="+this.dim);
 
-    pnb = basis_s_list != NOVAL ? basis_s_list : new_block_basis_s();
-    pnb_bn = basis_s_list_bn;
-    basis_s_list = bbt_next[pnb_bn][pnb];
-    basis_s_list_bn = bbt_next_bn[pnb_bn][pnb];
-    bbt_next[pnb_bn][pnb] = NOVAL;
+    this.pnb = this.basis_s_list != NOVAL ? this.basis_s_list : new_block_basis_s();
+    this.pnb_bn = this.basis_s_list_bn;
+    this.basis_s_list = this.bbt_next[this.pnb_bn][this.pnb];
+    this.basis_s_list_bn = this.bbt_next_bn[this.pnb_bn][this.pnb];
+    this.bbt_next[this.pnb_bn][this.pnb] = NOVAL;
 
-    ttbp = basis_s_list != NOVAL ? basis_s_list : new_block_basis_s();
-    ttbp_bn = basis_s_list_bn;
-    basis_s_list = bbt_next[ttbp_bn][ttbp];
-    basis_s_list_bn = bbt_next_bn[ttbp_bn][ttbp];
-    bbt_next[ttbp_bn][ttbp] = NOVAL;
-    bbt_ref_count[ttbp_bn][ttbp] = 1;
-    bbt_lscale[ttbp_bn][ttbp] = -1;
-    bbt_sqa[ttbp_bn][ttbp] = 0;
-    bbt_sqb[ttbp_bn][ttbp] = 0;
-    for (int j=0; j<2*rdim; j++) bbt_vecs[ttbp_bn][j][ttbp] = 0;
+    this.ttbp = this.basis_s_list != NOVAL ? this.basis_s_list : new_block_basis_s();
+    this.ttbp_bn = this.basis_s_list_bn;
+    this.basis_s_list = this.bbt_next[this.ttbp_bn][this.ttbp];
+    this.basis_s_list_bn = this.bbt_next_bn[this.ttbp_bn][this.ttbp];
+    this.bbt_next[this.ttbp_bn][this.ttbp] = NOVAL;
+    this.bbt_ref_count[this.ttbp_bn][this.ttbp] = 1;
+    this.bbt_lscale[this.ttbp_bn][this.ttbp] = -1;
+    this.bbt_sqa[this.ttbp_bn][this.ttbp] = 0;
+    this.bbt_sqb[this.ttbp_bn][this.ttbp] = 0;
+    for (int j=0; j<2*this.rdim; j++) this.bbt_vecs[this.ttbp_bn][j][this.ttbp] = 0;
 
     root = NOVAL;
-    p = INFINITY;
-    ib = (basis_s_list != NOVAL) ? basis_s_list : new_block_basis_s();
-    ib_bn = basis_s_list_bn;
-    basis_s_list = bbt_next[ib_bn][ib];
-    basis_s_list_bn = bbt_next_bn[ib_bn][ib];
-    bbt_ref_count[ib_bn][ib] = 1;
-    bbt_vecs[ib_bn][2*rdim-1][ib] = bbt_vecs[ib_bn][rdim-1][ib] = 1;
-    bbt_sqa[ib_bn][ib] = bbt_sqb[ib_bn][ib] = 1;
+    this.p = INFINITY;
+    this.ib = (this.basis_s_list != NOVAL) ? this.basis_s_list : new_block_basis_s();
+    this.ib_bn = this.basis_s_list_bn;
+    this.basis_s_list = this.bbt_next[this.ib_bn][this.ib];
+    this.basis_s_list_bn = this.bbt_next_bn[this.ib_bn][this.ib];
+    this.bbt_ref_count[this.ib_bn][this.ib] = 1;
+    this.bbt_vecs[this.ib_bn][2*this.rdim-1][this.ib] = this.bbt_vecs[this.ib_bn][this.rdim-1][this.ib] = 1;
+    this.bbt_sqa[this.ib_bn][this.ib] = this.bbt_sqb[this.ib_bn][this.ib] = 1;
 
-    root = (simplex_list != NOVAL) ? simplex_list : new_block_simplex();
-    root_bn = simplex_list_bn;
-    simplex_list = sbt_next[root_bn][root];
-    simplex_list_bn = sbt_next_bn[root_bn][root];
+    root = (this.simplex_list != NOVAL) ? this.simplex_list : new_block_simplex();
+    root_bn = this.simplex_list_bn;
+    this.simplex_list = this.sbt_next[root_bn][root];
+    this.simplex_list_bn = this.sbt_next_bn[root_bn][root];
 
-    ch_root = root;
-    ch_root_bn = root_bn;
+    this.ch_root = root;
+    this.ch_root_bn = root_bn;
 
-    s = (simplex_list != NOVAL) ? simplex_list : new_block_simplex();
-    s_bn = simplex_list_bn;
-    simplex_list = sbt_next[s_bn][s];
-    simplex_list_bn = sbt_next_bn[s_bn][s];
-    sbt_next[s_bn][s] = sbt_next[root_bn][root];
-    sbt_next_bn[s_bn][s] = sbt_next_bn[root_bn][root];
-    sbt_visit[s_bn][s] = sbt_visit[root_bn][root];
-    sbt_mark[s_bn][s] = sbt_mark[root_bn][root];
-    sbt_normal[s_bn][s] = sbt_normal[root_bn][root];
-    sbt_normal_bn[s_bn][s] = sbt_normal_bn[root_bn][root];
-    sbt_peak_vert[s_bn][s] = sbt_peak_vert[root_bn][root];
-    sbt_peak_simp[s_bn][s] = sbt_peak_simp[root_bn][root];
-    sbt_peak_simp_bn[s_bn][s] = sbt_peak_simp_bn[root_bn][root];
-    sbt_peak_basis[s_bn][s] = sbt_peak_basis[root_bn][root];
-    sbt_peak_basis_bn[s_bn][s] = sbt_peak_basis_bn[root_bn][root];
-    for (int i=0; i<rdim; i++) {
-      sbt_neigh_vert[s_bn][i][s] = sbt_neigh_vert[root_bn][i][root];
-      sbt_neigh_simp[s_bn][i][s] = sbt_neigh_simp[root_bn][i][root];
-      sbt_neigh_simp_bn[s_bn][i][s] = sbt_neigh_simp_bn[root_bn][i][root];
-      sbt_neigh_basis[s_bn][i][s] = sbt_neigh_basis[root_bn][i][root];
-      sbt_neigh_basis_bn[s_bn][i][s] = sbt_neigh_basis_bn[root_bn][i][root];
+    s = (this.simplex_list != NOVAL) ? this.simplex_list : new_block_simplex();
+    s_bn = this.simplex_list_bn;
+    this.simplex_list = this.sbt_next[s_bn][s];
+    this.simplex_list_bn = this.sbt_next_bn[s_bn][s];
+    this.sbt_next[s_bn][s] = this.sbt_next[root_bn][root];
+    this.sbt_next_bn[s_bn][s] = this.sbt_next_bn[root_bn][root];
+    this.sbt_visit[s_bn][s] = this.sbt_visit[root_bn][root];
+    this.sbt_mark[s_bn][s] = this.sbt_mark[root_bn][root];
+    this.sbt_normal[s_bn][s] = this.sbt_normal[root_bn][root];
+    this.sbt_normal_bn[s_bn][s] = this.sbt_normal_bn[root_bn][root];
+    this.sbt_peak_vert[s_bn][s] = this.sbt_peak_vert[root_bn][root];
+    this.sbt_peak_simp[s_bn][s] = this.sbt_peak_simp[root_bn][root];
+    this.sbt_peak_simp_bn[s_bn][s] = this.sbt_peak_simp_bn[root_bn][root];
+    this.sbt_peak_basis[s_bn][s] = this.sbt_peak_basis[root_bn][root];
+    this.sbt_peak_basis_bn[s_bn][s] = this.sbt_peak_basis_bn[root_bn][root];
+    for (int i=0; i<this.rdim; i++) {
+      this.sbt_neigh_vert[s_bn][i][s] = this.sbt_neigh_vert[root_bn][i][root];
+      this.sbt_neigh_simp[s_bn][i][s] = this.sbt_neigh_simp[root_bn][i][root];
+      this.sbt_neigh_simp_bn[s_bn][i][s] = this.sbt_neigh_simp_bn[root_bn][i][root];
+      this.sbt_neigh_basis[s_bn][i][s] = this.sbt_neigh_basis[root_bn][i][root];
+      this.sbt_neigh_basis_bn[s_bn][i][s] = this.sbt_neigh_basis_bn[root_bn][i][root];
     }
-    for (int i=0;i<cdim;i++) {
-      q = sbt_neigh_basis[root_bn][i][root];
-      q_bn = sbt_neigh_basis_bn[root_bn][i][root];
-      if (q != NOVAL) bbt_ref_count[q_bn][q]++;
+    for (int i=0;i<this.cdim;i++) {
+      q = this.sbt_neigh_basis[root_bn][i][root];
+      q_bn = this.sbt_neigh_basis_bn[root_bn][i][root];
+      if (q != NOVAL) this.bbt_ref_count[q_bn][q]++;
     }
-    sbt_peak_vert[root_bn][root] = p;
-    sbt_peak_simp[root_bn][root] = s;
-    sbt_peak_simp_bn[root_bn][root] = s_bn;
-    sbt_peak_simp[s_bn][s] = root;
-    sbt_peak_simp_bn[s_bn][s] = root_bn;
-    while (cdim < rdim) {
+    this.sbt_peak_vert[root_bn][root] = this.p;
+    this.sbt_peak_simp[root_bn][root] = s;
+    this.sbt_peak_simp_bn[root_bn][root] = s_bn;
+    this.sbt_peak_simp[s_bn][s] = root;
+    this.sbt_peak_simp_bn[s_bn][s] = root_bn;
+    while (this.cdim < this.rdim) {
       int oof = 0;
 
-      if (s_num == 0) p = 0;
-      else p++;
-      for (int i=0; i<dim; i++) {
-        site_blocks[i][p] = Math.floor(site_blocks[i][p]+0.5);
+      if (s_num == 0) this.p = 0;
+      else this.p++;
+      for (int i=0; i<this.dim; i++) {
+        this.site_blocks[i][this.p] = Math.floor(this.site_blocks[i][this.p]+0.5);
       }
       s_num++;
-      pnum = (s_num*dim-1)/dim + 2;
+      this.pnum = (s_num*this.dim-1)/this.dim + 2;
 
-      cdim++;
-      sbt_neigh_vert[root_bn][cdim-1][root] = sbt_peak_vert[root_bn][root];
+      this.cdim++;
+      this.sbt_neigh_vert[root_bn][this.cdim-1][root] = this.sbt_peak_vert[root_bn][root];
 
-      q = sbt_neigh_basis[root_bn][cdim-1][root];
-      q_bn = sbt_neigh_basis_bn[root_bn][cdim-1][root];
-      if (q != NOVAL && --bbt_ref_count[q_bn][q] == 0) {
-        bbt_next[q_bn][q] = basis_s_list;
-        bbt_next_bn[q_bn][q] = basis_s_list_bn;
-        bbt_ref_count[q_bn][q] = 0;
-        bbt_lscale[q_bn][q] = 0;
-        bbt_sqa[q_bn][q] = 0;
-        bbt_sqb[q_bn][q] = 0;
-        for (int l=0; l<2*rdim; l++) bbt_vecs[q_bn][l][q] = 0;
+      q = this.sbt_neigh_basis[root_bn][this.cdim-1][root];
+      q_bn = this.sbt_neigh_basis_bn[root_bn][this.cdim-1][root];
+      if (q != NOVAL && --this.bbt_ref_count[q_bn][q] == 0) {
+        this.bbt_next[q_bn][q] = this.basis_s_list;
+        this.bbt_next_bn[q_bn][q] = this.basis_s_list_bn;
+        this.bbt_ref_count[q_bn][q] = 0;
+        this.bbt_lscale[q_bn][q] = 0;
+        this.bbt_sqa[q_bn][q] = 0;
+        this.bbt_sqb[q_bn][q] = 0;
+        for (int l=0; l<2*this.rdim; l++) this.bbt_vecs[q_bn][l][q] = 0;
 
-        basis_s_list = q;
-        basis_s_list_bn = q_bn;
+        this.basis_s_list = q;
+        this.basis_s_list_bn = q_bn;
       }
-      sbt_neigh_basis[root_bn][cdim-1][root] = NOVAL;
+      this.sbt_neigh_basis[root_bn][this.cdim-1][root] = NOVAL;
 
       get_basis_sede(root, root_bn);
-      if (sbt_neigh_vert[root_bn][0][root] == INFINITY) oof = 1;
+      if (this.sbt_neigh_vert[root_bn][0][root] == INFINITY) oof = 1;
       else {
-        curt[0] = pnb;
-        curt_bn[0] = pnb_bn;
-        reduce(curt, curt_bn, p, root, root_bn, cdim);
-        pnb = curt[0];
-        pnb_bn = curt_bn[0];
-        if (bbt_sqa[pnb_bn][pnb] != 0) oof = 1;
-        else cdim--;
+        curt[0] = this.pnb;
+        curt_bn[0] = this.pnb_bn;
+        reduce(curt, curt_bn, this.p, root, root_bn, this.cdim);
+        this.pnb = curt[0];
+        this.pnb_bn = curt_bn[0];
+        if (this.bbt_sqa[this.pnb_bn][this.pnb] != 0) oof = 1;
+        else this.cdim--;
       }
-      if (oof != 0) extend_simplices(root, root_bn, voidp, voidp_bn);
+      if (oof != 0) extend_simplices(root, root_bn, this.voidp, this.voidp_bn);
       else {
         search(root, root_bn, retp, retp_bn);
         make_facets(retp[0], retp_bn[0], ret2p, ret2p_bn);
@@ -1405,53 +1405,53 @@ public class DelaunayClarkson {
     }
 
     for (int i=s_num; i<nrs; i++) {
-      p++;
+      this.p++;
       s_num++;
-      for (int j=0; j<dim; j++) {
-        site_blocks[j][p] = Math.floor(site_blocks[j][p]+0.5);
+      for (int j=0; j<this.dim; j++) {
+        this.site_blocks[j][this.p] = Math.floor(this.site_blocks[j][this.p]+0.5);
       }
-      pnum = (s_num*dim-1)/dim + 2;
+      this.pnum = (s_num*this.dim-1)/this.dim + 2;
       search(root, root_bn, retp, retp_bn);
       make_facets(retp[0], retp_bn[0], ret2p, ret2p_bn);
       connect(ret2p[0], ret2p_bn[0]);
     }
 
-    a3size = rdim*nrs;
-    a3s = new int[rdim][a3size+MAXDIM+1];
+    this.a3size = this.rdim*nrs;
+    this.a3s = new int[this.rdim][this.a3size+MAXDIM+1];
     visit_triang_gen(root, root_bn, 1, retp, retp_bn);
-    visit_triang_gen(retp[0], retp_bn[0], 0, voidp, voidp_bn);
+    visit_triang_gen(retp[0], retp_bn[0], 0, this.voidp, this.voidp_bn);
 
     // deallocate memory
     /* NOTE: If this deallocation is not performed, more points
        could theoretically be added to the triangulation later */
-    site_blocks = null;
-    st = null;
-    st_bn = null;
-    st2 = null;
-    st2_bn = null;
-    sbt_next = null;
-    sbt_next_bn = null;
-    sbt_visit = null;
-    sbt_mark = null;
-    sbt_normal = null;
-    sbt_normal_bn = null;
-    sbt_peak_vert = null;
-    sbt_peak_simp = null;
-    sbt_peak_simp_bn = null;
-    sbt_peak_basis = null;
-    sbt_peak_basis_bn = null;
-    sbt_neigh_vert = null;
-    sbt_neigh_simp = null;
-    sbt_neigh_simp_bn = null;
-    sbt_neigh_basis = null;
-    sbt_neigh_basis_bn = null;
-    bbt_next = null;
-    bbt_next_bn = null;
-    bbt_ref_count = null;
-    bbt_lscale = null;
-    bbt_sqa = null;
-    bbt_sqb = null;
-    bbt_vecs = null;
+    this.site_blocks = null;
+    this.st = null;
+    this.st_bn = null;
+    this.st2 = null;
+    this.st2_bn = null;
+    this.sbt_next = null;
+    this.sbt_next_bn = null;
+    this.sbt_visit = null;
+    this.sbt_mark = null;
+    this.sbt_normal = null;
+    this.sbt_normal_bn = null;
+    this.sbt_peak_vert = null;
+    this.sbt_peak_simp = null;
+    this.sbt_peak_simp_bn = null;
+    this.sbt_peak_basis = null;
+    this.sbt_peak_basis_bn = null;
+    this.sbt_neigh_vert = null;
+    this.sbt_neigh_simp = null;
+    this.sbt_neigh_simp_bn = null;
+    this.sbt_neigh_basis = null;
+    this.sbt_neigh_basis_bn = null;
+    this.bbt_next = null;
+    this.bbt_next_bn = null;
+    this.bbt_ref_count = null;
+    this.bbt_lscale = null;
+    this.bbt_sqa = null;
+    this.bbt_sqb = null;
+    this.bbt_vecs = null;
 
 /* ********** END OF CONVERTED HULL CODE ********** */
 /*          (but still inside constructor)          */
@@ -1461,40 +1461,40 @@ public class DelaunayClarkson {
     for (int i=0; i<nrs; i++) nverts[i] = 0;
     int ntris = 0;
     boolean positive;
-    for (int i=0; i<nts; i++) {
+    for (int i=0; i<this.nts; i++) {
       positive = true;
-      for (int j=0; j<rdim; j++) {
-        if (a3s[j][i] < 0) positive = false;
+      for (int j=0; j<this.rdim; j++) {
+        if (this.a3s[j][i] < 0) positive = false;
       }
       if (positive) {
         ntris++;
-        for (int j=0; j<rdim; j++) nverts[a3s[j][i]]++;
+        for (int j=0; j<this.rdim; j++) nverts[this.a3s[j][i]]++;
       }
     }
-    vertices = new int[nrs][];
-    for (int i=0; i<nrs; i++) vertices[i] = new int[nverts[i]];
+    this.vertices = new int[nrs][];
+    for (int i=0; i<nrs; i++) this.vertices[i] = new int[nverts[i]];
     for (int i=0; i<nrs; i++) nverts[i] = 0;
 
     // build Tri & Vertices components
-    simplexes = new int[ntris][rdim];
+    this.simplexes = new int[ntris][this.rdim];
 
     int itri = 0;
-    for (int i=0; i<nts; i++) {
+    for (int i=0; i<this.nts; i++) {
       positive = true;
-      for (int j=0; j<rdim; j++) {
-        if (a3s[j][i] < 0) positive = false;
+      for (int j=0; j<this.rdim; j++) {
+        if (this.a3s[j][i] < 0) positive = false;
       }
       if (positive) {
-        for (int j=0; j<rdim; j++) {
-          vertices[a3s[j][i]][nverts[a3s[j][i]]++] = itri;
-          simplexes[itri][j] = a3s[j][i];
+        for (int j=0; j<this.rdim; j++) {
+          this.vertices[this.a3s[j][i]][nverts[this.a3s[j][i]]++] = itri;
+          this.simplexes[itri][j] = this.a3s[j][i];
         }
         itri++;
       }
     }
 
     // Deallocate remaining helper information
-    a3s = null;
+    this.a3s = null;
 
     // call more generic method for constructing Walk and Edges arrays
     finish_triang(samples);
@@ -1507,18 +1507,18 @@ public class DelaunayClarkson {
    */
   public boolean valid() {
 
-    int dim = samples.length;
+    int dim = this.samples.length;
     int dim1 = dim+1;
-    int ntris = simplexes.length;
-    int nrs = samples[0].length;
+    int ntris = this.simplexes.length;
+    int nrs = this.samples[0].length;
     for (int i=1; i<dim; i++) {
-      nrs = Math.min(nrs, samples[i].length);
+      nrs = Math.min(nrs, this.samples[i].length);
     }
 
     // verify triangulation dimension
     for (int i=0; i<ntris; i++) {
-      if (simplexes[i].length < dim1){
-        System.out.println("Bad triangulation dimension: "+simplexes[i].length+" (should be "+dim1+")");
+      if (this.simplexes[i].length < dim1){
+        System.out.println("Bad triangulation dimension: "+this.simplexes[i].length+" (should be "+dim1+")");
         return false;
       }
     }
@@ -1526,8 +1526,8 @@ public class DelaunayClarkson {
     // verify no illegal triangle vertices
     for (int i=0; i<ntris; i++) {
       for (int j=0; j<dim1; j++) {
-        if (simplexes[i][j] < 0 || simplexes[i][j] >= nrs){
-          System.out.println("Illegal vertice found: "+simplexes[i][j]+" for triangle "+i);
+        if (this.simplexes[i][j] < 0 || this.simplexes[i][j] >= nrs){
+          System.out.println("Illegal vertice found: "+this.simplexes[i][j]+" for triangle "+i);
           return false;
         }
       }
@@ -1537,7 +1537,7 @@ public class DelaunayClarkson {
     int[] nverts = new int[nrs];
     for (int i=0; i<nrs; i++) nverts[i] = 0;
     for (int i=0; i<ntris; i++) {
-      for (int j=0; j<dim1; j++) nverts[simplexes[i][j]]++;
+      for (int j=0; j<dim1; j++) nverts[this.simplexes[i][j]]++;
     }
     for (int i=0; i<nrs; i++) {
       if (nverts[i] == 0){
@@ -1553,7 +1553,7 @@ public class DelaunayClarkson {
         for (int mi=0; mi<dim1; mi++) m[mi] = false;
         for (int k=0; k<dim1; k++) {
           for (int l=0; l<dim1; l++) {
-            if (simplexes[i][k] == simplexes[j][l] && !m[l]) {
+            if (this.simplexes[i][k] == this.simplexes[j][l] && !m[l]) {
               m[l] = true;
             }
           }
@@ -1567,13 +1567,13 @@ public class DelaunayClarkson {
     }
 
     // test for errors in Walk array
-    if (neighbors != null){
+    if (this.neighbors != null){
       for (int i=0; i<ntris; i++) {
         for (int j=0; j<dim1; j++) {
-          if (neighbors[i][j] != -1) {
+          if (this.neighbors[i][j] != -1) {
             boolean found = false;
             for (int k=0; k<dim1; k++) {
-              if (neighbors[neighbors[i][j]][k] == i) found = true;
+              if (this.neighbors[this.neighbors[i][j]][k] == i) found = true;
             }
             if (!found) return false;
 
@@ -1581,7 +1581,7 @@ public class DelaunayClarkson {
             int sb = 0;
             for (int k=0; k<dim1; k++) {
               for (int l=0; l<dim1; l++) {
-                if (simplexes[i][k] == simplexes[neighbors[i][j]][l]) sb++;
+                if (this.simplexes[i][k] == this.simplexes[this.neighbors[i][j]][l]) sb++;
               }
             }
             if (sb != dim) return false;
@@ -1607,9 +1607,9 @@ public class DelaunayClarkson {
    * @throws DelaunayException if an error occurs.
    */
   public void improve(int pass) throws DelaunayException {
-    int dim = samples.length;
+    int dim = this.samples.length;
     int dim1 = dim+1;
-    if (simplexes[0].length != dim1) {
+    if (this.simplexes[0].length != dim1) {
       throw new DelaunayException("Delaunay.improve: samples dimension " +
                              "does not match");
     }
@@ -1618,13 +1618,13 @@ public class DelaunayClarkson {
       throw new DelaunayException("Delaunay.improve: dimension " +
                                        "must be 2!");
     }
-    int ntris = simplexes.length;
-    int nrs = samples[0].length;
+    int ntris = this.simplexes.length;
+    int nrs = this.samples[0].length;
     for (int i=1; i<dim; i++) {
-      nrs = Math.min(nrs, samples[i].length);
+      nrs = Math.min(nrs, this.samples[i].length);
     }
-    double[] samp0 = samples[0];
-    double[] samp1 = samples[1];
+    double[] samp0 = this.samples[0];
+    double[] samp1 = this.samples[1];
 
     // go through entire triangulation pass times
     boolean eflipped = false;
@@ -1632,14 +1632,14 @@ public class DelaunayClarkson {
       eflipped = false;
 
       // edge keeps track of which edges have been checked
-      boolean[] edge = new boolean[NumEdges];
-      for (int i=0; i<NumEdges; i++) edge[i] = true;
+      boolean[] edge = new boolean[this.NumEdges];
+      for (int i=0; i<this.NumEdges; i++) edge[i] = true;
 
       // check every edge of every triangle
       for (int t=0; t<ntris; t++) {
-        int[] trit = simplexes[t];
-        int[] walkt = neighbors[t];
-        int[] edgest = Edges[t];
+        int[] trit = this.simplexes[t];
+        int[] walkt = this.neighbors[t];
+        int[] edgest = this.Edges[t];
         for (int e=0; e<2; e++) {
           int curedge = edgest[e];
           // only check the edge if it hasn't been checked yet
@@ -1648,9 +1648,9 @@ public class DelaunayClarkson {
 
             // only check edge if it is not part of the outer hull
             if (t2 >= 0) {
-              int[] trit2 = simplexes[t2];
-              int[] walkt2 = neighbors[t2];
-              int[] edgest2 = Edges[t2];
+              int[] trit2 = this.simplexes[t2];
+              int[] walkt2 = this.neighbors[t2];
+              int[] edgest2 = this.Edges[t2];
 
               // check if the diagonal needs to be flipped
               int f = (walkt2[0] == t) ? 0 :
@@ -1735,14 +1735,14 @@ public class DelaunayClarkson {
                 walkt2[1] = w3;
                 walkt2[2] = w2;
                 if (w2 >= 0) {
-                  int val = (neighbors[w2][0] == t) ? 0
-                          : (neighbors[w2][1] == t) ? 1 : 2;
-                  neighbors[w2][val] = t2;
+                  int val = (this.neighbors[w2][0] == t) ? 0
+                          : (this.neighbors[w2][1] == t) ? 1 : 2;
+                  this.neighbors[w2][val] = t2;
                 }
                 if (w4 >= 0) {
-                  int val = (neighbors[w4][0] == t2) ? 0
-                          : (neighbors[w4][1] == t2) ? 1 : 2;
-                  neighbors[w4][val] = t;
+                  int val = (this.neighbors[w4][0] == t2) ? 0
+                          : (this.neighbors[w4][1] == t2) ? 1 : 2;
+                  this.neighbors[w4][val] = t;
                 }
 
                 // update Edges array
@@ -1753,10 +1753,10 @@ public class DelaunayClarkson {
                 edgest2[2] = e2;
 
                 // update Vertices array
-                int[] vertn1 = vertices[n1];
-                int[] vertn2 = vertices[n2];
-                int[] vertn3 = vertices[n3];
-                int[] vertn4 = vertices[n4];
+                int[] vertn1 = this.vertices[n1];
+                int[] vertn2 = this.vertices[n2];
+                int[] vertn3 = this.vertices[n3];
+                int[] vertn4 = this.vertices[n4];
                 int ln1 = vertn1.length;
                 int ln2 = vertn2.length;
                 int ln3 = vertn3.length;
@@ -1777,10 +1777,10 @@ public class DelaunayClarkson {
                 }
                 System.arraycopy(vertn4, 0, tn4, 0, ln4);
                 tn4[ln4] = t;
-                vertices[n1] = tn1;
-                vertices[n2] = tn2;
-                vertices[n3] = tn3;
-                vertices[n4] = tn4;
+                this.vertices[n1] = tn1;
+                this.vertices[n2] = tn2;
+                this.vertices[n3] = tn3;
+                this.vertices[n4] = tn4;
               }
             }
 
@@ -1802,60 +1802,60 @@ public class DelaunayClarkson {
    * @throws DelaunayException if an error occurs
    */
   private void finish_triang(double[][] samples) throws DelaunayException {
-    int mdim = simplexes[0].length - 1;
+    int mdim = this.simplexes[0].length - 1;
     int mdim1 = mdim + 1;
     int dim = samples.length;
 
-    int ntris = simplexes.length;
+    int ntris = this.simplexes.length;
     int nrs = samples[0].length;
     for (int i=1; i<dim; i++) {
       nrs = Math.min(nrs, samples[i].length);
     }
 
-    if (vertices == null) {
+    if (this.vertices == null) {
       // build Vertices component
-      vertices = new int[nrs][];
+      this.vertices = new int[nrs][];
       int[] nverts = new int[nrs];
       for (int i=0; i<ntris; i++) {
-        for (int j=0; j<mdim1; j++) nverts[simplexes[i][j]]++;
+        for (int j=0; j<mdim1; j++) nverts[this.simplexes[i][j]]++;
       }
       for (int i=0; i<nrs; i++) {
-        vertices[i] = new int[nverts[i]];
+        this.vertices[i] = new int[nverts[i]];
         nverts[i] = 0;
       }
       for (int i=0; i<ntris; i++) {
         for (int j=0; j<mdim1; j++) {
-          vertices[simplexes[i][j]][nverts[simplexes[i][j]]++] = i;
+          this.vertices[this.simplexes[i][j]][nverts[this.simplexes[i][j]]++] = i;
         }
       }
     }
 
-    if (neighbors == null && mdim <= 3) {
+    if (this.neighbors == null && mdim <= 3) {
       // build Walk component
-      neighbors = new int[ntris][mdim1];
+      this.neighbors = new int[ntris][mdim1];
       for (int i=0; i<ntris; i++) {
       WalkDim:
         for (int j=0; j<mdim1; j++) {
           int v1 = j;
           int v2 = (v1+1)%mdim1;
-          neighbors[i][j] = -1;
-          for (int k=0; k<vertices[simplexes[i][v1]].length; k++) {
-            int temp = vertices[simplexes[i][v1]][k];
+          this.neighbors[i][j] = -1;
+          for (int k=0; k<this.vertices[this.simplexes[i][v1]].length; k++) {
+            int temp = this.vertices[this.simplexes[i][v1]][k];
             if (temp != i) {
-              for (int l=0; l<vertices[simplexes[i][v2]].length; l++) {
+              for (int l=0; l<this.vertices[this.simplexes[i][v2]].length; l++) {
                 if (mdim == 2) {
-                  if (temp == vertices[simplexes[i][v2]][l]) {
-                    neighbors[i][j] = temp;
+                  if (temp == this.vertices[this.simplexes[i][v2]][l]) {
+                    this.neighbors[i][j] = temp;
                     continue WalkDim;
                   }
                 }
                 else {    // mdim == 3
-                  int temp2 = vertices[simplexes[i][v2]][l];
+                  int temp2 = this.vertices[this.simplexes[i][v2]][l];
                   int v3 = (v2+1)%mdim1;
                   if (temp == temp2) {
-                    for (int m=0; m<vertices[simplexes[i][v3]].length; m++) {
-                      if (temp == vertices[simplexes[i][v3]][m]) {
-                        neighbors[i][j] = temp;
+                    for (int m=0; m<this.vertices[this.simplexes[i][v3]].length; m++) {
+                      if (temp == this.vertices[this.simplexes[i][v3]][m]) {
+                        this.neighbors[i][j] = temp;
                         continue WalkDim;
                       }
                     }
@@ -1868,38 +1868,38 @@ public class DelaunayClarkson {
       } // end for (int i=0; i<Tri.length; i++)
     } // end if (Walk == null && mdim <= 3)
 
-    if (Edges == null && mdim <= 3) {
+    if (this.Edges == null && mdim <= 3) {
       // build Edges component
 
       // initialize all edges to "not yet found"
       int edim = 3*(mdim-1);
-      Edges = new int[ntris][edim];
+      this.Edges = new int[ntris][edim];
       for (int i=0; i<ntris; i++) {
-        for (int j=0; j<edim; j++) Edges[i][j] = -1;
+        for (int j=0; j<edim; j++) this.Edges[i][j] = -1;
       }
 
       // calculate global edge values
-      NumEdges = 0;
+      this.NumEdges = 0;
       if (mdim == 2) {
         for (int i=0; i<ntris; i++) {
           for (int j=0; j<3; j++) {
-            if (Edges[i][j] < 0) {
+            if (this.Edges[i][j] < 0) {
               // this edge doesn't have a "global edge number" yet
-              int othtri = neighbors[i][j];
+              int othtri = this.neighbors[i][j];
               if (othtri >= 0) {
                 int cside = -1;
                 for (int k=0; k<3; k++) {
-                  if (neighbors[othtri][k] == i) cside = k;
+                  if (this.neighbors[othtri][k] == i) cside = k;
                 }
                 if (cside != -1) {
-                  Edges[othtri][cside] = NumEdges;
+                  this.Edges[othtri][cside] = this.NumEdges;
                 }
                 else {
                   throw new DelaunayException("Delaunay.finish_triang: " +
                                          "error in triangulation!");
                 }
               }
-              Edges[i][j] = NumEdges++;
+              this.Edges[i][j] = this.NumEdges++;
             }
           }
         }
@@ -1909,20 +1909,20 @@ public class DelaunayClarkson {
         int[] ptlook2 = {1, 2, 3, 2, 3, 3};
         for (int i=0; i<ntris; i++) {
           for (int j=0; j<6; j++) {
-            if (Edges[i][j] < 0) {
+            if (this.Edges[i][j] < 0) {
               // this edge doesn't have a "global edge number" yet
 
               // search through the edge's two end points
-              int endpt1 = simplexes[i][ptlook1[j]];
-              int endpt2 = simplexes[i][ptlook2[j]];
+              int endpt1 = this.simplexes[i][ptlook1[j]];
+              int endpt2 = this.simplexes[i][ptlook2[j]];
 
               // create an intersection of two sets
-              int[] set = new int[vertices[endpt1].length];
+              int[] set = new int[this.vertices[endpt1].length];
               int setlen = 0;
-              for (int p1=0; p1<vertices[endpt1].length; p1++) {
-                int temp = vertices[endpt1][p1];
-                for (int p2=0; p2<vertices[endpt2].length; p2++) {
-                  if (temp == vertices[endpt2][p2]) {
+              for (int p1=0; p1<this.vertices[endpt1].length; p1++) {
+                int temp = this.vertices[endpt1][p1];
+                for (int p2=0; p2<this.vertices[endpt2].length; p2++) {
+                  if (temp == this.vertices[endpt2][p2]) {
                     set[setlen++] = temp;
                     break;
                   }
@@ -1933,15 +1933,15 @@ public class DelaunayClarkson {
               for (int kk=0; kk<setlen; kk++) {
                 int k = set[kk];
                 for (int l=0; l<edim; l++) {
-                  if ((simplexes[k][ptlook1[l]] == endpt1
-                    && simplexes[k][ptlook2[l]] == endpt2)
-                   || (simplexes[k][ptlook1[l]] == endpt2
-                    && simplexes[k][ptlook2[l]] == endpt1)) {
-                    Edges[k][l] = NumEdges;
+                  if ((this.simplexes[k][ptlook1[l]] == endpt1
+                    && this.simplexes[k][ptlook2[l]] == endpt2)
+                   || (this.simplexes[k][ptlook1[l]] == endpt2
+                    && this.simplexes[k][ptlook2[l]] == endpt1)) {
+                    this.Edges[k][l] = this.NumEdges;
                   }
                 }
               }
-              Edges[i][j] = NumEdges++;
+              this.Edges[i][j] = this.NumEdges++;
             } // end if (Edges[i][j] < 0)
           } // end for (int j=0; j<6; j++)
         } // end for (int i=0; i<ntris; i++)
@@ -1970,41 +1970,41 @@ public class DelaunayClarkson {
       s.append("\n");
     }
 
-    s.append("\nTri (triangles -> vertices) " + simplexes.length + "\n");
-    for (int i=0; i<simplexes.length; i++) {
+    s.append("\nTri (triangles -> vertices) " + this.simplexes.length + "\n");
+    for (int i=0; i<this.simplexes.length; i++) {
       s.append("  " + i + " -> ");
-      for (int j=0; j<simplexes[i].length; j++) {
-        s.append(" " + simplexes[i][j]);
+      for (int j=0; j<this.simplexes[i].length; j++) {
+        s.append(" " + this.simplexes[i][j]);
       }
       s.append("\n");
     }
 
-    s.append("\nVertices (vertices -> triangles) " + vertices.length + "\n");
-    for (int i=0; i<vertices.length; i++) {
+    s.append("\nVertices (vertices -> triangles) " + this.vertices.length + "\n");
+    for (int i=0; i<this.vertices.length; i++) {
       s.append("  " + i + " -> ");
-      for (int j=0; j<vertices[i].length; j++) {
-        s.append(" " + vertices[i][j]);
+      for (int j=0; j<this.vertices[i].length; j++) {
+        s.append(" " + this.vertices[i][j]);
       }
       s.append("\n");
     }
 
-    if (neighbors != null){
-      s.append("\nWalk (triangles -> triangles) " + neighbors.length + "\n");
-      for (int i=0; i<neighbors.length; i++) {
+    if (this.neighbors != null){
+      s.append("\nWalk (triangles -> triangles) " + this.neighbors.length + "\n");
+      for (int i=0; i<this.neighbors.length; i++) {
         s.append("  " + i + " -> ");
-        for (int j=0; j<neighbors[i].length; j++) {
-          s.append(" " + neighbors[i][j]);
+        for (int j=0; j<this.neighbors[i].length; j++) {
+          s.append(" " + this.neighbors[i][j]);
         }
         s.append("\n");
       }
     }
 
-    if (Edges != null){
-      s.append("\nEdges (triangles -> global edges) " + Edges.length + "\n");
-      for (int i=0; i<Edges.length; i++) {
+    if (this.Edges != null){
+      s.append("\nEdges (triangles -> global edges) " + this.Edges.length + "\n");
+      for (int i=0; i<this.Edges.length; i++) {
         s.append("  " + i + " -> ");
-        for (int j=0; j<Edges[i].length; j++) {
-          s.append(" " + Edges[i][j]);
+        for (int j=0; j<this.Edges[i].length; j++) {
+          s.append(" " + this.Edges[i][j]);
         }
         s.append("\n");
       }

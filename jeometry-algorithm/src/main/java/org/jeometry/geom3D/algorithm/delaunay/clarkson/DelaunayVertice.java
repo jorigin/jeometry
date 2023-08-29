@@ -45,7 +45,7 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 	 * Create a new vertex.
 	 */
 	public DelaunayVertice(){
-		point = JeometryFactory.createPoint3D();
+		this.point = JeometryFactory.createPoint3D();
 	}
 
 	/**
@@ -55,132 +55,132 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 	 * @param z the z coordinate
 	 */
 	public DelaunayVertice(double x, double y, double z) {
-		point = JeometryFactory.createPoint3D(x, y, z);
+		this.point = JeometryFactory.createPoint3D(x, y, z);
 	}
 
 	@Override
 	public double getX() {
-		return point.getX();
+		return this.point.getX();
 	}
 
 	@Override
 	public void setX(double x) {
-		point.setX(x);
+		this.point.setX(x);
 	}
 
 	@Override
 	public double getY() {
-		return point.getY();
+		return this.point.getY();
 	}
 
 	@Override
 	public void setY(double y) {
-		point.setY(y);
+		this.point.setY(y);
 	}
 
 	@Override
 	public double getZ() {
-		return point.getZ();
+		return this.point.getZ();
 	}
 
 	@Override
 	public void setZ(double z) {
-		point.setZ(z);
+		this.point.setZ(z);
 	}
 
 	@Override
 	public double getH() {
-		return point.getH();
+		return this.point.getH();
 	}
 
 	@Override
 	public void setH(double h) {
-		point.setH(h);
+		this.point.setH(h);
 	}
 
 	@Override
 	public double norm() {
-		return point.norm();
+		return this.point.norm();
 	}
 
 	@Override
 	public double normSquare() {
-		return point.normSquare();
+		return this.point.normSquare();
 	}
 
 	@Override
 	public void normalize() {
-		point.normalize();
+		this.point.normalize();
 	}
 
 	@Override
 	public int getDimension() {
-		return point.getDimension();
+		return this.point.getDimension();
 	}
 
 	@Override
 	public double getValue(int dimension) {
-		return point.getValue(dimension);
+		return this.point.getValue(dimension);
 	}
 
 	@Override
 	public void setValue(int dimension, double value) {
-		point.setValue(dimension, value);
+		this.point.setValue(dimension, value);
 	}
 
 	@Override
 	public Vector multiply(double scalar, Vector result) throws IllegalArgumentException {
-		return point.multiply(scalar, result);
+		return this.point.multiply(scalar, result);
 	}
 
 	@Override
 	public double getXMin() {
-		return point.getXMin();
+		return this.point.getXMin();
 	}
 
 	@Override
 	public double getYMin() {
-		return point.getYMin();
+		return this.point.getYMin();
 	}
 
 	@Override
 	public double getZMin() {
-		return point.getZMin();
+		return this.point.getZMin();
 	}
 
 	@Override
 	public double getXMax() {
-		return point.getXMax();
+		return this.point.getXMax();
 	}
 
 	@Override
 	public double getYMax() {
-		return point.getYMax();
+		return this.point.getYMax();
 	}
 
 	@Override
 	public double getZMax() {
-		return point.getZMax();
+		return this.point.getZMax();
 	}
 
 	@Override
 	public double distance(SpatialLocalization3D spatial) {
-		return point.distance(spatial);
+		return this.point.distance(spatial);
 	}
 
 	@Override
 	public void updateLocalization() {
-		point.updateLocalization();
+		this.point.updateLocalization();
 	}
 
 	@Override
 	public Point3D orthogonal() {
-		return point.orthogonal();
+		return this.point.orthogonal();
 	}
 
 	@Override
 	public Point3D orthogonal(Vector result) {
-		return point.orthogonal(result);
+		return this.point.orthogonal(result);
 	}
 
 	@Override
@@ -210,17 +210,17 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 
 	@Override
 	public Point3D plus(double scalar) {
-		return point.plus(scalar);
+		return this.point.plus(scalar);
 	}
 
 	@Override
 	public Vector plus(double scalar, Vector result) {
-		return point.plus(scalar, result);
+		return this.point.plus(scalar, result);
 	}
 	
 	@Override
 	public Point3D plus(double scalar, Point3D result) {
-		return point.plus(scalar, result);
+		return this.point.plus(scalar, result);
 	}
 
 	@Override
@@ -235,17 +235,17 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 
 	@Override
 	public Point3D minus(double scalar) {
-		return point.minus(scalar);
+		return this.point.minus(scalar);
 	}
 
 	@Override
 	public Vector minus(double scalar, Vector result) {
-		return point.minus(scalar, result);
+		return this.point.minus(scalar, result);
 	}
 	
 	@Override
 	public Point3D minus(double scalar, Point3D result) {
-		return point.minus(scalar, result);
+		return this.point.minus(scalar, result);
 	}
 
 	@Override
@@ -256,7 +256,7 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 
 	@Override
 	public Point3D plusAffect(double scalar) {
-		point.plusAffect(scalar);
+		this.point.plusAffect(scalar);
 		return this;
 	}
 
@@ -268,44 +268,44 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 
 	@Override
 	public Point3D minusAffect(double scalar) {
-		point.minusAffect(scalar);
+		this.point.minusAffect(scalar);
 		return this;
 	}
 
 	@Override
 	public Point3D multiply(double scalar) {
-		return point.multiply(scalar);
+		return this.point.multiply(scalar);
 	}
 
 	@Override
 	public Point3D multiply(double scalar, Point3D result) {
-		return point.multiply(scalar, result);
+		return this.point.multiply(scalar, result);
 	}
 
 	@Override
 	public Point3D multiplyAffect(double scalar) {
-		point.multiplyAffect(scalar);
+		this.point.multiplyAffect(scalar);
 		return this;
 	}
 
 	@Override
 	public Point3D divide(double scalar) {
-		return point.divide(scalar);
+		return this.point.divide(scalar);
 	}
 
 	@Override
 	public Vector divide(double scalar, Vector result) throws IllegalArgumentException {
-		return point.divide(scalar, result);
+		return this.point.divide(scalar, result);
 	}
 	
 	@Override
 	public Point3D divide(double scalar, Point3D result) {
-		return point.divide(scalar, result);
+		return this.point.divide(scalar, result);
 	}
 
 	@Override
 	public Point3D divideAffect(double scalar) {
-		point.divideAffect(scalar);
+		this.point.divideAffect(scalar);
 		return this;
 	}
 
@@ -318,10 +318,10 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 		if (value != null){
 
 			if (getUserProperties() == null){
-				userProperties = new HashMap<String, Object>();
+				this.userProperties = new HashMap<String, Object>();
 			}
 
-			userProperties.put(key, value);
+			this.userProperties.put(key, value);
 
 		} else {
 			if (getUserProperties() != null){
@@ -335,7 +335,7 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 	 * @return the user properties attached to this point.
 	 */
 	public Map<String, Object> getUserProperties(){
-		return userProperties;
+		return this.userProperties;
 	}
 
 	/**
@@ -344,11 +344,11 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 	 * @return <code>true</code> if this point is successfully attached to the tetrahedron and <code>false</code> otherwise.
 	 */
 	public boolean addTetrahedron(DelaunayTetrahedron<T> tetrahedron){
-		if (tetrahedrons == null){
-			tetrahedrons = new LinkedList<DelaunayTetrahedron<T>>();
+		if (this.tetrahedrons == null){
+			this.tetrahedrons = new LinkedList<DelaunayTetrahedron<T>>();
 		}
 
-		return tetrahedrons.add(tetrahedron);
+		return this.tetrahedrons.add(tetrahedron);
 	}
 
 	/**
@@ -357,120 +357,120 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 	 * @return <code>true</code> if this point is successfully attached to the face and <code>false</code> otherwise.
 	 */
 	public boolean addFace(IndexedFace<T> face){
-		if (faces == null){
-			faces = new LinkedList<IndexedFace<T>>();
+		if (this.faces == null){
+			this.faces = new LinkedList<IndexedFace<T>>();
 		}
 
-		return faces.add(face);
+		return this.faces.add(face);
 	}
 
 	@Override
 	public void setValues(Vector v) {
-		point.setValues(v);
+		this.point.setValues(v);
 	}
 
 	@Override
 	public double[] getValues() {
-		return point.getValues();
+		return this.point.getValues();
 	}
 
 	@Override
 	public double[] getValues(double[] components) {
-		return point.getValues(components);
+		return this.point.getValues(components);
 	}
 
 	@Override
 	public void setValues(double[] components) {
-		point.setValues(components);
+		this.point.setValues(components);
 	}
 
 	@Override
 	public Vector extract(int start, int length) {
-		return point.extract(start, length);
+		return this.point.extract(start, length);
 	}
 
 	@Override
 	public void setValues(double value) {
-		point.setValues(value);
+		this.point.setValues(value);
 	}
 
 	@Override
 	public void setValues(Matrix matrix) {
-		point.setValues(matrix);
+		this.point.setValues(matrix);
 	}
 
 	@Override
 	public Vector plus(Vector v) {
-		return point.plus(v);
+		return this.point.plus(v);
 	}
 
 	@Override
 	public Vector plus(Vector v, Vector result) {
-		return point.plus(v, result);
+		return this.point.plus(v, result);
 	}
 
 	@Override
 	public DelaunayVertice<T> plusAffect(Vector v) {
-		point.plusAffect(v);
+		this.point.plusAffect(v);
 		return this;
 	}
 
 	@Override
 	public Vector minus(Vector v) {
-		return point.minus(v);
+		return this.point.minus(v);
 	}
 
 	@Override
 	public Vector minus(Vector v, Vector result) {
-		return point.minus(v, result);
+		return this.point.minus(v, result);
 	}
 
 	@Override
 	public DelaunayVertice<T> minusAffect(Vector v) {
-		point.minusAffect(v);
+		this.point.minusAffect(v);
 		return this;
 	}
 
 	@Override
 	public Vector multiply(Vector v) {
-		return point.multiply(v);
+		return this.point.multiply(v);
 	}
 
 	@Override
 	public Vector multiply(Vector v, Vector result) {
-		return point.multiply(v, result);
+		return this.point.multiply(v, result);
 	}
 
 	@Override
 	public Vector multiplyAffect(Vector v) {
-		point.multiplyAffect(v);
+		this.point.multiplyAffect(v);
 		return this;
 	}
 
 	@Override
 	public Vector divide(Vector v) {
-		return point.divide(v);
+		return this.point.divide(v);
 	}
 
 	@Override
 	public Vector divide(Vector v, Vector result) {
-		return point.divide(v);
+		return this.point.divide(v);
 	}
 
 	@Override
 	public Vector divideAffect(Vector v) {
-		point.divideAffect(v);
+		this.point.divideAffect(v);
 		return this;
 	}
 
 	@Override
 	public double dot(Vector v) {
-		return point.dot(v);
+		return this.point.dot(v);
 	}
 
 	@Override
 	public void setValues(double x, double y, double z) {
-		point.setValues(x, y, z);
+		this.point.setValues(x, y, z);
 	}
 
 	@Override

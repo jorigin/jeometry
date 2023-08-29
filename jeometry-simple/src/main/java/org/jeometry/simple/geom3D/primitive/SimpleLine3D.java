@@ -42,8 +42,8 @@ public class SimpleLine3D<T extends Point3D> implements Line3D<T>{
 	@Override
 	public Point3DContainer<T> getVertices(){
 		Point3DContainer<T> p3dm = JeometryFactory.createPoint3DContainer(2);
-		p3dm.add(end1);
-		p3dm.add(end2);
+		p3dm.add(this.end1);
+		p3dm.add(this.end2);
 		return p3dm;
 	}
 
@@ -79,8 +79,8 @@ public class SimpleLine3D<T extends Point3D> implements Line3D<T>{
 
 	@Override
 	public String toString(){
-		return getClass().getSimpleName()+": ["+"("+end1.getX()+", "+end1.getY()+", "+end1.getZ()+") : ("
-				+end2.getX()+", "+end2.getY()+", "+end2.getZ()+")";
+		return getClass().getSimpleName()+": ["+"("+this.end1.getX()+", "+this.end1.getY()+", "+this.end1.getZ()+") : ("
+				+this.end2.getX()+", "+this.end2.getY()+", "+this.end2.getZ()+")";
 	}
 
 	/**
@@ -89,8 +89,8 @@ public class SimpleLine3D<T extends Point3D> implements Line3D<T>{
 	 */
 	public Point3D[] getVerticesArray(){
 		Point3D p3da[] = new Point3D[2];
-		p3da[0] = end1;
-		p3da[1] = end2;
+		p3da[0] = this.end1;
+		p3da[1] = this.end2;
 		return p3da;
 	}
 

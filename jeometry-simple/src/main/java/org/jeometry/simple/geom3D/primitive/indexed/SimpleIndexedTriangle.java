@@ -117,7 +117,7 @@ public class SimpleIndexedTriangle<T extends Point3D> implements IndexedTriangle
 					
 					if ((indices[0] != -1) && (indices[1] != -1) && (indices[2] != -1)) {
 						setVerticesIndexes(indices);
-						validatedIndices = true;
+						this.validatedIndices = true;
 					}
 					
 				} else {
@@ -132,11 +132,11 @@ public class SimpleIndexedTriangle<T extends Point3D> implements IndexedTriangle
 
 	@Override
 	public LineSet3D<T> getSegments() {
-		if ((indices != null) && (getVerticesSource() != null)){
+		if ((this.indices != null) && (getVerticesSource() != null)){
 			LineSet3D<T> segments = new SimpleLineSet3D<T>();
-			segments.plot(getVerticesSource().get(indices[0]));
-			segments.plot(getVerticesSource().get(indices[1]));
-			segments.plot(getVerticesSource().get(indices[2]));
+			segments.plot(getVerticesSource().get(this.indices[0]));
+			segments.plot(getVerticesSource().get(this.indices[1]));
+			segments.plot(getVerticesSource().get(this.indices[2]));
 			return segments;
 		}
 		return null;
@@ -144,14 +144,14 @@ public class SimpleIndexedTriangle<T extends Point3D> implements IndexedTriangle
 
 	@Override
 	public void inverseVerticesOrder() {
-      int tmp    = indices[0];
-      indices[0] = indices[2];
-      indices[2] = tmp;
+      int tmp    = this.indices[0];
+      this.indices[0] = this.indices[2];
+      this.indices[2] = tmp;
 	}
 
 	@Override
 	public IndexedMesh<T> getMesh() {
-		return mesh;
+		return this.mesh;
 	}
 
 	@Override
@@ -166,7 +166,7 @@ public class SimpleIndexedTriangle<T extends Point3D> implements IndexedTriangle
 
 	@Override
 	public int[] getVerticesIndexes() {
-		return indices;
+		return this.indices;
 	}
 
 	@Override
@@ -174,7 +174,7 @@ public class SimpleIndexedTriangle<T extends Point3D> implements IndexedTriangle
 		if (indices != null) {
 			if (indices.length == 3) {
 				this.indices = indices;
-				validatedIndices = false;
+				this.validatedIndices = false;
 			} else {
 				throw new IllegalArgumentException("Triangular face only accept 3 vertex ("+indices.length+") proposed.");
 			}
@@ -184,11 +184,11 @@ public class SimpleIndexedTriangle<T extends Point3D> implements IndexedTriangle
 	@Override
 	public List<IndexedEdge<T>> getEdgesIndexed() {
 		
-		if (indices != null) {
+		if (this.indices != null) {
 			List<IndexedEdge<T>> edges = new ArrayList<IndexedEdge<T>>(3);
-			edges.add(new SimpleIndexedEdge<T>(indices[0], indices[1], mesh));
-			edges.add(new SimpleIndexedEdge<T>(indices[1], indices[2], mesh));
-			edges.add(new SimpleIndexedEdge<T>(indices[2], indices[0], mesh));
+			edges.add(new SimpleIndexedEdge<T>(this.indices[0], this.indices[1], this.mesh));
+			edges.add(new SimpleIndexedEdge<T>(this.indices[1], this.indices[2], this.mesh));
+			edges.add(new SimpleIndexedEdge<T>(this.indices[2], this.indices[0], this.mesh));
 			return edges;
 		}
 		
@@ -203,8 +203,8 @@ public class SimpleIndexedTriangle<T extends Point3D> implements IndexedTriangle
 	@Override
 	public Point3DContainer<T> getVerticesSource() {
 		
-		if (mesh != null) {
-			return mesh.getVerticesSource();
+		if (this.mesh != null) {
+			return this.mesh.getVerticesSource();
 		} else {
 			return null;
 		}
@@ -217,21 +217,21 @@ public class SimpleIndexedTriangle<T extends Point3D> implements IndexedTriangle
 
 	@Override
 	public boolean isValidatedIndexes() {
-		return validatedIndices;
+		return this.validatedIndices;
 	}
 
 	@Override
 	public boolean validateIndexes() {
-		return validatedIndices =    (getVerticesSource() != null) && (indices != null) 
-				                  && (indices[0] > 0) && (indices[0] < getVerticesSource().size())
-		                          && (indices[1] > 0) && (indices[1] < getVerticesSource().size())
-				                  && (indices[2] > 0) && (indices[2] < getVerticesSource().size());
+		return this.validatedIndices =    (getVerticesSource() != null) && (this.indices != null) 
+				                  && (this.indices[0] > 0) && (this.indices[0] < getVerticesSource().size())
+		                          && (this.indices[1] > 0) && (this.indices[1] < getVerticesSource().size())
+				                  && (this.indices[2] > 0) && (this.indices[2] < getVerticesSource().size());
 	}
 
 	@Override
 	public int getVertex1Index() {
-		if (indices != null) {
-			  return indices[0];
+		if (this.indices != null) {
+			  return this.indices[0];
 			} else {
 			  throw new IllegalStateException("Indices of the geometry are null.");
 			}
@@ -239,8 +239,8 @@ public class SimpleIndexedTriangle<T extends Point3D> implements IndexedTriangle
 
 	@Override
 	public int getVertex2Index() {
-		if (indices != null) {
-			  return indices[1];
+		if (this.indices != null) {
+			  return this.indices[1];
 			} else {
 			  throw new IllegalStateException("Indices of the geometry are null.");
 			}
@@ -248,8 +248,8 @@ public class SimpleIndexedTriangle<T extends Point3D> implements IndexedTriangle
 
 	@Override
 	public int getVertex3Index() {
-		if (indices != null) {
-			  return indices[2];
+		if (this.indices != null) {
+			  return this.indices[2];
 			} else {
 			  throw new IllegalStateException("Indices of the geometry are null.");
 			}

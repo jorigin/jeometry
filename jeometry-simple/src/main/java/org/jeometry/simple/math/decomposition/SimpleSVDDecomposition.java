@@ -56,18 +56,18 @@ public class SimpleSVDDecomposition implements SVDDecomposition {
 		// Derived from LINPACK code.
 		// Initialize.
 		double[][] A = matrix.getDataArray2D();
-		inputRows = matrix.getRowsCount();
-		inputColumns = matrix.getColumnsCount();
+		this.inputRows = matrix.getRowsCount();
+		this.inputColumns = matrix.getColumnsCount();
 
-		int nu = Math.min(inputRows,inputColumns);
+		int nu = Math.min(this.inputRows,this.inputColumns);
 
-		s = new double [Math.min(inputRows+1,inputColumns)];
+		this.s = new double [Math.min(this.inputRows+1,this.inputColumns)];
 
-		U = JeometryFactory.createMatrix(inputRows, nu);
-		V = JeometryFactory.createMatrix(inputColumns, inputColumns);
+		this.U = JeometryFactory.createMatrix(this.inputRows, nu);
+		this.V = JeometryFactory.createMatrix(this.inputColumns, this.inputColumns);
 
-		double[] e = new double [inputColumns];
-		double[] work = new double [inputRows];
+		double[] e = new double [this.inputColumns];
+		double[] work = new double [this.inputRows];
 		
 		boolean wantu = true;
 		boolean wantv = true;
@@ -75,40 +75,40 @@ public class SimpleSVDDecomposition implements SVDDecomposition {
 		// Reduce A to bidiagonal form, storing the diagonal elements
 		// in s and the super-diagonal elements in e.
 
-		int nct = Math.min(inputRows-1,inputColumns);
-		int nrt = Math.max(0,Math.min(inputColumns-2,inputRows));
+		int nct = Math.min(this.inputRows-1,this.inputColumns);
+		int nrt = Math.max(0,Math.min(this.inputColumns-2,this.inputRows));
 		for (int k = 0; k < Math.max(nct,nrt); k++) {
 			if (k < nct) {
 
 				// Compute the transformation for the k-th column and
 				// place the k-th diagonal in s[k].
 				// Compute 2-norm of k-th column without under/overflow.
-				s[k] = 0;
-				for (int i = k; i < inputRows; i++) {
-					s[k] = hypot(s[k],A[i][k]);
+				this.s[k] = 0;
+				for (int i = k; i < this.inputRows; i++) {
+					this.s[k] = hypot(this.s[k],A[i][k]);
 				}
-				if (s[k] != 0.0) {
+				if (this.s[k] != 0.0) {
 					if (A[k][k] < 0.0) {
-						s[k] = -s[k];
+						this.s[k] = -this.s[k];
 					}
-					for (int i = k; i < inputRows; i++) {
-						A[i][k] /= s[k];
+					for (int i = k; i < this.inputRows; i++) {
+						A[i][k] /= this.s[k];
 					}
 					A[k][k] += 1.0;
 				}
-				s[k] = -s[k];
+				this.s[k] = -this.s[k];
 			}
-			for (int j = k+1; j < inputColumns; j++) {
-				if ((k < nct) & (s[k] != 0.0))  {
+			for (int j = k+1; j < this.inputColumns; j++) {
+				if ((k < nct) & (this.s[k] != 0.0))  {
 
 					// Apply the transformation.
 
 					double t = 0;
-					for (int i = k; i < inputRows; i++) {
+					for (int i = k; i < this.inputRows; i++) {
 						t += A[i][k]*A[i][j];
 					}
 					t = -t/A[k][k];
-					for (int i = k; i < inputRows; i++) {
+					for (int i = k; i < this.inputRows; i++) {
 						A[i][j] += t*A[i][k];
 					}
 				}
@@ -123,8 +123,8 @@ public class SimpleSVDDecomposition implements SVDDecomposition {
 				// Place the transformation in U for subsequent back
 				// multiplication.
 
-				for (int i = k; i < inputRows; i++) {
-					U.setValue(i, k, A[i][k]);
+				for (int i = k; i < this.inputRows; i++) {
+					this.U.setValue(i, k, A[i][k]);
 				}
 			}
 			if (k < nrt) {
@@ -133,34 +133,34 @@ public class SimpleSVDDecomposition implements SVDDecomposition {
 				// k-th super-diagonal in e[k].
 				// Compute 2-norm without under/overflow.
 				e[k] = 0;
-				for (int i = k+1; i < inputColumns; i++) {
+				for (int i = k+1; i < this.inputColumns; i++) {
 					e[k] = hypot(e[k],e[i]);
 				}
 				if (e[k] != 0.0) {
 					if (e[k+1] < 0.0) {
 						e[k] = -e[k];
 					}
-					for (int i = k+1; i < inputColumns; i++) {
+					for (int i = k+1; i < this.inputColumns; i++) {
 						e[i] /= e[k];
 					}
 					e[k+1] += 1.0;
 				}
 				e[k] = -e[k];
-				if ((k+1 < inputRows) & (e[k] != 0.0)) {
+				if ((k+1 < this.inputRows) & (e[k] != 0.0)) {
 
 					// Apply the transformation.
 
-					for (int i = k+1; i < inputRows; i++) {
+					for (int i = k+1; i < this.inputRows; i++) {
 						work[i] = 0.0;
 					}
-					for (int j = k+1; j < inputColumns; j++) {
-						for (int i = k+1; i < inputRows; i++) {
+					for (int j = k+1; j < this.inputColumns; j++) {
+						for (int i = k+1; i < this.inputRows; i++) {
 							work[i] += e[j]*A[i][j];
 						}
 					}
-					for (int j = k+1; j < inputColumns; j++) {
+					for (int j = k+1; j < this.inputColumns; j++) {
 						double t = -e[j]/e[k+1];
-						for (int i = k+1; i < inputRows; i++) {
+						for (int i = k+1; i < this.inputRows; i++) {
 							A[i][j] += t*work[i];
 						}
 					}
@@ -170,8 +170,8 @@ public class SimpleSVDDecomposition implements SVDDecomposition {
 					// Place the transformation in V for subsequent
 					// back multiplication.
 
-					for (int i = k+1; i < inputColumns; i++) {
-						V.setValue(i, k, e[i]);
+					for (int i = k+1; i < this.inputColumns; i++) {
+						this.V.setValue(i, k, e[i]);
 					}
 				}
 			}
@@ -179,12 +179,12 @@ public class SimpleSVDDecomposition implements SVDDecomposition {
 
 		// Set up the final bidiagonal matrix or order p.
 
-		int p = Math.min(inputColumns,inputRows+1);
-		if (nct < inputColumns) {
-			s[nct] = A[nct][nct];
+		int p = Math.min(this.inputColumns,this.inputRows+1);
+		if (nct < this.inputColumns) {
+			this.s[nct] = A[nct][nct];
 		}
-		if (inputRows < p) {
-			s[p-1] = 0.0;
+		if (this.inputRows < p) {
+			this.s[p-1] = 0.0;
 		}
 		if (nrt+1 < p) {
 			e[nrt] = A[nrt][p-1];
@@ -195,36 +195,36 @@ public class SimpleSVDDecomposition implements SVDDecomposition {
 
 		if (wantu) {
 			for (int j = nct; j < nu; j++) {
-				for (int i = 0; i < inputRows; i++) {
-					U.setValue(i, j, 0.0);
+				for (int i = 0; i < this.inputRows; i++) {
+					this.U.setValue(i, j, 0.0);
 				}
-				U.setValue(j, j, 1.0);
+				this.U.setValue(j, j, 1.0);
 			}
 			for (int k = nct-1; k >= 0; k--) {
-				if (s[k] != 0.0) {
+				if (this.s[k] != 0.0) {
 					for (int j = k+1; j < nu; j++) {
 						double t = 0;
-						for (int i = k; i < inputRows; i++) {
-							t += U.getValue(i, k)*U.getValue(i, j);
+						for (int i = k; i < this.inputRows; i++) {
+							t += this.U.getValue(i, k)*this.U.getValue(i, j);
 						}
-						t = -t/U.getValue(k, k);
-						for (int i = k; i < inputRows; i++) {
-							U.setValue(i, j, U.getValue(i, j) + t*U.getValue(i, k));
+						t = -t/this.U.getValue(k, k);
+						for (int i = k; i < this.inputRows; i++) {
+							this.U.setValue(i, j, this.U.getValue(i, j) + t*this.U.getValue(i, k));
 						}
 					}
-					for (int i = k; i < inputRows; i++ ) {
-						U.setValue(i, k, -U.getValue(i, k));
+					for (int i = k; i < this.inputRows; i++ ) {
+						this.U.setValue(i, k, -this.U.getValue(i, k));
 					}
 
-					U.setValue(k, k, 1.0 + U.getValue(k, k));
+					this.U.setValue(k, k, 1.0 + this.U.getValue(k, k));
 					for (int i = 0; i < k-1; i++) {
-						U.setValue(i, k, 0.0);
+						this.U.setValue(i, k, 0.0);
 					}
 				} else {
-					for (int i = 0; i < inputRows; i++) {
-						U.setValue(i, k, 0.0);
+					for (int i = 0; i < this.inputRows; i++) {
+						this.U.setValue(i, k, 0.0);
 					}
-					U.setValue(k, k, 1.0);
+					this.U.setValue(k, k, 1.0);
 				}
 			}
 		}
@@ -232,23 +232,23 @@ public class SimpleSVDDecomposition implements SVDDecomposition {
 		// If required, generate V.
 
 		if (wantv) {
-			for (int k = inputColumns-1; k >= 0; k--) {
+			for (int k = this.inputColumns-1; k >= 0; k--) {
 				if ((k < nrt) & (e[k] != 0.0)) {
 					for (int j = k+1; j < nu; j++) {
 						double t = 0;
-						for (int i = k+1; i < inputColumns; i++) {
-							t += V.getValue(i, k)*V.getValue(i, j);
+						for (int i = k+1; i < this.inputColumns; i++) {
+							t += this.V.getValue(i, k)*this.V.getValue(i, j);
 						}
-						t = -t/V.getValue(k+1, k);
-						for (int i = k+1; i < inputColumns; i++) {
-							V.setValue(i, j, V.getValue(i, j) + t*V.getValue(i, k));
+						t = -t/this.V.getValue(k+1, k);
+						for (int i = k+1; i < this.inputColumns; i++) {
+							this.V.setValue(i, j, this.V.getValue(i, j) + t*this.V.getValue(i, k));
 						}
 					}
 				}
-				for (int i = 0; i < inputColumns; i++) {
-					V.setValue(i, k, 0.0);
+				for (int i = 0; i < this.inputColumns; i++) {
+					this.V.setValue(i, k, 0.0);
 				}
-				V.setValue(k, k, 1.0);
+				this.V.setValue(k, k, 1.0);
 			}
 		}
 
@@ -278,7 +278,7 @@ public class SimpleSVDDecomposition implements SVDDecomposition {
 					break;
 				}
 				if (Math.abs(e[k]) <=
-						tiny + eps*(Math.abs(s[k]) + Math.abs(s[k+1]))) {
+						tiny + eps*(Math.abs(this.s[k]) + Math.abs(this.s[k+1]))) {
 					e[k] = 0.0;
 					break;
 				}
@@ -293,8 +293,8 @@ public class SimpleSVDDecomposition implements SVDDecomposition {
 					}
 					double t = (ks != p ? Math.abs(e[ks]) : 0.) + 
 							(ks != k+1 ? Math.abs(e[ks-1]) : 0.);
-					if (Math.abs(s[ks]) <= tiny + eps*t)  {
-						s[ks] = 0.0;
+					if (Math.abs(this.s[ks]) <= tiny + eps*t)  {
+						this.s[ks] = 0.0;
 						break;
 					}
 				}
@@ -319,19 +319,19 @@ public class SimpleSVDDecomposition implements SVDDecomposition {
 				double f = e[p-2];
 				e[p-2] = 0.0;
 				for (int j = p-2; j >= k; j--) {
-					double t = hypot(s[j],f);
-					double cs = s[j]/t;
+					double t = hypot(this.s[j],f);
+					double cs = this.s[j]/t;
 					double sn = f/t;
-					s[j] = t;
+					this.s[j] = t;
 					if (j != k) {
 						f = -sn*e[j-1];
 						e[j-1] = cs*e[j-1];
 					}
 					if (wantv) {
-						for (int i = 0; i < inputColumns; i++) {
-							t = cs*V.getValue(i, j) + sn*V.getValue(i, p-1);
-							V.setValue(i, p-1, -sn*V.getValue(i, j) + cs*V.getValue(i, p-1));
-							V.setValue(i, j, t);
+						for (int i = 0; i < this.inputColumns; i++) {
+							t = cs*this.V.getValue(i, j) + sn*this.V.getValue(i, p-1);
+							this.V.setValue(i, p-1, -sn*this.V.getValue(i, j) + cs*this.V.getValue(i, p-1));
+							this.V.setValue(i, j, t);
 						}
 					}
 				}
@@ -344,17 +344,17 @@ public class SimpleSVDDecomposition implements SVDDecomposition {
 				double f = e[k-1];
 				e[k-1] = 0.0;
 				for (int j = k; j < p; j++) {
-					double t = hypot(s[j],f);
-					double cs = s[j]/t;
+					double t = hypot(this.s[j],f);
+					double cs = this.s[j]/t;
 					double sn = f/t;
-					s[j] = t;
+					this.s[j] = t;
 					f = -sn*e[j];
 					e[j] = cs*e[j];
 					if (wantu) {
-						for (int i = 0; i < inputRows; i++) {
-							t = cs*U.getValue(i, j) + sn*U.getValue(i, k-1);
-							U.setValue(i, k-1, -sn*U.getValue(i, j) + cs*U.getValue(i, k-1));
-							U.setValue(i, j, t);
+						for (int i = 0; i < this.inputRows; i++) {
+							t = cs*this.U.getValue(i, j) + sn*this.U.getValue(i, k-1);
+							this.U.setValue(i, k-1, -sn*this.U.getValue(i, j) + cs*this.U.getValue(i, k-1));
+							this.U.setValue(i, j, t);
 						}
 					}
 				}
@@ -368,12 +368,12 @@ public class SimpleSVDDecomposition implements SVDDecomposition {
 				// Calculate the shift.
 
 				double scale = Math.max(Math.max(Math.max(Math.max(
-						Math.abs(s[p-1]),Math.abs(s[p-2])),Math.abs(e[p-2])), 
-						Math.abs(s[k])),Math.abs(e[k]));
-				double sp = s[p-1]/scale;
-				double spm1 = s[p-2]/scale;
+						Math.abs(this.s[p-1]),Math.abs(this.s[p-2])),Math.abs(e[p-2])), 
+						Math.abs(this.s[k])),Math.abs(e[k]));
+				double sp = this.s[p-1]/scale;
+				double spm1 = this.s[p-2]/scale;
 				double epm1 = e[p-2]/scale;
-				double sk = s[k]/scale;
+				double sk = this.s[k]/scale;
 				double ek = e[k]/scale;
 				double b = ((spm1 + sp)*(spm1 - sp) + epm1*epm1)/2.0;
 				double c = (sp*epm1)*(sp*epm1);
@@ -397,30 +397,30 @@ public class SimpleSVDDecomposition implements SVDDecomposition {
 					if (j != k) {
 						e[j-1] = t;
 					}
-					f = cs*s[j] + sn*e[j];
-					e[j] = cs*e[j] - sn*s[j];
-					g = sn*s[j+1];
-					s[j+1] = cs*s[j+1];
+					f = cs*this.s[j] + sn*e[j];
+					e[j] = cs*e[j] - sn*this.s[j];
+					g = sn*this.s[j+1];
+					this.s[j+1] = cs*this.s[j+1];
 					if (wantv) {
-						for (int i = 0; i < inputColumns; i++) {
-							t = cs*V.getValue(i, j) + sn*V.getValue(i, j+1);
-							V.setValue(i, j+1,  -sn*V.getValue(i, j) + cs*V.getValue(i, j+1));
-							V.setValue(i, j, t);
+						for (int i = 0; i < this.inputColumns; i++) {
+							t = cs*this.V.getValue(i, j) + sn*this.V.getValue(i, j+1);
+							this.V.setValue(i, j+1,  -sn*this.V.getValue(i, j) + cs*this.V.getValue(i, j+1));
+							this.V.setValue(i, j, t);
 						}
 					}
 					t = hypot(f,g);
 					cs = f/t;
 					sn = g/t;
-					s[j] = t;
-					f = cs*e[j] + sn*s[j+1];
-					s[j+1] = -sn*e[j] + cs*s[j+1];
+					this.s[j] = t;
+					f = cs*e[j] + sn*this.s[j+1];
+					this.s[j+1] = -sn*e[j] + cs*this.s[j+1];
 					g = sn*e[j+1];
 					e[j+1] = cs*e[j+1];
-					if (wantu && (j < inputRows-1)) {
-						for (int i = 0; i < inputRows; i++) {
-							t = cs*U.getValue(i, j) + sn*U.getValue(i, j+1);
-							U.setValue(i, j+1, -sn*U.getValue(i, j) + cs*U.getValue(i, j+1));
-							U.setValue(i, j, t);
+					if (wantu && (j < this.inputRows-1)) {
+						for (int i = 0; i < this.inputRows; i++) {
+							t = cs*this.U.getValue(i, j) + sn*this.U.getValue(i, j+1);
+							this.U.setValue(i, j+1, -sn*this.U.getValue(i, j) + cs*this.U.getValue(i, j+1));
+							this.U.setValue(i, j, t);
 						}
 					}
 				}
@@ -435,11 +435,11 @@ public class SimpleSVDDecomposition implements SVDDecomposition {
 
 				// Make the singular values positive.
 
-				if (s[k] <= 0.0) {
-					s[k] = (s[k] < 0.0 ? -s[k] : 0.0);
+				if (this.s[k] <= 0.0) {
+					this.s[k] = (this.s[k] < 0.0 ? -this.s[k] : 0.0);
 					if (wantv) {
 						for (int i = 0; i <= pp; i++) {
-							V.setValue(i, k, -V.getValue(i, k));
+							this.V.setValue(i, k, -this.V.getValue(i, k));
 						}
 					}
 				}
@@ -447,25 +447,25 @@ public class SimpleSVDDecomposition implements SVDDecomposition {
 				// Order the singular values.
 
 				while (k < pp) {
-					if (s[k] >= s[k+1]) {
+					if (this.s[k] >= this.s[k+1]) {
 						break;
 					}
-					double t = s[k];
-					s[k] = s[k+1];
-					s[k+1] = t;
-					if (wantv && (k < inputColumns-1)) {
-						for (int i = 0; i < inputColumns; i++) {
-							t = V.getValue(i, k+1); 
-							V.setValue(i, k+1, V.getValue(i, k)); 
-							V.setValue(i, k, t);
+					double t = this.s[k];
+					this.s[k] = this.s[k+1];
+					this.s[k+1] = t;
+					if (wantv && (k < this.inputColumns-1)) {
+						for (int i = 0; i < this.inputColumns; i++) {
+							t = this.V.getValue(i, k+1); 
+							this.V.setValue(i, k+1, this.V.getValue(i, k)); 
+							this.V.setValue(i, k, t);
 						}
 					}
 
-					if (wantu && (k < inputRows-1)) {
-						for (int i = 0; i < inputRows; i++) {
-							t = U.getValue(i, k+1); 
-							U.setValue(i, k+1, U.getValue(i, k)); 
-							U.setValue(i, k, t);
+					if (wantu && (k < this.inputRows-1)) {
+						for (int i = 0; i < this.inputRows; i++) {
+							t = this.U.getValue(i, k+1); 
+							this.U.setValue(i, k+1, this.U.getValue(i, k)); 
+							this.U.setValue(i, k, t);
 						}
 					}
 					k++;
@@ -477,12 +477,12 @@ public class SimpleSVDDecomposition implements SVDDecomposition {
 			}
 		}
 
-		S = JeometryFactory.createMatrix(inputColumns,inputColumns);
-		for (int i = 0; i < inputColumns; i++) {
-			for (int j = 0; j < inputColumns; j++) {
-				S.setValue(i, j, 0.0);
+		this.S = JeometryFactory.createMatrix(this.inputColumns,this.inputColumns);
+		for (int i = 0; i < this.inputColumns; i++) {
+			for (int j = 0; j < this.inputColumns; j++) {
+				this.S.setValue(i, j, 0.0);
 			}
-			S.setValue(i, i, s[i]);
+			this.S.setValue(i, i, this.s[i]);
 
 		}
 	}
@@ -491,14 +491,14 @@ public class SimpleSVDDecomposition implements SVDDecomposition {
 	 * @return max(S)
 	 */
 	public double norm2 () {
-		return s[0];
+		return this.s[0];
 	}
 
 	/** Two norm condition number
 	 * @return max(S)/min(S)
 	 */
 	public double cond() {
-		return s[0]/s[Math.min(inputRows,inputColumns)-1];
+		return this.s[0]/this.s[Math.min(this.inputRows,this.inputColumns)-1];
 	}
 
 	/** Effective numerical matrix rank
@@ -506,10 +506,10 @@ public class SimpleSVDDecomposition implements SVDDecomposition {
 	 */
 	public int rank () {
 		double eps = Math.pow(2.0,-52.0);
-		double tol = Math.max(inputRows,inputColumns)*s[0]*eps;
+		double tol = Math.max(this.inputRows,this.inputColumns)*this.s[0]*eps;
 		int r = 0;
-		for (int i = 0; i < s.length; i++) {
-			if (s[i] > tol) {
+		for (int i = 0; i < this.s.length; i++) {
+			if (this.s[i] > tol) {
 				r++;
 			}
 		}
@@ -520,26 +520,26 @@ public class SimpleSVDDecomposition implements SVDDecomposition {
 	public List<Matrix> getComponents() {
 		List<Matrix> components = new ArrayList<Matrix>(3);
 		
-		components.add(U);
-		components.add(S);
-		components.add(V);
+		components.add(this.U);
+		components.add(this.S);
+		components.add(this.V);
 		
 		return components;
 	}
 
 	@Override
 	public Matrix getU() {
-		return U;
+		return this.U;
 	}
 
 	@Override
 	public Matrix getS() {
-		return S;
+		return this.S;
 	}
 
 	@Override
 	public Matrix getV() {
-		return V;
+		return this.V;
 	}
 
 	/** Compute sqrt(a^2 + b^2) without under/overflow. 

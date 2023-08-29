@@ -41,7 +41,7 @@ public class PLYPropertyDescription {
    * @see #setType(int)
    */
   public int getType() {
-    return type;
+    return this.type;
   }
 
   /**
@@ -59,7 +59,7 @@ public class PLYPropertyDescription {
    * @see #setName(String)
    */
   public String getName() {
-    return name;
+    return this.name;
   }
 
   /**

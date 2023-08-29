@@ -35,7 +35,7 @@ public class SimpleIndexedTexturedMesh<T extends Point3D> extends SimpleIndexedM
   
   @Override
   public List<Texture> getTextures() {
-    return textures;
+    return this.textures;
   }
 
   @Override

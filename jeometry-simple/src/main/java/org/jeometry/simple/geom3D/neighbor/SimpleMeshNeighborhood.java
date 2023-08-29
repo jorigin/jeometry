@@ -27,7 +27,7 @@ public class SimpleMeshNeighborhood<T extends Point3D> implements MeshNeighborho
   
   @Override
   public AdjacencyMap<T> getAdjacencies() {
-    return adjacencies;
+    return this.adjacencies;
   }
 
   @Override
@@ -37,7 +37,7 @@ public class SimpleMeshNeighborhood<T extends Point3D> implements MeshNeighborho
 
   @Override
   public IncidenceMap<T> getIncidences() {
-    return incidences;
+    return this.incidences;
   }
 
   @Override
@@ -49,8 +49,8 @@ public class SimpleMeshNeighborhood<T extends Point3D> implements MeshNeighborho
    * Create a new empty {@link MeshNeighborhood mesh neighborhood}.
    */
   public SimpleMeshNeighborhood(){
-    adjacencies = new SimpleIndexedAdjencyMap<T>();
-    incidences  = new SimpleIndexedIncidenceMap<T>();
+    this.adjacencies = new SimpleIndexedAdjencyMap<T>();
+    this.incidences  = new SimpleIndexedIncidenceMap<T>();
   }
   
   /**

@@ -100,15 +100,15 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 	
 	@Override
 	public List<? extends IndexedEdge<T>> getEdgesIndexes() {
-		return edges;
+		return this.edges;
 	}
 
 	@Override
 	public List<Integer> getVerticesIndexes() {
-		if ((faces != null) && (faces.size() > 0)){
+		if ((this.faces != null) && (this.faces.size() > 0)){
 			List<Integer> indices = new ArrayList<Integer>();
 
-			for(IndexedFace<?> face : faces) {
+			for(IndexedFace<?> face : this.faces) {
 				if ((face.getVerticesIndexes() != null) && (face.getVerticesIndexes().length > 0)){
 					for(int i = 0; i < face.getVerticesIndexes().length; i++) {
 						if (! indices.contains(face.getVerticesIndexes()[i])) {
@@ -128,13 +128,13 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 
 	@Override
 	public Point3DContainer<T> getVerticesSource() {
-		return verticesSource;
+		return this.verticesSource;
 	}
 
 	@Override
 	public void setVerticesSource(Point3DContainer<T> verticesSource) {
 		this.verticesSource = verticesSource;
-		validatedIndexes = false;
+		this.validatedIndexes = false;
 	}
 
 	/**
@@ -152,7 +152,7 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
         	  try {
 				IndexedTriangle<T> triangle = new SimpleIndexedTriangle<T>(indices.stream().mapToInt(i->i).toArray(), this);
 				  
-				  boolean result = faces.add(triangle);
+				  boolean result = this.faces.add(triangle);
 				  
 				  if (result) {
 					  triangle.setMesh(this);
@@ -183,7 +183,7 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 		if (indices != null) {
 			if (indices.length == 3) {
 				IndexedTriangle<T> triangle = new SimpleIndexedTriangle<T>(indices, this);
-				boolean result =  faces.add(triangle);
+				boolean result =  this.faces.add(triangle);
 				
 				if (result) {
 					triangle.setMesh(this);
@@ -200,14 +200,14 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 
 	@Override
 	public boolean isValidatedIndexes() {
-		return validatedIndexes;
+		return this.validatedIndexes;
 	}
 
 	@Override
 	public boolean validateIndexes() {
-		validatedIndexes = true;
+		this.validatedIndexes = true;
 
-		if (verticesSource != null){
+		if (this.verticesSource != null){
 
 			List<? extends IndexedFace<T>> faces =  getFacesIndexes();
 
@@ -215,7 +215,7 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 			if (faces != null){
 				for(int i = 0; i < faces.size(); i++){
 					faces.get(i).setVerticesSource(getVerticesSource());
-					validatedIndexes &= faces.get(i).validateIndexes();
+					this.validatedIndexes &= faces.get(i).validateIndexes();
 				}
 			}
 
@@ -225,33 +225,33 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 			if (edges != null){
 				for(int i = 0; i < edges.size(); i++){
 					edges.get(i).setVerticesSource(getVerticesSource());
-					validatedIndexes &= edges.get(i).validateIndexes();
+					this.validatedIndexes &= edges.get(i).validateIndexes();
 				}
 			}
 
-			return validatedIndexes;
+			return this.validatedIndexes;
 
 		} else {
-			return validatedIndexes;
+			return this.validatedIndexes;
 		}
 	}
 
 	@Override
 	public List<? extends Face<T>> getFaces() {
-		return faces;
+		return this.faces;
 	}
 
 	@Override
 	public List<? extends Edge<T>> getEdges() {
-		return edges;
+		return this.edges;
 	}
 
 	@Override
 	public Point3DContainer<T> getVertices() {
-		if ((faces != null) && (faces.size() > 0)){
-			Point3DContainer<T> vertices = JeometryFactory.createPoint3DContainer(faces.size()*6);
+		if ((this.faces != null) && (this.faces.size() > 0)){
+			Point3DContainer<T> vertices = JeometryFactory.createPoint3DContainer(this.faces.size()*6);
 
-			for(IndexedFace<T> face : faces) {
+			for(IndexedFace<T> face : this.faces) {
 				if (face.isValidatedIndexes()) {
 					if ((face.getVerticesIndexes() != null) && (face.getVerticesIndexes().length > 0)){
 						T vertex = null;
@@ -280,11 +280,11 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 			
 			if (face instanceof IndexedTriangle) {
 				
-				boolean result =  faces.add((IndexedTriangle<T>)face);
+				boolean result =  this.faces.add((IndexedTriangle<T>)face);
 
 				if (result) {
 					((IndexedTriangle<T>) face).setMesh(this);
-					((IndexedTriangle<T>) face).setVerticesSource(verticesSource);
+					((IndexedTriangle<T>) face).setVerticesSource(this.verticesSource);
 					((IndexedTriangle<T>) face).validateIndexes();
 				}
 				return result;
@@ -294,7 +294,7 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 				if (((IndexedFace<T>) face).getVerticesIndexes() != null){
 					try {
 						IndexedTriangle<T> triangle = new SimpleIndexedTriangle<T>(((IndexedFace<T>) face).getVerticesIndexes(), this);
-						boolean result =  faces.add(triangle);
+						boolean result =  this.faces.add(triangle);
 
 						if (result) {
 							((IndexedFace<T>) face).setMesh(this);
@@ -312,7 +312,7 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 				Point3DContainer<? extends Point3D> faceVertices = face.getVertices();
 				int[] faceIndices = null;
 
-				if ((verticesSource != null) && (faceVertices != null)){
+				if ((this.verticesSource != null) && (faceVertices != null)){
 					
 					if (faceVertices.size() ==3) {
 						faceIndices = new int[faceVertices.size()];
@@ -349,7 +349,7 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 
 	@Override
 	public boolean removeFace(Face<?> face) {
-		boolean result = faces.remove(face);
+		boolean result = this.faces.remove(face);
 		
 		if (result) {
 			face.setMesh(null);
@@ -360,47 +360,47 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 
 	@Override
 	public double getX() {
-		return x;
+		return this.x;
 	}
 
 	@Override
 	public double getY() {
-		return y;
+		return this.y;
 	}
 
 	@Override
 	public double getZ() {
-		return z;
+		return this.z;
 	}
 
 	@Override
 	public double getXMin() {
-		return xmin;
+		return this.xmin;
 	}
 
 	@Override
 	public double getYMin() {
-		return ymin;
+		return this.ymin;
 	}
 
 	@Override
 	public double getZMin() {
-		return zmin;
+		return this.zmin;
 	}
 
 	@Override
 	public double getXMax() {
-		return xmax;
+		return this.xmax;
 	}
 
 	@Override
 	public double getYMax() {
-		return ymax;
+		return this.ymax;
 	}
 
 	@Override
 	public double getZMax() {
-		return zmax;
+		return this.zmax;
 	}
 
     /**
@@ -419,21 +419,21 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 
 	@Override
 	public void updateLocalization() {
-		if ((faces != null) && (faces.size() > 0)){
+		if ((this.faces != null) && (this.faces.size() > 0)){
 
-			x    = 0.0d;
-			y    = 0.0d;
-			z    = 0.0d;
+			this.x    = 0.0d;
+			this.y    = 0.0d;
+			this.z    = 0.0d;
 			
-			xmin = Double.MAX_VALUE;
-			ymin = Double.MAX_VALUE;
-			zmin = Double.MAX_VALUE;
+			this.xmin = Double.MAX_VALUE;
+			this.ymin = Double.MAX_VALUE;
+			this.zmin = Double.MAX_VALUE;
 			
-			xmax = -Double.MAX_VALUE;
-			ymax = -Double.MAX_VALUE;
-		    zmax = -Double.MAX_VALUE;
+			this.xmax = -Double.MAX_VALUE;
+			this.ymax = -Double.MAX_VALUE;
+		    this.zmax = -Double.MAX_VALUE;
 			
-			for(IndexedFace<?> face : faces) {
+			for(IndexedFace<?> face : this.faces) {
 				if (face.isValidatedIndexes()) {
 					if ((face.getVerticesIndexes() != null) && (face.getVerticesIndexes().length > 0)){
 						Point3D vertex = null;
@@ -443,38 +443,38 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 							
 							verticesCount = verticesCount + 1;
 							
-							x    = x + vertex.getX();
-							y    = y + vertex.getY();
-							z    = z + vertex.getZ();
+							this.x    = this.x + vertex.getX();
+							this.y    = this.y + vertex.getY();
+							this.z    = this.z + vertex.getZ();
 							
-							if (x < xmin) {
-								xmin = x;
+							if (this.x < this.xmin) {
+								this.xmin = this.x;
 							}
 							
-							if (x > xmax) {
-								xmax = x;
+							if (this.x > this.xmax) {
+								this.xmax = this.x;
 							}
 							
-							if (y < ymin) {
-								ymin = y;
+							if (this.y < this.ymin) {
+								this.ymin = this.y;
 							}
 							
-							if (y > ymax) {
-								ymax = y;
+							if (this.y > this.ymax) {
+								this.ymax = this.y;
 							}
 							
-							if (z < zmin) {
-								zmin = z;
+							if (this.z < this.zmin) {
+								this.zmin = this.z;
 							}
 							
-							if (z > zmax) {
-								zmax = z;
+							if (this.z > this.zmax) {
+								this.zmax = this.z;
 							}
 						}
 						
-						x = x / verticesCount;
-						y = y / verticesCount;
-						z = z / verticesCount;
+						this.x = this.x / verticesCount;
+						this.y = this.y / verticesCount;
+						this.z = this.z / verticesCount;
 					}
 				} else {
 					throw new IllegalStateException("Face "+face.toString()+" is not valid.");
@@ -482,23 +482,23 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 
 			}
 		} else {
-			x    = Double.NaN;
-			y    = Double.NaN;
-			z    = Double.NaN;
+			this.x    = Double.NaN;
+			this.y    = Double.NaN;
+			this.z    = Double.NaN;
 			
-			xmin = Double.NaN;
-			ymin = Double.NaN;
-			zmin = Double.NaN;
+			this.xmin = Double.NaN;
+			this.ymin = Double.NaN;
+			this.zmin = Double.NaN;
 			
-			xmax = Double.NaN;
-			ymax = Double.NaN;
-		    zmax = Double.NaN;
+			this.xmax = Double.NaN;
+			this.ymax = Double.NaN;
+		    this.zmax = Double.NaN;
 		}
 	}
 
 	@Override
 	public List<? extends IndexedTriangle<T>> getFacesIndexes() {
-		return faces;
+		return this.faces;
 	}
 
 	@Override
@@ -515,8 +515,8 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 	 * Create a new empty {@link IndexedTriangleMesh indexed triangle mesh}.
 	 */
 	public SimpleIndexedTriangleMesh() {
-		faces = new ArrayList<IndexedTriangle<T>>();
-		edges = new ArrayList<IndexedEdge<T>>();
+		this.faces = new ArrayList<IndexedTriangle<T>>();
+		this.edges = new ArrayList<IndexedEdge<T>>();
 	}
 	
 	/**
@@ -524,8 +524,8 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 	 * @param capacity the initial capacity of faces storage
 	 */
 	public SimpleIndexedTriangleMesh(int capacity) {
-		faces = new ArrayList<IndexedTriangle<T>>(capacity);
-		edges = new ArrayList<IndexedEdge<T>>(capacity*3);
+		this.faces = new ArrayList<IndexedTriangle<T>>(capacity);
+		this.edges = new ArrayList<IndexedEdge<T>>(capacity*3);
 	}
 	
 	/**
@@ -534,7 +534,7 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 	 */
 	public SimpleIndexedTriangleMesh(Point3DContainer<? extends Point3D> source) {
 		this();
-		setVerticesSource(verticesSource);
+		setVerticesSource(this.verticesSource);
 	}
 	
 	/**
@@ -544,6 +544,6 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 	 */
 	public SimpleIndexedTriangleMesh(int capacity, Point3DContainer<? extends Point3D> source) {
 		this(capacity);
-		setVerticesSource(verticesSource);
+		setVerticesSource(this.verticesSource);
 	}
 }

@@ -31,33 +31,33 @@ public class SimplePlane<T extends Point3D> implements Plane<T>{
 	
 	@Override
 	public T getPlaneNormal() {
-		return normal;
+		return this.normal;
 	}
 
 	@Override
 	public void setPlaneNormal(T normal) {
 	  this.normal = normal;
 	  
-	  if ((normal != null) && (origin != null)){
-		  d = -1.0d*normal.getX()*origin.getX() - normal.getY()*origin.getY() - normal.getZ()*origin.getZ();
+	  if ((normal != null) && (this.origin != null)){
+		  this.d = -1.0d*normal.getX()*this.origin.getX() - normal.getY()*this.origin.getY() - normal.getZ()*this.origin.getZ();
 	  } else {
-		  d = Double.NaN;
+		  this.d = Double.NaN;
 	  }
 	}
 
 	@Override
 	public T getPlaneOrigin() {
-		return origin;
+		return this.origin;
 	}
 
 	@Override
 	public void setPlaneOrigin(T origin) {
       this.origin = origin;
       
-      if ((normal != null) && (origin != null)){
-		  d = -1.0d*normal.getX()*origin.getX() - normal.getY()*origin.getY() - normal.getZ()*origin.getZ();
+      if ((this.normal != null) && (origin != null)){
+		  this.d = -1.0d*this.normal.getX()*origin.getX() - this.normal.getY()*origin.getY() - this.normal.getZ()*origin.getZ();
 	  } else {
-		  d = Double.NaN;
+		  this.d = Double.NaN;
 	  }
 	}
 
@@ -96,37 +96,37 @@ public class SimplePlane<T extends Point3D> implements Plane<T>{
 		this.normal = normal;
 		
 	    if ((normal != null) && (origin != null)){
-	    	d = -1.0d*normal.getX()*origin.getX() - normal.getY()*origin.getY() - normal.getZ()*origin.getZ();
+	    	this.d = -1.0d*normal.getX()*origin.getX() - normal.getY()*origin.getY() - normal.getZ()*origin.getZ();
 		} else {
-			d = Double.NaN;
+			this.d = Double.NaN;
 		}
 	}
 	
 	@Override
 	public double getCoefA() {
-		return (normal != null)?normal.getX():Double.NaN;
+		return (this.normal != null)?this.normal.getX():Double.NaN;
 	}
 
 	@Override
 	public double getCoefB() {
-		return (normal != null)?normal.getY():Double.NaN;
+		return (this.normal != null)?this.normal.getY():Double.NaN;
 	}
 
 	@Override
 	public double getCoefC() {
-		return (normal != null)?normal.getZ():Double.NaN;
+		return (this.normal != null)?this.normal.getZ():Double.NaN;
 	}
 
 	@Override
 	public double getCoefD() {
-		return d;
+		return this.d;
 	}
 
 	@Override
 	public double distance(SpatialLocalization3D spatial) {
 		if (spatial != null) {
-			return    Math.abs(normal.getX() * spatial.getX() + normal.getY() * spatial.getY() + normal.getZ()*spatial.getZ() - d)
-					/ normal.norm();
+			return    Math.abs(this.normal.getX() * spatial.getX() + this.normal.getY() * spatial.getY() + this.normal.getZ()*spatial.getZ() - this.d)
+					/ this.normal.norm();
 		}
 		return Double.NaN;
 	}

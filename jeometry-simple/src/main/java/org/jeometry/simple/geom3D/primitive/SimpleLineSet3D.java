@@ -36,7 +36,7 @@ public class SimpleLineSet3D<T extends Point3D> implements LineSet3D<T>{
   
   @Override
   public Point3DContainer<T> getVertices(){
-    return points;
+    return this.points;
   }
 
   /**
@@ -46,29 +46,29 @@ public class SimpleLineSet3D<T extends Point3D> implements LineSet3D<T>{
   public void setVertices(Point3DContainer<T> points){
     this.points = points;
     
-    segments = new ArrayList<Line3D<T>>();
+    this.segments = new ArrayList<Line3D<T>>();
     
     if ((points != null) && (points.size() > 1)){
       for(int i = 0; i < points.size() - 1; i++){
-        segments.add(new SimpleLine3D<T>(points.get(i), points.get(i+1)));
+        this.segments.add(new SimpleLine3D<T>(points.get(i), points.get(i+1)));
       }
     }
   }
   
   @Override
   public List<Line3D<T>> getSegments(){
-    return segments;
+    return this.segments;
   }
   
   @Override
   public void plot(T point) {
 	  
-	int lastPointIndex = points.size() - 1;
+	int lastPointIndex = this.points.size() - 1;
 	
-    points.add(point);
+    this.points.add(point);
 
     if (lastPointIndex >= 0) {
-    	segments.add(new SimpleLine3D<T>(points.get(lastPointIndex), points.get(lastPointIndex + 1)));
+    	this.segments.add(new SimpleLine3D<T>(this.points.get(lastPointIndex), this.points.get(lastPointIndex + 1)));
     }
   }
   
@@ -77,17 +77,17 @@ public class SimpleLineSet3D<T extends Point3D> implements LineSet3D<T>{
     String str  = "";
     Point3D pt = null;
     
-    if ((points == null) || (points.size() < 1)){
+    if ((this.points == null) || (this.points.size() < 1)){
       str = getClass().getSimpleName()+" [ No vertex ]";
     } else {
-      str = getClass().getSimpleName()+" ("+points.size()+" points) [";
+      str = getClass().getSimpleName()+" ("+this.points.size()+" points) [";
       
-      for(int i = 0; i < points.size()- 1; i++){
-	pt = points.get(i);
+      for(int i = 0; i < this.points.size()- 1; i++){
+	pt = this.points.get(i);
 	str +=" ("+pt.getX()+", "+pt.getY()+", "+pt.getZ()+"),";
       }
       
-      pt = points.get(points.size() - 1);
+      pt = this.points.get(this.points.size() - 1);
       str +=" ("+pt.getX()+", "+pt.getY()+", "+pt.getZ()+") ]";
     }
     

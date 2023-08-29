@@ -44,7 +44,7 @@ public class PLYPropertyListDescription extends PLYPropertyDescription {
    * @see #setCountType(int)
    */
   public int getCountType() {
-    return countType;
+    return this.countType;
   }
 
   /**
@@ -62,7 +62,7 @@ public class PLYPropertyListDescription extends PLYPropertyDescription {
    * @see #setValueType(int)
    */
   public int getValueType() {
-    return valueType;
+    return this.valueType;
   }
 
   /**

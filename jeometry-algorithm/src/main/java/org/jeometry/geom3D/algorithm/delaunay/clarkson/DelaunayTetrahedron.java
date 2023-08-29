@@ -47,7 +47,7 @@ public class DelaunayTetrahedron<T extends Point3D> implements IndexedTetrahedro
    */
   public DelaunayTetrahedron(int vertex1, int vertex2, int vertex3, int vertex4, Point3DContainer<T> source){
     this(vertex1, vertex2, vertex3, vertex4, true, source);
-    convexFaces = new boolean[4];
+    this.convexFaces = new boolean[4];
   }
   
   /**
@@ -60,9 +60,9 @@ public class DelaunayTetrahedron<T extends Point3D> implements IndexedTetrahedro
    * @param validate if the tetrahedron has to be validated
    */
   public DelaunayTetrahedron(int base1, int base2, int base3, int top, boolean validate, Point3DContainer<T> source){
-    tetrahedron = JeometryFactory.createIndexedTetrahedron(base1, base2, base3, top, source);
-    neighbors   = new ArrayList<DelaunayTetrahedron<T>>(4);
-    convexFaces = new boolean[4];
+    this.tetrahedron = JeometryFactory.createIndexedTetrahedron(base1, base2, base3, top, source);
+    this.neighbors   = new ArrayList<DelaunayTetrahedron<T>>(4);
+    this.convexFaces = new boolean[4];
   }
   
   /**
@@ -73,7 +73,7 @@ public class DelaunayTetrahedron<T extends Point3D> implements IndexedTetrahedro
    */
   public DelaunayTetrahedron<T> getNeighbor(int vertexIndex){
     if ((vertexIndex > -1)&&(vertexIndex < 4)){
-      return neighbors.get(vertexIndex);
+      return this.neighbors.get(vertexIndex);
     }
     
     return null;
@@ -81,32 +81,32 @@ public class DelaunayTetrahedron<T extends Point3D> implements IndexedTetrahedro
   
   @Override
   public Point3DContainer<T> getVerticesSource() {
-  	return tetrahedron.getVerticesSource();
+  	return this.tetrahedron.getVerticesSource();
   }
 
   @Override
   public void setVerticesSource(Point3DContainer<T> verticesSource) {
-  tetrahedron.setVerticesSource(verticesSource);
+  this.tetrahedron.setVerticesSource(verticesSource);
   }
   
   @Override
   public int getVertexIndice(int position) {
-  	return tetrahedron.getVertexIndice(position);
+  	return this.tetrahedron.getVertexIndice(position);
   }
 
   @Override
   public Point3D getVertex(int position) {
-  	return tetrahedron.getVertex(position);
+  	return this.tetrahedron.getVertex(position);
   }
 
   @Override
   public int getVertexIndex(Point3D vertex) {
-  	return tetrahedron.getVertexIndex(vertex);
+  	return this.tetrahedron.getVertexIndex(vertex);
   }
 
   @Override
   public int[] getVerticesArray() {
-  	return tetrahedron.getVerticesArray();
+  	return this.tetrahedron.getVerticesArray();
   }
   
   /**
@@ -117,7 +117,7 @@ public class DelaunayTetrahedron<T extends Point3D> implements IndexedTetrahedro
    */
   public void setNeighbor(int vertexIndex, DelaunayTetrahedron<T> tetrahedron){
     if ((vertexIndex > -1)&&(vertexIndex < 4)){
-      neighbors.set(vertexIndex, tetrahedron);
+      this.neighbors.set(vertexIndex, tetrahedron);
     }
   }
   
@@ -139,7 +139,7 @@ public class DelaunayTetrahedron<T extends Point3D> implements IndexedTetrahedro
     boolean convexHull = false;
     
     if ((index >= 0)&&(index <= 3)){
-      convexHull = convexFaces[index];
+      convexHull = this.convexFaces[index];
     }
     
     return convexHull;
@@ -152,7 +152,7 @@ public class DelaunayTetrahedron<T extends Point3D> implements IndexedTetrahedro
    */
   public void setConvexHullFace(int index, boolean isConxehHull){
     if ((index >= 0)&&(index <= 3)){
-      convexFaces[index] = isConxehHull;
+      this.convexFaces[index] = isConxehHull;
     }
   }
   
@@ -165,8 +165,8 @@ public class DelaunayTetrahedron<T extends Point3D> implements IndexedTetrahedro
     
     int[] faces = null;
     
-    for(int i = 0; i < convexFaces.length; i++){
-      if (convexFaces[i] == true){
+    for(int i = 0; i < this.convexFaces.length; i++){
+      if (this.convexFaces[i] == true){
         count++;
       }
     }
@@ -174,8 +174,8 @@ public class DelaunayTetrahedron<T extends Point3D> implements IndexedTetrahedro
     faces = new int[count];
     
     count = 0;
-    for(int i = 0; i < convexFaces.length; i++){
-      if (convexFaces[i] == true){
+    for(int i = 0; i < this.convexFaces.length; i++){
+      if (this.convexFaces[i] == true){
         faces[count] = i;
         count++;
       }
@@ -189,7 +189,7 @@ public class DelaunayTetrahedron<T extends Point3D> implements IndexedTetrahedro
    * @return <code>true</code> if this tetrahedron contains a face that lies on the underlying points convex hull and <code>false</code> otherwise. 
    */
   public boolean isConvexHull(){
-    return ((convexFaces != null) &&((convexFaces[0] == true)||(convexFaces[1] == true)||(convexFaces[2] == true)||(convexFaces[3] == true)));
+    return ((this.convexFaces != null) &&((this.convexFaces[0] == true)||(this.convexFaces[1] == true)||(this.convexFaces[2] == true)||(this.convexFaces[3] == true)));
   }
   
   /**
@@ -199,7 +199,7 @@ public class DelaunayTetrahedron<T extends Point3D> implements IndexedTetrahedro
    * @see #setInfinite(boolean)
    */
   public boolean isInfinite() {
-    return infinite;
+    return this.infinite;
   }
 
   /**

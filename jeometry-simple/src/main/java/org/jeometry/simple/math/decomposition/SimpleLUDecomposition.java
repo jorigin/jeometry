@@ -58,64 +58,64 @@ public class SimpleLUDecomposition implements LUDecomposition {
 	 */
 	public SimpleLUDecomposition(Matrix matrix) {
 
-		LU = JeometryFactory.createMatrix(matrix);
+		this.LU = JeometryFactory.createMatrix(matrix);
 
-		inputRowsCount = matrix.getRowsCount();
-		inputColumnsCount = matrix.getColumnsCount();
+		this.inputRowsCount = matrix.getRowsCount();
+		this.inputColumnsCount = matrix.getColumnsCount();
 
-		pivsign = 1;
+		this.pivsign = 1;
 
-		double[] LUcolj = new double[inputRowsCount];
+		double[] LUcolj = new double[this.inputRowsCount];
 
-		P = JeometryFactory.createMatrixEye(inputRowsCount);
+		this.P = JeometryFactory.createMatrixEye(this.inputRowsCount);
 		
-		for (int j = 0; j < inputColumnsCount; j++) {
+		for (int j = 0; j < this.inputColumnsCount; j++) {
 
 			// Make a copy of the j-th column to localize references.
-			for (int i = 0; i < inputRowsCount; i++) {
-				LUcolj[i] = LU.getValue(i, j);
+			for (int i = 0; i < this.inputRowsCount; i++) {
+				LUcolj[i] = this.LU.getValue(i, j);
 			}
 
 			// Apply previous transformations.
-			for (int i = 0; i < inputRowsCount; i++) {
+			for (int i = 0; i < this.inputRowsCount; i++) {
 				
 				// Most of the time is spent in the following dot product.
 
 				int kmax = Math.min(i,j);
 				double s = 0.0;
 				for (int k = 0; k < kmax; k++) {
-					s += LU.getValue(i, k)*LUcolj[k];
+					s += this.LU.getValue(i, k)*LUcolj[k];
 				}
 
-				LU.setValue(i, j, LUcolj[i] -= s);
+				this.LU.setValue(i, j, LUcolj[i] -= s);
 
 			}
 
 			// Find pivot and exchange if necessary.
 			int p = j;
-			for (int i = j+1; i < inputRowsCount; i++) {
+			for (int i = j+1; i < this.inputRowsCount; i++) {
 				if (Math.abs(LUcolj[i]) > Math.abs(LUcolj[p])) {
 					p = i;
 				}
 			}
 			if (p != j) {
-				for (int k = 0; k < inputColumnsCount; k++) {
-					double t = LU.getValue(p, k); 
-					LU.setValue(p, k, LU.getValue(j, k)); 
-					LU.setValue(j, k, t);
+				for (int k = 0; k < this.inputColumnsCount; k++) {
+					double t = this.LU.getValue(p, k); 
+					this.LU.setValue(p, k, this.LU.getValue(j, k)); 
+					this.LU.setValue(j, k, t);
 				
-					t = P.getValue(p, k);
-					P.setValue(p, k, P.getValue(j, k));
-					P.setValue(j, k, t);
+					t = this.P.getValue(p, k);
+					this.P.setValue(p, k, this.P.getValue(j, k));
+					this.P.setValue(j, k, t);
 				}
 
-				pivsign = -pivsign;
+				this.pivsign = -this.pivsign;
 			}
 
 			// Compute multipliers.
-			if (j < inputRowsCount & LU.getValue(j, j) != 0.0) {
-				for (int i = j+1; i < inputRowsCount; i++) {
-					LU.setValue(i, j,  LU.getValue(i, j) / LU.getValue(j, j));
+			if (j < this.inputRowsCount & this.LU.getValue(j, j) != 0.0) {
+				for (int i = j+1; i < this.inputRowsCount; i++) {
+					this.LU.setValue(i, j,  this.LU.getValue(i, j) / this.LU.getValue(j, j));
 				}
 			}
 			
@@ -123,27 +123,27 @@ public class SimpleLUDecomposition implements LUDecomposition {
 		}
 		
 		// Compute L matrix
-		L = JeometryFactory.createMatrix(inputRowsCount,inputColumnsCount);
-		for (int i = 0; i < inputRowsCount; i++) {
-			for (int j = 0; j < inputColumnsCount; j++) {
+		this.L = JeometryFactory.createMatrix(this.inputRowsCount,this.inputColumnsCount);
+		for (int i = 0; i < this.inputRowsCount; i++) {
+			for (int j = 0; j < this.inputColumnsCount; j++) {
 				if (i > j) {
-					L.setValue(i, j, LU.getValue(i, j));
+					this.L.setValue(i, j, this.LU.getValue(i, j));
 				} else if (i == j) {
-					L.setValue(i, j, 1.0);
+					this.L.setValue(i, j, 1.0);
 				} else {
-					L.setValue(i, j, 0.0);
+					this.L.setValue(i, j, 0.0);
 				}
 			}
 		}
 
 		// Compute U matrix
-		U = JeometryFactory.createMatrix(inputColumnsCount,inputColumnsCount);
-		for (int i = 0; i < inputColumnsCount; i++) {
-			for (int j = 0; j < inputColumnsCount; j++) {
+		this.U = JeometryFactory.createMatrix(this.inputColumnsCount,this.inputColumnsCount);
+		for (int i = 0; i < this.inputColumnsCount; i++) {
+			for (int j = 0; j < this.inputColumnsCount; j++) {
 				if (i <= j) {
-					U.setValue(i, j, LU.getValue(i, j));
+					this.U.setValue(i, j, this.LU.getValue(i, j));
 				} else {
-					U.setValue(i, j, 0.0);
+					this.U.setValue(i, j, 0.0);
 				}
 			}
 		}		
@@ -154,8 +154,8 @@ public class SimpleLUDecomposition implements LUDecomposition {
 	 * @return <code>true</code> if the matrix is not singular and <code>false</code> otherwise
 	 */
 	public boolean isNonsingular () {
-		for (int j = 0; j < inputColumnsCount; j++) {
-			if (LU.getValue(j, j) == 0)
+		for (int j = 0; j < this.inputColumnsCount; j++) {
+			if (this.LU.getValue(j, j) == 0)
 				return false;
 		}
 		return true;
@@ -168,12 +168,12 @@ public class SimpleLUDecomposition implements LUDecomposition {
 	 * @throws IllegalArgumentException if the decomposed matrix is not suare
 	 */
 	public double det() {
-		if (inputRowsCount != inputColumnsCount) {
+		if (this.inputRowsCount != this.inputColumnsCount) {
 			throw new IllegalArgumentException("Matrix must be square.");
 		}
-		double d = (double) pivsign;
-		for (int j = 0; j < inputColumnsCount; j++) {
-			d *= LU.getValue(j, j);
+		double d = (double) this.pivsign;
+		for (int j = 0; j < this.inputColumnsCount; j++) {
+			d *= this.LU.getValue(j, j);
 		}
 		return d;
 	}
@@ -182,25 +182,25 @@ public class SimpleLUDecomposition implements LUDecomposition {
 	public List<Matrix> getComponents() {
 
 		List<Matrix> components = new ArrayList<Matrix>(2);
-		components.add(L);
-		components.add(U);
+		components.add(this.L);
+		components.add(this.U);
 
 		return components;
 	}
 
 	@Override
 	public Matrix getLower() {
-		return L;
+		return this.L;
 	}
 
 	@Override
 	public Matrix getUpper() {
-		return U;
+		return this.U;
 	}
 
 	@Override
 	public Matrix getPivot() {
-		return P;
+		return this.P;
 	}
 
 	/**
@@ -219,7 +219,7 @@ public class SimpleLUDecomposition implements LUDecomposition {
 	 */
    @Override
    public Matrix solve(Matrix b) {
-	   return solve(b, JeometryFactory.createMatrix(inputRowsCount, 1));
+	   return solve(b, JeometryFactory.createMatrix(this.inputRowsCount, 1));
    }
 	
 	@Override
@@ -229,16 +229,16 @@ public class SimpleLUDecomposition implements LUDecomposition {
 			throw new IllegalArgumentException("Constant matrix is null");
 		}
 
-		if (b.getRowsCount() != inputRowsCount) {
-	      throw new IllegalArgumentException("Invalid constant matrix rows count "+b.getRowsCount()+", expected "+inputRowsCount);
+		if (b.getRowsCount() != this.inputRowsCount) {
+	      throw new IllegalArgumentException("Invalid constant matrix rows count "+b.getRowsCount()+", expected "+this.inputRowsCount);
 	    }
 		
 		if (x == null) {
 			throw new IllegalArgumentException("Result matrix is null");
 		}
 		
-		if (x.getRowsCount() != inputRowsCount) {
-		  throw new IllegalArgumentException("Invalid result matrix rows count "+x.getRowsCount()+", expected "+inputRowsCount);
+		if (x.getRowsCount() != this.inputRowsCount) {
+		  throw new IllegalArgumentException("Invalid result matrix rows count "+x.getRowsCount()+", expected "+this.inputRowsCount);
 		}
 		
 	      if (!this.isNonsingular()) {
@@ -246,25 +246,25 @@ public class SimpleLUDecomposition implements LUDecomposition {
 	      }
 
 	      // Copy right hand side with pivoting
-	      P.multiply(b, x);
+	      this.P.multiply(b, x);
 
 	      // Solve L*Y = B(piv,:)
-	      for (int k = 0; k < inputColumnsCount; k++) {
-	         for (int i = k+1; i < inputColumnsCount; i++) {
+	      for (int k = 0; k < this.inputColumnsCount; k++) {
+	         for (int i = k+1; i < this.inputColumnsCount; i++) {
 	            for (int j = 0; j < b.getColumnsCount(); j++) {
-	            	x.setValue(i, j, x.getValue(i, j) - x.getValue(k, j)*LU.getValue(i, k));
+	            	x.setValue(i, j, x.getValue(i, j) - x.getValue(k, j)*this.LU.getValue(i, k));
 	            }
 	         }
 	      }
 	      
 	      // Solve U*X = Y;
-	      for (int k = inputColumnsCount-1; k >= 0; k--) {
+	      for (int k = this.inputColumnsCount-1; k >= 0; k--) {
 	         for (int j = 0; j < b.getColumnsCount(); j++) {
-	        	 x.setValue(k, j, x.getValue(k, j) / LU.getValue(k, k));
+	        	 x.setValue(k, j, x.getValue(k, j) / this.LU.getValue(k, k));
 	         }
 	         for (int i = 0; i < k; i++) {
 	            for (int j = 0; j < b.getColumnsCount(); j++) {
-	               x.setValue(i, j,  x.getValue(i, j) - x.getValue(k, j)*LU.getValue(i, k));
+	               x.setValue(i, j,  x.getValue(i, j) - x.getValue(k, j)*this.LU.getValue(i, k));
 	            }
 	         }
 	      }
@@ -273,7 +273,7 @@ public class SimpleLUDecomposition implements LUDecomposition {
 
 	@Override
 	public Vector solve(Vector b) {
-		return solve(b, JeometryFactory.createVector(inputRowsCount));
+		return solve(b, JeometryFactory.createVector(this.inputRowsCount));
 	}
 
 	@Override
@@ -282,16 +282,16 @@ public class SimpleLUDecomposition implements LUDecomposition {
 			throw new IllegalArgumentException("Constant vector is null");
 		}
 
-		if (b.getDimension() != inputRowsCount) {
-	      throw new IllegalArgumentException("Invalid constant vector rows count "+b.getDimension()+", expected "+inputRowsCount);
+		if (b.getDimension() != this.inputRowsCount) {
+	      throw new IllegalArgumentException("Invalid constant vector rows count "+b.getDimension()+", expected "+this.inputRowsCount);
 	    }
 		
 		if (x == null) {
 			throw new IllegalArgumentException("Result vector is null");
 		}
 		
-		if (x.getDimension() != inputColumnsCount) {
-		  throw new IllegalArgumentException("Invalid result vector rows count "+x.getDimension()+", expected "+inputColumnsCount);
+		if (x.getDimension() != this.inputColumnsCount) {
+		  throw new IllegalArgumentException("Invalid result vector rows count "+x.getDimension()+", expected "+this.inputColumnsCount);
 		}
 		
 	      if (!this.isNonsingular()) {
@@ -299,21 +299,21 @@ public class SimpleLUDecomposition implements LUDecomposition {
 	      }
 
 	      // Copy right hand side with pivoting
-	      P.multiply(b, x);
+	      this.P.multiply(b, x);
 
 	      // Solve L*Y = B(piv,:)
-	      for (int k = 0; k < inputColumnsCount; k++) {
-	         for (int i = k+1; i < inputColumnsCount; i++) {
-	            x.setValue(i, x.getValue(i) - x.getValue(k)*LU.getValue(i, k));
+	      for (int k = 0; k < this.inputColumnsCount; k++) {
+	         for (int i = k+1; i < this.inputColumnsCount; i++) {
+	            x.setValue(i, x.getValue(i) - x.getValue(k)*this.LU.getValue(i, k));
 	         }
 	      }
 	      
 	      // Solve U*X = Y;
-	      for (int k = inputColumnsCount-1; k >= 0; k--) {
-	         x.setValue(k, x.getValue(k) / LU.getValue(k, k));
+	      for (int k = this.inputColumnsCount-1; k >= 0; k--) {
+	         x.setValue(k, x.getValue(k) / this.LU.getValue(k, k));
 	         
 	         for (int i = 0; i < k; i++) {
-	            x.setValue(i,  x.getValue(i) - x.getValue(k)*LU.getValue(i, k));
+	            x.setValue(i,  x.getValue(i) - x.getValue(k)*this.LU.getValue(i, k));
 	         }
 	      }
 	      return x;

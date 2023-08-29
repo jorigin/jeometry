@@ -379,15 +379,19 @@ public class QuickHull {
     // du calculd e l'enveloppe convexe finale tous les points
     // contenu dans l'enveloppe convexe formée par les Points
     // donc une des coordonnée est maximale ou minimale.
+    Point3DContainer<T> filteredPoints = null;
     if (useAklToussaint){
-      Point3DContainer<T> aklToussaintPoints = computeAklToussainPoints(points);
-      
-      if (aklToussaintPoints !=  null){
-        points = aklToussaintPoints;
-      }
+    	filteredPoints = computeAklToussainPoints(points);    	
+    	
+    	if (filteredPoints == null) {
+    		return null;
+    	}
+    	
+    } else {
+    	filteredPoints = points;
     }
     
-    Iterator<T> e = points.iterator();
+    Iterator<T> e = filteredPoints.iterator();
 
     if (e.hasNext()){
       T v1 = e.next();

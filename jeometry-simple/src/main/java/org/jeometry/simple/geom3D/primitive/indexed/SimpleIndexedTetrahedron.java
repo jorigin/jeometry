@@ -57,11 +57,11 @@ public class SimpleIndexedTetrahedron<T extends Point3D> extends SimpleIndexedMe
   public SimpleIndexedTetrahedron(int base1, int base2, int base3, int top, boolean validate, Point3DContainer<T> source){
     super(source);
     
-    verticesIndex    = new int[4];
-    verticesIndex[0] = base1;
-    verticesIndex[1] = base2;
-    verticesIndex[2] = base3;
-    verticesIndex[3] = top;
+    this.verticesIndex    = new int[4];
+    this.verticesIndex[0] = base1;
+    this.verticesIndex[1] = base2;
+    this.verticesIndex[2] = base3;
+    this.verticesIndex[3] = top;
     
     addFace(new int[]{base2, base3, top}); // Facing vertex 0
     addFace(new int[]{base1, base3, top}); // Facing vertex 1
@@ -81,7 +81,7 @@ public class SimpleIndexedTetrahedron<T extends Point3D> extends SimpleIndexedMe
     String lineSep = System.getProperty("line.separator");
 
     str += " ("+getClass().getSimpleName()+") "
-        +"["+verticesIndex[0]+", "+verticesIndex[1]+", "+verticesIndex[2]+", "+verticesIndex[3]+"]";
+        +"["+this.verticesIndex[0]+", "+this.verticesIndex[1]+", "+this.verticesIndex[2]+", "+this.verticesIndex[3]+"]";
     
     if (getVerticesSource() != null){
       str += ", "+getVerticesSource().size()+" points in source";
@@ -141,7 +141,7 @@ public class SimpleIndexedTetrahedron<T extends Point3D> extends SimpleIndexedMe
    */
   public SimpleIndexedTetrahedron(int vertex1, int vertex2, int vertex3, int vertex4, Point3DContainer<T> source){
     this(vertex1, vertex2, vertex3, vertex4, false, source);
-    if (vertices != null){
+    if (this.vertices != null){
       
       if (this.vertices == null){
         this.vertices = new Point3D[4];
@@ -187,7 +187,7 @@ public class SimpleIndexedTetrahedron<T extends Point3D> extends SimpleIndexedMe
   @Override
   public int getVertexIndice(int position){
     if ((position > -1)&&(position < 4)){
-      return verticesIndex[position];
+      return this.verticesIndex[position];
     } else {
     	throw new IllegalArgumentException("Invalid index "+position+", expected values are 0, 1, 2 or 3.");
     }
@@ -195,8 +195,8 @@ public class SimpleIndexedTetrahedron<T extends Point3D> extends SimpleIndexedMe
   
   @Override
   public Point3D getVertex(int position){
-    if ((vertices != null) && (position > -1)&&(position < 4)){
-      return vertices[position];
+    if ((this.vertices != null) && (position > -1)&&(position < 4)){
+      return this.vertices[position];
     } else {
     	throw new IllegalArgumentException("Invalid index "+position+", expected values are 0, 1, 2 or 3.");
     }
@@ -206,10 +206,10 @@ public class SimpleIndexedTetrahedron<T extends Point3D> extends SimpleIndexedMe
   public int getVertexIndex(Point3D vertex){
     int index = -1;
     
-    if ((vertices != null)){
+    if ((this.vertices != null)){
       int cpt = 0;
-      while((index == -1)&&(cpt < vertices.length)){
-        if (vertices[cpt] == vertex){
+      while((index == -1)&&(cpt < this.vertices.length)){
+        if (this.vertices[cpt] == vertex){
           index = cpt;
         }
         cpt++;
@@ -221,6 +221,6 @@ public class SimpleIndexedTetrahedron<T extends Point3D> extends SimpleIndexedMe
   
   @Override
   public int[] getVerticesArray(){
-    return verticesIndex;
+    return this.verticesIndex;
   }
 }

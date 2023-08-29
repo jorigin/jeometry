@@ -20,20 +20,20 @@ public class SimpleVector implements Vector {
 
 	@Override
 	public int getDimension() {
-		if (components != null) {
-			return components.length;
+		if (this.components != null) {
+			return this.components.length;
 		}
 		return 0;
 	}
 
 	@Override
 	public double getValue(int dimension) {
-		return components[dimension];
+		return this.components[dimension];
 	}
 
 	@Override
 	public void setValue(int dimension, double value) {
-		components[dimension] = value;;
+		this.components[dimension] = value;;
 	}
 
 	@Override
@@ -160,10 +160,10 @@ public class SimpleVector implements Vector {
 	@Override
 	public double normSquare() {
 
-		if (components != null) {
+		if (this.components != null) {
 			double square = 0.0d;
-			for(int i = 0; i < components.length; i++) {
-				square = square + components[i]*components[i];
+			for(int i = 0; i < this.components.length; i++) {
+				square = square + this.components[i]*this.components[i];
 			}
 
 			return square;
@@ -180,10 +180,10 @@ public class SimpleVector implements Vector {
 
 	@Override
 	public void normalize() {
-		if (components != null) {
+		if (this.components != null) {
 			double norm = norm();
-			for(int i = 0; i < components.length; i++) {
-				components[i] = components[i] / norm;
+			for(int i = 0; i < this.components.length; i++) {
+				this.components[i] = this.components[i] / norm;
 			}
 		}
 	}
@@ -233,7 +233,7 @@ public class SimpleVector implements Vector {
 	 * @param dimensions the dimensions of the vector.
 	 */
 	public SimpleVector(int dimensions) {
-		components = new double[dimensions];
+		this.components = new double[dimensions];
 	}
 
 	/**
@@ -241,10 +241,10 @@ public class SimpleVector implements Vector {
 	 * @param values the values that represents the components of the vector.
 	 */
 	public SimpleVector(double[] values) {
-		components = new double[values.length];
+		this.components = new double[values.length];
 
 		for(int i = 0; i < values.length; i++) {
-			components[i] = values[i];
+			this.components[i] = values[i];
 		}
 	}
 
@@ -253,10 +253,10 @@ public class SimpleVector implements Vector {
 	 * @param source the source vector to copy
 	 */
 	public SimpleVector(Vector source) {
-		components = new double[source.getDimension()];
+		this.components = new double[source.getDimension()];
 
 		for(int dimension = 0; dimension < source.getDimension(); dimension++) {
-			components[dimension] = source.getValue(dimension);
+			this.components[dimension] = source.getValue(dimension);
 		}
 	}
 

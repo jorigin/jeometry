@@ -79,12 +79,12 @@ public class SimpleBox extends SimpleMesh<Point3D> implements Box {
   
   @Override
   public Point3D getMax(){
-    return tfr;
+    return this.tfr;
   }
   
   @Override
   public Point3D getMin(){
-    return brl;
+    return this.brl;
   }
   
   @Override
@@ -147,76 +147,76 @@ public class SimpleBox extends SimpleMesh<Point3D> implements Box {
     
     super();
     
-    brl = JeometryFactory.createPoint3D();
-    bfr = JeometryFactory.createPoint3D();
-    brr = JeometryFactory.createPoint3D();
-    bfl = JeometryFactory.createPoint3D();
+    this.brl = JeometryFactory.createPoint3D();
+    this.bfr = JeometryFactory.createPoint3D();
+    this.brr = JeometryFactory.createPoint3D();
+    this.bfl = JeometryFactory.createPoint3D();
     
-    tfl = JeometryFactory.createPoint3D();
-    tfr = JeometryFactory.createPoint3D();
-    trr = JeometryFactory.createPoint3D();
-    trl = JeometryFactory.createPoint3D();
+    this.tfl = JeometryFactory.createPoint3D();
+    this.tfr = JeometryFactory.createPoint3D();
+    this.trr = JeometryFactory.createPoint3D();
+    this.trl = JeometryFactory.createPoint3D();
 
-    getVertices().add(bfl); // 0
-    getVertices().add(bfr); // 1
-    getVertices().add(brr); // 2
-    getVertices().add(brl); // 3
-    getVertices().add(tfl); // 4
-    getVertices().add(tfr); // 5
-    getVertices().add(trr); // 6
-    getVertices().add(trl); // 7
+    getVertices().add(this.bfl); // 0
+    getVertices().add(this.bfr); // 1
+    getVertices().add(this.brr); // 2
+    getVertices().add(this.brl); // 3
+    getVertices().add(this.tfl); // 4
+    getVertices().add(this.tfr); // 5
+    getVertices().add(this.trr); // 6
+    getVertices().add(this.trl); // 7
     
     // Bottom face
     Point3DContainer<Point3D> pts = JeometryFactory.createPoint3DContainer(4);
-    pts.add(brl);
-    pts.add(brr);
-    pts.add(bfr);
-    pts.add(bfl);
+    pts.add(this.brl);
+    pts.add(this.brr);
+    pts.add(this.bfr);
+    pts.add(this.bfl);
     addFace(JeometryFactory.createMeshFace(pts));
 
     // Top face
     pts = JeometryFactory.createPoint3DContainer(4);
-    pts.add(tfl);
-    pts.add(tfr);
-    pts.add(trr);
-    pts.add(trl);
+    pts.add(this.tfl);
+    pts.add(this.tfr);
+    pts.add(this.trr);
+    pts.add(this.trl);
     addFace(JeometryFactory.createMeshFace(pts));
     
     // Front face
     pts = JeometryFactory.createPoint3DContainer(4);
-    pts.add(bfl);
-    pts.add(bfr);
-    pts.add(tfr);
-    pts.add(tfl);
+    pts.add(this.bfl);
+    pts.add(this.bfr);
+    pts.add(this.tfr);
+    pts.add(this.tfl);
     addFace(JeometryFactory.createMeshFace(pts));
     
     // Rear face
     pts = JeometryFactory.createPoint3DContainer(4);
-    pts.add(brr);
-    pts.add(brl);
-    pts.add(trl);
-    pts.add(trr);
+    pts.add(this.brr);
+    pts.add(this.brl);
+    pts.add(this.trl);
+    pts.add(this.trr);
     addFace(JeometryFactory.createMeshFace(pts));
     
     // Left face
     pts = JeometryFactory.createPoint3DContainer(4);
-    pts.add(brl);
-    pts.add(bfl);
-    pts.add(tfl);
-    pts.add(trl);
+    pts.add(this.brl);
+    pts.add(this.bfl);
+    pts.add(this.tfl);
+    pts.add(this.trl);
     addFace(JeometryFactory.createMeshFace(pts));
     
     // Right face
     pts = JeometryFactory.createPoint3DContainer(4);
-    pts.add(bfr);
-    pts.add(brr);
-    pts.add(trr);
-    pts.add(tfr);
+    pts.add(this.bfr);
+    pts.add(this.brr);
+    pts.add(this.trr);
+    pts.add(this.tfr);
     addFace(JeometryFactory.createMeshFace(pts));
     
     if ((min != null)&&(max != null)){
-      brl = min;
-      tfr = max;
+      this.brl = min;
+      this.tfr = max;
       
       updateGeometry();
     }
@@ -274,29 +274,29 @@ public class SimpleBox extends SimpleMesh<Point3D> implements Box {
       double zMax  = getMax().getZ();
 
       
-      bfl.setX(xMax);
-      bfl.setY(yMin);
-      bfl.setZ(zMin);
+      this.bfl.setX(xMax);
+      this.bfl.setY(yMin);
+      this.bfl.setZ(zMin);
       
-      bfr.setX(xMax);
-      bfr.setY(yMax);
-      bfr.setZ(zMin);
+      this.bfr.setX(xMax);
+      this.bfr.setY(yMax);
+      this.bfr.setZ(zMin);
       
-      brr.setX(xMin);
-      brr.setY(yMax);
-      brr.setZ(zMin);
+      this.brr.setX(xMin);
+      this.brr.setY(yMax);
+      this.brr.setZ(zMin);
       
-      tfl.setX(xMax);
-      tfl.setY(yMin);
-      tfl.setZ(zMax);
+      this.tfl.setX(xMax);
+      this.tfl.setY(yMin);
+      this.tfl.setZ(zMax);
       
-      trr.setX(xMin);
-      trr.setY(yMax);
-      trr.setZ(zMax);
+      this.trr.setX(xMin);
+      this.trr.setY(yMax);
+      this.trr.setZ(zMax);
       
-      trl.setX(xMin);
-      trl.setY(yMin);
-      trl.setZ(zMax);
+      this.trl.setX(xMin);
+      this.trl.setY(yMin);
+      this.trl.setZ(zMax);
       
     }
   }

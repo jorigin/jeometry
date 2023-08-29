@@ -47,10 +47,10 @@ public class SimpleTriangle<T extends Point3D> extends SimplePolygon3D<T> implem
 	 * @param vertex3 the third vertex
 	 */
 	public SimpleTriangle(T vertex1, T vertex2, T vertex3) {
-		vertices = JeometryFactory.createPoint3DContainer(3);
-		vertices.add(vertex1);
-		vertices.add(vertex2);
-		vertices.add(vertex3);
+		this.vertices = JeometryFactory.createPoint3DContainer(3);
+		this.vertices.add(vertex1);
+		this.vertices.add(vertex2);
+		this.vertices.add(vertex3);
 	}
 	
 	@Override
@@ -64,16 +64,16 @@ public class SimpleTriangle<T extends Point3D> extends SimplePolygon3D<T> implem
 
 	@Override
 	public void inverseVerticesOrder() {
-		if (vertices != null) {
-			T i   = vertices.get(0);
-			vertices.set(0, vertices.get(2));
-			vertices.set(2, i);
+		if (this.vertices != null) {
+			T i   = this.vertices.get(0);
+			this.vertices.set(0, this.vertices.get(2));
+			this.vertices.set(2, i);
 		}
 	}
 	
 	@Override
 	public Mesh<T> getMesh() {
-		return mesh;
+		return this.mesh;
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class SimpleTriangle<T extends Point3D> extends SimplePolygon3D<T> implem
 
 	@Override
 	public Point3DContainer<T> getVertices() {
-		return vertices;
+		return this.vertices;
 	}
 
 	@Override
@@ -95,8 +95,8 @@ public class SimpleTriangle<T extends Point3D> extends SimplePolygon3D<T> implem
 	@Override
 	public T getVertex1() {
 		
-		if (vertices != null) {
-			return vertices.get(0);
+		if (this.vertices != null) {
+			return this.vertices.get(0);
 		} else {
 			return null;
 		}
@@ -104,8 +104,8 @@ public class SimpleTriangle<T extends Point3D> extends SimplePolygon3D<T> implem
 
 	@Override
 	public T getVertex2() {
-		if (vertices != null) {
-			return vertices.get(1);
+		if (this.vertices != null) {
+			return this.vertices.get(1);
 		} else {
 			return null;
 		}
@@ -113,8 +113,8 @@ public class SimpleTriangle<T extends Point3D> extends SimplePolygon3D<T> implem
 
 	@Override
 	public T getVertex3() {
-		if (vertices != null) {
-			return vertices.get(2);
+		if (this.vertices != null) {
+			return this.vertices.get(2);
 		} else {
 			return null;
 		}
