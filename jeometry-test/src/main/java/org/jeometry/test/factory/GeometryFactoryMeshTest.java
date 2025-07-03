@@ -79,14 +79,6 @@ public class GeometryFactoryMeshTest {
 	 * The indexed edge class to use.
 	 */
     protected static Class<?> indexedEdgeClass         = null;
-    
-	/**
-	 * Test initialization.
-	 */
-	@BeforeAll
-	public static void init() {
-		fail("method public static void init() has to be set up with @BeforeClass annotation");
-	}	
 	
 	/**
 	 * Testing {@link JeometryFactory#createIndexedMesh()}

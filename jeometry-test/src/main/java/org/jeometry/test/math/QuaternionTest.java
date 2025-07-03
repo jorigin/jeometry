@@ -187,14 +187,6 @@ public class QuaternionTest extends VectorTest {
 	Quaternion quaternionRefConjugateResult = null;
 	
 	/**
-	 * Initialize the test static context.
-	 */
-	@BeforeAll
-	public static void initClass() {
-		fail("Test class is not initialized. method init() has to be implemented");
-	}
-	
-	/**
 	 * Initialize testing.
 	 */
 	@BeforeEach

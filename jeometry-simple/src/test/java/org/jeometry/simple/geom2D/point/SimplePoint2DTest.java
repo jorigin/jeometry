@@ -2,6 +2,8 @@ package org.jeometry.simple.geom2D.point;
 
 import org.jeometry.factory.JeometryFactory;
 import org.jeometry.simple.factory.SimpleMathBuilder;
+import org.jeometry.simple.factory.SimplePointBuilder;
+import org.jeometry.test.geom2D.point.Point2DTest;
 import org.junit.jupiter.api.BeforeAll;
 
 /**
@@ -10,13 +12,14 @@ import org.junit.jupiter.api.BeforeAll;
  * @since 1.0.0
  *
  */
-public class SimplePoint2DTest{
+public class SimplePoint2DTest extends Point2DTest{
 
 	  /**
 	   * Initialize the tests.
 	   */
 	  @BeforeAll
 	  public static void initClass() {
-	    JeometryFactory.setMathBuilder(new SimpleMathBuilder());
+		  JeometryFactory.setMathBuilder(new SimpleMathBuilder());
+	      JeometryFactory.setPointBuilder(new SimplePointBuilder());
 	  }
 }

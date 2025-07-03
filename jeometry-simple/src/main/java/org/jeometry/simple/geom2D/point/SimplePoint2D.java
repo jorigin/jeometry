@@ -166,23 +166,13 @@ public class SimplePoint2D implements Point2D{
 	}
 
 	@Override
-	public double getXMin() {
-		return getX();
+	public Point2D getMinCoordinates() {
+		return this;
 	}
 
 	@Override
-	public double getYMin() {
-		return getY();
-	}
-
-	@Override
-	public double getXMax() {
-		return getX();
-	}
-
-	@Override
-	public double getYMax() {
-		return getY();
+	public Point2D getMaxCoordinates() {
+		return this;
 	}
 
 	@Override
@@ -562,5 +552,4 @@ public class SimplePoint2D implements Point2D{
 
 		return Double.NaN;
 	}
-
 }

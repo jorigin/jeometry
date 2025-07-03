@@ -1,251 +1,239 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.jorigin</groupId>
-  <artifactId>jeometry</artifactId>
-  <version>1.0.6-SNAPSHOT</version>
-  <packaging>pom</packaging>
+	<groupId>org.jorigin</groupId>
+	<artifactId>jeometry</artifactId>
+	<version>2.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	
+	<name>Jeometry</name>
+	<description>Jeometry, a Mathematic and Geometry library for Java</description>
+	<url>https://github.com/jseinturier/jeometry/</url>
+	
+	<licenses>
+		<license>
+			<name>The GNU Lesser General Public License, Version 3.0</name>
+			<url>http://www.gnu.org/licenses/lgpl-3.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+  
+	<developers>
+		<developer>
+			<id>jseinturier</id>
+			<name>Julien Seinturier</name>
+			<email>julien.seinturier@univ-tln.fr</email>
+			<url>http://www.seinturier.fr</url>
+			<organization>University of Toulon / LIS umr CNRS 7020</organization>
+			<organizationUrl>http://www.univ-tln.fr</organizationUrl>
+			<roles>
+				<role>architect</role>
+				<role>developer</role>
+			</roles>
+			<timezone>France/Paris</timezone>
+			<properties>
+				<!-- <picUrl>http://www.example.com/jdoe/pic</picUrl> -->
+			</properties>
+		</developer>
+	</developers>
+	
+	<properties>
+	
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.release>17</maven.compiler.release>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 
-  <name>Jeometry</name>
-  <description>Jeometry, a Mathematic and Geometry library for Java</description>
-  <url>https://github.com/jseinturier/jeometry/</url>
-
-  <licenses>
-    <license>
-      <name>The GNU Lesser General Public License, Version 3.0</name>
-      <url>http://www.gnu.org/licenses/lgpl-3.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-  
-  <developers>
-    <developer>
-      <id>jseinturier</id>
-      <name>Julien Seinturier</name>
-      <email>seinturier@gmail.com</email>
-      <url>http://www.seinturier.fr</url>
-      <organization>COMEX SA</organization>
-      <organizationUrl>http://www.comex.fr</organizationUrl>
-      <roles>
-        <role>architect</role>
-        <role>developer</role>
-      </roles>
-      <timezone>France/Paris</timezone>
-      <properties>
-        <!-- <picUrl>http://www.example.com/jdoe/pic</picUrl> -->
-      </properties>
-    </developer>
-  </developers>
-  
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.release>11</maven.compiler.release>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
-    
-    <maven.plugin.compiler.version>3.8.1</maven.plugin.compiler.version>
-    <maven.plugin.deploy.version>3.0.0-M1</maven.plugin.deploy.version>
-    <maven.plugin.javadoc.version>3.2.0</maven.plugin.javadoc.version>
-    <maven.plugin.release.version>3.0.0-M4</maven.plugin.release.version>
-    <maven.plugin.nexus.version>1.6.8</maven.plugin.nexus.version>
-    <maven.plugin.source.version>3.2.0</maven.plugin.source.version>
-    <maven.plugin.scm-provider-gitexe.version>1.11.2</maven.plugin.scm-provider-gitexe.version>
-    <maven.plugin.surefire.version>3.0.0-M4</maven.plugin.surefire.version>
-    
-    <jcommon.version>1.0.14</jcommon.version>
-    
-    <junit.version>5.7.1</junit.version>
-    
-  </properties>
-  
-  <modules>
-    <module>jeometry-algorithm</module>
-    <module>jeometry-api</module>
-    <module>jeometry-sample</module>
-    <module>jeometry-simple</module>
-    <module>jeometry-test</module>
-  </modules>
-  
-  <distributionManagement>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-
-    <repository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-    </repository>
-  </distributionManagement>
-  
-  <scm>
-    <connection>scm:git:git://github.com/jorigin/jeometry.git</connection>
-    <developerConnection>scm:git:git@github.com:jorigin/jeometry.git</developerConnection>
-    <url>https://github.com/jorigin/jeometry</url>
-    <tag>HEAD</tag>
-  </scm>
-  
-  <profiles>
-
-    <!-- GPG Signature on release -->
-    <profile>
-      <id>release-sign-artifacts</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-        <!--<property>
-          <name>performRelease</name>
-          <value>true</value>
-        </property>-->
-      </activation>
-    
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <version>1.6</version>
-            <executions>
-              <execution>
-                <id>sign-artifacts</id>
-                <phase>verify</phase>
-                <goals>
-                  <goal>sign</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
-  
-  <repositories>
-    <repository>
-      <id>jorigin-geometry-local</id>
-      <url>file://${basedir}/lib</url>
-    </repository>
-  </repositories>
-  
-  <dependencies>
-  
-    <!--  Common package for basic operations -->
-    <dependency>
-      <groupId>org.jorigin</groupId>
-      <artifactId>jcommon</artifactId>
-      <version>${jcommon.version}</version>
-    </dependency>
-  
-  </dependencies>
-  
-  <build>
-    <plugins>
-    
-    
-      <!--  Compile sources -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>${maven.plugin.compiler.version}</version>
-        <configuration>
-          <release>${maven.compiler.release}</release>
-          <source>${maven.compiler.source}</source>
-          <target>${maven.compiler.target}</target>
-        </configuration>
-      </plugin>
-    
-      <!-- Generate sources jar during package phase 
-           equivalent to maven sources:jar -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-		<version>${maven.plugin.source.version}</version>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
-      <!-- Generate apidoc jar during package phase 
-           equivalent to maven javadoc:jar -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-		<version>${maven.plugin.javadoc.version}</version>
+		<maven.plugin.compiler.version>3.14.0</maven.plugin.compiler.version>
+		<maven.plugin.deploy.version>3.1.4</maven.plugin.deploy.version>
+		<maven.plugin.javadoc.version>3.11.2</maven.plugin.javadoc.version>
+		<maven.plugin.release.version>3.1.1</maven.plugin.release.version>
+		<maven.plugin.publishing.version>0.8.0</maven.plugin.publishing.version>
+		<maven.plugin.source.version>3.3.1</maven.plugin.source.version>
+		<maven.plugin.gpg.version>3.2.8</maven.plugin.gpg.version>
+		<maven.plugin.scm-provider-gitexe.version>2.1.0</maven.plugin.scm-provider-gitexe.version>
+		<maven.plugin.surefire.version>3.5.3</maven.plugin.surefire.version>
 		
-		<!-- Embedding Latex formulas within javadoc using MathJax-->
-		<configuration>
+		<junit.platform.version>1.9.2</junit.platform.version>
+		<junit.jupiter.version>5.13.1</junit.jupiter.version>
+		
+		<jcommon.version>2.0.0</jcommon.version>
 
-          <additionalJOptions>
-            <additionalJOption>--allow-script-in-comments</additionalJOption>
-          </additionalJOptions>
-          <header>'&lt;script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"&gt;&lt;/script&gt;'</header>
-        </configuration>  
+	</properties>
+	
+	<modules>
+		<module>jeometry-algorithm</module>
+		<module>jeometry-api</module>
+		<module>jeometry-sample</module>
+		<module>jeometry-simple</module>
+		<module>jeometry-test</module>
+	</modules>
+  
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://ossrh-staging-api.central.sonatype.com/service/local/</url>
+		</snapshotRepository>
+
+		<repository>
+			<id>ossrh-staging-api</id>
+			<url>https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+	
+	<scm>
+		<connection>scm:git:git://github.com/jorigin/jeometry.git</connection>
+		<developerConnection>scm:git:git@github.com:jorigin/jeometry.git</developerConnection>
+		<url>https://github.com/jorigin/jeometry</url>
+		<tag>HEAD</tag>
+	</scm>
+  
+	<profiles>
+
+		<!-- GPG Signature on release -->
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+			    <activeByDefault>true</activeByDefault>
+			</activation>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>${maven.plugin.gpg.version}</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+	
+	<dependencies>
+	
+		<!--  Common package for basic operations -->
+		<dependency>
+			<groupId>org.jorigin</groupId>
+			<artifactId>jcommon-core</artifactId>
+			<version>${jcommon.version}</version>
+		</dependency>
+	</dependencies>
+  
+	<build>
+		<plugins>
+		
+			<!--  Compile sources -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven.plugin.compiler.version}</version>
+				<configuration>
+					<release>${maven.compiler.release}</release>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+				</configuration>
+			</plugin>
+    
+			<!-- Generate sources jar during package phase 
+				equivalent to maven sources:jar -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>${maven.plugin.source.version}</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Generate apidoc jar during package phase 
+				equivalent to maven javadoc:jar -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${maven.plugin.javadoc.version}</version>
+		
+				<!-- Embedding Latex formulas within javadoc using MathJax-->
+				<configuration>
+
+					<additionalJOptions>
+						<additionalJOption>--allow-script-in-comments</additionalJOption>
+					</additionalJOptions>
+					<header>'&lt;script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"&gt;&lt;/script&gt;'</header>
+				</configuration>  
         
-        <executions>
-          <execution>
-            <id>attach-javadocs</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
       
-      <!--  Distribution management -->
-      <plugin>
-        <artifactId>maven-deploy-plugin</artifactId>
-        <version>${maven.plugin.deploy.version}</version>
-        <executions>
-          <execution>
-            <id>default-deploy</id>
-            <phase>deploy</phase>
-            <goals>
-              <goal>deploy</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+			<!--  Distribution management -->
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>${maven.plugin.deploy.version}</version>
+				<executions>
+					<execution>
+						<id>default-deploy</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
       
-      <!-- Release management -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-release-plugin</artifactId>
-        <version>${maven.plugin.release.version}</version>
-        <configuration>
-          <localCheckout>true</localCheckout>
-          <pushChanges>false</pushChanges>
-          <mavenExecutorId>forked-path</mavenExecutorId>
-          <arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
-        </configuration>
+			<!-- Release management -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>${maven.plugin.release.version}</version>
+				<configuration>
+					<localCheckout>true</localCheckout>
+					<pushChanges>false</pushChanges>
+					<mavenExecutorId>forked-path</mavenExecutorId>
+					<arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
+				</configuration>
         
-        <dependencies>
-          <dependency>
-            <groupId>org.apache.maven.scm</groupId>
-            <artifactId>maven-scm-provider-gitexe</artifactId>
-            <version>${maven.plugin.scm-provider-gitexe.version}</version>
-          </dependency>
-        </dependencies>
-      </plugin>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.maven.scm</groupId>
+						<artifactId>maven-scm-provider-gitexe</artifactId>
+						<version>${maven.plugin.scm-provider-gitexe.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
       
-      <!-- Sonatype nexus plugin -->
-      <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
-        <version>${maven.plugin.nexus.version}</version>
-        <extensions>true</extensions>
-        
-        <configuration>
-          <serverId>ossrh</serverId>
-          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-          <autoReleaseAfterClose>true</autoReleaseAfterClose>
-        </configuration>
-      </plugin>
-      
-    </plugins>
-  </build>
+			<!-- Maven Central plugin -->
+			<plugin>
+				<groupId>org.sonatype.central</groupId>
+				<artifactId>central-publishing-maven-plugin</artifactId>
+				<version>${maven.plugin.publishing.version}</version>
+				<extensions>true</extensions>
+				<configuration>
+					<publishingServerId>central</publishingServerId>
+					<autoPublish>true</autoPublish>
+				</configuration>
+			</plugin>    
+		</plugins>
+	</build>
+
 </project>

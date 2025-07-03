@@ -46,14 +46,6 @@ public class SVDDecompositionTest {
 	protected static Class<?> decompositionClass = null;
 	
 	/**
-	 * Initialize the test static context.
-	 */
-	@BeforeAll
-	public static void initClass() {
-		fail("method public static void init() has to be set up with @BeforeClass annotation");
-	}
-	
-	/**
 	 * A test dedicated to the {@link SVDDecomposition}.
 	 */
 	@Test

@@ -2,6 +2,7 @@
 
 ## TODO
 ### Add
+- Add Ellipse representation within 2D space
 - Wrapper to Vector / Matrix in order to use a vector as a matrix and a matrix as a vector without copying data
 - Views on a Vector / Matrix to focus on a specific part of the object without copying the underlying data
 - Decomposition `compose()` method to recompute input matrix from a decomposition
@@ -12,6 +13,7 @@
 - Vector `Vector minusFactor(double, Vector, Vector)`
 - Matrix matrix norms (see (Here)[https://en.wikipedia.org/wiki/Matrix_norm])
 - Test implements Point2DTest
+- Test Ellipse2D
 
 ### Change
 - Refactor Matrix `setTo` to `setValues`
@@ -23,9 +25,16 @@
 ## [1.0.6](https://github.com/jorigin/jeometry/releases/tag/release-1.0.6)
 ### Added
 - JeometryFactory `public static boolean loadImplementation(String)` method
+- SpatialLocalization2D `public Point2D getMinCoordinates()`
+- SpatialLocalization2D `public Point2D getMaxCoordinates()`
+- Ellipse2D within `geom2D.primitive` package
 ### Change
-- JeometryFactory initialization try to instanciate specific implementation and switch to default on (simple) if not found 
+- JeometryFactory initialization try to instanciate specific implementation and switch to default on (simple) if not found
 ### Removed
+- SpatialLocalization2D `public double getXMin()`, use `public Point2D getMinCoordinates()` instead
+- SpatialLocalization2D `public double getYMin()`, use `public Point2D getMinCoordinates()` instead
+- SpatialLocalization2D `public double getXMax()`, use `public Point2D getMaxCoordinates()` instead
+- SpatialLocalization2D `public double getYMax()`, use `public Point2D getMaxCoordinates()` instead
 
 ## [1.0.5](https://github.com/jorigin/jeometry/releases/tag/release-1.0.5)
 ### Added

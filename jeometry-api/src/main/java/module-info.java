@@ -8,6 +8,7 @@ module org.jeometry.api {
 	exports org.jeometry.factory;
 	exports org.jeometry.geom2D;
 	exports org.jeometry.geom2D.point;
+	exports org.jeometry.geom2D.primitive;
 	exports org.jeometry.geom3D;
 	exports org.jeometry.geom3D.mesh;
 	exports org.jeometry.geom3D.mesh.indexed;
@@ -27,5 +28,5 @@ module org.jeometry.api {
 	requires transitive java.desktop;
 	requires transitive java.logging;
 	
-	requires org.jcommon;
+	requires org.jcommon.core;
 }

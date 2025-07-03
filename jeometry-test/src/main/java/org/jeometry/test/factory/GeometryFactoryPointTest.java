@@ -36,14 +36,6 @@ import org.junit.jupiter.api.Test;
  *
  */
 public class GeometryFactoryPointTest {
-	
-	/**
-	 * Test initialization.
-	 */
-	@BeforeAll
-	public static void init() {
-		fail("Test class is not initialized. method init() has to be implemented");
-	}
 
 	/**
 	 * Testing {@link JeometryFactory#createPoint3D()}

@@ -22,14 +22,6 @@ import org.junit.jupiter.api.Test;
  *
  */
 public class Point3DTest extends VectorTest {
-
-  /**
-   * Initialize the tests.
-   */
-  @BeforeAll
-  public static void initClass() {
-	  fail("method public static void init() has to be set up with @BeforeClass annotation");
-  }
   
   /**
    * Test Simple Point 3D operations.

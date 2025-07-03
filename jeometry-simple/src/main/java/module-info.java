@@ -7,6 +7,7 @@ module org.jeometry.simple {
 	
 	exports org.jeometry.simple.factory;
 	exports org.jeometry.simple.geom2D.point;
+	exports org.jeometry.simple.geom2D.primitive;
 	exports org.jeometry.simple.geom3D.mesh;
 	exports org.jeometry.simple.geom3D.mesh.indexed;
 	exports org.jeometry.simple.geom3D.neighbor;
@@ -25,4 +26,5 @@ module org.jeometry.simple {
 	requires transitive java.logging;
 	
 	requires transitive org.jeometry.api;
+	//requires org.jeometry.test;
 }

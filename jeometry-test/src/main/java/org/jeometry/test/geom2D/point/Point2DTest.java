@@ -21,14 +21,6 @@ import org.junit.jupiter.api.Test;
  * @since 1.0.2
  */
 public class Point2DTest extends VectorTest {
-
-	  /**
-	   * Initialize the tests.
-	   */
-	  @BeforeAll
-	  public static void initClass() {
-		  fail("method public static void init() has to be set up with @BeforeClass annotation");
-	  }
 	  
 	  /**
 	   * Testing {@link Point2D#setValues(double, double)}
@@ -48,7 +40,7 @@ public class Point2DTest extends VectorTest {
 		  p.setValues(values[1], values[0]);
 			 
 		  assertEquals(values[1], p.getX(), Double.MIN_VALUE, "Invalid X coordinate");
-		  assertEquals(values[2], p.getY(), Double.MIN_VALUE, "Invalid Y coordinate");
+		  assertEquals(values[0], p.getY(), Double.MIN_VALUE, "Invalid Y coordinate");
 	  }
 	  
 	  /**
@@ -68,7 +60,7 @@ public class Point2DTest extends VectorTest {
 		  p.setValues(JeometryFactory.createPoint2D(values[1], values[0]));
 			 
 		  assertEquals(values[1], p.getX(), Double.MIN_VALUE, "Invalid X coordinate");
-		  assertEquals(values[2], p.getY(), Double.MIN_VALUE, "Invalid Y coordinate");
+		  assertEquals(values[0], p.getY(), Double.MIN_VALUE, "Invalid Y coordinate");
 	  }
 	  
 }

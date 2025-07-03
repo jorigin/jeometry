@@ -3,6 +3,7 @@ package org.jeometry.geom2D.point;
 import java.util.ArrayList;
 
 import org.jeometry.Jeometry;
+import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom2D.SpatialLocalization2D;
 
 /**
@@ -26,29 +27,19 @@ public class ArrayListPoint2DContainer extends ArrayList<Point2D> implements Clo
   private double x    = Double.NaN;
   
   /**
-   * The x min coordinate of the container.
-   */
-  private double xMin = Double.NaN;
-  
-  /**
-   * The x max coordinate of the container.
-   */
-  private double xMax = Double.NaN;
-  
-  /**
    * The y coordinate of the container.
    */
   private double y    = Double.NaN;
   
   /**
-   * The y min coordinate of the container.
+   * The minimal coordinates of the points within the container.
    */
-  private double yMin = Double.NaN;
+  private Point2D minCoordinates = null;
   
   /**
-   * The y max coordinate of the container.
+   * The maximal coordinates of the points within the container.
    */
-  private double yMax = Double.NaN;
+  private Point2D maxCoordinates = null;
   
   @Override
   public double getX() {
@@ -61,23 +52,13 @@ public class ArrayListPoint2DContainer extends ArrayList<Point2D> implements Clo
   }
 
   @Override
-  public double getXMin() {
-    return this.xMin;
+  public Point2D getMinCoordinates() {
+	  return this.minCoordinates;
   }
-
+  
   @Override
-  public double getYMin() {
-    return this.yMin;
-  }
-
-  @Override
-  public double getXMax() {
-    return this.xMax;
-  }
-
-  @Override
-  public double getYMax() {
-    return this.yMax;
+  public Point2D getMaxCoordinates() {
+	  return this.maxCoordinates;
   }
 
   @Override
@@ -91,28 +72,27 @@ public class ArrayListPoint2DContainer extends ArrayList<Point2D> implements Clo
     this.x = 0.0d;
     this.y = 0.0d;
     
-    this.xMin = Double.MAX_VALUE;
-    this.yMin = Double.MAX_VALUE;
+    this.minCoordinates = JeometryFactory.createPoint2D(Double.MAX_VALUE, Double.MAX_VALUE);
     
-    this.xMax = -Double.MAX_VALUE;
-    this.yMax = -Double.MAX_VALUE;
+    this.maxCoordinates = JeometryFactory.createPoint2D(-Double.MAX_VALUE, -Double.MAX_VALUE);
+    
     
     for(Point2D point : this){
       
-      if (point.getX() > this.xMax){
-        this.xMax = point.getX();
+      if (point.getX() > this.maxCoordinates.getX()){
+        this.maxCoordinates.setX(point.getX());
       }
       
-      if (point.getX() < this.xMin){
-        this.xMin = point.getX();
+      if (point.getX() < this.minCoordinates.getX()){
+        this.minCoordinates.setX(point.getX());
       }
       
-      if (point.getY() > this.yMax){
-        this.yMax = point.getY();
+      if (point.getY() > this.maxCoordinates.getY()){
+        this.maxCoordinates.setY(point.getY());
       }
       
-      if (point.getY() < this.yMin){
-        this.yMin = point.getY();
+      if (point.getY() < this.minCoordinates.getY()){
+        this.minCoordinates.setY(point.getY());
       }
       
       

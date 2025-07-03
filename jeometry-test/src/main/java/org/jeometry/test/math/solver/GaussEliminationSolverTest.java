@@ -38,14 +38,6 @@ public class GaussEliminationSolverTest {
 	protected static Solver solver = null;
 	
 	/**
-	 * Initialize the test static context.
-	 */
-	@BeforeAll
-	public static void initClass() {
-		fail("method public static void init() has to be set up with @BeforeClass annotation");
-	}
-	
-	/**
 	 * Test the underlying solver
 	 */
 	@Test

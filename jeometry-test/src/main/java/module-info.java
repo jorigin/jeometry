@@ -7,6 +7,7 @@ module org.jeometry.test {
 
 	exports org.jeometry.test.factory;
 	exports org.jeometry.test.geom2D.point;
+	exports org.jeometry.test.geom2D.primitive;
 	exports org.jeometry.test.geom3D;
 	exports org.jeometry.test.geom3D.point;
 	exports org.jeometry.test.geom3D.transform;
@@ -19,7 +20,7 @@ module org.jeometry.test {
 	requires transitive java.desktop;
 	requires transitive java.logging;
 	
-	requires org.jcommon;
+	requires org.jcommon.core;
 	
 	requires transitive org.junit.jupiter.api;
 }

@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import org.jeometry.Jeometry;
 import org.jeometry.geom2D.point.Point2D;
 import org.jeometry.geom2D.point.Point2DContainer;
+import org.jeometry.geom2D.primitive.Ellipse2D;
 import org.jeometry.geom3D.mesh.Edge;
 import org.jeometry.geom3D.mesh.Face;
 import org.jeometry.geom3D.mesh.Mesh;
@@ -88,6 +89,11 @@ public class JeometryFactory {
 	 * The attached point builder.
 	 */
 	private static PointBuilder pointBuilder = null;
+
+	/**
+	 * The attached primitive builder.
+	 */
+	private static PrimitiveBuilder primitiveBuilder = null;
 
 	/**
 	 * The attached transform builder.
@@ -233,6 +239,24 @@ public class JeometryFactory {
 	 */
 	public static void setPointBuilder(PointBuilder builder) {
 		pointBuilder = builder;
+	}
+
+	/**
+	 * Get the {@link PrimitiveBuilder primitive builder} that is used by this factory.
+	 * @return the {@link PrimitiveBuilder primitive builder} that is used by this factory
+	 * @see #setPrimitiveBuilder(PrimitiveBuilder)
+	 */
+	public static PrimitiveBuilder getPrimitiveBuilder(){
+		return primitiveBuilder;
+	}
+
+	/**
+	 * Set the {@link PrimitiveBuilder primitive builder} that this factory has to use.
+	 * @param builder the {@link PrimitiveBuilder primitive builder} that this factory has to use
+	 * @see #getPrimitiveBuilder()
+	 */
+	public static void setPrimitiveBuilder(PrimitiveBuilder builder) {
+		primitiveBuilder = builder;
 	}
 
 	/**
@@ -591,6 +615,38 @@ public class JeometryFactory {
 		}
 	}
 
+	/**
+	 * Create a new {@link Ellipse2D 2D ellipse} with the given parameters. 
+	 * @param center the center of the ellipse (the point where the axis are crossing)
+	 * @param semiMajorAxis the semi-major axis length
+	 * @param semiMinorAxis the semi-minor axis length
+	 * @param angle the angle of the ellipse, in radians (rad). 
+	 * @return a new {@link Ellipse2D 2D ellipse} created with the given parameters
+	 * @see #createEllipse2D(Point2D, double, double, double)
+	 */
+	public static Ellipse2D createEllipse2D(Point2D center, double semiMajorAxis, double semiMinorAxis, double angle) {
+		if (primitiveBuilder != null) {
+			return primitiveBuilder.createEllipse2D(center, semiMajorAxis, semiMinorAxis, angle);
+		} else {
+			throw new IllegalStateException("No primitive builder available.");
+		}
+	}
+
+	/**
+	 * Create a new {@link Ellipse2D 2D ellipse} with the given parameters. 
+	 * @param center the center of the ellipse (the point where the axis are crossing)
+	 * @param semiMajorAxis the semi-major axis length
+	 * @param semiMinorAxis the semi-minor axis length
+	 * @return a new {@link Ellipse2D 2D ellipse} created with the given parameters
+	 * @see #createEllipse2D(Point2D, double, double, double)
+	 */
+	public static Ellipse2D createEllipse2D(Point2D center, double semiMajorAxis, double semiMinorAxis) {
+		if (primitiveBuilder != null) {
+			return primitiveBuilder.createEllipse2D(center, semiMajorAxis, semiMinorAxis);
+		} else {
+			throw new IllegalStateException("No primitive builder available.");
+		}
+	}
 
 	/**
 	 * Create a new default empty mesh.

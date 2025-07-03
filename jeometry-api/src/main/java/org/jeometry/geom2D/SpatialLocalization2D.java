@@ -1,6 +1,7 @@
 package org.jeometry.geom2D;
 
 import org.jeometry.Jeometry;
+import org.jeometry.geom2D.point.Point2D;
 
 /**
  * A spatial localization within a 2D space. Such an item is represented by a set of coordinates and a set of bounds.
@@ -10,6 +11,20 @@ import org.jeometry.Jeometry;
  */
 public interface SpatialLocalization2D {
 
+  /**
+   * Get the minimal coordinates of the localization.
+   * @return  the minimal coordinates of the localization.
+   * @see #getMaxCoordinates()
+   */
+  public Point2D getMinCoordinates();
+  
+  /**
+   * Get the maximal coordinates of the localization.
+   * @return  the maximal coordinates of the localization.
+   * @see #getMinCoordinates()
+   */
+  public Point2D getMaxCoordinates();
+	
   /**
    * Get the X coordinate of this localization.
    * @return the X coordinate of this localization.
@@ -21,30 +36,6 @@ public interface SpatialLocalization2D {
    * @return the Y coordinate of this localization.
    */
   public double getY();
-
-  /**
-   * Get the minimal X coordinate of this spatial item.
-   * @return the minimal X coordinate of this spatial item.
-   */
-  public double getXMin();
-
-  /**
-   * Get the minimal Y coordinate of this spatial item.
-   * @return the minimal Y coordinate of this spatial item.
-   */
-  public double getYMin();
-
-  /**
-   * Get the maximal X coordinate of this spatial item.
-   * @return the maximal X coordinate of this spatial item.
-   */
-  public double getXMax();
-
-  /**
-   * Get the maximal Y coordinate of this spatial item.
-   * @return the maximal Y coordinate of this spatial item.
-   */
-  public double getYMax();
 
   /**
    * Compute the distance between this spatial localization and the given one.

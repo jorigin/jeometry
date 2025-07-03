@@ -5,6 +5,7 @@ import org.jeometry.factory.JeometryFactory;
 import org.jeometry.simple.factory.SimpleMathBuilder;
 import org.jeometry.simple.factory.SimpleMeshBuilder;
 import org.jeometry.simple.factory.SimplePointBuilder;
+import org.jeometry.simple.factory.SimplePrimitiveBuilder;
 import org.jeometry.simple.factory.SimpleTransformBuilder;
 
 /**
@@ -23,6 +24,7 @@ public class JeometryImplementation {
 		JeometryFactory.setMathBuilder(new SimpleMathBuilder());
 		JeometryFactory.setMeshBuilder(new SimpleMeshBuilder());
 		JeometryFactory.setPointBuilder(new SimplePointBuilder());
+		JeometryFactory.setPrimitiveBuilder(new SimplePrimitiveBuilder());
 		JeometryFactory.setTransformBuilder(new SimpleTransformBuilder());
 	}
 	

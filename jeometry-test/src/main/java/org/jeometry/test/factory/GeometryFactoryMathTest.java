@@ -56,15 +56,6 @@ public class GeometryFactoryMathTest {
 	protected static Class<? extends Quaternion> quaternionClass = null;
 	
 	/**
-	 * Test initialization.
-	 */
-	@BeforeAll
-	public static void init() {
-		fail("Test class is not initialized. method init() has to be implemented");
-	}
-	
-	
-	/**
 	 * Testing {@link JeometryFactory#createVector(int)}
 	 */
 	@Test

@@ -52,14 +52,6 @@ public class MatrixTest {
 	protected static Class<? extends Vector> vectorClass         = null;
 
 	/**
-	 * Initialize the test static context.
-	 */
-	@BeforeAll
-	public static void initClass() {
-		fail("Test class is not initialized. method init() has to be implemented");
-	}
-
-	/**
 	 * Initializing tests.
 	 */
 	@BeforeEach

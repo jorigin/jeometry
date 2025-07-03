@@ -60,14 +60,6 @@ public class MathBuilderTest {
     protected static Class<? extends Quaternion> quaternionClass = null;
 	
 	/**
-	 * Test initialization.
-	 */
-	@BeforeAll
-	public static void init() {
-		fail("method public static void init() has to be set up with @BeforeClass annotation");
-	}
-	
-	/**
 	 * Testing {@link MathBuilder#createVector(int)}
 	 */
 	@Test

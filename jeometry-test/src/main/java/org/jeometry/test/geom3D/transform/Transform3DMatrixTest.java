@@ -51,14 +51,6 @@ public class Transform3DMatrixTest {
 	protected static Class<?> transformation3DClass = null;
 
 	/**
-	 * Initialize the test static context.
-	 */
-	@BeforeAll
-	public static void initClass() {
-		fail("Test class is not initialized. method initClass() has to be implemented");
-	}
-
-	/**
 	 * Testing {@link Transform3DMatrix#getMatrix()}
 	 */
 	@Test
