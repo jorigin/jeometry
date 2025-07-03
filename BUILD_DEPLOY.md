@@ -4,22 +4,16 @@ In order to build an deploy a distribution of Jeometry, all the following steps 
 Edit the maven settings file (by default located at ~/.m2/settings.xml) and add following entries:
 ```xml
 <settings>
-  <servers>
-    <server>
-      <id>ossrh</id>
-      <username>${nexus.user}</username>
-      <password>${nexus.password}</password>
-    </server>
-  </servers>
-  
-  <profiles>
-    <profile>
-      <id>ossrh</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-    </profile>
-  </profiles>
+
+	<!-- Maven Central publishing -->
+	<!-- https://central.sonatype.org/publish/generate-portal-token/ -->
+	<servers>
+		<server>
+			<id>central</id>
+			<username>3zXcMbzk</username>
+			<password>dTHsAoIaMUDXDfNxqgK6eqSf8roI7xOMJiUEPGhufofr</password>
+		</server>
+	</servers>
 </settings>
 ```
 

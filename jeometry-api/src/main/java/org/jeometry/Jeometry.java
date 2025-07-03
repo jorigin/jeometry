@@ -26,12 +26,12 @@ public class Jeometry {
 	/**
 	 * The build version.
 	 */
-	public static final long BUILD     = 202104161200L;
+	public static final long BUILD     = 202507041400L;
 
 	/**
 	 * The version number
 	 */
-	public static final String version = "1.0.5";
+	public static final String version = "2.0.0";
 
 	/**
 	 * The {@link java.util.logging.Logger logger} used for reporting.

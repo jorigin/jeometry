@@ -22,6 +22,11 @@
 - Refactor make all setValue(s) methods to return a reference on the object for chaining purpose
 - Enable JeometryFactory to handle multiples implementation
 
+## [2.0.0](https://github.com/jorigin/jeometry/releases/tag/jeometry-2.0.0)
+### Change
+- Passing to JAVA 17
+- Using JCOMMON 2.0.0
+
 ## [1.0.6](https://github.com/jorigin/jeometry/releases/tag/release-1.0.6)
 ### Added
 - JeometryFactory `public static boolean loadImplementation(String)` method
