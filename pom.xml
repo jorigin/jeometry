@@ -4,7 +4,7 @@
 
 	<groupId>org.jorigin</groupId>
 	<artifactId>jeometry</artifactId>
-	<version>2.0.0</version>
+	<version>2.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	
 	<name>Jeometry</name>
@@ -86,7 +86,7 @@
 		<connection>scm:git:git://github.com/jorigin/jeometry.git</connection>
 		<developerConnection>scm:git:git@github.com:jorigin/jeometry.git</developerConnection>
 		<url>https://github.com/jorigin/jeometry</url>
-		<tag>jeometry-2.0.0</tag>
+		<tag>HEAD</tag>
 	</scm>
   
 	<profiles>
