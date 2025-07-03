@@ -10,8 +10,8 @@ Edit the maven settings file (by default located at ~/.m2/settings.xml) and add 
 	<servers>
 		<server>
 			<id>central</id>
-			<username>3zXcMbzk</username>
-			<password>dTHsAoIaMUDXDfNxqgK6eqSf8roI7xOMJiUEPGhufofr</password>
+			<username>YOUR ID</username>
+			<password>YOUR PASSPHRASE</password>
 		</server>
 	</servers>
 </settings>
@@ -42,12 +42,12 @@ git push -u origin master
 ### 3.2. Maven release preparation
 From the main directory, run:
 ```console
-mvn -Dgpg.passphrase="yourpassphrase" -Dnexus.user="your_sonatype_username" -Dnexus.password="your_sonatype_password" release:prepare
+mvn -Dgpg.passphrase="yourpassphrase" release:prepare
 ```
 ### 4. Release perform
 From the main directory, run:
 ```console
-mvn -Dgpg.passphrase="yourpassphrase" -Dnexus.user="your_sonatype_username" -Dnexus.password="your_sonatype_password" release:perform
+mvn -Dgpg.passphrase="yourpassphrase" release:perform
 ```
 ### 5. Git project update
 From the main directory, run:
