@@ -4,12 +4,19 @@ import org.jeometry.Jeometry;
 
 /**
  * An interface that represents a vector as a set of <code>double</code> coordinates. Each coordinate is expressed belong a dimension.
- * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
+ * @author Julien SEINTURIER - <a href="http://www.univ-tln.fr">Universit&eacute; de Toulon</a> / <a href="http://www.lis-lab.fr">CNRS LIS umr 7020</a> - <a href="https://github.com/jorigin/jeometry">github.com/jorigin/jeometry</a> (<a href="mailto:julien.seinturier@univ-tln.fr">julien.seinturier@univ-tln.fr</a>)
  * @version {@value Jeometry#version}
  * @since 1.0.0
  */
 public interface Vector {
 
+	/**
+	 * Check if this vector is equal to the given one. Two vectors are equal if they have the same dimension and if all their components are equal.
+	 * @param v the vector to compare with this one.
+	 * @return <code>true</code> if this vector is equal to the given one, <code>false</code> otherwise.
+	 */
+	public boolean isEqual(Vector v);
+	
 	/**
 	 * Get the dimension of this vector. The dimension is the number of components that this vector can holds.
 	 * @return the dimension of this vector. 
@@ -436,4 +443,15 @@ public interface Vector {
 	 * @throws IllegalArgumentException if the input vector dimension does not fit with this one
 	 */
 	public double dot(Vector v);
+	
+	/**
+	 * Compute the Euclidean distance between this vector and the given one. If the two vectors have different dimension, the method returns {@link Double#NaN Double.NaN}. 
+	 * More formally, let <i>u</i> and <i>v</i> two vectors, the Euclidean distance <i>d(u,\ v)</i> is given by:<br>
+	 * $$
+	 *  d(u,\ v)\ =\ \sqrt{\sum\limits_{i=1}^n (u_{i}\ -\ v_{i})^{2}}
+	 * $$
+	 * @param v the other vector
+	 * @return the Euclidean distance between this vector and the given one
+	 */
+	public double distanceEuclidean(Vector v);
 }

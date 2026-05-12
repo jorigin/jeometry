@@ -56,7 +56,7 @@ public class SimpleLineSet3D<T extends Point3D> implements LineSet3D<T>{
   }
   
   @Override
-  public List<Line3D<T>> getSegments(){
+  public List<Line3D<T>> getLines(){
     return this.segments;
   }
   

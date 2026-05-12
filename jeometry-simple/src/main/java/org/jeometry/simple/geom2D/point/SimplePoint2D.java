@@ -2,9 +2,11 @@ package org.jeometry.simple.geom2D.point;
 
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
+import org.jeometry.geom2D.Geometry2D;
 import org.jeometry.geom2D.SpatialLocalization2D;
 import org.jeometry.geom2D.point.Coord2D;
 import org.jeometry.geom2D.point.Point2D;
+import org.jeometry.geom2D.primitive.Box2D;
 import org.jeometry.geom3D.point.Coord3D;
 import org.jeometry.math.Matrix;
 import org.jeometry.math.Vector;
@@ -52,6 +54,24 @@ public class SimplePoint2D implements Point2D{
 		this.coordinates[DIMENSION_Y] = point.getY();
 	}
 
+	@Override
+	public boolean isEqual(Vector v) {
+		if (v != null) {
+			if (v.getDimension() != getDimension()) {
+				return false;
+			}
+
+			for(int dimension = 0; dimension < getDimension(); dimension++) {
+				if (getValue(dimension) != v.getValue(dimension)) {
+					return false;
+				}
+			}
+
+			return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public void setValues(double x, double y) {
 		setX(x);
@@ -552,4 +572,101 @@ public class SimplePoint2D implements Point2D{
 
 		return Double.NaN;
 	}
+
+	@Override
+	public double distance(Coord2D c) {
+		if (c != null) {
+			double dx = getX() - c.getX();
+			double dy = getY() - c.getY();
+
+			return Math.sqrt(dx*dx + dy*dy);
+		}
+		return 0;
+	}
+	
+	@Override
+	public boolean geomEquals(Geometry2D g) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean geomIntersects(Geometry2D g) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean geomTouches(Geometry2D g) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean geomContains(Geometry2D g) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean geomCovers(Geometry2D g) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean geomEmpty() {
+		return ((this.coordinates == null) || (Double.isNaN(this.coordinates[DIMENSION_X])) || (Double.isNaN(this.coordinates[DIMENSION_Y])));
+	}
+
+	@Override
+	public int geomDimension() {
+		return 0;
+	}
+
+	@Override
+	public Box2D geomBounds() {
+		return JeometryFactory.createBox2D(getX(), getY(), 0.0d, 0.0d);
+	}
+
+	@Override
+	public double distanceEuclidean(Vector v) {
+		if (v != null) {
+			if (v.getDimension() != getDimension()) {
+				throw new IllegalArgumentException("Invalid input vector dimension "+v.getDimension()+", expected "+getDimension());
+			}
+
+			double dx = getX() - v.getValue(DIMENSION_X);
+			double dy = getY() - v.getValue(DIMENSION_Y);
+
+			return Math.sqrt(dx*dx + dy*dy);
+		}
+		
+		return 0;
+	}
+	
+	@Override
+	public int compareTo(Coord2D o) {
+		if (this == o) return 0;
+		
+	    if (this.getX() < o.getX()) return -1;
+	    if (this.getX() > o.getX()) return 1;
+	    if (this.getY() < o.getY()) return -1;
+	    if (this.getY() > o.getY()) return 1;
+	    
+	    return 0;
+	}
+
+	@Override
+	public Object clone() {
+		SimplePoint2D s = new SimplePoint2D();
+		
+		s.coordinates[0] = this.coordinates[0];
+		s.coordinates[1] = this.coordinates[1];
+		
+		return s;
+	}
+
+
+	
 }

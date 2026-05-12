@@ -54,7 +54,7 @@ import org.jeometry.math.solver.Solver;
  * @since 1.0.0
  *
  */
-public class MinimalEnclosingParallelepipede {
+public final class MinimalEnclosingParallelepipede {
 
 	/**
 	 * The 0 limit. Under this value, a value is considered as equal to 0
@@ -141,7 +141,7 @@ public class MinimalEnclosingParallelepipede {
 	}
 
 	/**
-	 * Compute the antipodals points of the given {@link Polyhedron polyhedron}.
+	 * Compute the antipodals points of the given {@link Mesh polyhedron}.
 	 * @param polyhedron the polyhedron.
 	 * @param thicknesses the thicknesses of all the box involved.
 	 * @param normals the normal at the points
@@ -357,9 +357,8 @@ public class MinimalEnclosingParallelepipede {
 			}
 
 			candidats_des_facettes[i]=new int[nb_candidats_par_facette[i]];
-			for(int j=0; j<nb_candidats_par_facette[i]; j++){
-				candidats_des_facettes[i][j] = temp_candidats[j];
-			}
+            if (nb_candidats_par_facette[i] >= 0)
+                System.arraycopy(temp_candidats, 0, candidats_des_facettes[i], 0, nb_candidats_par_facette[i]);
 		}
 
 
@@ -851,4 +850,9 @@ public class MinimalEnclosingParallelepipede {
 
 		return false;
 	}
+
+	/**
+	 * Private default constructor.
+	 */
+	private MinimalEnclosingParallelepipede(){}
 }

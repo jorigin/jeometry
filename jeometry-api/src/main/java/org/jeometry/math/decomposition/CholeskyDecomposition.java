@@ -11,7 +11,7 @@ import org.jeometry.math.solver.Resolvable;
  * <div style="text-align: center;"><i>A</i>&nbsp;=&nbsp;<i>R</i><i>R</i><sup>t</sup></div>
  * <br>
  * where <i>R</i><sup>t</sup> is the transpose of <i>R</i>
- * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
+ * @author Julien SEINTURIER - <a href="http://www.univ-tln.fr">Universit&eacute; de Toulon</a> / <a href="http://www.lis-lab.fr">CNRS LIS umr 7020</a> - <a href="https://github.com/jorigin/jeometry">github.com/jorigin/jeometry</a> (<a href="mailto:julien.seinturier@univ-tln.fr">julien.seinturier@univ-tln.fr</a>)
  * @version {@value Jeometry#version} b{@value Jeometry#BUILD}
  * @since 1.0.2
  */

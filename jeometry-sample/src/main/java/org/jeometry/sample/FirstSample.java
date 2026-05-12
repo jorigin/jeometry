@@ -7,10 +7,14 @@ import org.jeometry.math.Quaternion;
 import org.jeometry.math.Vector;
 
 /**
- * A first sample program.
- *
+ * A first example program.
  */
-public class FirstSample {
+public final class FirstSample {
+
+	/**
+	 * Private default constructor
+	 */
+	private FirstSample() {}
 
 	/**
 	 * The main method.

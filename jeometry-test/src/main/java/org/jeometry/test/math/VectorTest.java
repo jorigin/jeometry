@@ -3,13 +3,11 @@ package org.jeometry.test.math;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
 import org.jeometry.math.Matrix;
 import org.jeometry.math.Vector;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -39,6 +37,11 @@ public class VectorTest {
 	 * The class that the vector objects have to respect.
 	 */
 	protected static Class<? extends Vector> vectorClass = null;
+
+	/**
+	 * Create a new {@link Vector} test.
+	 */
+	public VectorTest(){}
 
 	/**
 	 * Test method {@link Vector#getDimension()}

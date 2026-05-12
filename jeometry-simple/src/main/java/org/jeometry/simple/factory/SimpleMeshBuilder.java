@@ -37,6 +37,11 @@ import org.jeometry.simple.geom3D.primitive.indexed.SimpleIndexedTriangle;
  */
 public class SimpleMeshBuilder implements MeshBuilder {
 
+	/**
+	 * Create a new simple {@link MeshBuilder mesh builder}.
+	 */
+	public SimpleMeshBuilder(){}
+
 	@Override
 	public <T extends Point3D> Mesh<T> createMesh() {
 		return new SimpleMesh<T>();

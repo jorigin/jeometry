@@ -88,34 +88,14 @@ public class SimplePoint3D implements Point3D{
 	}
 
 	@Override
-	public double getXMin() {
-		return getX();
-	}
-
+    public Point3D getMinCoordinates() {
+    	return JeometryFactory.createPoint3D(this);
+    }
+    
 	@Override
-	public double getYMin() {
-		return getY();
-	}
-
-	@Override
-	public double getZMin() {
-		return getZ();
-	}
-
-	@Override
-	public double getXMax() {
-		return getX();
-	}
-
-	@Override
-	public double getYMax() {
-		return getY();
-	}
-
-	@Override
-	public double getZMax() {
-		return getZ();
-	}
+    public Point3D getMaxCoordinates() {
+		return JeometryFactory.createPoint3D(this);
+    }
 
 	@Override
 	public double distance(SpatialLocalization3D spatial) {
@@ -821,5 +801,45 @@ public class SimplePoint3D implements Point3D{
 		}
 		
 		return Double.NaN;
+	}
+
+	@Override
+	public boolean isEqual(Vector v) {
+		if (v != null) {
+			if (v.getDimension() != getDimension()) {
+				return false;
+			}
+			
+			for(int dimension = 0; dimension < getDimension(); dimension++) {
+				if (getValue(dimension) != v.getValue(dimension)) {
+					return false;
+				}
+			}
+			
+			return true;
+		}
+		
+		return false;
+		
+	}
+
+	@Override
+	public double distanceEuclidean(Vector v) {
+		if (v != null) {
+			if (v.getDimension() != getDimension()) {
+				return Double.NaN;
+			}
+			
+			double sum = 0.0d;
+			
+			for(int dimension = 0; dimension < getDimension(); dimension++) {
+				double diff = getValue(dimension) - v.getValue(dimension);
+				sum = sum + diff * diff;
+			}
+			
+			return Math.sqrt(sum);
+		}
+		
+		return 0;		
 	}
 }

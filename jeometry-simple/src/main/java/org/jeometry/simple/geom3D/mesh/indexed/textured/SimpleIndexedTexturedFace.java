@@ -12,9 +12,8 @@ import org.jeometry.geom3D.textured.Texturable;
 
 /**
  * A default textured and indexed face. This class extends {@link SimpleIndexedFace FaceIndexed} 
- * for handling indexed geometry 
- * and implements {@link Texturable Texturable} for texturing capability. Instances of this class 
- * can compose a {@link SimpleIndexedTexturedMesh textured indexed mesh}. 
+ * for handling indexed geometry and implements {@link Texturable Texturable} for texturing capability. 
+ * Instances of this class can compose a {@link SimpleIndexedTexturedMesh textured indexed mesh}. 
  * @param <T> The type of underlying 3D points
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
  * @version {@value Jeometry#version}
@@ -24,7 +23,7 @@ import org.jeometry.geom3D.textured.Texturable;
 public class SimpleIndexedTexturedFace<T extends Point3D> extends SimpleIndexedFace<T> implements Texturable{
 
     /**
-     * The srial version UID.
+     * The serial version UID.
      */
 	private static final long serialVersionUID = Jeometry.BUILD;
 

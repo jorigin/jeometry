@@ -12,7 +12,6 @@ import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
 import org.jeometry.math.Matrix;
 import org.jeometry.math.Vector;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -50,6 +49,11 @@ public class MatrixTest {
 	 * The class that the vector objects have to respect.
 	 */
 	protected static Class<? extends Vector> vectorClass         = null;
+
+	/**
+	 * Create a new {@link Matrix} test.
+	 */
+	public MatrixTest(){}
 
 	/**
 	 * Initializing tests.

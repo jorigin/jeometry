@@ -17,6 +17,11 @@ import org.jeometry.simple.geom3D.transform.SimpleTransform3DQuaternion;
  */
 public class SimpleTransformBuilder implements TransformBuilder{
 
+	/**
+	 * Create a new simple {@link TransformBuilder transform builder}.
+	 */
+	public SimpleTransformBuilder(){}
+
 	@Override
 	public Transform3DMatrix createTransform3DMatrix() {
 		return new SimpleTransform3DMatrix();

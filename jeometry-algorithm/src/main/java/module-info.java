@@ -4,7 +4,8 @@
  * @since 1.0.5
  */
 module org.jeometry.algorithm {
-	
+
+	exports org.jeometry.geom2D.algorithm.relation.de9im;
 	exports org.jeometry.geom3D.algorithm;
 	exports org.jeometry.geom3D.algorithm.bounds;
     exports org.jeometry.geom3D.algorithm.convexhull.quickhull;

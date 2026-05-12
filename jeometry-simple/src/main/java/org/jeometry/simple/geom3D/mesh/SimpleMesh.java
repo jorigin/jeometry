@@ -154,35 +154,15 @@ public class SimpleMesh<T extends Point3D> implements Mesh<T> {
 	}
 
 	@Override
-	public double getXMin() {
-		return getVertices().getXMin();
+    public Point3D getMinCoordinates() {
+		return this.getVertices().getMinCoordinates();
 	}
-
+    
 	@Override
-	public double getYMin() {
-		return getVertices().getYMin();
+    public Point3D getMaxCoordinates() {
+		return this.getVertices().getMaxCoordinates();
 	}
-
-	@Override
-	public double getZMin() {
-		return getVertices().getZMin();
-	}
-
-	@Override
-	public double getXMax() {
-		return getVertices().getXMax();
-	}
-
-	@Override
-	public double getYMax() {
-		return getVertices().getYMax();
-	}
-
-	@Override
-	public double getZMax() {
-		return getVertices().getZMax();
-	}
-
+	
 	@Override
 	public double distance(SpatialLocalization3D item) {
 		System.err.println("["+getClass().getSimpleName()+"][distanceTo(SpatialItem)] not yet implemented");

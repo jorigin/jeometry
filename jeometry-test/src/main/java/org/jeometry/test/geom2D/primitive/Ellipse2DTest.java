@@ -2,13 +2,11 @@ package org.jeometry.test.geom2D.primitive;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom2D.point.Point2D;
 import org.jeometry.geom2D.primitive.Ellipse2D;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -16,11 +14,18 @@ import org.junit.jupiter.api.Test;
  * <br>
  * <b>Usage:</b>
  * <p>
+ * Create a test class that extends this one
+ * </p>
  * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
  * @version {@value Jeometry#version}
  * @since 1.0.6
  */
 public class Ellipse2DTest {
+
+	/**
+	 * Create an {@link Ellipse2D} test.
+	 */
+	public Ellipse2DTest(){}
 
 	/**
 	 * Test the access to the property of the {@link Ellipse2D} implementation.

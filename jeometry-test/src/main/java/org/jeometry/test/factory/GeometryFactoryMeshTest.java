@@ -16,7 +16,6 @@ import org.jeometry.geom3D.mesh.indexed.IndexedEdge;
 import org.jeometry.geom3D.mesh.indexed.IndexedFace;
 import org.jeometry.geom3D.mesh.indexed.IndexedMesh;
 import org.jeometry.geom3D.point.Point3D;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -79,7 +78,12 @@ public class GeometryFactoryMeshTest {
 	 * The indexed edge class to use.
 	 */
     protected static Class<?> indexedEdgeClass         = null;
-	
+
+	/**
+	 * Create a {@link JeometryFactory} test dedicated to mesh related methods.
+	 */
+	public GeometryFactoryMeshTest(){}
+
 	/**
 	 * Testing {@link JeometryFactory#createIndexedMesh()}
 	 */

@@ -13,7 +13,6 @@ import org.jeometry.geom3D.transform.Transform3D;
 import org.jeometry.geom3D.transform.Transform3DMatrix;
 import org.jeometry.math.Matrix;
 import org.jeometry.test.geom3D.Geom3DTestData;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -49,6 +48,11 @@ public class Transform3DMatrixTest {
 	 * The class of the transformation 3D
 	 */
 	protected static Class<?> transformation3DClass = null;
+
+	/**
+	 * Create a new {@link Transform3DMatrix} test.
+	 */
+	public Transform3DMatrixTest(){}
 
 	/**
 	 * Testing {@link Transform3DMatrix#getMatrix()}

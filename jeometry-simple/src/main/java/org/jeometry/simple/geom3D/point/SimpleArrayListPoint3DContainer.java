@@ -17,7 +17,7 @@ import org.jeometry.geom3D.point.Point3DContainer;
  * @version {@value Jeometry#version} build {@value Jeometry#BUILD}
  * @since 1.0.0
  */
-public class ArrayListPoint3DContainer<T extends Point3D> implements Cloneable, Point3DContainer<T> {
+public class SimpleArrayListPoint3DContainer<T extends Point3D> implements Cloneable, Point3DContainer<T> {
 
 	/**
 	 * The underlying list.
@@ -30,51 +30,20 @@ public class ArrayListPoint3DContainer<T extends Point3D> implements Cloneable, 
 	private int type    = Point3DContainer.DATA_COORDINATE | Point3DContainer.DATA_IDENTIFIER;
 
 	/**
-	 * The x coordinate of the mesh.
+	 * The localization of the mesh (the barycentre of its vertices)
 	 */
-	private double x    = Double.NaN;
-
+	private Point3D loc = null;
+	
 	/**
-	 * The y coordinate of the mesh.
+	 * The maximal coordinates of the mesh.
 	 */
-	private double y    = Double.NaN;
-
+	private Point3D max = null;
+	
 	/**
-	 * The z coordinate of the mesh.
+	 * The minimal coordinates of the mesh.
 	 */
-	private double z    = Double.NaN;
-
-	/**
-	 * The x min coordinate of the mesh.
-	 */
-	private double xmin = Double.NaN;
-
-	/**
-	 * The y min coordinate of the mesh.
-	 */
-	private double ymin = Double.NaN;
-
-	/**
-	 * The z min coordinate of the mesh.
-	 */
-	private double zmin = Double.NaN;
-
-	/**
-	 * The xmax coordinate of the mesh.
-	 */
-	private double xmax = Double.NaN;
-
-	/**
-	 * The y max coordinate of the mesh.
-	 */
-	private double ymax = Double.NaN;
-
-	/**
-	 * The z max coordinate of the mesh.
-	 */
-	private double zmax = Double.NaN;
-
-
+	private Point3D min = null;
+	
 	@Override
 	public int getDataType() {
 		return this.type;
@@ -82,49 +51,29 @@ public class ArrayListPoint3DContainer<T extends Point3D> implements Cloneable, 
 
 	@Override
 	public double getX() {
-		return this.x;
+		return this.loc.getX();
 	}
 
 	@Override
 	public double getY() {
-		return this.y;
+		return this.loc.getY();
 	}
 
 	@Override
 	public double getZ() {
-		return this.z;
+		return this.loc.getZ();
 	}
 
 	@Override
-	public double getXMin() {
-		return this.xmin;
+    public Point3D getMinCoordinates() {
+		return JeometryFactory.createPoint3D(this.min.getX(), this.min.getY(), this.min.getY());
 	}
-
+    
 	@Override
-	public double getYMin() {
-		return this.ymin;
+    public Point3D getMaxCoordinates() {
+		return JeometryFactory.createPoint3D(this.max.getX(), this.max.getY(), this.max.getY());
 	}
-
-	@Override
-	public double getZMin() {
-		return this.zmin;
-	}
-
-	@Override
-	public double getXMax() {
-		return this.xmax;
-	}
-
-	@Override
-	public double getYMax() {
-		return this.ymax;
-	}
-
-	@Override
-	public double getZMax() {
-		return this.zmax;
-	}
-
+	
 	@Override
 	public double distance(SpatialLocalization3D spatial) {
 		return Math.sqrt(  (spatial.getX()-getX())*(spatial.getX()-getX())
@@ -135,52 +84,46 @@ public class ArrayListPoint3DContainer<T extends Point3D> implements Cloneable, 
 	@Override
 	public void updateLocalization(){
 
-		this.x = 0.0d;
-		this.y = 0.0d;
-		this.z = 0.0d;
+		this.loc = JeometryFactory.createPoint3D(0.0d, .0d, 0.0d);
 
-		this.xmin = Double.MAX_VALUE;
-		this.ymin = Double.MAX_VALUE;
-		this.zmin = Double.MAX_VALUE;
+		this.max = JeometryFactory.createPoint3D(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
 
-		this.xmax = -Double.MAX_VALUE;
-		this.ymax = -Double.MAX_VALUE;
-		this.zmax = -Double.MAX_VALUE;
-
+		this.min = JeometryFactory.createPoint3D(-Double.MAX_VALUE, -Double.MAX_VALUE, -Double.MAX_VALUE);
+		
 		for(Point3D point3d : this){
 
-			if (point3d.getX() > this.xmax){
-				this.xmax = point3d.getX();
+			if (point3d.getX() > this.max.getX()){
+				this.max.setX(point3d.getX());
 			}
 
-			if (point3d.getX() < this.xmin){
-				this.xmin = point3d.getX();
+			if (point3d.getX() < this.min.getX()){
+				this.min.setX(point3d.getX());
 			}
 
-			if (point3d.getY() > this.ymax){
-				this.ymax = point3d.getY();
+			if (point3d.getY() >this.max.getY()){
+				this.max.setY(point3d.getY());
 			}
 
-			if (point3d.getY() < this.ymin){
-				this.ymin = point3d.getY();
+			if (point3d.getY() < this.min.getY()){
+				this.min.setY(point3d.getY());
 			}
 
-			if (point3d.getZ() > this.zmax){
-				this.zmax = point3d.getZ();
+			if (point3d.getZ() > this.max.getZ()){
+				this.max.setZ(point3d.getZ());
 			}
 
-			if (point3d.getZ() < this.zmin){
-				this.zmin = point3d.getZ();
+			if (point3d.getZ() < this.min.getZ()){
+				this.min.setZ(point3d.getZ());
 			}
-
-			this.x = this.x + point3d.getX();
-			this.y = this.y + point3d.getY();
-			this.z = this.z + point3d.getZ();
+			
+			this.loc.setX(this.loc.getX() + point3d.getX());
+			this.loc.setY(this.loc.getY() + point3d.getY());
+			this.loc.setZ(this.loc.getZ() + point3d.getZ());
 		}
 
-		this.x = this.x / size();
-		this.y = this.y / size();
-		this.z = this.z / size();
+		this.loc.setX(this.loc.getX() / size());
+		this.loc.setY(this.loc.getY() / size());
+		this.loc.setZ(this.loc.getZ() / size());
 	}
 
 	@Override
@@ -246,10 +189,16 @@ public class ArrayListPoint3DContainer<T extends Point3D> implements Cloneable, 
 	/**
 	 * Create a new {@link Point3DContainer Point 3D container implementation} that relies on an {@link ArrayList array list}.
 	 * It is recommended to use a {@link JeometryFactory geometry factory} in order to create instances instead of invoking this constructor.
-	 * @see #ArrayListPoint3DContainer(int)
+	 * @see #SimpleArrayListPoint3DContainer(int)
 	 */
-	public ArrayListPoint3DContainer(){
+	public SimpleArrayListPoint3DContainer(){
 		this.data = new ArrayList<T>();
+		
+		this.loc = JeometryFactory.createPoint3D(Double.NaN, Double.NaN, Double.NaN);
+
+		this.max = JeometryFactory.createPoint3D(Double.NaN, Double.NaN, Double.NaN);
+
+		this.min = JeometryFactory.createPoint3D(Double.NaN, Double.NaN, Double.NaN);
 	}
 
 	/**
@@ -258,7 +207,7 @@ public class ArrayListPoint3DContainer<T extends Point3D> implements Cloneable, 
 	 * It is recommended to use a {@link JeometryFactory geometry factory} in order to create instances instead of invoking this constructor.
 	 * @param size the initial capacity of the point container.
 	 */
-	public ArrayListPoint3DContainer(int size){
+	public SimpleArrayListPoint3DContainer(int size){
 		this.data = new ArrayList<T>(size);
 	}
 

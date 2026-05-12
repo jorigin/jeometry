@@ -27,7 +27,7 @@ import org.jeometry.Jeometry;
  * 
  * Where parameters (<i>w</i>, <i>x</i>, <i>y</i>, <i>z</i>) correspond to (<i>a</i>, <i>b</i>, <i>c</i>, <i>d</i>) from the mathematical form.
  * 
- * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
+ * @author Julien SEINTURIER - <a href="http://www.univ-tln.fr">Universit&eacute; de Toulon</a> / <a href="http://www.lis-lab.fr">CNRS LIS umr 7020</a> - <a href="https://github.com/jorigin/jeometry">github.com/jorigin/jeometry</a> (<a href="mailto:julien.seinturier@univ-tln.fr">julien.seinturier@univ-tln.fr</a>)
  * @version {@value Jeometry#version} b{@value Jeometry#BUILD}
  * @since 1.0.0
  */

@@ -16,22 +16,22 @@ import org.jeometry.math.Vector;
 /**
  * The Jeometry package common class. 
  * This class enable to set general parameters and to get general information about this Jeometry implementation.
- * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
+ * @author Julien SEINTURIER - <a href="http://www.univ-tln.fr">Universit&eacute; de Toulon</a> / <a href="http://www.lis-lab.fr">CNRS LIS umr 7020</a> - <a href="https://github.com/jorigin/jeometry">github.com/jorigin/jeometry</a> (<a href="mailto:julien.seinturier@univ-tln.fr">julien.seinturier@univ-tln.fr</a>)
  * @version {@value #version} build {@value #BUILD}
  * @since 1.0.0
  *
  */
-public class Jeometry {
+public final class Jeometry {
 
 	/**
 	 * The build version.
 	 */
-	public static final long BUILD     = 202507041400L;
+	public static final long BUILD     = 202507091400L;
 
 	/**
 	 * The version number
 	 */
-	public static final String version = "2.0.0";
+	public static final String version = "2.0.1";
 
 	/**
 	 * The {@link java.util.logging.Logger logger} used for reporting.
@@ -45,7 +45,7 @@ public class Jeometry {
 	/**
 	 * Initialize the JOrigin common package.
 	 */
-	public static final void init(){
+	public static void init(){
 
 		logger = Logger.getLogger("org.jorigin.Geometry");
 
@@ -335,4 +335,9 @@ public class Jeometry {
 			}
 		}
 	}
+
+	/**
+	 * Private default constructor.
+	 */
+	private Jeometry(){}
 }

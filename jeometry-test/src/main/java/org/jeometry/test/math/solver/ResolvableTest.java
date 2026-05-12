@@ -17,7 +17,7 @@ import org.jeometry.math.solver.Resolvable;
  * @version {@value Jeometry#version}
  * @since 1.0.2
  */
-public class ResolvableTest {
+public final class ResolvableTest {
 	
 	/**
 	 * Check that the given resolvable object can solve the given linear system <i>AX</i>&nbsp;=&nbsp;<i>B</i>.<br>
@@ -186,4 +186,9 @@ public class ResolvableTest {
 			assertEquals(b.getValue(dimension), bcomputed.getValue(dimension), epsilon, "Bad value ("+dimension+")");
 		}
 	}
+
+	/**
+	 * Private default constructor.
+	 */
+	private ResolvableTest(){}
 }

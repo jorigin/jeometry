@@ -5,7 +5,7 @@ import org.jeometry.geom3D.point.Point3D;
 
 /**
  * A transformation within a 3D space. Objects that implements this class can transform geometric primitives.
- * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
+ * @author Julien SEINTURIER - <a href="http://www.univ-tln.fr">Universit&eacute; de Toulon</a> / <a href="http://www.lis-lab.fr">CNRS LIS umr 7020</a> - <a href="https://github.com/jorigin/jeometry">github.com/jorigin/jeometry</a> (<a href="mailto:julien.seinturier@univ-tln.fr">julien.seinturier@univ-tln.fr</a>)
  * @version {@value Jeometry#version} b{@value Jeometry#BUILD}
  * @since 1.0.0
  */

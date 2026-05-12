@@ -10,7 +10,6 @@ import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom2D.point.Point2D;
 import org.jeometry.geom3D.point.Point3D;
 import org.jeometry.math.Vector;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -36,6 +35,11 @@ import org.junit.jupiter.api.Test;
  *
  */
 public class GeometryFactoryPointTest {
+
+	/**
+	 * Create a {@link JeometryFactory} test dedicated to point related methods.
+	 */
+	public GeometryFactoryPointTest(){}
 
 	/**
 	 * Testing {@link JeometryFactory#createPoint3D()}

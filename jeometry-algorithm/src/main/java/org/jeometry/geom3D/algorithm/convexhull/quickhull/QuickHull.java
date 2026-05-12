@@ -319,18 +319,20 @@ public class QuickHull {
 
     boolean same = false;
 
+    Edge<T> tmp = e;
+    
     for (Iterator<? extends Edge<T>> f = visibleEdges.iterator(); f.hasNext();){
       Edge<T> edge = f.next();
-      if (e.equals(edge)){
+      if (tmp.equals(edge)){
         same = true;
-        e = edge;
+        tmp = edge;
         break;
       }
     }
     if (same){
-      visibleEdges.remove(e);
+      visibleEdges.remove(tmp);
     } else{
-      visibleEdges.add(e);
+      visibleEdges.add(tmp);
     }
   }
 
@@ -493,7 +495,10 @@ public class QuickHull {
     return convexHull;
   }
 
-  
+  /**
+   * Private default constructor.
+   */
+  private QuickHull(){}
 
   
 }

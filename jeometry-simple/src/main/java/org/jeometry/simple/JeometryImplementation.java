@@ -15,7 +15,12 @@ import org.jeometry.simple.factory.SimpleTransformBuilder;
  * @since 1.0.0
  *
  **/
-public class JeometryImplementation {
+public final class JeometryImplementation {
+
+	/**
+	 * Private default constructor, for static class.
+	 */
+	private JeometryImplementation() {}
 
 	/**
 	 * The implementation initialization method. This method can be invoked by the {@link JeometryFactory geometry factory}. 

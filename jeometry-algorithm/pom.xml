@@ -49,13 +49,6 @@
 			<version>2.0.1-SNAPSHOT</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.jorigin</groupId>
-			<artifactId>jeometry-test</artifactId>
-			<version>2.0.1-SNAPSHOT</version>
-			<scope>test</scope>
-		</dependency>
-
 		<!-- Common package for basic operations -->
 		<dependency>
 			<groupId>org.jorigin</groupId>

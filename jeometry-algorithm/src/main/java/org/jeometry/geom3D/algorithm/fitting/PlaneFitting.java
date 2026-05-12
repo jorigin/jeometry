@@ -36,7 +36,7 @@ import org.jeometry.math.Vector;
  * @since 1.0.0
  *
  */
-public class PlaneFitting {
+public final class PlaneFitting {
 	
 	/**
 	 * Compute the square distance between the two given vectors.
@@ -167,4 +167,9 @@ public class PlaneFitting {
 		
 		return plane;
 	}
+
+	/**
+	 * Private default constructor.
+	 */
+	private PlaneFitting(){}
 }

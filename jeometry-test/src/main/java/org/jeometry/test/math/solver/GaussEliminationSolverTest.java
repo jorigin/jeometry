@@ -10,7 +10,6 @@ import org.jeometry.math.Matrix;
 import org.jeometry.math.Vector;
 import org.jeometry.math.solver.Solver;
 import org.jeometry.test.math.MathTestData;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -36,7 +35,12 @@ public class GaussEliminationSolverTest {
 	 * The solver to use.
 	 */
 	protected static Solver solver = null;
-	
+
+	/**
+	 * Create a Gauss elimination solver test.
+	 */
+	public GaussEliminationSolverTest(){}
+
 	/**
 	 * Test the underlying solver
 	 */

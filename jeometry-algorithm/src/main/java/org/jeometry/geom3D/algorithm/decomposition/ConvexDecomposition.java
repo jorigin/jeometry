@@ -15,7 +15,7 @@ import org.jeometry.geom3D.point.Point3DContainer;
 /**
  * This class enable to compute a convex decomposition for a given polyhedron.<br><br>
  * 
- * The convex decomposition split a non convex polyhedron is a set of convex polyhedra such
+ * The convex decomposition split a non-convex polyhedron is a set of convex polyhedra such
  * that their union is the original polyhedra.<br><br>
  * This class implements the algorithm given in
  * <i>"An Algorithm for Convex Decomposition for polyedral object", Proceeding of the Seventh
@@ -26,7 +26,7 @@ import org.jeometry.geom3D.point.Point3DContainer;
  * @version {@value Jeometry#version}
  * @since 1.0.0
  */
-public class ConvexDecomposition {
+public final class ConvexDecomposition {
 	
 	  /**
 	   * Compute a return a set of convex polyhedra which are the convex decomposition
@@ -122,10 +122,10 @@ public class ConvexDecomposition {
 	      matrice[2][1] = p3.getY();
 	      matrice[2][2] = p3.getZ();
 	      matrice[2][3] = 1;
-	      matrice[4][0] = p4.getX();
-	      matrice[4][1] = p4.getY();
-	      matrice[4][2] = p4.getZ();
-	      matrice[4][3] = 1;
+	      matrice[3][0] = p4.getX();
+	      matrice[3][1] = p4.getY();
+	      matrice[3][2] = p4.getZ();
+	      matrice[3][3] = 1;
 
 	      det =   matrice[2][0] * matrice[3][1]
 	            + matrice[1][0] * matrice[2][1] * matrice[3][2]
@@ -179,12 +179,12 @@ public class ConvexDecomposition {
 	        // Si les sommets liés contiennent un sommet concave (sommet d'une arrête concave)
 	        // alors ce sommet devient le premier sommet de la suite de la boucle.
 	        for(int lk = 0; lk < linkedVertices.size(); lk++){
-	          for(int ce = 0; ce < concaveEdges.size(); ce++){
-	            if ((Geom3D.equals(linkedVertices.get(lk), concaveEdges.get(ce).getVertices().get(0)))
-	              ||(Geom3D.equals(linkedVertices.get(lk), concaveEdges.get(ce).getVertices().get(1)))){
-	              loop.add(linkedVertices.get(lk));
-	            }
-	          }
+                for (Edge<T> edge : concaveEdges) {
+                    if ((Geom3D.equals(linkedVertices.get(lk), edge.getVertices().get(0)))
+                            || (Geom3D.equals(linkedVertices.get(lk), edge.getVertices().get(1)))) {
+                        loop.add(linkedVertices.get(lk));
+                    }
+                }
 	        }
 
 	        isVertexInFace = false;
@@ -193,4 +193,9 @@ public class ConvexDecomposition {
 
 	    return convexPolyhedrons;
 	  }
+
+	/**
+	 * Private default constructor.
+	 */
+	private ConvexDecomposition(){}
 }

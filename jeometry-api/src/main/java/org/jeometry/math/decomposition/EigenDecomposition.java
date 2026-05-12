@@ -30,7 +30,7 @@ import org.jeometry.math.Matrix;
  *  <div style="text-align: center;"><i>AV</i>&nbsp;= <i>VD</i></div>
  *  <br>
  *  The matrix <i>V</i> may be badly conditioned, or even singular, so the validity of the equation cannot be sure for all matrices.
- * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
+ * @author Julien SEINTURIER - <a href="http://www.univ-tln.fr">Universit&eacute; de Toulon</a> / <a href="http://www.lis-lab.fr">CNRS LIS umr 7020</a> - <a href="https://github.com/jorigin/jeometry">github.com/jorigin/jeometry</a> (<a href="mailto:julien.seinturier@univ-tln.fr">julien.seinturier@univ-tln.fr</a>)
  * @version {@value Jeometry#version} b{@value Jeometry#BUILD}
  * @since 1.0.0
  */

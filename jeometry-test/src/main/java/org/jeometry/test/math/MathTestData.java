@@ -13,7 +13,7 @@ import org.jeometry.math.decomposition.QRDecomposition;
  * @since 1.0.0
  *
  */
-public class MathTestData {
+public final class MathTestData {
 
 	/**
 	 * a 3 component vector.
@@ -362,34 +362,35 @@ public class MathTestData {
 			{ 4.0d,  3.0d,  4.0d },
 			{ 1.0d,  1.0d,  1.0d}};
 
-			/**
-			 * This vector is dedicated to the testing of Gauss Elimination based solvers. Matlab code: <br><br>
-			 * <code>B = [7; 8; 3]</code>
-			 * @see #SOLVER_GAUSS_ELIMINATION_A
-			 * #see {@link #SOLVER_GAUSS_ELIMINATION_X}
-			 */
-			public static final double[] SOLVER_GAUSS_ELIMINATION_B = new double[] {7.0d, 8.0d, 3.0d};	
 
-			/**
-			 * This vector is dedicated to the testing of Gauss Elimination based solvers. Matlab code: <br><br>
-			 * <code>B = [-1/5; 4; -4/5]</code>
-			 * @see #SOLVER_GAUSS_ELIMINATION_A
-			 * @see #SOLVER_GAUSS_ELIMINATION_B
-			 */
-			public static final double[] SOLVER_GAUSS_ELIMINATION_X = new double[] {-1.0d/5.0d, 4.0d, -4.0d/5.0d};	
+		/**
+		 * This vector is dedicated to the testing of Gauss Elimination based solvers. Matlab code: <br><br>
+		 * <code>B = [7; 8; 3]</code>
+		 * @see #SOLVER_GAUSS_ELIMINATION_A
+		 * @see #SOLVER_GAUSS_ELIMINATION_X
+		 */
+		public static final double[] SOLVER_GAUSS_ELIMINATION_B = new double[] {7.0d, 8.0d, 3.0d};
 
-			/**
-			 * This matrix is dedicated to the testing of Eigenvalue decomposition. 
-			 * Computing an eigenvalues decomposition from this matrix should provide {@link #DECOMPOSITION_EIGEN_V V} and  {@link #DECOMPOSITION_EIGEN_D D} matrices.
-			 * @see #DECOMPOSITION_EIGEN_V
-			 * @see #DECOMPOSITION_EIGEN_D
-			 */
-			public static final double[][] DECOMPOSITION_EIGEN_INPUT = new double[][] {
+		/**
+		 * This vector is dedicated to the testing of Gauss Elimination based solvers. Matlab code: <br><br>
+		 * <code>B = [-1/5; 4; -4/5]</code>
+		 * @see #SOLVER_GAUSS_ELIMINATION_A
+		 * @see #SOLVER_GAUSS_ELIMINATION_B
+		 */
+		public static final double[] SOLVER_GAUSS_ELIMINATION_X = new double[] {-1.0d/5.0d, 4.0d, -4.0d/5.0d};
+
+		/**
+		 * This matrix is dedicated to the testing of Eigenvalue decomposition.
+		 * Computing an eigenvalues decomposition from this matrix should provide {@link #DECOMPOSITION_EIGEN_V V} and  {@link #DECOMPOSITION_EIGEN_D D} matrices.
+		 * @see #DECOMPOSITION_EIGEN_V
+		 * @see #DECOMPOSITION_EIGEN_D
+		 */
+		public static final double[][] DECOMPOSITION_EIGEN_INPUT = new double[][] {
 				{1.000000000000000,   0.500000000000000,   0.333333333333333,   0.250000000000000},
 				{0.500000000000000,   1.000000000000000,   0.666666666666667,   0.500000000000000},
 				{0.333333333333333,   0.666666666666667,   1.000000000000000,   0.750000000000000},
 				{0.250000000000000,   0.500000000000000,   0.750000000000000,   1.000000000000000}
-			};
+		};
 
 			/**
 			 * This matrix is the <i>V</i> matrix computed from the Eigenvalues decomposition of the {@link #DECOMPOSITION_EIGEN_INPUT input matrix}.
@@ -612,4 +613,9 @@ public class MathTestData {
 					1.000000000000002,
 					0.999999999999999
 			};
+
+	/**
+	 * Private default constructor.
+	 */
+	private MathTestData(){}
 }

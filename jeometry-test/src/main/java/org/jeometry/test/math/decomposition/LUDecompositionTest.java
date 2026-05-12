@@ -3,7 +3,6 @@ package org.jeometry.test.math.decomposition;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
@@ -11,7 +10,6 @@ import org.jeometry.math.Matrix;
 import org.jeometry.math.decomposition.LUDecomposition;
 import org.jeometry.test.math.MathTestData;
 import org.jeometry.test.math.solver.ResolvableTest;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 
@@ -47,6 +45,11 @@ public class LUDecompositionTest {
 	 * The class of the decomposition
 	 */
 	protected static Class<?> decompositionClass = null;
+
+	/**
+	 * Create a {@link LUDecomposition} test.
+	 */
+	public LUDecompositionTest(){}
 
 	/**
 	 * A test dedicated to the {@link LUDecomposition}.

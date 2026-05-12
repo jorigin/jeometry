@@ -30,6 +30,11 @@ import org.jeometry.simple.math.solver.SimpleGaussEliminationSolver;
  */
 public class SimpleMathBuilder implements MathBuilder{
 
+	/**
+	 * Create a simple {@link MathBuilder math builder}.
+	 */
+	public SimpleMathBuilder(){}
+
 	@Override
 	public Vector createVector(int size) {
 		return new SimpleVector(size);

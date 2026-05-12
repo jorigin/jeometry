@@ -6,12 +6,12 @@ import org.jeometry.Jeometry;
  * Some specification values coming from the
  * <a href="http://paulbourke.net/dataformats/ply/">Stanford Ploygon Format</a>.
  * 
- * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
+ * @author Julien SEINTURIER - <a href="http://www.univ-tln.fr">Universit&eacute; de Toulon</a> / <a href="http://www.lis-lab.fr">CNRS LIS umr 7020</a> - <a href="https://github.com/jorigin/jeometry">github.com/jorigin/jeometry</a> (<a href="mailto:julien.seinturier@univ-tln.fr">julien.seinturier@univ-tln.fr</a>)
  * @version {@value Jeometry#version}
  * @since 1.0.0
  *
  */
-public class PLY {
+public final class PLY {
 
   /**
    * Specifies an ASCII (textual) format for PLY file.
@@ -158,7 +158,7 @@ public class PLY {
    * @return the name of the type given in parameter.
    * @see #getType(String)
    */
-  public static final String getTypeName(int type) {
+  public static String getTypeName(int type) {
     if ((type > 0) && (type < TYPE_NAMES.length)) {
       return TYPE_NAMES[type];
     } else {
@@ -172,7 +172,7 @@ public class PLY {
    * @return the type corresponding to the given name.
    * @see #getTypeName(int)
    */
-  public static final int getType(String typeName) {
+  public static int getType(String typeName) {
 
     for (int i = 0; i < TYPE_NAMES.length; i++) {
       if (TYPE_NAMES[i].equals(typeName)) {
@@ -190,11 +190,16 @@ public class PLY {
    * @see #getType(String)
    * @see #getTypeName(int)
    */
-  public static final int getTypeSize(int type) {
+  public static int getTypeSize(int type) {
     if ((type > 0) && (type < TYPE_SIZES.length)) {
       return TYPE_SIZES[type];
     } else {
       return TYPE_SIZES[0];
     }
   }
+
+  /**
+   * Private default constructor.
+   */
+  private PLY(){}
 }

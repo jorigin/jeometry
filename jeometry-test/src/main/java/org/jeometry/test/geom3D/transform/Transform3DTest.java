@@ -16,7 +16,7 @@ import org.jeometry.geom3D.transform.Transform3D;
  * @since 1.0.2
  *
  */
-public class Transform3DTest {
+public final class Transform3DTest {
 
 	/**
 	 * Test the method {@link Transform3D#transform(Point3D)}
@@ -302,4 +302,9 @@ public class Transform3DTest {
 
 
 	}
+
+	/**
+	 * Create a new {@link Transform3D} test.
+	 */
+	public Transform3DTest(){}
 }

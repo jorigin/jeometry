@@ -21,6 +21,11 @@ public class SimpleGaussEliminationSolver implements Solver {
 	public static final double EPSILON = 1e-10;
 
 	/**
+	 * Create a new simple Gauss elimination solver.
+	 */
+	public SimpleGaussEliminationSolver(){}
+
+	/**
 	 * Forward elimination.
 	 * @param augmented the augmented matrix
 	 * @param rows the number of rows

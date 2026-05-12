@@ -6,6 +6,7 @@
 module org.jeometry.test {
 
 	exports org.jeometry.test.factory;
+	exports org.jeometry.test.geom2D.algorithm.relation.de9im;
 	exports org.jeometry.test.geom2D.point;
 	exports org.jeometry.test.geom2D.primitive;
 	exports org.jeometry.test.geom3D;
@@ -14,8 +15,9 @@ module org.jeometry.test {
 	exports org.jeometry.test.math;
 	exports org.jeometry.test.math.decomposition;
 	exports org.jeometry.test.math.solver;
-	
+
 	requires transitive org.jeometry.api;
+	requires transitive org.jeometry.algorithm;
 	
 	requires transitive java.desktop;
 	requires transitive java.logging;

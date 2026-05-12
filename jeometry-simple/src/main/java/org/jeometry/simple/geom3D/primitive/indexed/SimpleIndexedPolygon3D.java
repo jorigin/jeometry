@@ -7,7 +7,7 @@ import org.jeometry.geom3D.mesh.indexed.IndexedEdge;
 import org.jeometry.geom3D.point.Point3D;
 import org.jeometry.geom3D.point.Point3DContainer;
 import org.jeometry.geom3D.primitive.indexed.IndexedPolygon3D;
-import org.jeometry.simple.geom3D.point.ArrayListPoint3DContainer;
+import org.jeometry.simple.geom3D.point.SimpleArrayListPoint3DContainer;
 import org.jeometry.simple.geom3D.primitive.SimplePolygon3D;
 
 /**
@@ -111,7 +111,7 @@ public class SimpleIndexedPolygon3D<T extends Point3D> extends SimplePolygon3D<T
 
 		if ((getVerticesIndexes() != null)&&(getVerticesSource() != null)){
 
-			Point3DContainer<T> vertices = new ArrayListPoint3DContainer<T>();
+			Point3DContainer<T> vertices = new SimpleArrayListPoint3DContainer<T>();
 
 			for(int i = 0; i < getVerticesIndexes().length; i++){
 				if ((getVerticesIndexes()[i] > -1)&&(getVerticesIndexes()[i] < getVerticesSource().size())){

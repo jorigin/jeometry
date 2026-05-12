@@ -1,12 +1,10 @@
 package org.jeometry.test.geom2D.point;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom2D.point.Point2D;
 import org.jeometry.test.math.VectorTest;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 
@@ -21,7 +19,12 @@ import org.junit.jupiter.api.Test;
  * @since 1.0.2
  */
 public class Point2DTest extends VectorTest {
-	  
+
+	/**
+	 * Create a new {@link Point2D} test.
+	 */
+	public Point2DTest(){}
+
 	  /**
 	   * Testing {@link Point2D#setValues(double, double)}
 	   */

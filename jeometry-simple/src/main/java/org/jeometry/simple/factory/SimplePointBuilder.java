@@ -1,5 +1,7 @@
 package org.jeometry.simple.factory;
 
+import java.util.List;
+
 import org.jeometry.Jeometry;
 import org.jeometry.factory.PointBuilder;
 import org.jeometry.geom2D.point.Point2D;
@@ -18,6 +20,11 @@ import org.jeometry.simple.math.SimpleVector;
  * @since 1.0.0
  */
 public class SimplePointBuilder implements PointBuilder {
+
+	/**
+	 * Create a new simple {@link PointBuilder point builder}.
+	 */
+	public SimplePointBuilder(){}
 
 	@Override
 	public Vector createPoint(int dimensions, double defaultValue) {
@@ -62,16 +69,28 @@ public class SimplePointBuilder implements PointBuilder {
 	
 	@Override
 	public Point2DContainer createPoint2DContainer() {
-        // TODO Implements SimplePointBuilder# createPoint2DContainer()
+        // TODO Implements SimplePointBuilder.createPoint2DContainer()
 		return null;
 	}
 
 	@Override
 	public Point2DContainer createPoint2DContainer(int capacity) {
-		// TODO Auto-generated method stub
+		// TODO Implements SimplePointBuilder.createPoint2DContainer(int)
 		return null;
 	}
 
+	@Override
+	public Point2DContainer createPoint2DContainer(List<? extends Point2D> points) {
+		//TODO implements SimplePointBuilder.createPoint2DContainer(List<? extends Point2D>)
+		return null;
+	}
+	
+	@Override
+	public Point2DContainer createPoint2DContainer(Point2D[] points) {
+		//TODO implements SimplePointBuilder.createPoint2DContainer(Point2D[])
+		return null;
+	}
+	
 	@Override
 	public Point3D createPoint3D() {
 		return new SimplePoint3D();
@@ -104,13 +123,13 @@ public class SimplePointBuilder implements PointBuilder {
     
 	@Override
 	public <T extends Point3D> Point3DContainer<T> createPoint3DContainer() {
-		// TODO Auto-generated method stub
+		// TODO Implements SimplePointBuilder.createPoint3DContainer()
 		return null;
 	}
 
 	@Override
 	public <T extends Point3D> Point3DContainer<T> createPoint3DContainer(int capacity) {
-		// TODO Auto-generated method stub
+		// TODO Implements SimplePointBuilder.createPoint3DContainer(int)
 		return null;
 	}
 }

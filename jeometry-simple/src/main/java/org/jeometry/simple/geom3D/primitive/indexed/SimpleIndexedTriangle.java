@@ -131,7 +131,7 @@ public class SimpleIndexedTriangle<T extends Point3D> implements IndexedTriangle
 	}
 
 	@Override
-	public LineSet3D<T> getSegments() {
+	public LineSet3D<T> getHull() {
 		if ((this.indices != null) && (getVerticesSource() != null)){
 			LineSet3D<T> segments = new SimpleLineSet3D<T>();
 			segments.plot(getVerticesSource().get(this.indices[0]));

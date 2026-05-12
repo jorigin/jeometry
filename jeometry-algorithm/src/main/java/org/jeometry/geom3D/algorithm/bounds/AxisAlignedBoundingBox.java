@@ -1,7 +1,6 @@
 package org.jeometry.geom3D.algorithm.bounds;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.mesh.Mesh;
@@ -14,7 +13,7 @@ import org.jeometry.geom3D.primitive.Box;
  * @author Julien SEINTURIER (<a href="https://github.com/jorigin">JOrigin</a>) - <a href="https://github.com/jseinturier">https://github.com/jseinturier</a>
  *
  */
-public class AxisAlignedBoundingBox {
+public final class AxisAlignedBoundingBox {
 	  /**
 	   * Compute the axis aligned bounding box for the points given in parameter. If the point
 	   * manager is <code>null</code> or empty, <code>null</code> is returned. 
@@ -27,7 +26,7 @@ public class AxisAlignedBoundingBox {
 	    Point3D pMin = null;
 	    Point3D pt   = null;
 	    
-	    Box polyhedron = null;
+	    Box polyhedron;
 	    
 	    // Une boite englobante n'est retournée que s'il existe des points à englober.
 	    if ((points == null) || (points.size() < 3)){
@@ -37,38 +36,37 @@ public class AxisAlignedBoundingBox {
 	      // On calcule les sommets de la boite englobante
 	      pMax = JeometryFactory.createPoint3D(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
 	      pMin = JeometryFactory.createPoint3D(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
-	   
-	      Iterator<? extends Point3D> iter = points.iterator();
-	      while(iter.hasNext()){
-	        
-	        pt = iter.next();
-	        
-	        if (pMin.getX() > pt.getX()){
-	          pMin.setX(pt.getX());
-	        }
-	        
-	        if (pMin.getY() > pt.getY()){
-	          pMin.setY(pt.getY());
-	        }
-	        
-	        if (pMin.getZ() > pt.getZ()){
-	          pMin.setZ(pt.getZ());
-	        }
-	        
-	        if (pMax.getX() < pt.getX()){
-	          pMax.setX(pt.getX());
-	        }
-	        
-	        if (pMax.getY() < pt.getY()){
-	          pMax.setY(pt.getY());
-	        }
-	        
-	        if (pMax.getZ() < pt.getZ()){
-	          pMax.setZ(pt.getZ());
-	        }
-	        
-	        pt = null;
-	      }
+
+            for (Point3D point : points) {
+
+                pt = point;
+
+                if (pMin.getX() > pt.getX()) {
+                    pMin.setX(pt.getX());
+                }
+
+                if (pMin.getY() > pt.getY()) {
+                    pMin.setY(pt.getY());
+                }
+
+                if (pMin.getZ() > pt.getZ()) {
+                    pMin.setZ(pt.getZ());
+                }
+
+                if (pMax.getX() < pt.getX()) {
+                    pMax.setX(pt.getX());
+                }
+
+                if (pMax.getY() < pt.getY()) {
+                    pMax.setY(pt.getY());
+                }
+
+                if (pMax.getZ() < pt.getZ()) {
+                    pMax.setZ(pt.getZ());
+                }
+
+                pt = null;
+            }
 
 	      // Creation d'un boite parallele aux axes.
 	      polyhedron = JeometryFactory.createBox(pMin, pMax);
@@ -89,7 +87,7 @@ public class AxisAlignedBoundingBox {
 	    Point3D pMin = null;
 	    Point3D pt   = null;
 	    
-	    Box polyhedron = null;
+	    Box polyhedron;
 	    
 	    // Une boite englobante n'est retournée que s'il existe des points à englober.
 	    if ((points == null) || (points.size() < 3)){
@@ -153,4 +151,9 @@ public class AxisAlignedBoundingBox {
 	      return computeAxisAlignedBoundingBox(polyhedron.getVertices());
 	    }
 	  }
+
+	/**
+	 * Default private constructor.
+	 */
+	public AxisAlignedBoundingBox(){}
 }

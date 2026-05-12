@@ -8,7 +8,12 @@ import org.jeometry.math.Matrix;
  * A matrix creation sample
  *
  */
-public class MatrixCreationSample {
+public final class MatrixCreationSample {
+
+	/**
+	 * Final default constructor, for static class.
+	 */
+	private MatrixCreationSample() {}
 
 	/**
 	 * The main method

@@ -19,11 +19,11 @@ import org.jeometry.geom3D.primitive.Triangle;
 /**
  * This classes provides various 3D geometry algorithm and functions.<br>
  * <br>
- * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
+ * @author Julien SEINTURIER - <a href="http://www.univ-tln.fr">Universit&eacute; de Toulon</a> / <a href="http://www.lis-lab.fr">CNRS LIS umr 7020</a> - <a href="https://github.com/jorigin/jeometry">github.com/jorigin/jeometry</a> (<a href="mailto:julien.seinturier@univ-tln.fr">julien.seinturier@univ-tln.fr</a>)
  * @version {@value Jeometry#version}
  * @since 1.0.0
  */
-public class Geom3D {
+public final class Geom3D {
 
   /**
    * The 0 limit. Under this value, a value is considered as equal to 0
@@ -1299,6 +1299,11 @@ public class Geom3D {
     }
   }
  */
+
+  /**
+   * Private default constructor.
+   */
+  private Geom3D(){}
 } 
 ////////////////////////////////////////////////////////////////////////////////
 // FIN COMPATIBILITE AVEC LES CLASSES DE GEOMETRIE DE HAUT NIVEAU D'ARPENTEUR //

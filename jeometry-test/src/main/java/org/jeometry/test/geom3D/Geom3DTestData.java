@@ -7,7 +7,7 @@ package org.jeometry.test.geom3D;
  * @since 1.0.2
  *
  */
-public class Geom3DTestData {
+public final class Geom3DTestData {
 
 	/**
 	 * A 3D point with all coordinates set to <i>0</i>.
@@ -60,4 +60,8 @@ public class Geom3DTestData {
 	 */
 	public static final double[] TRANSFORM_MATRIX_RT_POINT0 = new double[] {1.0d, 2.0d, 3.0d};
 
+	/**
+	 * Private default constructor.
+	 */
+	private Geom3DTestData(){}
 }

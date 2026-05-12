@@ -166,6 +166,7 @@ public class DelaunayTetrahedralization<T extends Point3D> {
     // circulate around the edge and insert the cells in order into the result
     DelaunayTetrahedron<T> cstart = c;
     DelaunayTetrahedron<T> cprev = null;
+    DelaunayTetrahedron<T> ctmp = c;
     int k=0;
 
     do {
@@ -173,13 +174,13 @@ public class DelaunayTetrahedralization<T extends Point3D> {
       k = 0;
       
       // insert currently visited cell into result
-      res.add(c);
+      res.add(ctmp);
       // look for next cell around edge
       
       for (; k<4; k++){
-        if (c.getNeighbor(k) != cprev && c.getNeighbor(k).isVertex(u) && c.getNeighbor(k).isVertex(v)) {
-          cprev = c;
-          c = c.getNeighbor(k);
+        if (ctmp.getNeighbor(k) != cprev && ctmp.getNeighbor(k).isVertex(u) && ctmp.getNeighbor(k).isVertex(v)) {
+          cprev = ctmp;
+          ctmp = ctmp.getNeighbor(k);
           break;
         }
       }
@@ -189,7 +190,7 @@ public class DelaunayTetrahedralization<T extends Point3D> {
       // we should have changed cells here
       //if (k==4)
       //  throw new Error ("no next cell found");
-    } while ((c != cstart)&&(k < 4));
+    } while ((ctmp != cstart)&&(k < 4));
 
     return res;
   }

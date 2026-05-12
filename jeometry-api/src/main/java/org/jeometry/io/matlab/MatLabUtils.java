@@ -6,7 +6,7 @@ import org.jeometry.math.Vector;
 
 /**
  * A class that contains <a href="https://fr.mathworks.com/products/matlab.html">MathWorks MatLab(c)</a> related utilities.
- * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
+ * @author Julien SEINTURIER - <a href="http://www.univ-tln.fr">Universit&eacute; de Toulon</a> / <a href="http://www.lis-lab.fr">CNRS LIS umr 7020</a> - <a href="https://github.com/jorigin/jeometry">github.com/jorigin/jeometry</a> (<a href="mailto:julien.seinturier@univ-tln.fr">julien.seinturier@univ-tln.fr</a>)
  * @version {@value Jeometry#version}
  * @since 1.0.0
  *
@@ -97,4 +97,9 @@ public class MatLabUtils {
 		
 		return code;
 	}
+
+	/**
+	 * Private default constructor.
+	 */
+	private MatLabUtils(){}
 }

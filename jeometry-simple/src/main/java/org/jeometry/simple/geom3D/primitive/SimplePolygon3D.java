@@ -55,7 +55,7 @@ public class SimplePolygon3D<T extends Point3D> implements Polygon3D<T> {
   }
 
   @Override
-  public LineSet3D<T> getSegments() {
+  public LineSet3D<T> getHull() {
 	LineSet3D<T> edges = new SimpleLineSet3D<T>();
 
     // S'il n'y a pas au moins 2 points, il n'y a pas d'arrête

@@ -59,11 +59,12 @@ import org.jorigin.property.HandleUserProperties;
  * </ul>
  * The class used to wrap PLY vertex into point can be set by using {@link #setPoint3DClass(Class)} method.
  * @param <T> the type of the underlying 3D points. It should be ensured that 3D point created from from {@link JeometryFactory geometry factory} delivers objects that are compatible with the type <code>T</code>
- * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
+ * @param <U> the type of the underlying 2D points. It should be ensured that 2D point created from from {@link JeometryFactory geometry factory} delivers objects that are compatible with the type <code>U</code>
+ * @author Julien SEINTURIER - <a href="http://www.univ-tln.fr">Universit&eacute; de Toulon</a> / <a href="http://www.lis-lab.fr">CNRS LIS umr 7020</a> - <a href="https://github.com/jorigin/jeometry">github.com/jorigin/jeometry</a> (<a href="mailto:julien.seinturier@univ-tln.fr">julien.seinturier@univ-tln.fr</a>)
  * @version {@value Jeometry#version}
  * @since 1.0.0
  */
-public class PLYReader<T extends Point3D> {
+public class PLYReader<T extends Point3D, U extends Point2D> {
 
 	/**
 	 * The standard name of a vertex.
@@ -971,34 +972,38 @@ public Object read(Reader reader) throws IOException {
    * @throws IOException if an error occurs.
    */
   public Object read(InputStream is) throws UnsupportedEncodingException, IOException {
+	  
     if (is != null) {
-      Reader r = null;
-      try {
+      
+      // Read header
+      is.mark(65536);
 
-        is.mark(65536);
+      this.faceCurrentIndex = 0;
 
-        this.faceCurrentIndex = 0;
-
-        PLYFileDescriptor fileDescriptor = readHeader(is);
-        if (fileDescriptor.getFileFormat() == PLY.FILE_FORMAT_ASCII) {
+      PLYFileDescriptor fileDescriptor = readHeader(is);
+      
+      if (fileDescriptor.getFileFormat() == PLY.FILE_FORMAT_ASCII) {
           is.reset();
-          r = new InputStreamReader(is, this.charset);
-          return read(r);
+
+          
+          try (Reader r = new InputStreamReader(is, this.charset) ){
+
+              if (fileDescriptor.getFileFormat() == PLY.FILE_FORMAT_ASCII) {
+                is.reset();
+                return read(r);
+              } else {
+                return readBinaryData(is, fileDescriptor);
+              }
+
+            } catch (IOException e) {
+              throw e;
+            } catch (Exception e) {
+              throw new IOException("Error reading ply file : " + e.getMessage(), e);
+            }
+          
         } else {
           return readBinaryData(is, fileDescriptor);
         }
-
-      } catch (IOException e) {
-        throw e;
-      } catch (Exception e) {
-        throw new IOException("Error reading ply file : " + e.getMessage(), e);
-      } finally {
-        try {
-          r.close();
-        } catch (Exception e) {
-          r = null;
-        }
-      }
     } else {
       throw new IOException("Cannot read PLY data to null output stream");
     }
@@ -1025,12 +1030,11 @@ public Object read(Reader reader) throws IOException {
     if (uri != null) {
 
       if ("ZIP".equalsIgnoreCase(PathUtil.getExtension(uri))) {
-        ZipFile zipFile = null;
+
         Enumeration<? extends ZipEntry> entries = null;
         InputStream stream = null;
 
-        try {
-          zipFile = new ZipFile(new File(uri));
+        try (ZipFile zipFile = new ZipFile(new File(uri))) {
           entries = zipFile.entries();
 
           if (entries != null) {
@@ -1041,24 +1045,16 @@ public Object read(Reader reader) throws IOException {
             try {
               stream.close();
               stream = null;
-              zipFile.close();
-              zipFile = null;
             } catch (Exception e) {
             }
 
             return result;
 
           } else {
-            zipFile.close();
-            zipFile = null;
             throw new IOException("No entries available within ZIP file " + uri);
           }
         } catch (Exception e) {
-          try {
-            zipFile.close();
-            zipFile = null;
-          } catch (IOException e1) {
-          }
+
           throw new IOException("Problem during read from ZIP file " + uri, e);
         }
 
@@ -1097,12 +1093,12 @@ public Object read(Reader reader) throws IOException {
     if (file != null) {
 
       if ("ZIP".equalsIgnoreCase(PathUtil.getExtension(file.getPath()))) {
-        ZipFile zipFile = null;
+
         Enumeration<? extends ZipEntry> entries = null;
         InputStream stream = null;
 
-        try {
-          zipFile = new ZipFile(file);
+        try (ZipFile zipFile = new ZipFile(file)){
+
           entries = zipFile.entries();
 
           if (entries != null) {
@@ -1113,24 +1109,15 @@ public Object read(Reader reader) throws IOException {
             try {
               stream.close();
               stream = null;
-              zipFile.close();
-              zipFile = null;
             } catch (Exception e) {
             }
 
             return result;
 
           } else {
-            zipFile.close();
-            zipFile = null;
             throw new IOException("No entries available within ZIP file " + file.getPath());
           }
         } catch (Exception e) {
-          try {
-            zipFile.close();
-            zipFile = null;
-          } catch (IOException e1) {
-          }
           throw new IOException("Problem during read from ZIP file " + file.getPath() + ":" + e.getMessage(), e);
         }
 
@@ -1504,7 +1491,7 @@ public Object read(Reader reader) throws IOException {
               bytes = new byte[elementBinarySize];
 
               T point3d = null;
-              Point2D point2d = null;
+              U point2d = null;
               
               eof = (lastReadBytes <= 0);
               while ((!eof) && (!allElementsRead) && (readElementCount < elementDescription.getElementCount())) {
@@ -2253,9 +2240,10 @@ public Object read(Reader reader) throws IOException {
    * @return the read 2D point
    * @throws IOException if an error occurs
    */
-  private Point2D readPoint2D(byte[] bytes, PLYElementDescription description, PLYFileDescriptor fileDescriptor) throws IOException {
+  @SuppressWarnings("unchecked")
+private U readPoint2D(byte[] bytes, PLYElementDescription description, PLYFileDescriptor fileDescriptor) throws IOException {
 
-	    Point2D pt = null;
+	    U pt = null;
 
 	    int offset = 0;
 
@@ -2268,7 +2256,7 @@ public Object read(Reader reader) throws IOException {
 
 	    if (getPoint2DClass() != null) {
 	      try {
-	        pt = getPoint2DClass().getDeclaredConstructor().newInstance();
+	        pt = (U)getPoint2DClass().getDeclaredConstructor().newInstance();
 	      } catch (InstantiationException e) {
 	        throw new IOException("Declared point class " + getPoint2DClass().getSimpleName() + " cannot be instanciated", e);
 	      } catch (IllegalAccessException e) {

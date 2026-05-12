@@ -17,7 +17,7 @@ import org.jeometry.geom3D.point.Point3DContainer;
  * Please note that it is not guaranteed that all the points present within the vertices source are vertex of the mesh. 
  * To get only the points that are vertices of the mesh, you can use {@link #getVertices() getVertices()} method.  
  * @param <T> the type of the underlying 3D points.
- * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
+ * @author Julien SEINTURIER - <a href="http://www.univ-tln.fr">Universit&eacute; de Toulon</a> / <a href="http://www.lis-lab.fr">CNRS LIS umr 7020</a> - <a href="https://github.com/jorigin/jeometry">github.com/jorigin/jeometry</a> (<a href="mailto:julien.seinturier@univ-tln.fr">julien.seinturier@univ-tln.fr</a>)
  * @version {@value Jeometry#version}
  * @since 1.0.0
  */

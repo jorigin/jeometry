@@ -1,5 +1,7 @@
 package org.jeometry.factory;
 
+import java.util.List;
+
 import org.jeometry.Jeometry;
 import org.jeometry.geom2D.point.Point2D;
 import org.jeometry.geom2D.point.Point2DContainer;
@@ -9,7 +11,7 @@ import org.jeometry.math.Vector;
 
 /**
  * An interface that describes a point builder. A point builder enables to create implementations of interfaces described within the <code>point</code> packages ({@link Point3D}, {@link Point2D}, {@link Point3DContainer}, ...).
- * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
+ * @author Julien SEINTURIER - <a href="http://www.univ-tln.fr">Universit&eacute; de Toulon</a> / <a href="http://www.lis-lab.fr">CNRS LIS umr 7020</a> - <a href="https://github.com/jorigin/jeometry">github.com/jorigin/jeometry</a> (<a href="mailto:julien.seinturier@univ-tln.fr">julien.seinturier@univ-tln.fr</a>)
  * @version {@value Jeometry#version}
  * @since 1.0.0
  */
@@ -72,6 +74,20 @@ public interface PointBuilder {
 	 */
 	public Point2DContainer createPoint2DContainer(int capacity);
 
+	/**
+	 * Create a new {@link Point2DContainer 2D point container} with the given points.
+	 * @param points the points to add to the container
+	 * @return a new {@link Point2DContainer 2D point container} with the given points
+	 */
+	public Point2DContainer createPoint2DContainer(List<? extends Point2D> points);
+	
+	/**
+	 * Create a new {@link Point2DContainer 2D point container} with the given points.
+	 * @param points the points to add to the container
+	 * @return a new {@link Point2DContainer 2D point container} with the given points
+	 */
+	public Point2DContainer createPoint2DContainer(Point2D[] points);
+	
 	/**
 	 * Create a new instance of {@link Point3D}. 
 	 * @return a new instance of {@link Point3D} 

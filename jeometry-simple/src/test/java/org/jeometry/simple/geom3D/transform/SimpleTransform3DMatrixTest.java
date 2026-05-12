@@ -13,6 +13,9 @@ import org.junit.jupiter.api.BeforeAll;
  */
 public class SimpleTransform3DMatrixTest extends Transform3DMatrixTest{
 
+	/**
+	 * Initialize the class
+	 */
 	@BeforeAll
 	public static void initClass() {
 		JeometryFactory.setMathBuilder(new SimpleMathBuilder());	

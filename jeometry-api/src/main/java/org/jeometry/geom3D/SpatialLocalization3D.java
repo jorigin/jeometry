@@ -1,10 +1,11 @@
 package org.jeometry.geom3D;
 
 import org.jeometry.Jeometry;
+import org.jeometry.geom3D.point.Point3D;
 
 /**
  * A spatial localization within a 3D space. Such an item is represented by a set of coordinates and a set of bounds.
- * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
+ * @author Julien SEINTURIER - <a href="http://www.univ-tln.fr">Universit&eacute; de Toulon</a> / <a href="http://www.lis-lab.fr">CNRS LIS umr 7020</a> - <a href="https://github.com/jorigin/jeometry">github.com/jorigin/jeometry</a> (<a href="mailto:julien.seinturier@univ-tln.fr">julien.seinturier@univ-tln.fr</a>)
  * @version {@value Jeometry#version}
  * @since 1.0.0
  */
@@ -29,40 +30,16 @@ public interface SpatialLocalization3D {
     public double getZ();
 
     /**
-     * Get the minimal X coordinate of this spatial item.
-     * @return the minimal X coordinate of this spatial item.
+     * Return a {@link Point3D 3D Point} that holds the minimal coordinates of this spatial localization.
+     * @return a 3D Point that holds the minimal coordinates of this spatial localization
      */
-    public double getXMin();
-
+    public Point3D getMinCoordinates();
+    
     /**
-     * Get the minimal Y coordinate of this spatial item.
-     * @return the minimal Y coordinate of this spatial item.
+     * Return a {@link Point3D 3D Point} that holds the maximal coordinates of this spatial localization.
+     * @return a 3D Point that holds the maximal coordinates of this spatial localization
      */
-    public double getYMin();
-
-    /**
-     * Get the minimal Z coordinate of this spatial item.
-     * @return the minimal Z coordinate of this spatial item.
-     */
-    public double getZMin();
-
-    /**
-     * Get the maximal X coordinate of this spatial item.
-     * @return the maximal X coordinate of this spatial item.
-     */
-    public double getXMax();
-
-    /**
-     * Get the maximal Y coordinate of this spatial item.
-     * @return the maximal Y coordinate of this spatial item.
-     */
-    public double getYMax();
-
-    /**
-     * Get the maximal Z coordinate of this spatial item.
-     * @return the maximal Z coordinate of this spatial item.
-     */
-    public double getZMax();
+    public Point3D getMaxCoordinates();
     
     /**
      * Compute the distance between this spatial localization and the given one.

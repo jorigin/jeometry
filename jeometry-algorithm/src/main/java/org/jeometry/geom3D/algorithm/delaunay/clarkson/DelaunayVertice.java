@@ -134,35 +134,15 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 	}
 
 	@Override
-	public double getXMin() {
-		return this.point.getXMin();
+    public Point3D getMinCoordinates() {
+		return this.point;
 	}
-
+    
 	@Override
-	public double getYMin() {
-		return this.point.getYMin();
+    public Point3D getMaxCoordinates() {
+		return this.point;
 	}
-
-	@Override
-	public double getZMin() {
-		return this.point.getZMin();
-	}
-
-	@Override
-	public double getXMax() {
-		return this.point.getXMax();
-	}
-
-	@Override
-	public double getYMax() {
-		return this.point.getYMax();
-	}
-
-	@Override
-	public double getZMax() {
-		return this.point.getZMax();
-	}
-
+	
 	@Override
 	public double distance(SpatialLocalization3D spatial) {
 		return this.point.distance(spatial);
@@ -476,5 +456,28 @@ public class DelaunayVertice<T extends Point3D> implements Point3D{
 	@Override
 	public void setValues(Point3D point) {
 		point.setValues(point);
+	}
+
+	@Override
+	public boolean isEqual(Vector v) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public double distanceEuclidean(Vector v) {
+		if (v != null) {
+			
+			if (getDimension() != v.getDimension()) {
+				return Double.NaN;
+			}
+			
+			double dx = getX() - v.getValue(0);
+			double dy = getY() - v.getValue(1);
+			double dz = getZ() - v.getValue(2);
+			return Math.sqrt(dx * dx + dy * dy + dz * dz);
+		}
+		
+		return 0;
 	}
 }

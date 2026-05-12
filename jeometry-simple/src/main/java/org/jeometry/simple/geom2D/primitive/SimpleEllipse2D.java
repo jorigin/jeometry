@@ -2,8 +2,10 @@ package org.jeometry.simple.geom2D.primitive;
 
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
+import org.jeometry.geom2D.Geometry2D;
 import org.jeometry.geom2D.SpatialLocalization2D;
 import org.jeometry.geom2D.point.Point2D;
+import org.jeometry.geom2D.primitive.Box2D;
 import org.jeometry.geom2D.primitive.Ellipse2D;
 
 /**
@@ -140,6 +142,60 @@ public class SimpleEllipse2D implements Ellipse2D{
 	@Override
 	public double getAngle() {
 		return this.angle;
+	}
+	
+	@Override
+	public boolean geomEquals(Geometry2D g) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean geomIntersects(Geometry2D g) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean geomTouches(Geometry2D g) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean geomContains(Geometry2D g) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean geomCovers(Geometry2D g) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean geomEmpty() {
+		return ((this.center == null) || Double.isNaN(this.center.getX()) || Double.isNaN(this.center.getY()));
+	}
+
+	@Override
+	public int geomDimension() {
+		return 2;
+	}
+
+	@Override
+	public Box2D geomBounds() {
+		
+		Box2D bounds = null;
+		
+		if (this.center != null){
+			bounds = JeometryFactory.createBox2D(this.center.getX() - this.semiMajorAxis, this.center.getY() - this.semiMinorAxis, 2 * this.semiMajorAxis, 2 * this.semiMinorAxis);
+		} else {
+			bounds = JeometryFactory.createBox2D(Double.NaN, Double.NaN, 2 * this.semiMajorAxis, 2 * this.semiMinorAxis);
+		}
+		
+		return bounds;
 	}
 
 }

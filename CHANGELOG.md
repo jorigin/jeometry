@@ -3,6 +3,12 @@
 ## TODO
 ### Add
 - Add Ellipse representation within 2D space
+- Implements `SimplePointBuilder.createPoint2DContainer()`
+- Implements `SimplePointBuilder.createPoint2DContainer(int)`
+- Implements `SimplePointBuilder.createPoint2DContainer(List<? extends Point2D> points)`
+- Implements `SimplePointBuilder.createPoint2DContainer(Point2D[] points)`
+- Implements `SimplePointBuilder.createPoint3DContainer()`
+- Implements `SimplePointBuilder.createPoint3DContainer(int)`
 - Wrapper to Vector / Matrix in order to use a vector as a matrix and a matrix as a vector without copying data
 - Views on a Vector / Matrix to focus on a specific part of the object without copying the underlying data
 - Decomposition `compose()` method to recompute input matrix from a decomposition
@@ -13,7 +19,21 @@
 - Vector `Vector minusFactor(double, Vector, Vector)`
 - Matrix matrix norms (see (Here)[https://en.wikipedia.org/wiki/Matrix_norm])
 - Test implements Point2DTest
-- Test Ellipse2D
+- Test `Box2D` interface
+- Test `Ellipse2D` interface
+- Test `Line2D` interface
+- Test `LineString2D` interface
+- Test `Polygon2D` interface
+- Test `JeometryFactory.createPoint2DContainer()`
+- Test `JeometryFactory.createPoint2DContainer(int capacity)`
+- Test `JeometryFactory.createPoint2DContainer(List<? extends Point2D> points)`
+- Test `JeometryFactory.createPoint2DContainer(Point2D[] points)`
+- Test `JeometryFactory.createBox2D(Point2D min, double width, double height)`
+- Test `JeometryFactory.createBox2D(Point2D min, Point2D max)`
+- Test `JeometryFactory.createBox2D(double minX, double minY, double width, double height)`
+- Test `JeometryFactory.createLineString2D(Point2DContainer vertices, boolean closed)`
+- Test `JeometryFactory.createLineString2D(List<? extends Point2D> vertices, boolean closed)`
+- Test `JeometryFactory.createLineString2D(Point2D[] vertices, boolean closed)`
 
 ### Change
 - Refactor Matrix `setTo` to `setValues`
@@ -21,6 +41,49 @@
 - Refactor make all xxxAffect() methods to return a reference on the object instead of `void` in order to chain processing
 - Refactor make all setValue(s) methods to return a reference on the object for chaining purpose
 - Enable JeometryFactory to handle multiples implementation
+
+## [2.0.1](https://github.com/jorigin/jeometry/releases/tag/jeometry-2.0.1)
+
+### Added
+- Interface `Box2D` primitive within jeometry-api
+- Interface `Ellipse2D` primitive within jeometry-api
+- Interface `Geometry2D` within jeometry-api
+- Interface `Line2D` primitive within jeometry-api
+- Interface `LineString2D` primitive within jeometry-api
+- Class `org.jeometry.simple.geom2D.point.SimpleArrayListPoint2DContainer` within jeometry-simple
+- Method `double distance(Coord2D c)` within `Coord2D` interface
+- Method `get(int index, Point2D output)` within `Point2DContainer` class
+- Method `Box2D createBox2D(Point2D min, double width, double height)` within `PrimitiveBuilder` class
+- Method `Box2D createBox2D(Point2D min, Point2D max)` within `PrimitiveBuilder` class
+- Method `Line2D createLine2D(Point2D start, Point2D end)` within `PrimitiveBuilder` class
+- Method `LineString2D createLineString2D(Point2DContainer vertices, boolean closed)` within `PrimitiveBuilder` class
+- Method `LineString2D createLineString2D(List<? extends Point2D> vertices, boolean closed)` within `PrimitiveBuilder` class
+- Method `LineString2D createLineString2D(Point2D[] vertices, boolean closed)` within `PrimitiveBuilder` class
+- Method `Box2D createBox2D(double minX, double minY, double width, double height)` within `PrimitiveBuilder` class
+- Method `Ellipse2D createEllipse2D(Point2D center, double semiMajorAxis, double semiMinorAxis, double angle)` within `PrimitiveBuilder` class
+- Method `Ellipse2D createEllipse2D(Point2D center, double semiMajorAxis, double semiMinorAxis)` within `PrimitiveBuilder` class
+- Package `org.jeometry.geom2D.algorithm.relation.de9im` within `jeometry-algorithm` for DE9IM matrix computation
+
+
+### Change
+- Using JCOMMON 2.0.1
+- Updating Javadoc @author tag for jeometry-api
+- Refactored `org.jeometry.geom2D.point.Point2DContainer.DATA_COORDINATE` into `org.jeometry.geom2D.point.Point2DContainer.DATA_COORDINATE2D`
+- Refactored class `org.jeometry.simple.geom3D.point.ArrayListPoint3DContainer` to `org.jeometry.simple.geom2D.point.SimpleArrayListPoint3DContainer`
+- Refactored class `org.jeometry.simple.geom3D.point.ArrayCoordinatesPoint3DContainer` to `org.jeometry.simple.geom2D.point.SimpleArrayPoint3DContainer`
+- Refactored `LineSet3D` method `List<Line3D<T>> getSegments()` into `List<Line3D<T>> getLines()` 
+- Refactored `Polygon3D` method `List<Line3D<T>> getSegments()` into `List<Line3D<T>> getHull()` 
+- Interface `Point2D` now implements `Geometry2D` interface
+- Interface `Coord2D` now implements `Clonable`
+- Interface `Coord2D` now implements `Comparable<Coord2D>` 
+
+### Removed
+- Removed `public double getXMin()` from `SpatialLocalization3D` (replaced by `public Point3D getMinCoordinates()`)
+- Removed `public double getYMin()` from `SpatialLocalization3D` (replaced by `public Point3D getMinCoordinates()`)
+- Removed `public double getZMin()` from `SpatialLocalization3D` (replaced by `public Point3D getMinCoordinates()`)
+- Removed `public double getXMax()` from `SpatialLocalization3D` (replaced by `public Point3D getMaxCoordinates()`)
+- Removed `public double getYMax()` from `SpatialLocalization3D` (replaced by `public Point3D getMaxCoordinates()`)
+- Removed `public double getZMax()` from `SpatialLocalization3D` (replaced by `public Point3D getMaxCoordinates()`)
 
 ## [2.0.0](https://github.com/jorigin/jeometry/releases/tag/jeometry-2.0.0)
 ### Change

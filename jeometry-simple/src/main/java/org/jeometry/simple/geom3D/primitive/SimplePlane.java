@@ -28,7 +28,12 @@ public class SimplePlane<T extends Point3D> implements Plane<T>{
 	 * The D value.
 	 */
 	private double d;
-	
+
+	/**
+	 * Create a new simple plane.
+	 */
+	public SimplePlane(){}
+
 	@Override
 	public T getPlaneNormal() {
 		return this.normal;

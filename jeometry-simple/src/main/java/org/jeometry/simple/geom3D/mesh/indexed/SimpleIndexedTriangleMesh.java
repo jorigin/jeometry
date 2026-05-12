@@ -54,49 +54,19 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 	private boolean validatedIndexes = false;
 	
 	/**
-	 * The x coordinate of the mesh.
+	 * The localization of the mesh (the barycentre of its vertices)
 	 */
-	private double x    = Double.NaN;
+	private Point3D loc = null;
 	
 	/**
-	 * The y coordinate of the mesh.
+	 * The maximal coordinates of the mesh.
 	 */
-	private double y    = Double.NaN;
+	private Point3D max = null;
 	
 	/**
-	 * The z coordinate of the mesh.
+	 * The minimal coordinates of the mesh.
 	 */
-	private double z    = Double.NaN;
-	
-	/**
-	 * The x min coordinate of the mesh.
-	 */
-	private double xmin = Double.NaN;
-	
-	/**
-	 * The y min coordinate of the mesh.
-	 */
-	private double ymin = Double.NaN;
-	
-	/**
-	 * The z min coordinate of the mesh.
-	 */
-	private double zmin = Double.NaN;
-	
-	/**
-	 * The xmax coordinate of the mesh.
-	 */
-	private double xmax = Double.NaN;
-	
-	/**
-	 * The y max coordinate of the mesh.
-	 */
-	private double ymax = Double.NaN;
-	
-	/**
-	 * The z max coordinate of the mesh.
-	 */
-	private double zmax = Double.NaN;
+	private Point3D min = null;
 	
 	@Override
 	public List<? extends IndexedEdge<T>> getEdgesIndexes() {
@@ -360,47 +330,27 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 
 	@Override
 	public double getX() {
-		return this.x;
+		return this.loc.getX();
 	}
 
 	@Override
 	public double getY() {
-		return this.y;
+		return this.loc.getY();
 	}
 
 	@Override
 	public double getZ() {
-		return this.z;
+		return this.loc.getZ();
 	}
 
 	@Override
-	public double getXMin() {
-		return this.xmin;
+    public Point3D getMinCoordinates() {
+		return JeometryFactory.createPoint3D(this.min.getX(), this.min.getY(), this.min.getY());
 	}
-
+    
 	@Override
-	public double getYMin() {
-		return this.ymin;
-	}
-
-	@Override
-	public double getZMin() {
-		return this.zmin;
-	}
-
-	@Override
-	public double getXMax() {
-		return this.xmax;
-	}
-
-	@Override
-	public double getYMax() {
-		return this.ymax;
-	}
-
-	@Override
-	public double getZMax() {
-		return this.zmax;
+    public Point3D getMaxCoordinates() {
+		return JeometryFactory.createPoint3D(this.max.getX(), this.max.getY(), this.max.getY());
 	}
 
     /**
@@ -421,17 +371,11 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 	public void updateLocalization() {
 		if ((this.faces != null) && (this.faces.size() > 0)){
 
-			this.x    = 0.0d;
-			this.y    = 0.0d;
-			this.z    = 0.0d;
-			
-			this.xmin = Double.MAX_VALUE;
-			this.ymin = Double.MAX_VALUE;
-			this.zmin = Double.MAX_VALUE;
-			
-			this.xmax = -Double.MAX_VALUE;
-			this.ymax = -Double.MAX_VALUE;
-		    this.zmax = -Double.MAX_VALUE;
+			this.loc = JeometryFactory.createPoint3D(0.0d, .0d, 0.0d);
+
+			this.max = JeometryFactory.createPoint3D(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
+
+			this.min = JeometryFactory.createPoint3D(-Double.MAX_VALUE, -Double.MAX_VALUE, -Double.MAX_VALUE);
 			
 			for(IndexedFace<?> face : this.faces) {
 				if (face.isValidatedIndexes()) {
@@ -443,38 +387,39 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 							
 							verticesCount = verticesCount + 1;
 							
-							this.x    = this.x + vertex.getX();
-							this.y    = this.y + vertex.getY();
-							this.z    = this.z + vertex.getZ();
 							
-							if (this.x < this.xmin) {
-								this.xmin = this.x;
+							this.loc.setX(this.loc.getX() + vertex.getX());
+							this.loc.setY(this.loc.getY() + vertex.getY());
+							this.loc.setZ(this.loc.getZ() + vertex.getZ());
+							
+							if (vertex.getX() < this.min.getX()) {
+								this.min.setX(vertex.getX());
 							}
 							
-							if (this.x > this.xmax) {
-								this.xmax = this.x;
+							if (vertex.getX() > this.max.getX()) {
+								this.max.setX(vertex.getX());
 							}
 							
-							if (this.y < this.ymin) {
-								this.ymin = this.y;
+							if (vertex.getY() < this.min.getY()) {
+								this.min.setY(vertex.getY());
 							}
 							
-							if (this.y > this.ymax) {
-								this.ymax = this.y;
+							if (vertex.getY() > this.max.getY()) {
+								this.max.setY(vertex.getY());
 							}
 							
-							if (this.z < this.zmin) {
-								this.zmin = this.z;
+							if (vertex.getZ() < this.min.getZ()) {
+								this.min.setZ(vertex.getZ());
 							}
 							
-							if (this.z > this.zmax) {
-								this.zmax = this.z;
+							if (vertex.getZ() > this.max.getZ()) {
+								this.max.setZ(vertex.getZ());
 							}
 						}
 						
-						this.x = this.x / verticesCount;
-						this.y = this.y / verticesCount;
-						this.z = this.z / verticesCount;
+						this.loc.setX(this.loc.getX() / verticesCount);
+						this.loc.setY(this.loc.getY() / verticesCount);
+						this.loc.setZ(this.loc.getZ() / verticesCount);
 					}
 				} else {
 					throw new IllegalStateException("Face "+face.toString()+" is not valid.");
@@ -482,17 +427,11 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 
 			}
 		} else {
-			this.x    = Double.NaN;
-			this.y    = Double.NaN;
-			this.z    = Double.NaN;
-			
-			this.xmin = Double.NaN;
-			this.ymin = Double.NaN;
-			this.zmin = Double.NaN;
-			
-			this.xmax = Double.NaN;
-			this.ymax = Double.NaN;
-		    this.zmax = Double.NaN;
+			this.loc = JeometryFactory.createPoint3D(Double.NaN, Double.NaN, Double.NaN);
+
+			this.max = JeometryFactory.createPoint3D(Double.NaN, Double.NaN, Double.NaN);
+
+			this.min = JeometryFactory.createPoint3D(Double.NaN, Double.NaN, Double.NaN);
 		}
 	}
 
@@ -517,6 +456,12 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 	public SimpleIndexedTriangleMesh() {
 		this.faces = new ArrayList<IndexedTriangle<T>>();
 		this.edges = new ArrayList<IndexedEdge<T>>();
+		
+		this.loc = JeometryFactory.createPoint3D(Double.NaN, Double.NaN, Double.NaN);
+
+		this.max = JeometryFactory.createPoint3D(Double.NaN, Double.NaN, Double.NaN);
+
+		this.min = JeometryFactory.createPoint3D(Double.NaN, Double.NaN, Double.NaN);
 	}
 	
 	/**
@@ -526,6 +471,12 @@ public class SimpleIndexedTriangleMesh<T extends Point3D> implements IndexedTria
 	public SimpleIndexedTriangleMesh(int capacity) {
 		this.faces = new ArrayList<IndexedTriangle<T>>(capacity);
 		this.edges = new ArrayList<IndexedEdge<T>>(capacity*3);
+		
+		this.loc = JeometryFactory.createPoint3D(Double.NaN, Double.NaN, Double.NaN);
+
+		this.max = JeometryFactory.createPoint3D(Double.NaN, Double.NaN, Double.NaN);
+
+		this.min = JeometryFactory.createPoint3D(Double.NaN, Double.NaN, Double.NaN);
 	}
 	
 	/**

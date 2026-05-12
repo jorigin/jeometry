@@ -7,7 +7,7 @@ import org.jeometry.geom3D.point.Point3D;
 /**
  * A Box is an 6 faces {@link Mesh mesh} defined by its maximal and minimal vertices. 
  * A box is axis aligned (all of its faces are aligned to the underlying reference system).
- * @author Julien Seinturier - (c) 2016 - JOrigin project - <a href="http://www.jorigin.org">http:/www.jorigin.org</a>
+ * @author Julien SEINTURIER - <a href="http://www.univ-tln.fr">Universit&eacute; de Toulon</a> / <a href="http://www.lis-lab.fr">CNRS LIS umr 7020</a> - <a href="https://github.com/jorigin/jeometry">github.com/jorigin/jeometry</a> (<a href="mailto:julien.seinturier@univ-tln.fr">julien.seinturier@univ-tln.fr</a>)
  * @since 1.0.0
  */
 public interface Box {

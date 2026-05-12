@@ -2,12 +2,10 @@ package org.jeometry.test.geom3D.point;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.jeometry.factory.JeometryFactory;
 import org.jeometry.geom3D.point.Point3D;
 import org.jeometry.test.math.VectorTest;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -22,7 +20,12 @@ import org.junit.jupiter.api.Test;
  *
  */
 public class Point3DTest extends VectorTest {
-  
+
+  /**
+   * Create a new {@link Point3D} test.
+   */
+  public Point3DTest(){}
+
   /**
    * Test Simple Point 3D operations.
    */

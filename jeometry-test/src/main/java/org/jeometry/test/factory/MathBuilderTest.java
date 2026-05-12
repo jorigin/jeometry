@@ -8,7 +8,6 @@ import org.jeometry.Jeometry;
 import org.jeometry.factory.MathBuilder;
 import org.jeometry.math.Matrix;
 import org.jeometry.test.math.MathTestData;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.jeometry.math.Quaternion;
 import org.jeometry.math.Vector;
@@ -58,7 +57,12 @@ public class MathBuilderTest {
      * The quaternion class to use.
      */
     protected static Class<? extends Quaternion> quaternionClass = null;
-	
+
+	/**
+	 * Create a {@link MathBuilder} test.
+	 */
+	public MathBuilderTest(){}
+
 	/**
 	 * Testing {@link MathBuilder#createVector(int)}
 	 */

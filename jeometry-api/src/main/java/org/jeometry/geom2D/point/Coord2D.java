@@ -5,11 +5,11 @@ import org.jeometry.math.Vector;
 
 /**
  * A coordinates within a 2D space.
- * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
+ * @author Julien SEINTURIER - <a href="http://www.univ-tln.fr">Universit&eacute; de Toulon</a> / <a href="http://www.lis-lab.fr">CNRS LIS umr 7020</a> - <a href="https://github.com/jorigin/jeometry">github.com/jorigin/jeometry</a> (<a href="mailto:julien.seinturier@univ-tln.fr">julien.seinturier@univ-tln.fr</a>)
  * @version {@value Jeometry#version}
  * @since 1.0.0
  */
-public interface Coord2D extends Vector{
+public interface Coord2D extends Vector, Cloneable, Comparable<Coord2D> {
 	/**
 	 * The index of the dimension of the X coordinates.
 	 * @see #DIMENSION_Y
@@ -54,7 +54,7 @@ public interface Coord2D extends Vector{
 	 * @see #getY()
 	 */
 	public void setY(double y);
-
+	
 	@Override
 	public Coord2D plus(Vector v);
 
@@ -147,4 +147,13 @@ public interface Coord2D extends Vector{
 	 */
 	@Override
 	public Coord2D orthogonal(Vector result);
+	
+	/**
+	 * Compute the distance between these coordinates and the given ones. 
+	 * The returned distance is the Euclidean distance between both coordinates.
+	 * If the given coordinate is <code>null</code> a distance value of <code>0</code> is returned
+	 * @param c the other coordinates
+	 * @return the Euclidean distance between these coordinates and the given ones
+	 */
+	public double distance(Coord2D c);
 }

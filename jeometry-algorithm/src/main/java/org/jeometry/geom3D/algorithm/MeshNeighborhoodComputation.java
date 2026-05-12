@@ -18,7 +18,7 @@ import org.jeometry.geom3D.point.Point3DContainer;
  * @version {@value Jeometry#version}
  * @since 1.0.0
  */
-public class MeshNeighborhoodComputation {
+public final class MeshNeighborhoodComputation {
   
   /**
    * Compute the neighborhood for the given {@link IndexedMesh indexed mesh}.
@@ -124,4 +124,8 @@ public class MeshNeighborhoodComputation {
     return neighborhood;
   }
 
+  /**
+   * Private default constructor.
+   */
+  private MeshNeighborhoodComputation(){}
 }

@@ -3,14 +3,12 @@ package org.jeometry.test.math.decomposition;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.jeometry.Jeometry;
 import org.jeometry.factory.JeometryFactory;
 import org.jeometry.math.Matrix;
 import org.jeometry.math.decomposition.SVDDecomposition;
 import org.jeometry.test.math.MathTestData;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -44,7 +42,12 @@ public class SVDDecompositionTest {
 	 * The class of the decomposition
 	 */
 	protected static Class<?> decompositionClass = null;
-	
+
+	/**
+	 * Create a new {@link SVDDecomposition} test.
+	 */
+	public SVDDecompositionTest(){}
+
 	/**
 	 * A test dedicated to the {@link SVDDecomposition}.
 	 */

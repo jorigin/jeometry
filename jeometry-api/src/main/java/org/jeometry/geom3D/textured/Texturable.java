@@ -7,7 +7,7 @@ import org.jeometry.geom2D.point.Point2DContainer;
  * This class describe an object that can be textured, i-e an object that provide texture coordinates. 
  * Texture coordinates are expressed as a ratio of the resource bounds. For example, if the texture resource is an image, 
  * texture coordinates (x / image width, y / image height) correspond to the pixel (x, y) on the image.
- * @author Julien Seinturier - COMEX S.A. - <a href="mailto:contact@jorigin.org">contact@jorigin.org</a> - <a href="https://github.com/jorigin/jeometry">https://github.com/jorigin/jeometry</a>
+ * @author Julien SEINTURIER - <a href="http://www.univ-tln.fr">Universit&eacute; de Toulon</a> / <a href="http://www.lis-lab.fr">CNRS LIS umr 7020</a> - <a href="https://github.com/jorigin/jeometry">github.com/jorigin/jeometry</a> (<a href="mailto:julien.seinturier@univ-tln.fr">julien.seinturier@univ-tln.fr</a>)
  * @version {@value Jeometry#version} build {@value Jeometry#BUILD}
  * @since 1.0.0
  */

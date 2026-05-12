@@ -739,5 +739,44 @@ public class SimpleQuaternion implements Quaternion {
 		return Double.NaN;
 	}
 
-	
+	@Override
+	public boolean isEqual(Vector v) {
+		if (v != null) {
+			if (v.getDimension() != getDimension()) {
+				return false;
+			}
+			
+			for(int dimension = 0; dimension < getDimension(); dimension++) {
+				if (getValue(dimension) != v.getValue(dimension)) {
+					return false;
+				}
+			}
+			
+			return true;
+		}
+		
+		return false;
+		
+	}
+
+	@Override
+	public double distanceEuclidean(Vector v) {
+		if (v != null) {
+			if (v.getDimension() != getDimension()) {
+				return Double.NaN;
+			}
+			
+			double sum = 0.0d;
+			
+			for(int dimension = 0; dimension < getDimension(); dimension++) {
+				double diff = getValue(dimension) - v.getValue(dimension);
+				sum = sum + diff*diff;
+			}
+			
+			return Math.sqrt(sum);
+		}
+		
+		return 0;
+		
+	}
 }

@@ -7,7 +7,12 @@ import org.jeometry.math.Matrix;
 /**
  * Matrix mathematical operations sample.
  */
-public class MatrixMathOperationsSample {
+public final class MatrixMathOperationsSample {
+
+	/**
+	 * Private constructor, for static class.
+	 */
+	private MatrixMathOperationsSample() {}
 
 	/**
 	 * The main method.
